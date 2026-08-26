@@ -10,11 +10,11 @@
     "demo": "npx ts-node src/index.ts",
     "db:test": "node scripts/test_connection.js",
     "db:migrate": "node scripts/migrate.js",
+    "db:migrate10": "node scripts/apply_migration_10.js",
     "db:seed": "node scripts/seed_holding.js",
     "test:catalogo": "node scripts/test_catalogo_api.js",
     "test:travas": "node scripts/test_webhook_travas.js",
-    "test:adversarial": "node scripts/test_adversarial_e_clientes.js",
-    "test:all": "node scripts/test_catalogo_api.js && node scripts/test_webhook_travas.js && node scripts/test_adversarial_e_clientes.js"
+    "test:eav": "node scripts/test_item_catalogo_eav.js"
   },
   "keywords": [
     "multi-tenant",
@@ -25,7 +25,9 @@
     "supabase",
     "express",
     "zod",
-    "webhooks"
+    "webhooks",
+    "eav-jsonb",
+    "data-ingestion"
   ],
   "author": "Eco-Mitang Holding",
   "license": "UNLICENSED",

@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { catalogoRouter } from './modules/catalogo/catalogo.routes';
+import { itemCatalogoRouter } from './modules/catalogo/routes/item-catalogo.routes';
 import { operacionalWebhooksRouter } from './modules/operacional/webhooks/operacional-webhooks.routes';
-import { clientesRouter } from './modules/clientes/clientes.routes';
 
 export const app = express();
 
@@ -15,7 +15,6 @@ app.get('/health', (req, res) => {
 });
 
 // API Routes
+app.use('/catalogo', itemCatalogoRouter);
 app.use('/api/v1/catalogo', catalogoRouter);
 app.use('/api/v1/webhooks/operacional', operacionalWebhooksRouter);
-app.use('/api/v1/clientes', clientesRouter);
-
