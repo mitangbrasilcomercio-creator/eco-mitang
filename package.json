@@ -2,14 +2,16 @@
   "name": "eco-mitang-erp",
   "version": "1.0.0",
   "description": "ERP Multi-Tenant e Orientado a Eventos para Holding Offshore, Manufatura e Cursos",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
+    "dev:api": "npx ts-node src/server.ts",
     "demo": "npx ts-node src/index.ts",
     "db:test": "node scripts/test_connection.js",
     "db:migrate": "node scripts/migrate.js",
-    "db:seed": "node scripts/seed_holding.js"
+    "db:seed": "node scripts/seed_holding.js",
+    "test:catalogo": "node scripts/test_catalogo_api.js"
   },
   "keywords": [
     "multi-tenant",
@@ -17,16 +19,23 @@
     "cqrs",
     "erp",
     "snapshot-pattern",
-    "supabase"
+    "supabase",
+    "express",
+    "zod"
   ],
   "author": "Eco-Mitang Holding",
   "license": "UNLICENSED",
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "pg": "^8.13.3"
+    "express": "^4.21.2",
+    "pg": "^8.13.3",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/node": "^20.11.0",
     "@types/pg": "^8.11.11",
     "ts-node": "^10.9.2",

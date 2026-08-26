@@ -1,6 +1,5 @@
 ﻿import { dbInstance } from './core/database/db-client';
 import { globalEventBus } from './core/events/event-bus';
-import { CatalogoService } from './modules/catalogo/catalogo.service';
 import { TicketTriagemService } from './modules/triagem/triagem.service';
 import { CotacaoService } from './modules/cotacao/cotacao.service';
 import { CotacaoTriagemListener } from './modules/cotacao/cotacao.listener';
@@ -13,6 +12,7 @@ import { QsmsAuditoriaService } from './modules/qsms/qsms.service';
 import { DashboardProjectionService } from './modules/dashboards/dashboards.projections';
 import { DashboardQueryService } from './modules/dashboards/dashboards.service';
 import { UserAuthContext } from './core/security/abac.types';
+import * as crypto from 'crypto';
 
 async function main() {
   console.log('======================================================================');
@@ -20,7 +20,6 @@ async function main() {
   console.log('======================================================================\n');
 
   // 1. INSTANCIACAO DOS SERVICOS
-  const catalogoService = new CatalogoService(dbInstance);
   const triagemService = new TicketTriagemService(dbInstance, globalEventBus);
   const cotacaoService = new CotacaoService(dbInstance, globalEventBus);
   const osService = new OrdemServicoService(dbInstance);
@@ -59,23 +58,34 @@ async function main() {
   // --------------------------------------------------------------------------
   // PASSO 2: CADASTRO DO CATALOGO UNIVERSAL (POLIMORFISMO)
   // --------------------------------------------------------------------------
-  console.log('[2/7] Cadastrando Itens no Catalogo Universal Polimorfico...');
-  const itemBateria = await catalogoService.criarItem({
+  console.log('[2/7] Cadastrando Itens no Catalogo Universal...');
+  const itemBateria = {
+    id: crypto.randomUUID(),
     empresa_id: empresas[0].id,
-    tipo_item: 'PRODUTO',
+    tipo_item: 'PRODUTO' as const,
     nome: 'Bateria Subsea Lithium 24V 100Ah',
     descricao_tecnica: 'Bateria selada para operacao em aguas profundas',
     quantidade_estoque_atual: 15.0,
-    detalhes: { codigo_sku: 'BAT-LITH-24V', unidade_medida: 'UN', capacidade_ah: 100, voltagem_nominal: 24, preco_base: 25000.00 }
-  });
+    ativo: true,
+    detalhes: { codigo_sku: 'BAT-LITH-24V', unidade_medida: 'UN', capacidade_ah: 100, voltagem_nominal: 24, preco_base: 25000.00 },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
+  dbInstance.data.catalogo_universal.push(itemBateria);
 
-  const itemLocacao = await catalogoService.criarItem({
+  const itemLocacao = {
+    id: crypto.randomUUID(),
     empresa_id: empresas[1].id,
-    tipo_item: 'LOCACAO',
+    tipo_item: 'LOCACAO' as const,
     nome: 'Guincho Hidraulico 50T Offshore',
     quantidade_estoque_atual: 2.0,
-    detalhes: { unidade_cobranca: 'DIARIA', exige_mobilizacao: true, preco_base: 8500.00 }
-  });
+    ativo: true,
+    detalhes: { unidade_cobranca: 'DIARIA', exige_mobilizacao: true, preco_base: 8500.00 },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
+  dbInstance.data.catalogo_universal.push(itemLocacao);
+
   console.log(`   -> Item Bateria: ${itemBateria.nome} (Estoque: ${itemBateria.quantidade_estoque_atual}, Preco Base: R$ ${itemBateria.detalhes.preco_base})`);
 
   // --------------------------------------------------------------------------
