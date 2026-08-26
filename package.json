@@ -11,7 +11,8 @@
     "db:test": "node scripts/test_connection.js",
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "node scripts/seed_holding.js",
-    "test:catalogo": "node scripts/test_catalogo_api.js"
+    "test:catalogo": "node scripts/test_catalogo_api.js",
+    "test:travas": "node scripts/test_webhook_travas.js"
   },
   "keywords": [
     "multi-tenant",
@@ -21,7 +22,8 @@
     "snapshot-pattern",
     "supabase",
     "express",
-    "zod"
+    "zod",
+    "webhooks"
   ],
   "author": "Eco-Mitang Holding",
   "license": "UNLICENSED",
