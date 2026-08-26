@@ -14,7 +14,8 @@
     "db:seed": "node scripts/seed_holding.js",
     "test:catalogo": "node scripts/test_catalogo_api.js",
     "test:travas": "node scripts/test_webhook_travas.js",
-    "test:eav": "node scripts/test_item_catalogo_eav.js"
+    "test:eav": "node scripts/test_item_catalogo_eav.js",
+    "docs:flow": "node scripts/generate_workflow_diagram.js"
   },
   "keywords": [
     "multi-tenant",
