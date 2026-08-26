@@ -1,7 +1,8 @@
-﻿import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { pgPool } from '../../../core/database/supabase-pool';
 import { globalEventBus } from '../../../core/events/event-bus';
-import { ParcelaQuitadaPayload } from '../../../core/events/events.types';
+import { OrdemServicoStatusAtualizadoPayload } from '../../../core/events/events.types';
+import * as crypto from 'crypto';
 
 export class OperacionalWebhookController {
   /**
@@ -53,9 +54,28 @@ export class OperacionalWebhookController {
       }
 
       console.log(`[WEBHOOK FINANCEIRO -> OPERACIONAL] ${result.rows.length} OS(s) destravada(s) financeiramente com sucesso!`);
-      result.rows.forEach(os => {
+      
+      // Publica eventos de domínio para cada OS afetada garantindo consistência CQRS
+      for (const os of result.rows) {
         console.log(`  -> OS #${os.numero_os} (${os.tipo_os}) | Bloqueio Financeiro: ${os.bloqueio_financeiro} | Bloqueio QSMS: ${os.bloqueio_qsms} | Status: ${os.status}`);
-      });
+        
+        await globalEventBus.publish<OrdemServicoStatusAtualizadoPayload>({
+          eventId: crypto.randomUUID(),
+          eventType: 'ORDEM_SERVICO.STATUS_ATUALIZADO',
+          timestamp: new Date().toISOString(),
+          empresaId: empresa_id,
+          payload: {
+            os_id: os.id,
+            empresa_id: empresa_id,
+            numero_os: Number(os.numero_os),
+            status: os.status,
+            bloqueio_financeiro: os.bloqueio_financeiro,
+            bloqueio_qsms: os.bloqueio_qsms,
+            atualizado_em: new Date().toISOString(),
+            origem: 'WEBHOOK_DESBLOQUEIO_FINANCEIRO'
+          }
+        });
+      }
 
       res.status(200).json({
         success: true,
@@ -89,6 +109,15 @@ export class OperacionalWebhookController {
         return;
       }
 
+      if (acao !== 'LIBERAR' && acao !== 'BLOQUEAR_RETRABALHO') {
+        res.status(422).json({
+          success: false,
+          error: `Acao '${acao}' invalida. Valores permitidos: 'LIBERAR' ou 'BLOQUEAR_RETRABALHO'.`,
+          code: 'INVALID_QSMS_ACTION'
+        });
+        return;
+      }
+
       await client.query('BEGIN');
 
       let updateQuery = '';
@@ -119,13 +148,44 @@ export class OperacionalWebhookController {
         `;
       }
 
-      const result = await client.query(updateQuery, acao === 'LIBERAR' ? [os_id, empresa_id] : [os_id, empresa_id, motivo || 'Reprovado em Auditoria QSMS']);
+      const result = await client.query(
+        updateQuery,
+        acao === 'LIBERAR' ? [os_id, empresa_id] : [os_id, empresa_id, motivo || 'Reprovado em Auditoria QSMS']
+      );
       await client.query('COMMIT');
+
+      if (result.rows.length === 0) {
+        res.status(404).json({
+          success: false,
+          error: `Ordem de servico '${os_id}' nao encontrada para o tenant '${empresa_id}'.`
+        });
+        return;
+      }
+
+      const osAtualizada = result.rows[0];
+
+      // Dispara evento de domínio de transição de estado da OS
+      await globalEventBus.publish<OrdemServicoStatusAtualizadoPayload>({
+        eventId: crypto.randomUUID(),
+        eventType: 'ORDEM_SERVICO.STATUS_ATUALIZADO',
+        timestamp: new Date().toISOString(),
+        empresaId: empresa_id,
+        payload: {
+          os_id: osAtualizada.id,
+          empresa_id: empresa_id,
+          numero_os: Number(osAtualizada.numero_os),
+          status: osAtualizada.status,
+          bloqueio_financeiro: osAtualizada.bloqueio_financeiro,
+          bloqueio_qsms: osAtualizada.bloqueio_qsms,
+          atualizado_em: new Date().toISOString(),
+          origem: `WEBHOOK_QSMS_${acao}`
+        }
+      });
 
       res.status(200).json({
         success: true,
         message: `Status de QSMS atualizado para acao '${acao}'.`,
-        os: result.rows[0]
+        os: osAtualizada
       });
     } catch (err: any) {
       await client.query('ROLLBACK');

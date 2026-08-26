@@ -1,4 +1,4 @@
-﻿const { Client } = require('pg');
+const { Client } = require('pg');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -12,7 +12,8 @@ const migrationFiles = [
   '06_execucao_operacional.sql',
   '07_financeiro_receber.sql',
   '08_qsms_auditoria.sql',
-  '09_analytics_cqrs.sql'
+  '09_analytics_cqrs.sql',
+  '10_clientes_historico.sql'
 ];
 
 async function runMigrations() {

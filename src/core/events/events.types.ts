@@ -1,4 +1,4 @@
-﻿import { DomainEvent } from './domain-event';
+import { DomainEvent } from './domain-event';
 import { TipoItemCatalogo } from '../../modules/catalogo/catalogo.types';
 
 export interface TicketQualificadoPayload {
@@ -65,3 +65,53 @@ export interface QsmsAuditoriaReprovadaPayload {
   empresa_id: string;
   descricao_rnc: string;
 }
+
+export interface OrdemServicoStatusAtualizadoPayload {
+  os_id: string;
+  empresa_id: string;
+  numero_os?: number;
+  status: string;
+  bloqueio_financeiro: boolean;
+  bloqueio_qsms: boolean;
+  atualizado_em: string;
+  origem: string;
+}
+
+export interface ClienteCriadoPayload {
+  cliente_id: string;
+  empresa_id: string;
+  cnpj_cpf: string;
+  razao_social_nome: string;
+  situacao_cadastral: string;
+  bloqueio_fiscal: boolean;
+  criado_em: string;
+}
+
+export interface ClienteAlteracaoDetectada {
+  campo: string;
+  valor_anterior: any;
+  valor_novo: any;
+}
+
+export interface ClienteDadosAtualizadosPayload {
+  cliente_id: string;
+  empresa_id: string;
+  cnpj_cpf: string;
+  razao_social: string;
+  origem: string;
+  alteracoes: ClienteAlteracaoDetectada[];
+  data_vigencia: string;
+  atualizado_em: string;
+}
+
+export interface ClienteSituacaoFiscalAlteradaPayload {
+  cliente_id: string;
+  empresa_id: string;
+  cnpj_cpf: string;
+  situacao_anterior: string;
+  nova_situacao: string;
+  bloqueio_fiscal_ativo: boolean;
+  motivo?: string;
+  alertar_compliance: boolean;
+}
+

@@ -1,7 +1,7 @@
-﻿import { CatalogoRepository } from './catalogo.repository';
+import { CatalogoRepository } from './catalogo.repository';
 import { EventBus, globalEventBus } from '../../core/events/event-bus';
 import { CatalogoUniversalItem } from './catalogo.types';
-import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery } from './catalogo.schema';
+import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery, validatePolymorphicDetailsUpdate } from './catalogo.schema';
 import { CatalogoItemCriadoPayload, CatalogoItemAtualizadoPayload, CatalogoItemInativadoPayload } from './catalogo.events';
 import * as crypto from 'crypto';
 
@@ -57,6 +57,18 @@ export class CatalogoService {
 
   async updateItem(empresaId: string, id: string, input: UpdateCatalogoItemInput): Promise<CatalogoUniversalItem> {
     const existing = await this.getItemById(empresaId, id);
+
+    if (input.detalhes) {
+      try {
+        input.detalhes = validatePolymorphicDetailsUpdate(existing.tipo_item, input.detalhes);
+      } catch (validationErr: any) {
+        const err: any = new Error(`REGRA 2 (VALIDACAO POLIMORFICA NO UPDATE): Detalhes invalidos para o tipo ${existing.tipo_item}.`);
+        err.statusCode = 422;
+        err.code = 'UNPROCESSABLE_ENTITY_POLYMORPHIC_UPDATE';
+        err.details = validationErr.issues;
+        throw err;
+      }
+    }
 
     const updatedItem = await this.repository.update(empresaId, id, input);
     if (!updatedItem) {

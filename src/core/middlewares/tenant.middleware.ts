@@ -1,4 +1,4 @@
-﻿import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export interface TenantRequest extends Request {
   empresaId?: string;
@@ -16,6 +16,16 @@ export function tenantMiddleware(req: TenantRequest, res: Response, next: NextFu
       success: false,
       error: 'Cabecalho obrigatorio x-empresa-id ausente na requisicao.',
       code: 'MISSING_TENANT_ID'
+    });
+    return;
+  }
+
+  const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  if (!UUID_REGEX.test(empresaId)) {
+    res.status(400).json({
+      success: false,
+      error: 'Tenant ID informado no cabecalho x-empresa-id deve ser um UUID valido.',
+      code: 'INVALID_TENANT_UUID'
     });
     return;
   }

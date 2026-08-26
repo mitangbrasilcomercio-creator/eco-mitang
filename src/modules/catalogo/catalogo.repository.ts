@@ -1,4 +1,4 @@
-﻿import { pgPool, withTenantTransaction } from '../../core/database/supabase-pool';
+import { pgPool, withTenantTransaction } from '../../core/database/supabase-pool';
 import { CatalogoUniversalItem, TipoItemCatalogo } from './catalogo.types';
 import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery } from './catalogo.schema';
 
@@ -79,6 +79,7 @@ export class CatalogoRepository {
 
     const whereClause = conditions.join(' AND ');
     const countQuery = `SELECT COUNT(*)::int as total FROM catalogo_universal WHERE ${whereClause};`;
+    const countParams = [...params];
     
     const offset = (filters.page - 1) * filters.limit;
     const dataQuery = `
@@ -93,7 +94,7 @@ export class CatalogoRepository {
     const client = await pgPool.connect();
     try {
       const [countRes, dataRes] = await Promise.all([
-        client.query(countQuery, params.slice(0, paramIndex - 3)),
+        client.query(countQuery, countParams),
         client.query(dataQuery, params)
       ]);
       return {

@@ -1,4 +1,4 @@
-﻿const { app } = require('../dist/app');
+const { app } = require('../dist/app');
 const http = require('http');
 const { Client } = require('pg');
 require('dotenv').config();
@@ -206,11 +206,14 @@ async function runTests() {
   // Cleanup
   console.log('Finalizando conexões e encerrando servidor de testes...');
   await client.end();
+  const { pgPool } = require('../dist/core/database/supabase-pool');
+  await pgPool.end();
   server.close();
 
   console.log('======================================================================');
   console.log('    TODOS OS ENDPOINTS E REGRAS DO CATALOGO FORAM VALIDADOS COM 100%!  ');
   console.log('======================================================================\n');
+  process.exit(0);
 }
 
 runTests().catch(err => {
@@ -218,3 +221,4 @@ runTests().catch(err => {
   if (server) server.close();
   process.exit(1);
 });
+

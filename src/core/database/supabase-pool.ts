@@ -1,4 +1,4 @@
-﻿import { Pool, PoolClient } from 'pg';
+import { Pool, PoolClient } from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -17,8 +17,8 @@ export async function withTenantTransaction<T>(
   const client = await pgPool.connect();
   try {
     await client.query('BEGIN');
-    // Seta a variavel de sessao para Row Level Security (RLS) no PostgreSQL
-    await client.query(`SET LOCAL app.current_empresa_id = '${empresaId}'`);
+    // Seta a variavel de sessao para Row Level Security (RLS) de forma parametrizada (previne SQL Injection)
+    await client.query("SELECT set_config('app.current_empresa_id', $1, true)", [empresaId]);
     const result = await callback(client);
     await client.query('COMMIT');
     return result;

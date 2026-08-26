@@ -1,11 +1,11 @@
-﻿import { z } from 'zod';
+import { z } from 'zod';
 
 // ============================================================================
 // REGRA 2: VALIDAÇÃO DINÂMICA POLIMÓRFICA POR TIPO DE ITEM
 // ============================================================================
 
 // 1. Manufatura de Baterias (PRODUTO)
-const DetalhesProdutoSchema = z.object({
+export const DetalhesProdutoSchema = z.object({
   preco_base: z.number().positive('Preco base do produto deve ser maior que zero.'),
   unidade_medida: z.string().min(1, 'Unidade de medida obrigatoria (ex: UN, CX, KG).'),
   codigo_sku: z.string().optional(),
@@ -24,7 +24,7 @@ export const CatalogoProdutoInputSchema = z.object({
 });
 
 // 2. Locação Offshore (LOCACAO)
-const DetalhesLocacaoSchema = z.object({
+export const DetalhesLocacaoSchema = z.object({
   preco_base: z.number().positive('Preco da locacao deve ser maior que zero.'),
   unidade_cobranca: z.enum(['DIARIA', 'MENSAL', 'POR_PROJETO']),
   exige_mobilizacao: z.boolean().default(false),
@@ -41,7 +41,7 @@ export const CatalogoLocacaoInputSchema = z.object({
 });
 
 // 3. Serviços Offshore (SERVICO)
-const DetalhesServicoSchema = z.object({
+export const DetalhesServicoSchema = z.object({
   preco_base: z.number().positive('Preco base do servico deve ser maior que zero.'),
   unidade_medida: z.enum(['HORA_HOMEM', 'DIARIA_TECNICO', 'ESCOPO_FECHADO']),
   funcao_tecnica: z.string().optional(),
@@ -57,7 +57,7 @@ export const CatalogoServicoInputSchema = z.object({
 });
 
 // 4. Cursos e Treinamentos (CURSO)
-const DetalhesCursoSchema = z.object({
+export const DetalhesCursoSchema = z.object({
   preco_base: z.number().positive('Preco do curso deve ser maior que zero.'),
   carga_horaria_horas: z.number().positive('Carga horaria deve ser maior que zero.'),
   modalidade: z.enum(['EAD', 'PRESENCIAL', 'HIBRIDO']),
@@ -102,3 +102,17 @@ export const FilterCatalogoQuerySchema = z.object({
 export type CreateCatalogoItemInput = z.infer<typeof CreateCatalogoItemSchema>;
 export type UpdateCatalogoItemInput = z.infer<typeof UpdateCatalogoItemSchema>;
 export type FilterCatalogoQuery = z.infer<typeof FilterCatalogoQuerySchema>;
+
+export function validatePolymorphicDetailsUpdate(tipo: string, partialDetails: any): any {
+  if (!partialDetails || typeof partialDetails !== 'object') return partialDetails;
+  let schema: z.ZodTypeAny;
+  switch (tipo) {
+    case 'PRODUTO': schema = DetalhesProdutoSchema.partial(); break;
+    case 'LOCACAO': schema = DetalhesLocacaoSchema.partial(); break;
+    case 'SERVICO': schema = DetalhesServicoSchema.partial(); break;
+    case 'CURSO': schema = DetalhesCursoSchema.partial(); break;
+    default: return partialDetails;
+  }
+  return schema.parse(partialDetails);
+}
+

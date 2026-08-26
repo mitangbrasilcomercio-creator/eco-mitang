@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "eco-mitang-erp",
   "version": "1.0.0",
   "description": "ERP Multi-Tenant e Orientado a Eventos para Holding Offshore, Manufatura e Cursos",
@@ -12,7 +12,9 @@
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "node scripts/seed_holding.js",
     "test:catalogo": "node scripts/test_catalogo_api.js",
-    "test:travas": "node scripts/test_webhook_travas.js"
+    "test:travas": "node scripts/test_webhook_travas.js",
+    "test:adversarial": "node scripts/test_adversarial_e_clientes.js",
+    "test:all": "node scripts/test_catalogo_api.js && node scripts/test_webhook_travas.js && node scripts/test_adversarial_e_clientes.js"
   },
   "keywords": [
     "multi-tenant",

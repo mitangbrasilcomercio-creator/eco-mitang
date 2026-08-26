@@ -1,4 +1,4 @@
-﻿const { app } = require('../dist/app');
+const { app } = require('../dist/app');
 const http = require('http');
 const { Client } = require('pg');
 require('dotenv').config();
@@ -147,10 +147,13 @@ async function runTestTravas() {
 
   // Encerramento
   await client.end();
+  const { pgPool } = require('../dist/core/database/supabase-pool');
+  await pgPool.end();
   server.close();
   console.log('\n======================================================================');
   console.log('   TODAS AS ROTINAS DE TRAVAS E WEBHOOKS FORAM TESTADAS COM SUCESSO!  ');
   console.log('======================================================================\n');
+  process.exit(0);
 }
 
 runTestTravas().catch(err => {
@@ -158,3 +161,4 @@ runTestTravas().catch(err => {
   if (server) server.close();
   process.exit(1);
 });
+
