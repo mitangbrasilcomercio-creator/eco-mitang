@@ -153,11 +153,16 @@ flowchart LR
 
 | Data / Versão | Módulo Impactado | Alteração no Fluxo de Negócios | Destaque Visual |
 | :--- | :--- | :--- | :--- |
-| **27/08/2026** | **Repositório Fiscal & XML** | Ingestão integral de 172 XMLs de NF-e e NFS-e gravados em JSONB sem perda de tags e dados relacionais. | ⚡ **Última Alteração** |
-| **27/08/2026** | **Conciliação OFX & Caixa** | 1.386 transações bancárias reais em Itaú e Bradesco com hash SHA-256 anti-duplicação e projeção de caixa. | ⚡ **Última Alteração** |
-| **27/08/2026** | **Classificação de Parceiros** | Separação estrita em Clientes (compradores), Fornecedores (insumos Strema/SBT) e Colaboradores PJ (NFS-e). | ⚡ **Última Alteração** |
-| **27/08/2026** | **DRE & Controladoria DuPont** | Apuração contábil automatizada (Receita Bruta, CMV, EBITDA) e simulador interativo DuPont de ROE com sliders. | ⚡ **Última Alteração** |
-| **27/08/2026** | **Frontend SPA "Menos é Mais"** | Redesign em abas segmentadas e camada de cache em memória com resposta instantânea (< 2ms). | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Gráfico Executivo Adaptativo** | Granularidade dinâmica automática: semanas reais para recortes curtos (ex: Mês Atual) vs meses consolidados para ano todo. | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Tesouraria OFX & Regex** | Separação estrita de Instituição Bancária e Agência/Conta com normalização regex universal para Itaú (`Ag. AAAA • CC CCCCC-D`) e Bradesco (`Ag. AAAA • CC 00CCCC-D`). | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Subtotais Dinâmicos (`tfoot`)** | Linha fixa de rodapé calculando em tempo real os subtotais exclusivos do recorte filtrado (lançamentos, entradas, saídas e saldo líquido). | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Dossiê 360° de Contraparte** | Clique no Histórico/Memo abre modal com histórico consolidado da pessoa/empresa no exercício (Total Pago, Recebido, Saldo Líquido e extrato). | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Runway 15d & Auditoria** | Modal de auditoria em 4 abas (Contas Bancárias Reais, Faturas a Receber 15d, Títulos de Insumos a Pagar 15d e Projeção Diária acumulada). | ⚡ **Última Alteração** |
+| **27/08/2026** | **Repositório Fiscal & XML** | Ingestão integral de 172 XMLs de NF-e e NFS-e gravados em JSONB sem perda de tags e dados relacionais. | Base Core |
+| **27/08/2026** | **Conciliação OFX & Caixa** | 1.386 transações bancárias reais em Itaú e Bradesco com hash SHA-256 anti-duplicação e projeção de caixa. | Base Core |
+| **27/08/2026** | **Classificação de Parceiros** | Separação estrita em Clientes (compradores), Fornecedores (insumos Strema/SBT) e Colaboradores PJ (NFS-e). | Base Core |
+| **27/08/2026** | **DRE & Controladoria DuPont** | Apuração contábil automatizada (Receita Bruta, CMV, EBITDA) e simulador interativo DuPont de ROE com sliders. | Base Core |
+| **27/08/2026** | **Frontend SPA "Menos é Mais"** | Redesign em abas segmentadas e camada de cache em memória com resposta instantânea (< 2ms). | Base Core |
 | **26/08/2026** | **Catálogo Universal & EAV** | Implementação de `itens_catalogo` com EAV dinâmico em `atributos_extras` (JSONB) e **Soft Delete** (`status_ativo = false`). | Base Core |
 | **26/08/2026** | **Data Ingestion (ETL)** | Criação da `importacao_staging` e `JsonCatalogParser` com transação **ACID com Rollback Total**. | Base Core |
 | **26/08/2026** | **Webhooks & Travas Operacionais** | Endpoints dedicados para destravamento de OS via Quitação Financeira e Liberação de QSMS. | Base Core |

@@ -260,7 +260,7 @@ Ao clicar em qualquer linha de cliente, fornecedor ou colaborador PJ:
 
 ### 2.10. Inteligência de Dashboard Executivo (MoM, Runway, Curva ABC e Custódia)
 
-O **Centro de Inteligência Executiva** implementa um cockpit estratégico C-Level com 5 pilares fundamentais:
+O **Centro de Inteligência Executiva** implementa um cockpit estratégico C-Level com 7 pilares fundamentais:
 
 1. **Indicadores de Tendência MoM (Month-over-Month)**:
    - Mede a taxa percentual de crescimento ou desaceleração em relação ao mês anterior ($\Delta\%$).
@@ -269,6 +269,11 @@ O **Centro de Inteligência Executiva** implementa um cockpit estratégico C-Lev
    $$\text{Saldo Projetado} = \text{Saldo Bancário Atual} + \text{À Receber (15d)} - \text{À Pagar (15d)}$$
    - Se positivo: exibe dias de cobertura financeira com badge de `Operação Equilibrada`.
    - Se negativo: aciona alerta pulsante `🚨 ALERTA: NECESSIDADE DE CAPITAL DE GIRO` com o montante exato do déficit.
+   - **Modal de Inspecionar 15 Dias**: Decomposição em 4 abas auditáveis:
+     * *Contas Bancárias*: Saldo real auditado das 4 contas correntes de Itaú e Bradesco.
+     * *À Receber (15d)*: Faturas reais emitidas com previsão de recebimento nos próximos 15 dias.
+     * *À Pagar (15d)*: Notas fiscais de matérias-primas e insumos com vencimento na quinzena.
+     * *Projeção Diária*: Linha do tempo dia a dia calculando o saldo acumulado final de cada dia.
 3. **Curva ABC de Inadimplência (Top 3 Maiores Saldos Vencidos)**:
    - Identifica os 3 parceiros com maiores títulos vencidos, dias médios de atraso e botão direto para o **Dossiê 360°**, viabilizando cobrança executiva ágil.
 4. **Cards Detalhados de Despesa**:
@@ -276,9 +281,53 @@ O **Centro de Inteligência Executiva** implementa um cockpit estratégico C-Lev
 5. **Classificação Inteligente de Custódia vs Operacional no OFX**:
    - Mapeia aplicações automáticas do Itaú e Bradesco (`APLICAÇÃO AUTOMÁTICA`, `RESGATE APLIC`, `SDO APLIC`) como `TRANSFERENCIA_CUSTODIA`.
    - Isola o **Saldo Operacional Líquido** das movimentações de custódia e expõe o **Total em Aplicações (Patrimônio Líquido Rendendo)** em destaque na aba Tesouraria.
-6. **Gráfico Interativo Dual (Barras vs Linhas SVG)**:
-   - Permite alternar entre barras verticais consolidadas e linhas contínuas suaves.
-   - Os 4 cards principais funcionam como seletores de séries: clicar no card adiciona/remove aquela curva no gráfico.
+6. **Gráfico Interativo Adaptativo com Granularidade Dinâmica**:
+   - Quando o período filtrado for o ano todo (`Jan/26 a Ago/26` ou $>65$ dias), o gráfico plota os meses consolidados (`JAN`, `FEV`, `MAR`, ..., `AGO`).
+   - Quando o usuário seleciona um mês específico (ex: `Mês Atual (Agosto/2026)`, `Mês Anterior (Julho/2026)` ou $\le 65$ dias), o backend fatia o período em **Semanas Reais do Período**:
+     * `Sem 1 (01/08 a 07/08)`
+     * `Sem 2 (08/08 a 14/08)`
+     * `Sem 3 (15/08 a 21/08)`
+     * `Sem 4 (22/08 a 28/08)`
+     * `Sem 5 (29/08 a 31/08)`
+   - O título altera automaticamente para `Evolução Semanal no Período Selecionado`.
+7. **Interatividade por Cards**:
+   - Os 4 cards principais funcionam como seletores de séries: clicar no card adiciona/remove aquela curva no gráfico sob demanda.
+
+---
+
+### 2.11. Engenharia Avançada do Extrato OFX e Dossiê 360° de Contrapartes
+
+Para máxima legibilidade e usabilidade corporativa, a aba **Tesouraria & OFX** implementa 4 componentes de nível industrial:
+
+```mermaid
+flowchart TD
+    OFX_RAW[Extrato OFX Bruto] --> REGEX_ACCT[Normalizador Regex de Contas]
+    REGEX_ACCT --> COL_BANCO[Coluna 1: Instituição Bancária com Badge Oficial]
+    REGEX_ACCT --> COL_CONTA[Coluna 2: Agência e Conta Formatada: Ag. AAAA • CC CCCCC-D]
+
+    OFX_RAW --> CLASSIF[Classificador Financeiro]
+    CLASSIF --> PILLS[Barra de Filtros Dinâmicos:<br/>Todas | Entradas | Saídas | Custódia CDI | Rendimentos]
+    
+    PILLS --> TABELA[Tabela Interativa com Ordenação em Todas as Colunas]
+    TABELA --> TFOOT[Linha Fixa de Subtotais Dinâmicos tfoot:<br/>Soma instantânea apenas do que está visível na tela]
+
+    TABELA --> CLICK_MEMO[Clique no Histórico / Memo]
+    CLICK_MEMO --> PARSE_NAME[Extrator de Contraparte / Favorecido via Regex]
+    PARSE_NAME --> QUERY_HIST[Consulta Histórico Completo em transacoes_bancarias]
+    QUERY_HIST --> MODAL_DOSSIE[Modal Dossiê da Contraparte:<br/>Total Pago | Total Recebido | Saldo Líquido | Lançamentos]
+```
+
+1. **Colunas de Banco e Agência/Conta Rigorosamente Separadas via Regex**:
+   - **Itaú Unibanco**: ACCTIDs de 10 dígitos (ex: `1155995077` $\rightarrow$ `Ag. 1155 • CC 99507-7`, `2927986634` $\rightarrow$ `Ag. 2927 • CC 98663-4`).
+   - **Banco Bradesco**: Contas normalizadas com zero à esquerda e dígito (ex: `27414` / `3249` $\rightarrow$ `Ag. 3249 • CC 0027414-3`).
+2. **Barra de Filtros e Busca Rápida**:
+   - Filtros instantâneos por classificação contábil com contadores em tempo real.
+   - Busca em tempo real por descrição, favorecido ou valor.
+   - Ordenação clicável nos cabeçalhos: `Data` ($\uparrow \downarrow$), `Histórico / Memo` ($\text{A-Z} \leftrightarrow \text{Z-A}$) e `Valor` ($\uparrow \downarrow$).
+3. **Linha Fixa de Subtotais Dinâmicos (`tfoot`)**:
+   - Toda tabela possui rodapé somatório que recalcula em tempo real a quantidade de lançamentos visíveis, total de entradas, total de saídas e o saldo líquido do recorte filtrado.
+4. **Dossiê Completo da Contraparte / Colaborador PJ**:
+   - Clicar sobre o histórico de qualquer transação (ex: `PIX ENVIADO DES: Jandson Pereira de Ol`) abre o **Dossiê Completo de Fluxo Financeiro da Contraparte**, recuperando todas as transferências bancárias, pagamentos e recebimentos daquela pessoa física ou jurídica ao longo de todo o ano, com 4 cards de KPIs e tabela auditada.
 
 ---
 

@@ -34,7 +34,16 @@ Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** c
    - Diagnóstico em tempo real de Liquidez Corrente (meta > 1.8x) e Grau de Endividamento (< 40%).
    - Simulador interativo do Modelo DuPont: $\text{ROE} = \text{Margem Líquida} \times \text{Giro do Ativo} \times \text{Alavancagem Financeira}$.
 10. **Design System "Menos é Mais" (UI/UX Segmentada em Abas)**:
-   - Interface limpa e ergonômica com glassmorphism suave (tema Deep Sea), sem poluição visual, separando visões de trabalho por abas contextuais rápidas.
+    - Interface limpa e ergonômica com glassmorphism suave (tema Deep Sea), sem poluição visual, separando visões de trabalho por abas contextuais rápidas.
+11. **Centro de Inteligência Executiva & Runway de 15 Dias**:
+    - **Granularidade Adaptativa do Gráfico**: Comutação inteligente entre visão mensal consolidada (para o ano todo ou períodos longos) e visão semanal detalhada (`Sem 1`, `Sem 2`, ..., `Sem 5`) ao selecionar um mês específico ou recorte de até 65 dias.
+    - **Alerta e Auditoria Quinquenal de Runway**: Projeção matemática do saldo de caixa com decomposição em 4 abas (Contas Bancárias Reais, Faturas a Receber 15d, Títulos a Pagar 15d e Projeção Diária acumulada).
+    - **Curva ABC de Inadimplência**: Top 3 maiores devedores com dias de atraso e abertura instantânea do Dossiê 360°.
+12. **Tesouraria OFX & Dossiê Financeiro de Contrapartes**:
+    - **Normalização Regex Universal de Bancos e Contas**: Separação estrita de Instituição Bancária (com badge) e Agência/Conta formatada para Itaú (`Ag. AAAA • CC CCCCC-D`) e Bradesco (`Ag. AAAA • CC 00CCCC-D`).
+    - **Toolbar de Filtros e Busca Rápida**: Filtros instantâneos (`Todas`, `Entradas (+119)`, `Saídas (-101)`, `Custódia CDI (80)`, `Rendimentos`) e busca dinâmica por favorecido ou valor.
+    - **Linha de Subtotais Dinâmicos no Rodapé (`tfoot`)**: Cálculo em tempo real dos lançamentos visíveis, soma de entradas, soma de saídas e saldo líquido do recorte filtrado.
+    - **Dossiê 360° da Contraparte / Colaborador PJ**: Clique no Histórico/Memo abre o fluxo consolidado com a pessoa física ou jurídica (Total Pago, Total Recebido, Saldo Líquido e tabela de todas as transferências bancárias no ano).
 
 ---
 

@@ -100,14 +100,48 @@ export class FinanceiroController {
 
       const result = await client.query(query, params);
       
-      let countQuery = `SELECT count(*) as total FROM transacoes_bancarias t WHERE t.is_saldo_informativo = FALSE`;
+      let countQuery = `
+        SELECT count(*) as total 
+        FROM transacoes_bancarias t 
+        JOIN contas_bancarias c ON c.id = t.conta_bancaria_id
+        WHERE t.is_saldo_informativo = FALSE
+      `;
+      const countParams: any[] = [];
+
+      if (empresaId && empresaId !== 'all') {
+        countParams.push(empresaId);
+        countQuery += ` AND t.empresa_id = $${countParams.length}`;
+      }
       if (somente_operacionais === 'true') {
         countQuery += ` AND t.categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO'`;
       }
-      if (empresaId && empresaId !== 'all') {
-        countQuery += ` AND t.empresa_id = '${empresaId}'`;
+      if (categoria) {
+        countParams.push(categoria);
+        countQuery += ` AND t.categoria_financeira = $${countParams.length}`;
       }
-      const countRes = await client.query(countQuery);
+      if (tipo === 'ENTRADAS') {
+        countQuery += ` AND t.valor > 0`;
+      } else if (tipo === 'SAIDAS') {
+        countQuery += ` AND t.valor < 0`;
+      }
+      if (banco) {
+        countParams.push(`%${banco}%`);
+        countQuery += ` AND c.banco_nome ILIKE $${countParams.length}`;
+      }
+      if (busca) {
+        countParams.push(`%${busca}%`);
+        countQuery += ` AND (t.memo ILIKE $${countParams.length} OR t.nome_contraparte ILIKE $${countParams.length} OR t.documento_contraparte ILIKE $${countParams.length})`;
+      }
+      if (data_inicio) {
+        countParams.push(data_inicio);
+        countQuery += ` AND t.data_lancamento >= $${countParams.length}`;
+      }
+      if (data_fim) {
+        countParams.push(data_fim);
+        countQuery += ` AND t.data_lancamento <= $${countParams.length}`;
+      }
+
+      const countRes = await client.query(countQuery, countParams);
 
       const payload = {
         success: true,

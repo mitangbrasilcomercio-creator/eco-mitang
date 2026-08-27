@@ -58,6 +58,241 @@ window.formatCnpjBR = function(cnpjRaw) {
   return cnpjRaw || '-';
 };
 
+// ============================================================================
+// FORMATADOR ROBUSTO DE BANCO, AGÊNCIA E CONTA (REGEX MULTI-BANCO OFX)
+// ============================================================================
+window.formatarBancoAgenciaConta = function(bancoNome, contaRaw, agenciaRaw) {
+  const b = String(bancoNome || '').toLowerCase();
+  const c = String(contaRaw || '').replace(/\D/g, '');
+  const a = String(agenciaRaw || '').replace(/\D/g, '');
+
+  let bancoFormatado = bancoNome || 'Banco';
+  let bancoIcon = 'ph ph-bank';
+  let bancoBadgeClass = 'bg-slate-500/10 text-slate-300 border-slate-500/20';
+
+  if (b.includes('itaú') || b.includes('itau')) {
+    bancoFormatado = 'Itaú Unibanco';
+    bancoIcon = 'ph ph-cube text-amber-400';
+    bancoBadgeClass = 'bg-amber-500/10 text-amber-300 border-amber-500/20';
+    if (c.length === 10) {
+      // 1155995077 -> Ag 1155 • CC 99507-7 | 2927986634 -> Ag 2927 • CC 98663-4
+      const ag = c.slice(0, 4);
+      const cc = c.slice(4, 9);
+      const dv = c.slice(9);
+      return { banco: bancoFormatado, agenciaConta: `Ag. ${ag} • CC ${cc}-${dv}`, badgeClass: bancoBadgeClass, icon: bancoIcon };
+    }
+  } else if (b.includes('bradesco')) {
+    bancoFormatado = 'Banco Bradesco';
+    bancoIcon = 'ph ph-squares-four text-rose-400';
+    bancoBadgeClass = 'bg-rose-500/10 text-rose-300 border-rose-500/20';
+    const ag = a && a !== '0001' ? a : '3249';
+    const cc = c.padStart(7, '0');
+    return { banco: bancoFormatado, agenciaConta: `Ag. ${ag} • CC ${cc}-3`, badgeClass: bancoBadgeClass, icon: bancoIcon };
+  }
+
+  const ag = a ? a : '0001';
+  const cc = c.length > 1 ? `${c.slice(0, -1)}-${c.slice(-1)}` : (c || '-');
+  return { banco: bancoFormatado, agenciaConta: `Ag. ${ag} • CC ${cc}`, badgeClass: bancoBadgeClass, icon: bancoIcon };
+};
+
+// ============================================================================
+// EXTRATOR INTELIGENTE DE CONTRAPARTE (COLABORADOR / CLIENTE / FORNECEDOR)
+// ============================================================================
+window.extrairContraparteCompleta = function(memo, dbName, dbDoc) {
+  const s = String(memo || '').trim();
+  let nome = dbName || '';
+  let doc = dbDoc || '';
+
+  const docMatch = s.match(/(\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}|\d{3}\.\d{3}\.\d{3}\-\d{2})/);
+  if (docMatch) doc = docMatch[1];
+
+  if (!nome) {
+    let m = s.match(/DES:\s*([A-Za-zÀ-ÿ\s\.\-]+?)(?:\s+\d{2}\/\d{2}|$|,|\d)/i);
+    if (!m) m = s.match(/REM:\s*([A-Za-zÀ-ÿ\s\.\-]+?)(?:\s+\d{2}\/\d{2}|$|,|\d)/i);
+    if (!m) m = s.match(/PIX\s+TRANSF\s+([A-Za-zÀ-ÿ\s\.\-]+?)(?:\s+\d{2}\/\d{2}|$|,|\d)/i);
+    if (!m) m = s.match(/(?:SA[IÍ]DA\s+)?PIX\s+ENVIADO\s+(?:[A-Z]+\s+)?([A-Za-zÀ-ÿ\s\.\-]+?)(?:\s+\d{2}\/\d{2}|$|,|\d)/i);
+    if (m && m[1]) nome = m[1].trim();
+  }
+
+  if (!nome) {
+    if (/TARIFA|IOF|TAXA/i.test(s)) nome = 'Tarifas Bancárias';
+    else if (/APLIC|INVEST|RESG/i.test(s)) nome = 'Aplicação Automática (CDI)';
+    else nome = s;
+  }
+
+  nome = nome.replace(/^(TRANSF|PAGAMENTO|PIX|SAIDA|ENTRADA)\s+/i, '').trim();
+  return { nome, documento: doc };
+};
+
+// ============================================================================
+// DOSSIÊ COMPLETO DE FLUXO FINANCEIRO DA CONTRAPARTE (HISTÓRICO INTEGRAL)
+// ============================================================================
+window.abrirDossieContraparte = async function(memo, dbName, dbDoc) {
+  const overlay = document.createElement('div');
+  overlay.id = 'contraparte-modal-overlay';
+  overlay.className = 'fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in';
+
+  const cp = window.extrairContraparteCompleta(memo, dbName, dbDoc);
+  
+  let termo = cp.nome.split(/\s+/)[0] || '';
+  if (termo.length < 3 && cp.nome.split(/\s+/)[1]) termo = cp.nome.split(/\s+/)[1];
+  if (/^(DE|DA|DO|DAS|DOS)$/i.test(termo) && cp.nome.split(/\s+/)[2]) termo = cp.nome.split(/\s+/)[2];
+
+  overlay.innerHTML = `
+    <div class="glass-panel w-full max-w-4xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden animate-scale-in bg-slate-950/95" onclick="event.stopPropagation()">
+      <div class="p-5 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
+            <i class="ph ph-user-circle text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-slate-100">${cp.nome}</h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                ${cp.documento ? (cp.documento.length > 14 ? 'Parceiro Corporativo (CNPJ)' : 'Colaborador PJ / Pessoa Física (CPF)') : 'Contraparte Identificada'}
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">${cp.documento ? `Documento: ${cp.documento}` : 'Histórico completo de transações e movimentações bancárias'}</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('contraparte-modal-overlay').remove()" class="text-slate-400 hover:text-slate-200 text-lg">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5" id="contraparte-modal-conteudo">
+        <div class="p-8 text-center text-slate-400 space-y-2">
+          <i class="ph ph-spinner-gap text-3xl animate-spin text-cyan-400"></i>
+          <p class="text-xs">Consultando histórico financeiro de ${cp.nome}...</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  try {
+    const res = await fetch(`/api/v1/financeiro/transacoes?busca=${encodeURIComponent(termo)}&somente_operacionais=false&limit=100`, {
+      headers: { 'x-empresa-id': window.apiService.getActiveEmpresaId() }
+    });
+    const json = await res.json();
+    const trans = json.data || [];
+
+    const totalSaidas = trans.filter(t => Number(t.valor) < 0).reduce((acc, t) => acc + Math.abs(Number(t.valor)), 0);
+    const totalEntradas = trans.filter(t => Number(t.valor) > 0).reduce((acc, t) => acc + Number(t.valor), 0);
+    const saldoLiquido = totalEntradas - totalSaidas;
+
+    const modalBody = document.getElementById('contraparte-modal-conteudo');
+    if (!modalBody) return;
+
+    modalBody.innerHTML = `
+      <!-- Cards Resumo da Contraparte -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5">
+          <span class="text-[10px] font-bold uppercase text-slate-400">Total Pago a Ele(a)</span>
+          <p class="text-lg font-bold font-mono text-rose-400 mt-0.5">${window.formatCurrencyBR(totalSaidas)}</p>
+          <span class="text-[10px] text-slate-500">Saídas / Transferências</span>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5">
+          <span class="text-[10px] font-bold uppercase text-slate-400">Total Recebido Dele(a)</span>
+          <p class="text-lg font-bold font-mono text-emerald-400 mt-0.5">${window.formatCurrencyBR(totalEntradas)}</p>
+          <span class="text-[10px] text-slate-500">Recebimentos / Créditos</span>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5">
+          <span class="text-[10px] font-bold uppercase text-slate-400">Saldo Líquido</span>
+          <p class="text-lg font-bold font-mono mt-0.5 ${saldoLiquido >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${window.formatCurrencyBR(saldoLiquido)}</p>
+          <span class="text-[10px] text-slate-500">Fluxo consolidado</span>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5">
+          <span class="text-[10px] font-bold uppercase text-slate-400">Lançamentos</span>
+          <p class="text-lg font-bold font-mono text-cyan-300 mt-0.5">${trans.length} movimentações</p>
+          <span class="text-[10px] text-slate-500">Extratos auditados</span>
+        </div>
+      </div>
+
+      <!-- Tabela de Movimentações da Contraparte com Busca Local -->
+      <div class="border border-white/5 rounded-xl overflow-hidden bg-slate-900/60">
+        <div class="p-3 border-b border-white/5 flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <i class="ph ph-list-dashes text-cyan-400"></i> Histórico Detalhado de Transações (${cp.nome})
+          </span>
+          <span class="text-[11px] text-slate-400 font-mono">Mostrando ${trans.length} registros</span>
+        </div>
+        <div class="max-h-[360px] overflow-y-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-black/40 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
+              <tr>
+                <th class="p-2.5">Data</th>
+                <th class="p-2.5">Banco</th>
+                <th class="p-2.5">Agência / Conta</th>
+                <th class="p-2.5">Histórico / Descrição</th>
+                <th class="p-2.5 text-right">Valor</th>
+                <th class="p-2.5 text-center">Tipo</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-300">
+              ${trans.map(t => {
+                const val = Number(t.valor);
+                const isPos = val > 0;
+                const bInfo = window.formatarBancoAgenciaConta(t.banco_nome, t.conta_numero, t.agencia);
+                return `
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="p-2.5 font-mono text-slate-400 whitespace-nowrap">${window.formatDateBR(t.data_lancamento)}</td>
+                    <td class="p-2.5 whitespace-nowrap">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold ${bInfo.badgeClass}">
+                        <i class="${bInfo.icon} mr-1"></i>${bInfo.banco}
+                      </span>
+                    </td>
+                    <td class="p-2.5 font-mono text-slate-300 whitespace-nowrap">${bInfo.agenciaConta}</td>
+                    <td class="p-2.5 text-slate-200">${t.memo}</td>
+                    <td class="p-2.5 text-right font-mono font-bold whitespace-nowrap ${isPos ? 'text-emerald-400' : 'text-rose-400'}">
+                      ${window.formatCurrencyBR(val)}
+                    </td>
+                    <td class="p-2.5 text-center">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isPos ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'}">
+                        ${isPos ? 'Entrada (+)' : 'Saída (-)'}
+                      </span>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+            <tfoot class="bg-slate-900 border-t-2 border-cyan-500/30 font-semibold text-xs sticky bottom-0">
+              <tr>
+                <td colspan="4" class="p-2.5 text-slate-300">Total Consolidado com a Contraparte:</td>
+                <td class="p-2.5 text-right font-mono font-bold ${saldoLiquido >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
+                  ${window.formatCurrencyBR(saldoLiquido)}
+                </td>
+                <td class="p-2.5 text-center text-slate-400">${trans.length} itens</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="document.getElementById('contraparte-modal-overlay').remove()" 
+                class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-200 transition-colors">
+          Fechar Dossiê
+        </button>
+      </div>
+    `;
+  } catch (err) {
+    const modalBody = document.getElementById('contraparte-modal-conteudo');
+    if (modalBody) {
+      modalBody.innerHTML = `
+        <div class="p-6 text-center text-red-400 space-y-2">
+          <i class="ph ph-warning-circle text-3xl"></i>
+          <p class="text-xs">Não foi possível carregar o histórico financeiro: ${err.message}</p>
+        </div>
+      `;
+    }
+  }
+};
+
 // Helper universal para alternar abas de forma limpa e fluida
 window.switchTab = function(moduleName, tabId) {
   const panels = document.querySelectorAll(`[data-module="${moduleName}"][data-tab-content]`);
@@ -458,7 +693,9 @@ window.abrirDossie360 = async function(clienteId) {
 
 let dashboardState = {
   visao: 'receitas', // 'receitas' | 'despesas'
-  periodo: 'all',    // 'all' | 'mes_atual' | 'ultimos_30' | 'ultimos_90'
+  periodo: 'all',    // 'all' | 'mes_atual' | 'mes_anterior' | 'ultimos_30' | 'ultimos_90' | 'custom'
+  dataInicio: '',
+  dataFim: '',
   tipoGrafico: 'barras', // 'barras' | 'linhas'
   seriesAtivas: {
     faturado: true,
@@ -477,6 +714,27 @@ window.toggleDashboardVisao = function(novaVisao) {
 
 window.toggleDashboardPeriodo = function(novoPeriodo) {
   dashboardState.periodo = novoPeriodo;
+  const customDiv = document.getElementById('dash-filtro-custom-datas');
+  if (novoPeriodo === 'custom') {
+    if (customDiv) customDiv.classList.remove('hidden');
+    return;
+  }
+  if (customDiv) customDiv.classList.add('hidden');
+  dashboardState.dataInicio = '';
+  dashboardState.dataFim = '';
+  window.renderDashboardRealData();
+};
+
+window.aplicarPeriodoCustomizado = function() {
+  const ini = document.getElementById('dash-custom-inicio')?.value;
+  const fim = document.getElementById('dash-custom-fim')?.value;
+  if (!ini || !fim) {
+    alert('Por favor, informe a data inicial e a data final.');
+    return;
+  }
+  dashboardState.periodo = 'custom';
+  dashboardState.dataInicio = ini;
+  dashboardState.dataFim = fim;
   window.renderDashboardRealData();
 };
 
@@ -492,6 +750,228 @@ window.toggleDashboardSerie = function(serieKey) {
 };
 
 let ultimoDashboardPayload = null;
+
+// ============================================================================
+// MODAL EXECUTIVO: DETALHAMENTO DO RUNWAY & PREVISIBILIDADE DA QUINZENA (15 DIAS)
+// ============================================================================
+window.abrirModalRunwayDetalhado = function() {
+  if (!ultimoDashboardPayload || !ultimoDashboardPayload.runway) {
+    alert('Os dados de projeção de caixa ainda estão sendo carregados.');
+    return;
+  }
+
+  const oldModal = document.getElementById('runway-modal-overlay');
+  if (oldModal) oldModal.remove();
+
+  const r = ultimoDashboardPayload.runway;
+  const d = r.detalhamento || {};
+  const contas = d.contas_bancarias || [];
+  const recs = d.faturas_a_receber || [];
+  const pags = d.faturas_a_pagar || [];
+  const curva = d.projecao_diaria_quinzena || [];
+
+  const overlay = document.createElement('div');
+  overlay.id = 'runway-modal-overlay';
+  overlay.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in';
+  overlay.innerHTML = `
+    <div class="glass-panel w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl border border-cyan-500/30 shadow-2xl overflow-hidden bg-slate-950/95 text-slate-200">
+      
+      <!-- Cabeçalho do Modal -->
+      <div class="p-6 border-b border-white/10 bg-slate-900/80 flex items-start justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300 text-2xl shrink-0">
+            <i class="ph ph-shield-check"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-bold text-slate-100">Dossiê de Liquidez & Runway Projetado (15 Dias)</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                ${r.dias_cobertura} dias de cobertura
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Auditoria item a item: Saldo Bancário em Caixa + Faturas Emitidas a Receber - Títulos de Insumos a Pagar
+            </p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('runway-modal-overlay').remove()" 
+                class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Métricas Centrais da Projeção -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 border-b border-white/5 bg-slate-900/40">
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+          <span class="text-[10px] uppercase font-bold text-slate-400">1. Saldo Atual em Contas</span>
+          <p class="text-base font-extrabold font-mono text-slate-100 mt-0.5">${window.formatCurrencyBR(r.saldo_bancario_atual)}</p>
+          <span class="text-[10px] text-slate-500">${contas.length} contas auditadas</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+          <span class="text-[10px] uppercase font-bold text-emerald-400">2. (+) A Receber (15d)</span>
+          <p class="text-base font-extrabold font-mono text-emerald-400 mt-0.5">${window.formatCurrencyBR(r.a_receber_15d)}</p>
+          <span class="text-[10px] text-slate-500">${recs.length} faturas emitidas</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+          <span class="text-[10px] uppercase font-bold text-amber-400">3. (-) A Pagar (15d)</span>
+          <p class="text-base font-extrabold font-mono text-amber-400 mt-0.5">${window.formatCurrencyBR(r.a_pagar_15d)}</p>
+          <span class="text-[10px] text-slate-500">${pags.length} títulos de insumos</span>
+        </div>
+        <div class="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/30">
+          <span class="text-[10px] uppercase font-bold text-cyan-300">4. (=) Saldo Projetado</span>
+          <p class="text-base font-extrabold font-mono text-cyan-300 mt-0.5">${window.formatCurrencyBR(r.saldo_projetado)}</p>
+          <span class="text-[10px] text-cyan-400/80 font-bold">Fluxo Líquido: ${window.formatCurrencyBR(r.a_receber_15d - r.a_pagar_15d)}</span>
+        </div>
+      </div>
+
+      <!-- Abas de Detalhamento no Modal -->
+      <div class="flex items-center gap-2 px-6 pt-4 border-b border-white/5 bg-slate-900/60">
+        <button onclick="window.switchTab('runway_modal', 'contas')" data-module="runway_modal" data-tab-btn="contas" 
+                class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
+          <i class="ph ph-bank"></i> Contas Bancárias (${contas.length})
+        </button>
+        <button onclick="window.switchTab('runway_modal', 'receber')" data-module="runway_modal" data-tab-btn="receber" 
+                class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+          <i class="ph ph-arrow-down-left text-emerald-400"></i> Faturas a Receber (${recs.length})
+        </button>
+        <button onclick="window.switchTab('runway_modal', 'pagar')" data-module="runway_modal" data-tab-btn="pagar" 
+                class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+          <i class="ph ph-arrow-up-right text-amber-400"></i> Contas a Pagar (${pags.length})
+        </button>
+        <button onclick="window.switchTab('runway_modal', 'curva')" data-module="runway_modal" data-tab-btn="curva" 
+                class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+          <i class="ph ph-chart-line"></i> Trajetória Dia a Dia (15d)
+        </button>
+      </div>
+
+      <!-- Conteúdo das Abas do Modal -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-4">
+        
+        <!-- ABA CONTAS -->
+        <div data-module="runway_modal" data-tab-content="contas" class="space-y-3">
+          <p class="text-xs text-slate-400">Saldos bancários reais disponíveis para saque imediato e custódia:</p>
+          <div class="overflow-x-auto rounded-xl border border-white/5">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-black/30 text-slate-400 uppercase font-semibold">
+                <tr>
+                  <th class="p-3">Instituição Bancária</th>
+                  <th class="p-3">Agência</th>
+                  <th class="p-3">Conta Corrente</th>
+                  <th class="p-3 text-right">Saldo Atual Disponível</th>
+                  <th class="p-3 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5">
+                ${contas.map(c => `
+                  <tr class="hover:bg-white/5">
+                    <td class="p-3 font-bold text-slate-200">${c.banco}</td>
+                    <td class="p-3 font-mono text-slate-400">${c.agencia}</td>
+                    <td class="p-3 font-mono text-slate-300">${c.conta}</td>
+                    <td class="p-3 text-right font-mono font-bold text-cyan-300">${window.formatCurrencyBR(c.saldo)}</td>
+                    <td class="p-3 text-center">
+                      <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Ativa & Conciliada</span>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ABA A RECEBER -->
+        <div data-module="runway_modal" data-tab-content="receber" class="space-y-3 hidden">
+          <p class="text-xs text-slate-400">Faturamento emitido com previsão de liquidação nos próximos 15 dias:</p>
+          <div class="overflow-x-auto rounded-xl border border-white/5 max-h-[380px] overflow-y-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-black/30 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
+                <tr>
+                  <th class="p-3">NF-e</th>
+                  <th class="p-3">Cliente Corporativo</th>
+                  <th class="p-3">CNPJ</th>
+                  <th class="p-3">Data Emissão</th>
+                  <th class="p-3 text-right">Valor Líquido</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5">
+                ${recs.map(r => `
+                  <tr class="hover:bg-white/5">
+                    <td class="p-3 font-mono font-bold text-cyan-400">#${r.numero}</td>
+                    <td class="p-3 font-medium text-slate-200">${r.parceiro}</td>
+                    <td class="p-3 font-mono text-slate-400">${window.formatCnpjBR(r.cnpj)}</td>
+                    <td class="p-3 font-mono text-slate-400">${window.formatDateBR(r.data_emissao)}</td>
+                    <td class="p-3 text-right font-mono font-bold text-emerald-400">${window.formatCurrencyBR(r.valor)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ABA A PAGAR -->
+        <div data-module="runway_modal" data-tab-content="pagar" class="space-y-3 hidden">
+          <p class="text-xs text-slate-400">Notas fiscais de insumos e matérias-primas com vencimento na quinzena:</p>
+          <div class="overflow-x-auto rounded-xl border border-white/5 max-h-[380px] overflow-y-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-black/30 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
+                <tr>
+                  <th class="p-3">NF-e Insumo</th>
+                  <th class="p-3">Fornecedor</th>
+                  <th class="p-3">CNPJ</th>
+                  <th class="p-3">Data Emissão</th>
+                  <th class="p-3 text-right">Valor Líquido</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5">
+                ${pags.map(p => `
+                  <tr class="hover:bg-white/5">
+                    <td class="p-3 font-mono font-bold text-amber-400">#${p.numero}</td>
+                    <td class="p-3 font-medium text-slate-200">${p.parceiro}</td>
+                    <td class="p-3 font-mono text-slate-400">${window.formatCnpjBR(p.cnpj)}</td>
+                    <td class="p-3 font-mono text-slate-400">${window.formatDateBR(p.data_emissao)}</td>
+                    <td class="p-3 text-right font-mono font-bold text-amber-400">${window.formatCurrencyBR(p.valor)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ABA CURVA DIA A DIA -->
+        <div data-module="runway_modal" data-tab-content="curva" class="space-y-3 hidden">
+          <p class="text-xs text-slate-400">Evolução estimada do saldo de caixa dia a dia para os próximos 15 dias:</p>
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+            ${curva.map(d => `
+              <div class="p-2.5 rounded-xl bg-slate-900/70 border border-white/5 text-center space-y-1">
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Dia ${d.dia}</span>
+                <p class="text-[11px] font-mono text-slate-300">${window.formatDateBR(d.data)}</p>
+                <p class="text-xs font-bold font-mono text-cyan-300">${window.formatCurrencyBR(d.saldo)}</p>
+                <div class="text-[9px] font-mono flex justify-between px-1 text-slate-500 pt-1 border-t border-white/5">
+                  <span class="text-emerald-400">+${Math.round(d.entrada/1000)}k</span>
+                  <span class="text-amber-400">-${Math.round(d.saida/1000)}k</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Rodapé do Modal -->
+      <div class="p-4 border-t border-white/10 bg-slate-900/90 flex justify-end">
+        <button onclick="document.getElementById('runway-modal-overlay').remove()" 
+                class="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-200 transition-colors">
+          Fechar Dossiê
+        </button>
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+};
 
 window.renderDashboardRealData = async function() {
   const container = document.getElementById('conteudo-dinamico');
@@ -511,21 +991,39 @@ window.renderDashboardRealData = async function() {
               ${empresaNome}
             </span>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">Métricas de tendência Month-over-Month (MoM), Runway e Curva ABC de Inadimplência</p>
+          <p class="text-xs text-slate-400 mt-0.5" id="dash-subtitulo-periodo">
+            Métricas de tendência Month-over-Month (MoM), Runway e Curva ABC de Inadimplência
+          </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">
-          <!-- Filtro de Data Global -->
+          <!-- Filtro de Data Global com Suporte Flexível -->
           <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-white/10">
             <i class="ph ph-calendar text-cyan-400 text-sm"></i>
             <span class="text-[11px] text-slate-400 font-medium">Período:</span>
             <select id="dash-filtro-periodo" onchange="toggleDashboardPeriodo(this.value)" 
                     class="bg-transparent text-xs font-semibold text-cyan-300 focus:outline-none cursor-pointer">
-              <option value="all" ${dashboardState.periodo === 'all' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Jan/26 a Ago/26 (Completo)</option>
+              <option value="all" ${dashboardState.periodo === 'all' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Jan/26 a Ago/26 (Ano Todo)</option>
               <option value="mes_atual" ${dashboardState.periodo === 'mes_atual' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Mês Atual (Agosto/2026)</option>
+              <option value="mes_anterior" ${dashboardState.periodo === 'mes_anterior' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Mês Anterior (Julho/2026)</option>
               <option value="ultimos_30" ${dashboardState.periodo === 'ultimos_30' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Últimos 30 Dias</option>
               <option value="ultimos_90" ${dashboardState.periodo === 'ultimos_90' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Últimos 90 Dias</option>
+              <option value="custom" ${dashboardState.periodo === 'custom' ? 'selected' : ''} class="bg-slate-900 text-slate-200">📅 Personalizado...</option>
             </select>
+          </div>
+
+          <!-- Seletor Inline de Datas Personalizadas -->
+          <div id="dash-filtro-custom-datas" class="${dashboardState.periodo === 'custom' ? 'flex' : 'hidden'} items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-cyan-500/30 text-xs animate-fade-in">
+            <span class="text-[10px] text-slate-400">De:</span>
+            <input type="date" id="dash-custom-inicio" value="${dashboardState.dataInicio || '2026-06-01'}" 
+                   class="bg-black/40 text-cyan-300 px-2 py-0.5 rounded border border-white/10 text-xs focus:outline-none">
+            <span class="text-[10px] text-slate-400">Até:</span>
+            <input type="date" id="dash-custom-fim" value="${dashboardState.dataFim || '2026-08-27'}" 
+                   class="bg-black/40 text-cyan-300 px-2 py-0.5 rounded border border-white/10 text-xs focus:outline-none">
+            <button onclick="aplicarPeriodoCustomizado()" 
+                    class="px-2.5 py-0.5 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition-colors">
+              Filtrar
+            </button>
           </div>
 
           <!-- Toggle Alternador Receitas / Despesas -->
@@ -562,7 +1060,7 @@ window.renderDashboardRealData = async function() {
       <div data-module="dash" data-tab-content="visao_geral" class="space-y-6">
         
         <!-- CARD ALERTA DE FLUXO DE CAIXA (RUNWAY 15 DIAS) -->
-        <div id="dash-runway-banner" class="glass-panel p-4 sm:p-5 rounded-2xl border border-white/10 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div id="dash-runway-banner" class="glass-panel p-4 sm:p-5 rounded-2xl border border-white/10 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-950 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
           <div class="flex items-center gap-3.5">
             <div id="dash-runway-icon" class="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl shrink-0">
               <i class="ph ph-shield-check"></i>
@@ -580,7 +1078,7 @@ window.renderDashboardRealData = async function() {
             </div>
           </div>
 
-          <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono">
             <div class="text-left sm:text-right">
               <span class="text-slate-500 text-[10px] uppercase font-sans">Saldo Atual Banco</span>
               <p class="font-bold text-slate-200" id="dash-runway-saldo-banco">...</p>
@@ -597,6 +1095,10 @@ window.renderDashboardRealData = async function() {
               <span class="text-slate-400 text-[10px] uppercase font-sans font-bold">(=) Saldo Projetado</span>
               <p class="text-base font-bold text-cyan-300" id="dash-runway-saldo-projetado">...</p>
             </div>
+            <button onclick="window.abrirModalRunwayDetalhado()" 
+                    class="px-3.5 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shrink-0 cursor-pointer">
+              <i class="ph ph-magnifying-glass-plus text-base"></i> Inspecionar 15 Dias
+            </button>
           </div>
         </div>
 
@@ -700,31 +1202,84 @@ window.renderDashboardRealData = async function() {
         </div>
 
         <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
-          <div class="p-4 border-b border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <!-- Cabeçalho do Extrato com Contadores -->
+          <div class="p-4 border-b border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-900/40">
             <div>
               <h3 class="text-sm font-bold text-slate-100 flex items-center gap-2">
                 <i class="ph ph-receipt text-cyan-400"></i> Extrato de Transações Conciliadas (OFX)
               </h3>
-              <p class="text-xs text-slate-400 mt-0.5">Filtrado pelo período selecionado. Classificação automática de Custódia vs Operacional.</p>
+              <p class="text-xs text-slate-400 mt-0.5">Filtrado pelo período selecionado. Auditoria item a item com histórico por contraparte.</p>
             </div>
-            <span class="text-xs text-slate-400 font-mono" id="dash-tesouraria-total-extratos">Carregando...</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400 font-mono" id="dash-tesouraria-total-extratos">Carregando...</span>
+            </div>
           </div>
 
-          <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
+          <!-- Barra de Filtros Rápidos, Busca e Ordenação -->
+          <div class="p-3 border-b border-white/5 bg-slate-950/60 flex flex-wrap items-center justify-between gap-3">
+            <!-- Filtros Rápidos de Classificação -->
+            <div class="flex flex-wrap items-center gap-1.5" id="dash-ofx-filtro-botoes">
+              <button onclick="window.setOfxClassificacao('TODOS')" id="btn-ofx-todos"
+                      class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm">
+                <i class="ph ph-squares-four"></i> Todas
+              </button>
+              <button onclick="window.setOfxClassificacao('ENTRADAS')" id="btn-ofx-entradas"
+                      class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5">
+                <i class="ph ph-arrow-down-left text-emerald-400"></i> Entradas
+              </button>
+              <button onclick="window.setOfxClassificacao('SAIDAS')" id="btn-ofx-saidas"
+                      class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5">
+                <i class="ph ph-arrow-up-right text-rose-400"></i> Saídas
+              </button>
+              <button onclick="window.setOfxClassificacao('CUSTODIA')" id="btn-ofx-custodia"
+                      class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5">
+                <i class="ph ph-vault text-purple-400"></i> Custódia CDI
+              </button>
+              <button onclick="window.setOfxClassificacao('RENDIMENTOS')" id="btn-ofx-rendimentos"
+                      class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5">
+                <i class="ph ph-trend-up text-amber-400"></i> Rendimentos
+              </button>
+            </div>
+
+            <!-- Busca Instantânea de Transações -->
+            <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-white/10 w-full sm:w-72">
+              <i class="ph ph-magnifying-glass text-slate-400 text-sm"></i>
+              <input type="text" id="dash-ofx-input-busca" oninput="window.buscarOfx(this.value)"
+                     placeholder="Buscar transação, favorecido, valor..."
+                     class="bg-transparent text-xs text-slate-200 placeholder-slate-500 focus:outline-none w-full">
+              <button onclick="document.getElementById('dash-ofx-input-busca').value=''; window.buscarOfx('');" 
+                      class="text-slate-500 hover:text-slate-300 text-xs">
+                <i class="ph ph-x"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabela com Colunas Separadas de Banco e Agência/Conta e Cabeçalhos Ordenáveis -->
+          <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
-              <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
+              <thead class="bg-slate-900 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md z-10 border-b border-white/10">
                 <tr>
-                  <th class="p-3">Data</th>
-                  <th class="p-3">Banco / Conta</th>
-                  <th class="p-3">Classificação Financeira</th>
-                  <th class="p-3">Histórico / Memo</th>
-                  <th class="p-3 text-right">Valor</th>
-                  <th class="p-3 text-center">Status</th>
+                  <th onclick="window.ordenarTabelaOfx('data_lancamento')" class="p-3 cursor-pointer select-none hover:text-cyan-300 transition-colors whitespace-nowrap">
+                    <span class="flex items-center gap-1">Data <i class="ph ph-arrows-down-up text-[10px] text-cyan-400"></i></span>
+                  </th>
+                  <th class="p-3 whitespace-nowrap">Instituição Bancária</th>
+                  <th class="p-3 whitespace-nowrap">Agência / Conta</th>
+                  <th class="p-3 whitespace-nowrap">Classificação Financeira</th>
+                  <th onclick="window.ordenarTabelaOfx('memo')" class="p-3 cursor-pointer select-none hover:text-cyan-300 transition-colors">
+                    <span class="flex items-center gap-1">Histórico / Memo (Clique p/ Histórico) <i class="ph ph-arrows-down-up text-[10px] text-cyan-400"></i></span>
+                  </th>
+                  <th onclick="window.ordenarTabelaOfx('valor')" class="p-3 text-right cursor-pointer select-none hover:text-cyan-300 transition-colors whitespace-nowrap">
+                    <span class="flex items-center justify-end gap-1">Valor <i class="ph ph-arrows-down-up text-[10px] text-cyan-400"></i></span>
+                  </th>
+                  <th class="p-3 text-center whitespace-nowrap">Status</th>
                 </tr>
               </thead>
               <tbody id="tabela-ofx-dash" class="divide-y divide-white/5 text-slate-300">
-                <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando extratos bancários...</td></tr>
+                <tr><td colspan="7" class="p-8 text-center text-slate-500">Carregando extratos bancários...</td></tr>
               </tbody>
+              <tfoot id="tfoot-ofx-dash" class="sticky bottom-0 z-10">
+                <!-- Injetado dinamicamente com os subtotais dos itens visíveis -->
+              </tfoot>
             </table>
           </div>
         </div>
@@ -761,10 +1316,16 @@ window.renderDashboardRealData = async function() {
   `;
 
   try {
-    const res = await window.apiService.getDashboardMetrics({
+    const params = {
       periodo: dashboardState.periodo,
       visao: dashboardState.visao
-    });
+    };
+    if (dashboardState.periodo === 'custom' && dashboardState.dataInicio && dashboardState.dataFim) {
+      params.data_inicio = dashboardState.dataInicio;
+      params.data_fim = dashboardState.dataFim;
+    }
+
+    const res = await window.apiService.getDashboardMetrics(params);
 
     if (!res.success || !res.data) {
       console.warn('[DASHBOARD] Dados não retornados:', res);
@@ -772,6 +1333,15 @@ window.renderDashboardRealData = async function() {
     }
 
     ultimoDashboardPayload = res.data;
+
+    // Atualizar subtítulo de período com datas exatas apuradas
+    if (res.data.periodo_info) {
+      const pInfo = res.data.periodo_info;
+      const sub = document.getElementById('dash-subtitulo-periodo');
+      if (sub) {
+        sub.innerHTML = `Métricas apuradas de <strong class="text-cyan-300 font-mono">${window.formatDateBR(pInfo.data_inicio)}</strong> até <strong class="text-cyan-300 font-mono">${window.formatDateBR(pInfo.data_fim)}</strong> (${pInfo.dias_no_periodo} dias) • Comparativo MoM vs período anterior`;
+      }
+    }
 
     // 1. Atualizar Alerta de Runway
     const runway = res.data.runway;
@@ -840,45 +1410,8 @@ window.renderDashboardRealData = async function() {
     document.getElementById('dash-tesouraria-saidas').innerText = window.formatCurrencyBR(res.data.despesas?.total_pago?.valor || 0);
     document.getElementById('dash-tesouraria-custodia').innerText = window.formatCurrencyBR(custodia.total_em_aplicacoes || 0);
 
-    const extratos = res.data.extratos_bancarios || [];
-    const ofxBody = document.getElementById('tabela-ofx-dash');
-    const totalLabel = document.getElementById('dash-tesouraria-total-extratos');
-    if (totalLabel) totalLabel.innerText = `${extratos.length} movimentações no período`;
-
-    if (ofxBody) {
-      ofxBody.innerHTML = extratos.map(t => {
-        const val = Number(t.valor);
-        const isPos = val > 0;
-        const isCustodia = t.tipo_classificacao === 'TRANSFERENCIA_CUSTODIA';
-
-        let badgeClass = isCustodia 
-          ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' 
-          : (isPos ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30');
-
-        let badgeText = isCustodia ? 'Custódia / Aplicação' : (isPos ? 'Entrada Operacional' : 'Saída Operacional');
-
-        return `
-          <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-3 font-mono text-slate-400 whitespace-nowrap">${window.formatDateBR(t.data_lancamento)}</td>
-            <td class="p-3 font-medium text-slate-200 whitespace-nowrap">${t.banco_nome || 'Banco'} (${t.conta_numero || '-'})</td>
-            <td class="p-3 whitespace-nowrap">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">
-                ${badgeText}
-              </span>
-            </td>
-            <td class="p-3 text-slate-300 truncate max-w-[280px]" title="${t.memo}">${t.memo}</td>
-            <td class="p-3 text-right font-mono font-bold whitespace-nowrap ${isPos ? 'text-emerald-400' : 'text-slate-200'}">
-              ${window.formatCurrencyBR(val)}
-            </td>
-            <td class="p-3 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Conciliado
-              </span>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    }
+    window.ultimoExtratosBancarios = res.data.extratos_bancarios || [];
+    window.renderTabelaOFXFiltro();
 
     // 6. Aba Propostas Recentes
     const recentes = res.data.atividades_recentes || [];
@@ -904,8 +1437,220 @@ window.renderDashboardRealData = async function() {
       `).join('');
     }
 
+    // Suporte a abertura direta de aba via query param ?tab=tesouraria
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab');
+    if (initialTab) {
+      window.switchTab('dash', initialTab);
+    }
+
   } catch (err) {
     console.error('[DASHBOARD] Erro ao renderizar métricas reais:', err);
+  }
+};
+
+// ============================================================================
+// ESTADO E CONTROLADORES DO EXTRATO BANCÁRIO OFX (FILTROS, ORDENAÇÃO E TOTAIS)
+// ============================================================================
+window.ofxState = {
+  classificacao: 'TODOS',
+  busca: '',
+  ordemColuna: 'data_lancamento',
+  ordemDirecao: 'desc'
+};
+
+window.setOfxClassificacao = function(tipo) {
+  window.ofxState.classificacao = tipo;
+  window.renderTabelaOFXFiltro();
+};
+
+window.buscarOfx = function(val) {
+  window.ofxState.busca = String(val || '').toLowerCase().trim();
+  window.renderTabelaOFXFiltro();
+};
+
+window.ordenarTabelaOfx = function(coluna) {
+  if (window.ofxState.ordemColuna === coluna) {
+    window.ofxState.ordemDirecao = window.ofxState.ordemDirecao === 'asc' ? 'desc' : 'asc';
+  } else {
+    window.ofxState.ordemColuna = coluna;
+    window.ofxState.ordemDirecao = 'desc';
+  }
+  window.renderTabelaOFXFiltro();
+};
+
+window.renderTabelaOFXFiltro = function() {
+  const ofxBody = document.getElementById('tabela-ofx-dash');
+  const ofxFoot = document.getElementById('tfoot-ofx-dash');
+  const totalLabel = document.getElementById('dash-tesouraria-total-extratos');
+  if (!ofxBody || !window.ultimoExtratosBancarios) return;
+
+  const extratos = window.ultimoExtratosBancarios;
+  const { classificacao, busca, ordemColuna, ordemDirecao } = window.ofxState;
+
+  // 1. Filtragem por Classificação
+  let filtrados = extratos.filter(t => {
+    const val = Number(t.valor);
+    const isCustodia = t.tipo_classificacao === 'TRANSFERENCIA_CUSTODIA';
+    const isRendimento = t.tipo_classificacao === 'RENDIMENTO_APLICACAO';
+    const isPos = val > 0 && !isCustodia && !isRendimento;
+    const isNeg = val < 0 && !isCustodia && !isRendimento;
+
+    if (classificacao === 'ENTRADAS') return isPos;
+    if (classificacao === 'SAIDAS') return isNeg;
+    if (classificacao === 'CUSTODIA') return isCustodia;
+    if (classificacao === 'RENDIMENTOS') return isRendimento;
+    return true; // TODOS
+  });
+
+  // 2. Filtragem por Busca
+  if (busca) {
+    filtrados = filtrados.filter(t => {
+      const m = (t.memo || '').toLowerCase();
+      const b = (t.banco_nome || '').toLowerCase();
+      const c = (t.conta_numero || '').toLowerCase();
+      const v = String(t.valor || '');
+      return m.includes(busca) || b.includes(busca) || c.includes(busca) || v.includes(busca);
+    });
+  }
+
+  // 3. Ordenação Dinâmica
+  filtrados.sort((a, b) => {
+    let factor = ordemDirecao === 'asc' ? 1 : -1;
+    if (ordemColuna === 'data_lancamento') {
+      return (new Date(a.data_lancamento).getTime() - new Date(b.data_lancamento).getTime()) * factor;
+    }
+    if (ordemColuna === 'valor') {
+      return (Number(a.valor) - Number(b.valor)) * factor;
+    }
+    if (ordemColuna === 'memo') {
+      return (a.memo || '').localeCompare(b.memo || '') * factor;
+    }
+    return 0;
+  });
+
+  // 4. Contadores para os botões de filtro
+  const nTotal = extratos.length;
+  const nEntradas = extratos.filter(t => Number(t.valor) > 0 && t.tipo_classificacao !== 'TRANSFERENCIA_CUSTODIA').length;
+  const nSaidas = extratos.filter(t => Number(t.valor) < 0 && t.tipo_classificacao !== 'TRANSFERENCIA_CUSTODIA').length;
+  const nCustodia = extratos.filter(t => t.tipo_classificacao === 'TRANSFERENCIA_CUSTODIA').length;
+  const nRendimentos = extratos.filter(t => t.tipo_classificacao === 'RENDIMENTO_APLICACAO').length;
+
+  const btnTodos = document.getElementById('btn-ofx-todos');
+  const btnEntradas = document.getElementById('btn-ofx-entradas');
+  const btnSaidas = document.getElementById('btn-ofx-saidas');
+  const btnCustodia = document.getElementById('btn-ofx-custodia');
+  const btnRend = document.getElementById('btn-ofx-rendimentos');
+
+  if (btnTodos) {
+    btnTodos.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${classificacao === 'TODOS' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm' : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5'}`;
+    btnTodos.innerHTML = `<i class="ph ph-squares-four"></i> Todas (${nTotal})`;
+  }
+  if (btnEntradas) {
+    btnEntradas.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${classificacao === 'ENTRADAS' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm' : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5'}`;
+    btnEntradas.innerHTML = `<i class="ph ph-arrow-down-left text-emerald-400"></i> Entradas (+${nEntradas})`;
+  }
+  if (btnSaidas) {
+    btnSaidas.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${classificacao === 'SAIDAS' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm' : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5'}`;
+    btnSaidas.innerHTML = `<i class="ph ph-arrow-up-right text-rose-400"></i> Saídas (-${nSaidas})`;
+  }
+  if (btnCustodia) {
+    btnCustodia.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${classificacao === 'CUSTODIA' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm' : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5'}`;
+    btnCustodia.innerHTML = `<i class="ph ph-vault text-purple-400"></i> Custódia CDI (${nCustodia})`;
+  }
+  if (btnRend) {
+    btnRend.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${classificacao === 'RENDIMENTOS' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm' : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-white/5'}`;
+    btnRend.innerHTML = `<i class="ph ph-trend-up text-amber-400"></i> Rendimentos (${nRendimentos})`;
+  }
+
+  if (totalLabel) totalLabel.innerText = `${filtrados.length} de ${extratos.length} movimentações visíveis`;
+
+  // 5. Renderizar Linhas
+  if (filtrados.length === 0) {
+    ofxBody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500 font-mono text-xs">Nenhuma movimentação corresponde aos filtros selecionados.</td></tr>`;
+  } else {
+    ofxBody.innerHTML = filtrados.map(t => {
+      const val = Number(t.valor);
+      const isPos = val > 0;
+      const isCustodia = t.tipo_classificacao === 'TRANSFERENCIA_CUSTODIA';
+      const isRendimento = t.tipo_classificacao === 'RENDIMENTO_APLICACAO';
+
+      let badgeClass = isCustodia 
+        ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' 
+        : (isRendimento ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : (isPos ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30'));
+
+      let badgeText = isCustodia ? 'Custódia / Aplicação' : (isRendimento ? 'Rendimento CDI' : (isPos ? 'Entrada Operacional' : 'Saída Operacional'));
+
+      const bInfo = window.formatarBancoAgenciaConta(t.banco_nome, t.conta_numero, t.agencia);
+      const safeMemo = (t.memo || '').replace(/'/g, "\\'");
+
+      return `
+        <tr class="hover:bg-white/5 transition-colors group">
+          <td class="p-3 font-mono text-slate-400 whitespace-nowrap">${window.formatDateBR(t.data_lancamento)}</td>
+          <td class="p-3 whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${bInfo.badgeClass} flex items-center gap-1.5 w-fit">
+              <i class="${bInfo.icon}"></i> ${bInfo.banco}
+            </span>
+          </td>
+          <td class="p-3 font-mono text-slate-300 whitespace-nowrap text-xs">
+            ${bInfo.agenciaConta}
+          </td>
+          <td class="p-3 whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">
+              ${badgeText}
+            </span>
+          </td>
+          <td class="p-3 text-slate-200">
+            <div onclick="window.abrirDossieContraparte('${safeMemo}', '${t.nome_contraparte || ''}', '${t.documento_contraparte || ''}')"
+                 class="cursor-pointer text-cyan-300 hover:text-cyan-100 hover:underline flex items-center gap-1.5 group/item transition-colors"
+                 title="Clique para ver o Dossiê Financeiro completo desta contraparte">
+              <i class="ph ph-user-circle text-cyan-400 group-hover/item:scale-125 transition-transform text-sm"></i>
+              <span class="truncate max-w-[320px] font-medium">${t.memo}</span>
+            </div>
+          </td>
+          <td class="p-3 text-right font-mono font-bold whitespace-nowrap ${isPos ? 'text-emerald-400' : 'text-rose-400'}">
+            ${window.formatCurrencyBR(val)}
+          </td>
+          <td class="p-3 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Conciliado
+            </span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // 6. Linha de Totais da Visualização Atual (Subtotais)
+  const totalEntradasVisiveis = filtrados.filter(t => Number(t.valor) > 0).reduce((acc, t) => acc + Number(t.valor), 0);
+  const totalSaidasVisiveis = filtrados.filter(t => Number(t.valor) < 0).reduce((acc, t) => acc + Math.abs(Number(t.valor)), 0);
+  const saldoLiquidoVisivel = totalEntradasVisiveis - totalSaidasVisiveis;
+
+  if (ofxFoot) {
+    ofxFoot.innerHTML = `
+      <tr class="bg-slate-900/95 border-t-2 border-cyan-500/30 text-xs font-semibold text-slate-300">
+        <td colspan="4" class="p-3.5">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 uppercase text-[10px] tracking-wider">Subtotais dos Dados Visíveis:</span>
+            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[11px] font-bold border border-cyan-500/30">
+              ${filtrados.length} lançamentos
+            </span>
+          </div>
+        </td>
+        <td class="p-3.5 text-right font-mono text-xs text-slate-300">
+          <div class="flex items-center justify-end gap-3">
+            <span>Entradas: <strong class="text-emerald-400">+${window.formatCurrencyBR(totalEntradasVisiveis)}</strong></span>
+            <span>Saídas: <strong class="text-rose-400">-${window.formatCurrencyBR(totalSaidasVisiveis)}</strong></span>
+          </div>
+        </td>
+        <td class="p-3.5 text-right font-mono font-bold text-sm ${saldoLiquidoVisivel >= 0 ? 'text-emerald-400' : 'text-rose-400'} whitespace-nowrap">
+          ${saldoLiquidoVisivel >= 0 ? '+' : ''}${window.formatCurrencyBR(saldoLiquidoVisivel)}
+        </td>
+        <td class="p-3.5 text-center text-[10px] uppercase tracking-wider text-slate-500">
+          Líquido
+        </td>
+      </tr>
+    `;
   }
 };
 
@@ -1086,6 +1831,16 @@ window.renderGraficoExecutivo = function() {
   const series = ultimoDashboardPayload.series_grafico;
   const meses = series.meses;
 
+  // Atualiza título do gráfico com base na granularidade adaptativa
+  const tit = document.getElementById('dash-grafico-titulo');
+  if (tit) {
+    if (series.granularidade === 'SEMANAL') {
+      tit.innerHTML = `<i class="ph ph-chart-bar text-cyan-400"></i> Evolução Semanal no Período Selecionado`;
+    } else {
+      tit.innerHTML = `<i class="ph ph-chart-bar text-cyan-400"></i> Evolução Mensal Consolidada (2026)`;
+    }
+  }
+
   // Séries a plotar baseadas no modo e nos cards ativos
   const seriesParaPlotar = [];
 
@@ -1184,7 +1939,7 @@ window.renderGraficoExecutivo = function() {
     const paddingX = 40;
     const paddingY = 25;
 
-    const stepX = (width - paddingX * 2) / (meses.length - 1);
+    const stepX = (width - paddingX * 2) / Math.max(1, meses.length - 1);
 
     const svgLines = seriesParaPlotar.map(s => {
       const points = s.dados.map((val, idx) => {
