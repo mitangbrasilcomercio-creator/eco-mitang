@@ -20,6 +20,13 @@ Esta pasta contém o ecossistema de **Skills** que preparam assistentes de Intel
    - Categorização tripartite estrita: Clientes (compradores) vs Fornecedores (insumos/células) vs Colaboradores PJ (NFS-e de serviços contínuos).
 8. [**Controladoria, DRE & Engenharia Financeira**](./financial-controladoria-dre.md):
    - Apuração estruturada de DRE, liquidez corrente, grau de endividamento e Modelo DuPont com simulação de ROE.
+9. [**Ciclo de Vida de Orçamentos & Nuances de Itens**](./battery-budget-lifecycle-intelligence.md):
+   - Granularidade por item, pedidos de compra com múltiplas notas fiscais, aprovações parciais, retiradas emergenciais de baterias antes de PO/pagamento e dependência de envio físico para reparo.
+10. [**Inteligência de Tesouraria & Extratos OFX**](./banking-treasury-ofx-intelligence.md):
+    - Identificação e segregação de práticas bancárias automáticas (Overnight CDI / APLIC AUT / INVEST FACIL), prevenindo distorções no fluxo de caixa operacional, EBITDA e DRE.
+11. [**Motor de Busca de CNPJ em Tempo Real**](./cnpj-live-enrichment-engine.md):
+    - Cascata multi-provedor (BrasilAPI -> Minha Receita -> ReceitaWS -> Cache em disco), retentativa em HTTP 429 e classificação de verticais de mercado com zero dados fictícios.
 
 ## Configuração para Agentes Autônomos (Antigravity & IDEs de IA)
 As skills nativas residem na pasta [`.agents/skills/`](../.agents/skills/), sendo descobertas e carregadas automaticamente pelo Antigravity IDE e outros agentes baseados em Claude, Gemini e OpenAI.
+

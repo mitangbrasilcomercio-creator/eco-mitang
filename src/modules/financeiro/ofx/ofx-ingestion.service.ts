@@ -83,12 +83,17 @@ export class OfxIngestionService {
       let transacoesInseridas = 0;
       let transacoesDuplicadasIgnoradas = 0;
       let transacoesInformativasIgnoradas = 0;
+      let transacoesAplicacoesAutomaticas = 0;
 
       for (const t of transactions) {
-        // Se for linha de saldo diário informativo (ex: SALDO TOTAL DISPONÍVEL DIA do Itaú),
-        // registramos como informativo sem poluir os lançamentos operacionais de caixa
+        // Se for linha de saldo diário informativo (ex: SALDO TOTAL DISPONÍVEL DIA do Itaú)
         if (t.isSaldoInformativo) {
           transacoesInformativasIgnoradas++;
+        }
+
+        // Se for aplicação ou resgate automático de liquidez overnight
+        if (t.isAplicacaoAutomatica) {
+          transacoesAplicacoesAutomaticas++;
         }
 
         // Tenta auto-vincular com cliente existente pelo CNPJ/CPF extraído do memo
@@ -109,7 +114,7 @@ export class OfxIngestionService {
         // Tenta auto-vincular com parcela a receber pendente
         let parcelaId: string | null = null;
         let statusConciliacao = 'PENDENTE';
-        if (t.valor > 0 && clienteId) {
+        if (t.valor > 0 && clienteId && !t.isAplicacaoAutomatica && !t.isSaldoInformativo) {
           const parcQuery = `
             SELECT p.id 
             FROM parcelas_recebimento p
@@ -211,6 +216,7 @@ export class OfxIngestionService {
           nome_arquivo: nomeArquivo,
           transacoes_inseridas: transacoesInseridas,
           transacoes_duplicadas_ignoradas: transacoesDuplicadasIgnoradas,
+          transacoes_aplicacoes_automaticas: transacoesAplicacoesAutomaticas,
           saldo_final_extrato: balance?.ledgerBalance
         }
       });
@@ -229,6 +235,7 @@ export class OfxIngestionService {
         transacoesInseridas,
         transacoesDuplicadasIgnoradas,
         transacoesInformativasIgnoradas,
+        transacoesAplicacoesAutomaticas,
         saldoFinalExtrato: balance?.ledgerBalance,
         conciliadoComSucesso: true
       };

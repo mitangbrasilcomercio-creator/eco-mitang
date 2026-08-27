@@ -169,7 +169,10 @@ export class CnpjEnrichmentService {
   }
 
   /**
-   * Consulta dados públicos de um CNPJ (1º cache local cnpj_data.json, 2º BrasilAPI)
+   * Consulta dados públicos de um CNPJ com inteligência multi-provedor em cascata (BrasilAPI -> MinhaReceita -> ReceitaWS -> Cache)
+   * 
+   * [ERRO ANTERIOR]: Timeout de 2.5s abortava e retornava { razao_social: null }.
+   * [CORREÇÃO]: Delegação para CnpjEnrichmentGateway com timeout de 8s, retentativas em 429 e fallback triplo.
    */
   public static async consultarCnpj(cnpjRaw: string): Promise<any> {
     const cleanCnpj = String(cnpjRaw || '').replace(/[^\d]/g, '');
@@ -177,45 +180,30 @@ export class CnpjEnrichmentService {
       throw new Error(`CNPJ inválido: ${cnpjRaw}`);
     }
 
-    // 1. Verifica cache local do arquivo oficial fornecido
-    const localData = this.getLocalCnpjData();
-    if (localData[cleanCnpj] && !localData[cleanCnpj].error) {
-      return localData[cleanCnpj];
-    }
-
-    // 2. Consulta BrasilAPI oficial com timeout seguro de 2500ms
+    const { CnpjEnrichmentGateway } = await import('./cnpj-enrichment.gateway');
+    const gateway = new CnpjEnrichmentGateway();
+    
     try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 2500);
-
-      const url = `https://brasilapi.com.br/api/cnpj/v1/${cleanCnpj}`;
-      const response = await fetch(url, {
-        headers: { 'User-Agent': 'Eco-Mitang-ERP/2.0' },
-        signal: controller.signal
-      });
-      clearTimeout(timer);
-
-      if (response.status === 429) {
-        throw new Error('Limite de requisições BrasilAPI atingido. Tente novamente em alguns instantes.');
-      }
-
-      if (!response.ok) {
-        throw new Error(`Erro na consulta do CNPJ: HTTP ${response.status}`);
-      }
-
-      const json = await response.json();
-      return json;
-    } catch (err: any) {
-      // Se não conseguir consultar externa, retorna estrutura básica para não interromper fluxo
+      const dados = await gateway.consultarCnpj(cleanCnpj);
       return {
-        cnpj: cleanCnpj,
-        razao_social: null,
-        cnae_fiscal: null,
-        situacao_cadastral: 'ATIVA',
-        _consultadoExterno: false
+        ...dados,
+        cnae_fiscal: dados.cnae_principal,
+        cnae_fiscal_descricao: dados.cnae_descricao,
+        descricao_situacao_cadastral: dados.situacao_cadastral,
+        descricao_motivo_situacao_cadastral: dados.motivo_situacao_cadastral,
+        ddd_telefone_1: dados.telefone,
+        _consultadoExterno: true
       };
+    } catch (err: any) {
+      // Verifica se existe no cache local bruto
+      const localData = this.getLocalCnpjData();
+      if (localData[cleanCnpj] && !localData[cleanCnpj].error) {
+        return localData[cleanCnpj];
+      }
+      throw err;
     }
   }
+
 
   /**
    * Salva ou atualiza um cliente com riqueza cadastral absoluta no Supabase

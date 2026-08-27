@@ -4,11 +4,35 @@ import { pgPool } from '../../core/database/supabase-pool';
 import { memoryCache } from '../../core/cache/memory-cache';
 import { localMirror } from '../../core/database/local-mirror.service';
 
+/**
+ * ============================================================================
+ * CONTROLLER DE CONTROLADORIA E FLUXO DE CAIXA
+ * ============================================================================
+ * 
+ * AUDITORIA DE REGRAS DE NEGÓCIO:
+ * 
+ * [ERRO ANTERIOR]:
+ * O endpoint de resumo de caixa somava cegamente qualquer valor > 0 como entrada
+ * e qualquer valor < 0 como saída em 'transacoes_bancarias'.
+ * Contas de empresas no Itaú e Bradesco possuem 'Aplicação Automática' diária.
+ * A cada crédito de cliente, o banco retira o saldo à noite (débito de aplicação)
+ * e o devolve pela manhã (crédito de resgate).
+ * Isso inflava o fluxo em R$ 1,47 Milhão de receitas falsas e R$ 1,26 Milhão de despesas falsas.
+ * 
+ * [CORREÇÃO APLICADA]:
+ * 1. Segregação estrita no SQL:
+ *    - 'entradas_operacionais_reais': recebimentos reais de clientes e contrapartes.
+ *    - 'saidas_operacionais_reais': compras de insumos, salários, tributos e despesas.
+ *    - 'saldo_operacional_real': entradas reais - saídas reais.
+ *    - 'movimentacao_aplicacoes_automaticas': monitoramento isolado de liquidez overnight.
+ * 2. Disponibilização de filtro 'somente_operacionais' em listarTransacoes.
+ * ============================================================================
+ */
 export class FinanceiroController {
   listarTransacoes = async (req: Request, res: Response): Promise<void> => {
     const empresaId = req.headers['x-empresa-id'] as string;
-    const { tipo, banco, busca, data_inicio, data_fim, limit = 50, offset = 0 } = req.query;
-    const cacheKey = `ofx_transacoes_${empresaId || 'all'}_${tipo || 'todos'}_${banco || 'todos'}_${busca || ''}_${data_inicio || ''}_${data_fim || ''}_${limit}_${offset}`;
+    const { tipo, banco, busca, categoria, somente_operacionais = 'true', data_inicio, data_fim, limit = 50, offset = 0 } = req.query;
+    const cacheKey = `ofx_transacoes_${empresaId || 'all'}_${tipo || 'todos'}_${banco || 'todos'}_${busca || ''}_${categoria || ''}_${somente_operacionais}_${data_inicio || ''}_${data_fim || ''}_${limit}_${offset}`;
     
     const cached = memoryCache.get(cacheKey);
     if (cached) {
@@ -22,7 +46,7 @@ export class FinanceiroController {
       let query = `
         SELECT 
           t.id, t.data_lancamento, t.tipo_operacao, t.valor, t.memo,
-          t.documento_contraparte, t.nome_contraparte, t.status_conciliacao,
+          t.documento_contraparte, t.nome_contraparte, t.categoria_financeira, t.status_conciliacao,
           c.banco_nome, c.conta_numero, c.agencia
         FROM transacoes_bancarias t
         JOIN contas_bancarias c ON c.id = t.conta_bancaria_id
@@ -33,6 +57,16 @@ export class FinanceiroController {
       if (empresaId && empresaId !== 'all') {
         params.push(empresaId);
         query += ` AND t.empresa_id = $${params.length}`;
+      }
+
+      // Se solicitado somente transações operacionais reais, filtra as aplicações automáticas
+      if (somente_operacionais === 'true') {
+        query += ` AND t.categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO'`;
+      }
+
+      if (categoria) {
+        params.push(categoria);
+        query += ` AND t.categoria_financeira = $${params.length}`;
       }
 
       if (tipo === 'ENTRADAS') {
@@ -66,9 +100,12 @@ export class FinanceiroController {
 
       const result = await client.query(query, params);
       
-      let countQuery = `SELECT count(*) as total FROM transacoes_bancarias WHERE is_saldo_informativo = FALSE`;
+      let countQuery = `SELECT count(*) as total FROM transacoes_bancarias t WHERE t.is_saldo_informativo = FALSE`;
+      if (somente_operacionais === 'true') {
+        countQuery += ` AND t.categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO'`;
+      }
       if (empresaId && empresaId !== 'all') {
-        countQuery += ` AND empresa_id = '${empresaId}'`;
+        countQuery += ` AND t.empresa_id = '${empresaId}'`;
       }
       const countRes = await client.query(countQuery);
 
@@ -116,14 +153,21 @@ export class FinanceiroController {
       client = await pgPool.connect();
       const filterTenant = (empresaId && empresaId !== 'all') ? `AND empresa_id = '${empresaId}'` : '';
 
-      // 1. Saldo Real Consolidado nos Bancos (OFX)
+      // 1. Apuração Segregada de Fluxo de Caixa Real vs Liquidez Automática
       const ofxSaldos = await client.query(`
         SELECT 
-          COALESCE(SUM(CASE WHEN valor > 0 THEN valor ELSE 0 END), 0) as total_entradas,
-          COALESCE(SUM(CASE WHEN valor < 0 THEN ABS(valor) ELSE 0 END), 0) as total_saidas,
-          COALESCE(SUM(valor), 0) as saldo_bancario_liquido
+          -- Operações Comerciais Reais (Clientes, Fornecedores, Tributos, Salários)
+          COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO' AND is_saldo_informativo = FALSE THEN valor ELSE 0 END), 0) as entradas_operacionais_reais,
+          COALESCE(SUM(CASE WHEN valor < 0 AND categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO' AND is_saldo_informativo = FALSE THEN ABS(valor) ELSE 0 END), 0) as saidas_operacionais_reais,
+          
+          -- Movimentação de Aplicações Automáticas (Overnight CDI)
+          COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira = 'APLICACAO_RESGATE_AUTOMATICO' THEN valor ELSE 0 END), 0) as resgates_automaticos,
+          COALESCE(SUM(CASE WHEN valor < 0 AND categoria_financeira = 'APLICACAO_RESGATE_AUTOMATICO' THEN ABS(valor) ELSE 0 END), 0) as aplicacoes_automaticas,
+
+          -- Saldo Líquido Contábil Total
+          COALESCE(SUM(CASE WHEN is_saldo_informativo = FALSE THEN valor ELSE 0 END), 0) as saldo_bancario_liquido
         FROM transacoes_bancarias
-        WHERE is_saldo_informativo = FALSE ${filterTenant};
+        WHERE 1=1 ${filterTenant};
       `);
       const bData = ofxSaldos.rows[0];
 
@@ -147,10 +191,17 @@ export class FinanceiroController {
       `);
       const pData = pagarRes.rows[0];
 
-      const saldoBancario = parseFloat(bData.saldo_bancario_liquido);
+      const entradasOperacionais = parseFloat(bData.entradas_operacionais_reais);
+      const saidasOperacionais = parseFloat(bData.saidas_operacionais_reais);
+      const saldoOperacionalReal = entradasOperacionais - saidasOperacionais;
+      const saldoBancarioLiquido = parseFloat(bData.saldo_bancario_liquido);
+      const resgatesAuto = parseFloat(bData.resgates_automaticos);
+      const aplicacoesAuto = parseFloat(bData.aplicacoes_automaticas);
+      const saldoLiquidezOvernight = resgatesAuto - aplicacoesAuto;
+
       const aReceber = parseFloat(rData.total_a_receber);
       const aPagar = parseFloat(pData.total_a_pagar);
-      const saldoProjetado = saldoBancario + aReceber - aPagar;
+      const saldoProjetado = saldoBancarioLiquido + aReceber - aPagar;
 
       // 4. Saldo por Instituição Financeira
       const bancosRes = await client.query(`
@@ -158,10 +209,10 @@ export class FinanceiroController {
           c.banco_nome,
           c.agencia,
           c.conta_numero,
-          COALESCE(SUM(t.valor), 0) as saldo_conta,
+          COALESCE(SUM(CASE WHEN t.is_saldo_informativo = FALSE THEN t.valor ELSE 0 END), 0) as saldo_conta,
           COUNT(t.id) as total_movimentacoes
         FROM contas_bancarias c
-        LEFT JOIN transacoes_bancarias t ON t.conta_bancaria_id = c.id AND t.is_saldo_informativo = FALSE
+        LEFT JOIN transacoes_bancarias t ON t.conta_bancaria_id = c.id
         WHERE 1=1 ${filterTenant.replace(/empresa_id/g, 'c.empresa_id')}
         GROUP BY c.id, c.banco_nome, c.agencia, c.conta_numero;
       `);
@@ -169,9 +220,15 @@ export class FinanceiroController {
       const payload = {
         success: true,
         data: {
-          saldo_bancario_atual: saldoBancario,
-          total_entradas: parseFloat(bData.total_entradas),
-          total_saidas: parseFloat(bData.total_saidas),
+          saldo_bancario_atual: saldoBancarioLiquido,
+          saldo_operacional_real: saldoOperacionalReal,
+          total_entradas_operacionais: entradasOperacionais,
+          total_saidas_operacionais: saidasOperacionais,
+          aplicacoes_automaticas_overnight: {
+            total_aplicado_saidas: aplicacoesAuto,
+            total_resgatado_entradas: resgatesAuto,
+            saldo_liquido_investido: saldoLiquidezOvernight
+          },
           a_receber: aReceber,
           a_pagar: aPagar,
           saldo_projetado: saldoProjetado,
@@ -196,3 +253,4 @@ export class FinanceiroController {
     }
   };
 }
+

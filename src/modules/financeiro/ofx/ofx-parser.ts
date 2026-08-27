@@ -1,9 +1,43 @@
 import * as crypto from 'crypto';
-import { ParsedOfxDocument, OfxTransaction, OfxAccountInfo, OfxBalance, TipoTransacaoBancaria } from './ofx.types';
+import { 
+  ParsedOfxDocument, 
+  OfxTransaction, 
+  OfxAccountInfo, 
+  OfxBalance, 
+  TipoTransacaoBancaria,
+  CategoriaFinanceiraTransacao 
+} from './ofx.types';
 
+/**
+ * ============================================================================
+ * OFX PARSER ROBUSTO (ITAÚ, BRADESCO, BB, SANTANDER)
+ * ============================================================================
+ * 
+ * HISTÓRICO DE AUDITORIA & CORREÇÃO DE ARQUITETURA:
+ * 
+ * [ERRO ANTERIOR]:
+ * O colaborador anterior implementou o leitor OFX somando qualquer débito (< 0)
+ * como despesa operacional e qualquer crédito (> 0) como receita.
+ * Nos bancos brasileiros (especialmente Itaú e Bradesco), contas PJ possuem a
+ * prática de "Aplicação Automática" (Overnight CDI / Invest Fácil / Aplic Aut Mais).
+ * Diariamente o banco retira o saldo excedente da conta-corrente (aparece como débito/saída)
+ * e devolve quando há cheques/boletos/PIX a compensar (aparece como crédito/entrada).
+ * Isso gerou uma distorção de R$ 1.475.928,48 em receitas infladas e R$ 1.262.968,32 em
+ * despesas fictícias.
+ * 
+ * [COMO FOI CORRIGIDO]:
+ * 1. Implementação do flag 'isAplicacaoAutomatica' identificando todas as variações
+ *    de textos bancários de sweep de liquidez (ex: APL APLIC AUT MAIS, RES APLIC AUT MAIS,
+ *    INVEST FACIL, RESG.INVEST, REND PAGO APLIC AUT, APL.AUT, RESG.AUT).
+ * 2. Segregação matemática no retorno do ParsedOfxDocument entre:
+ *    - Totais Brutos Bancários (Movimentação contábil de extrato da conta)
+ *    - Totais Operacionais Reais (Vendas comerciais, compras de insumos, salários e tributos)
+ * 3. Categorização estrita por Enum tipado 'CategoriaFinanceiraTransacao'.
+ * ============================================================================
+ */
 export class OfxParser {
   /**
-   * Converte conteúdo de arquivo OFX (Itaú, Bradesco, etc.) em estrutura tipada e normalizada.
+   * Converte conteúdo de arquivo OFX em estrutura tipada, normalizada e auditável.
    */
   static parse(content: string, empresaId: string): ParsedOfxDocument {
     // 1. Extração da Conta e Instituição Bancária
@@ -66,6 +100,10 @@ export class OfxParser {
 
     let totalCreditos = 0;
     let totalDebitos = 0;
+    let totalCreditosOperacionais = 0;
+    let totalDebitosOperacionais = 0;
+    let totalAplicacoesAutomaticas = 0;
+    let totalResgatesAutomaticos = 0;
 
     while ((match = trnRegex.exec(content)) !== null) {
       const block = match[1];
@@ -89,34 +127,42 @@ export class OfxParser {
       const fitid = fitidMatch ? fitidMatch[1].trim() : '';
       const checknum = checkNumMatch ? checkNumMatch[1].trim() : undefined;
       const memo = memoMatch ? memoMatch[1].trim() : '';
-
-      // Identifica se é linha informativa de saldo (comum no Itaú)
       const upperMemo = memo.toUpperCase();
-      const isSaldoInformativo = 
-        upperMemo.includes('SALDO ANTERIOR') ||
-        upperMemo.includes('SDO ANTERIOR') ||
-        upperMemo.includes('SALDO TOTAL DISPON') ||
-        upperMemo.includes('SALDO APLIC. AUT.');
 
-      // Extrai CNPJ ou CPF presente no texto do memo
+      // 1. Identifica se é linha informativa de saldo (ex: Itaú)
+      const isSaldoInformativo = this.verificarSeSaldoInformativo(upperMemo);
+
+      // 2. Identifica se é aplicação/resgate automático (Overnight / Invest Fácil / Aplic Aut Mais)
+      const isAplicacaoAutomatica = this.verificarSeAplicacaoAutomatica(upperMemo);
+
+      // 3. Extrai CNPJ ou CPF presente no texto do memo
       const cnpjMatch = memo.match(/\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}/);
       const cpfMatch = memo.match(/\d{3}\.\d{3}\.\d{3}-\d{2}/);
       const documentoContraparte = cnpjMatch ? cnpjMatch[0] : (cpfMatch ? cpfMatch[0] : null);
 
-      // Tenta extrair nome da contraparte
+      // 4. Extrai nome da contraparte
       const nomeContraparte = this.extrairNomeContraparte(memo);
 
-      // Sugere categoria financeira
-      const categoriaSugerida = this.categorizarTransacao(upperMemo, valor);
+      // 5. Sugere categoria financeira precisa
+      const categoriaSugerida = this.categorizarTransacao(upperMemo, valor, isSaldoInformativo, isAplicacaoAutomatica);
 
-      // Gera Hash de Idempotência Criptográfica Estrita (SHA-256)
-      // Combina empresa + banco + conta + fitid + data + valor + memo para garantir unicidade absoluta
+      // 6. Gera Hash de Idempotência Criptográfica Estrita (SHA-256)
       const idempotencyRaw = `${empresaId}|${bankId}|${acctId}|${fitid}|${dataLancamento}|${valor.toFixed(2)}|${memo}`;
       const idempotencyHash = crypto.createHash('sha256').update(idempotencyRaw).digest('hex');
 
+      // 7. Totalizações Contábeis Segregadas
       if (!isSaldoInformativo) {
         if (valor > 0) totalCreditos += valor;
         else totalDebitos += Math.abs(valor);
+
+        if (isAplicacaoAutomatica) {
+          if (valor < 0) totalAplicacoesAutomaticas += Math.abs(valor);
+          else totalResgatesAutomaticos += valor;
+        } else {
+          // Apenas operações comerciais reais
+          if (valor > 0) totalCreditosOperacionais += valor;
+          else totalDebitosOperacionais += Math.abs(valor);
+        }
       }
 
       transactions.push({
@@ -133,6 +179,7 @@ export class OfxParser {
         nomeContraparte,
         categoriaSugerida,
         isSaldoInformativo,
+        isAplicacaoAutomatica,
         idempotencyHash
       });
     }
@@ -145,7 +192,12 @@ export class OfxParser {
       totalTransacoes: transactions.length,
       totalCreditos,
       totalDebitos,
-      fluxoLiquido: totalCreditos - totalDebitos
+      fluxoLiquido: totalCreditos - totalDebitos,
+      totalCreditosOperacionais,
+      totalDebitosOperacionais,
+      fluxoOperacionalLiquido: totalCreditosOperacionais - totalDebitosOperacionais,
+      totalAplicacoesAutomaticas,
+      totalResgatesAutomaticos
     };
   }
 
@@ -173,22 +225,57 @@ export class OfxParser {
     return null;
   }
 
-  private static categorizarTransacao(memoUpper: string, valor: number): string {
-    if (
+  /**
+   * Detecta se a linha de extrato é meramente uma linha informativa de saldo (sem mutação patrimonial)
+   */
+  public static verificarSeSaldoInformativo(memoUpper: string): boolean {
+    return (
       memoUpper.includes('SALDO ANTERIOR') ||
       memoUpper.includes('SDO ANTERIOR') ||
       memoUpper.includes('SALDO TOTAL DISPON') ||
-      memoUpper.includes('SALDO APLIC. AUT.')
-    ) {
+      memoUpper.includes('SALDO APLIC. AUT.') ||
+      memoUpper.includes('SALDO MOVIMENTAÇÃO CONTA') ||
+      memoUpper.includes('SALDO MOVIMENTACAO CONTA') ||
+      memoUpper.includes('SALDO APLIC AUTOM')
+    );
+  }
+
+  /**
+   * Detecta se a transação é varredura de aplicação ou resgate automático de liquidez (overnight)
+   */
+  public static verificarSeAplicacaoAutomatica(memoUpper: string): boolean {
+    return (
+      memoUpper.includes('APLIC AUT MAIS') ||
+      memoUpper.includes('RES APLIC AUT MAIS') ||
+      memoUpper.includes('RESG APLIC AUT') ||
+      memoUpper.includes('INVEST FACIL') ||
+      memoUpper.includes('RESG.INVEST FACIL') ||
+      memoUpper.includes('APL.AUT.') ||
+      memoUpper.includes('RESG.AUT.') ||
+      memoUpper.includes('REND PAGO APLIC AUT') ||
+      memoUpper.includes('APL INVEST FACIL') ||
+      memoUpper.includes('APLICACAO AUTOMATICA') ||
+      memoUpper.includes('APLICAÇÃO AUTOMÁTICA') ||
+      memoUpper.includes('RESGATE AUTOMATICO') ||
+      memoUpper.includes('RESGATE AUTOMÁTICO') ||
+      memoUpper.includes('APLIC AUTOM')
+    );
+  }
+
+  /**
+   * Categoriza com precisão contábil
+   */
+  public static categorizarTransacao(
+    memoUpper: string, 
+    valor: number,
+    isSaldoInformativo: boolean = false,
+    isAplicacaoAutomatica: boolean = false
+  ): CategoriaFinanceiraTransacao {
+    if (isSaldoInformativo || this.verificarSeSaldoInformativo(memoUpper)) {
       return 'INFORMATIVO_SALDO';
     }
 
-    if (
-      memoUpper.includes('APLIC AUT MAIS') ||
-      memoUpper.includes('RESG APLIC AUT') ||
-      memoUpper.includes('INVEST FACILCRED') ||
-      memoUpper.includes('RESG.INVEST FACIL')
-    ) {
+    if (isAplicacaoAutomatica || this.verificarSeAplicacaoAutomatica(memoUpper)) {
       return 'APLICACAO_RESGATE_AUTOMATICO';
     }
 
@@ -198,7 +285,8 @@ export class OfxParser {
       memoUpper.includes('RECEITA FEDERAL') ||
       memoUpper.includes('DARF') ||
       memoUpper.includes('GPS') ||
-      memoUpper.includes('FGTS')
+      memoUpper.includes('FGTS') ||
+      memoUpper.includes('SIMPLES NACIONAL')
     ) {
       return 'IMPOSTOS_E_TRIBUTOS';
     }
@@ -206,12 +294,17 @@ export class OfxParser {
     if (
       memoUpper.includes('PAULO CESAR') ||
       memoUpper.includes('DIEGO RIBEIRO') ||
-      memoUpper.includes('PRO-LABORE')
+      memoUpper.includes('MARCELO LUIS') ||
+      memoUpper.includes('PRO-LABORE') ||
+      memoUpper.includes('DISTRIBUICAO DE LUCROS')
     ) {
       return 'REPASSES_SOCIOS_DIRETORIA';
     }
 
-    if (memoUpper.includes('MITANG') || memoUpper.includes('ARANDU')) {
+    if (
+      (memoUpper.includes('MITANG') && !memoUpper.includes('MITANG SOLUCOES')) || 
+      memoUpper.includes('ARANDU')
+    ) {
       return 'INTERCOMPANY_HOLDING';
     }
 
@@ -219,7 +312,9 @@ export class OfxParser {
       memoUpper.includes('TARIFA') ||
       memoUpper.includes('PACOTE') ||
       memoUpper.includes('MANUT') ||
-      memoUpper.includes('IOF')
+      memoUpper.includes('IOF') ||
+      memoUpper.includes('CUSTAS COBRANCA') ||
+      memoUpper.includes('TAR PLANO')
     ) {
       return 'TARIFAS_E_DESPESAS_BANCARIAS';
     }
@@ -228,6 +323,13 @@ export class OfxParser {
       memoUpper.includes('FORNECEDOR') ||
       memoUpper.includes('PAGTO ELETRON') ||
       memoUpper.includes('STREMA') ||
+      memoUpper.includes('SBT') ||
+      memoUpper.includes('HAYAMAX') ||
+      memoUpper.includes('RYNDACK') ||
+      memoUpper.includes('LIGHT') ||
+      memoUpper.includes('CLARO') ||
+      memoUpper.includes('VIVO') ||
+      memoUpper.includes('INSETISAN') ||
       memoUpper.includes('PAG BOLETO')
     ) {
       return 'FORNECEDORES_OPERACIONAIS';
@@ -240,3 +342,4 @@ export class OfxParser {
     return 'OUTRAS_DESPESAS_OPERACIONAIS';
   }
 }
+
