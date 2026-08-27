@@ -1,0 +1,282 @@
+<div id="modulo-contabilidade" class="space-y-6 animate-fade-in">
+    
+    <!-- Cabeçalho do Módulo -->
+    <div class="flex items-center gap-3 mb-2">
+        <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
+            <i class="ph ph-buildings text-2xl text-cyan-500"></i>
+        </div>
+        <div>
+            <h2 class="text-xl font-semibold text-slate-800 dark:text-white tracking-wide">Gestão Patrimonial e Desempenho</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Contabilidade e Estrutura Econômica</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SEÇÃO A: MOTOR DE DEPRECIAÇÃO
+         ========================================== -->
+    <section class="space-y-4">
+        <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+            <i class="ph ph-engine text-cyan-500"></i> Motor de Depreciação de Ativos Imobilizados
+        </h3>
+
+        <!-- Formulário de Entrada -->
+        <div class="glass-panel p-6 rounded-2xl">
+            <form id="form-depreciacao" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-end">
+                
+                <div class="flex flex-col gap-1.5">
+                    <label for="dep-desc" class="text-sm font-medium text-slate-700 dark:text-slate-300">Descrição do Ativo</label>
+                    <input type="text" id="dep-desc" placeholder="Ex: Servidor Dell PowerEdge" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="dep-conta" class="text-sm font-medium text-slate-700 dark:text-slate-300">Código da Conta Contábil</label>
+                    <input type="text" id="dep-conta" placeholder="Ex: 1.2.3.01" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="dep-metodo" class="text-sm font-medium text-slate-700 dark:text-slate-300">Método de Depreciação</label>
+                    <div class="relative">
+                        <select id="dep-metodo" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full appearance-none">
+                            <option value="linear" class="bg-white dark:bg-deep-900">Linear</option>
+                            <option value="unidades" class="bg-white dark:bg-deep-900">Unidades Produzidas</option>
+                        </select>
+                        <i class="ph ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="dep-custo" class="text-sm font-medium text-slate-700 dark:text-slate-300">Custo de Aquisição (R$)</label>
+                    <input type="number" step="0.01" id="dep-custo" placeholder="0,00" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="dep-residual" class="text-sm font-medium text-slate-700 dark:text-slate-300">Valor Residual (R$)</label>
+                    <input type="number" step="0.01" id="dep-residual" placeholder="0,00" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full">
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex flex-col gap-1.5 w-1/2">
+                        <label for="dep-vida" class="text-sm font-medium text-slate-700 dark:text-slate-300">Vida Útil</label>
+                        <input type="number" id="dep-vida" placeholder="Meses" class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-4 py-2.5 text-slate-800 dark:text-white transition-colors w-full">
+                    </div>
+                    <div class="flex items-end w-1/2">
+                        <button type="submit" id="btn-salvar-ativo" class="glass-button w-full px-4 py-2.5 rounded-lg text-cyan-600 dark:text-cyan-400 font-medium flex items-center justify-center gap-2">
+                            <i class="ph ph-plus-circle text-lg"></i> Registrar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tabela de Exibição -->
+        <div class="glass-panel rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table id="tabela-ativos" class="w-full text-left text-sm whitespace-nowrap">
+                    <thead class="bg-black/5 dark:bg-white/5 border-b border-black/5 dark:border-white/5 text-slate-600 dark:text-slate-300">
+                        <tr>
+                            <th class="px-6 py-4 font-medium">Código</th>
+                            <th class="px-6 py-4 font-medium">Descrição</th>
+                            <th class="px-6 py-4 font-medium">Custo Original</th>
+                            <th class="px-6 py-4 font-medium">Depreciação Acumulada</th>
+                            <th class="px-6 py-4 font-medium">Valor Contábil Líquido</th>
+                            <th class="px-6 py-4 font-medium text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-black/5 dark:divide-white/5 text-slate-800 dark:text-slate-200">
+                        <!-- Linha de Exemplo (Hardcoded temporariamente para visualização) -->
+                        <tr class="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-4">1.2.3.01</td>
+                            <td class="px-6 py-4 font-medium">Servidor Físico Mainframe</td>
+                            <td class="px-6 py-4">R$ 50.000,00</td>
+                            <td class="px-6 py-4">
+                                <span class="text-red-600 dark:text-red-400 font-medium flex items-center gap-1.5 bg-red-500/10 px-2 py-1 rounded w-fit">
+                                    <i class="ph ph-warning-circle"></i> - R$ 15.000,00
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-cyan-600 dark:text-cyan-400 font-semibold">R$ 35.000,00</td>
+                            <td class="px-6 py-4 flex justify-center gap-2">
+                                <button class="p-1.5 text-slate-500 hover:text-cyan-500 transition-colors" title="Editar"><i class="ph ph-pencil-simple text-lg"></i></button>
+                                <button class="p-1.5 text-slate-500 hover:text-red-500 transition-colors" title="Baixar Ativo"><i class="ph ph-trash text-lg"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO B: DRE DINÂMICA (DRILL-DOWN) E DFC
+         ========================================== -->
+    <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        
+        <!-- Coluna 1 & 2: DRE Gerencial com Drill-Down Interativo -->
+        <div class="xl:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="ph ph-receipt text-cyan-500"></i> DRE Dinâmica & Gerencial (Lucro Real)
+                </h3>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 font-mono">Apuração Automatizada</span>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-2xl flex flex-col gap-2.5 text-sm">
+                
+                <!-- 1. Receita Bruta (com Drill-Down expansível) -->
+                <div class="border border-black/5 dark:border-white/5 rounded-xl p-3 bg-black/5 dark:bg-white/5 transition-all">
+                    <div class="flex justify-between items-center cursor-pointer" onclick="toggleDrillDown('drill-receita')">
+                        <div class="flex items-center gap-2">
+                            <i id="icon-drill-receita" class="ph ph-caret-right text-cyan-500 transition-transform"></i>
+                            <span class="font-bold text-slate-800 dark:text-white">1. Receita Bruta (Faturamento)</span>
+                        </div>
+                        <span id="dre-faturamento-bruto" class="font-bold text-emerald-600 dark:text-emerald-400">R$ 0,00</span>
+                    </div>
+                    <!-- Conteúdo Expansível das Verticais -->
+                    <div id="drill-receita" class="hidden mt-3 pt-3 border-t border-black/5 dark:border-white/5 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex justify-between"><span>• Survey Positioning (USBL/LBL)</span><span id="dre-vert-survey">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Controle Dimensional (DimCon)</span><span id="dre-vert-dimcon">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Construction Support (PLSV)</span><span id="dre-vert-plsv">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Descomissionamento Offshore</span><span id="dre-vert-descom">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Energias Renováveis (Eólicas UXO)</span><span id="dre-vert-eolica">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Remote Operations Center (ROC)</span><span id="dre-vert-roc">R$ 0,00</span></div>
+                        <div class="flex justify-between"><span>• Baterias & Insumos Elétricos</span><span id="dre-vert-baterias">R$ 0,00</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Deduções da Receita Bruta -->
+                <div class="flex justify-between items-center p-2.5 border-b border-black/5 dark:border-white/5 text-red-500 dark:text-red-400">
+                    <span>2. (-) Deduções Tributárias (PIS, COFINS, ISS)</span>
+                    <span id="dre-deducoes-tributarias" class="font-medium">- R$ 0,00</span>
+                </div>
+
+                <!-- 3. Receita Operacional Líquida -->
+                <div class="flex justify-between items-center py-2 px-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg font-semibold text-slate-800 dark:text-white">
+                    <span>3. (=) Receita Operacional Líquida</span>
+                    <span id="dre-receita-liquida" class="text-cyan-600 dark:text-cyan-400">R$ 0,00</span>
+                </div>
+
+                <!-- 4. Custos dos Serviços Prestados (CSP) -->
+                <div class="flex justify-between items-center p-2.5 border-b border-black/5 dark:border-white/5 text-red-500 dark:text-red-400">
+                    <span>4. (-) Custos dos Serviços (Mão de Obra e Insumos Offshore)</span>
+                    <span id="dre-csp-custos" class="font-medium">- R$ 0,00</span>
+                </div>
+
+                <!-- 5. Lucro Bruto -->
+                <div class="flex justify-between items-center py-2 px-3 bg-black/5 dark:bg-white/5 rounded-lg font-semibold text-slate-800 dark:text-white">
+                    <span>5. (=) Lucro Bruto</span>
+                    <span id="dre-lucro-bruto">R$ 0,00</span>
+                </div>
+
+                <!-- 6. Despesas Operacionais (OPEX) -->
+                <div class="flex justify-between items-center p-2.5 border-b border-black/5 dark:border-white/5 text-red-500 dark:text-red-400">
+                    <span>6. (-) Despesas Operacionais Administrativas (OPEX)</span>
+                    <span id="dre-opex-adm" class="font-medium">- R$ 0,00</span>
+                </div>
+
+                <!-- 7. EBITDA -->
+                <div class="flex justify-between items-center py-2.5 px-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl font-bold text-emerald-700 dark:text-emerald-300">
+                    <div class="flex items-center gap-2">
+                        <span>7. (=) EBITDA (Lajida)</span>
+                        <span id="badge-margem-ebitda" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">0%</span>
+                    </div>
+                    <span id="dre-ebitda">R$ 0,00</span>
+                </div>
+
+                <!-- 8 & 9. Depreciação e Financeiro -->
+                <div class="grid grid-cols-2 gap-3 text-xs text-slate-500 py-1">
+                    <div class="flex justify-between p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                        <span>(-) Depreciação Ativos:</span>
+                        <span id="dre-depreciacao" class="text-red-500 font-mono">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                        <span>(+/-) Resultado Financ:</span>
+                        <span id="dre-financ" class="font-mono">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <!-- 10. LAIR -->
+                <div class="flex justify-between items-center p-2 text-slate-700 dark:text-slate-300 font-medium">
+                    <span>10. (=) LAIR (Lucro Antes do IR)</span>
+                    <span id="dre-lair">R$ 0,00</span>
+                </div>
+
+                <!-- 11. IRPJ e CSLL -->
+                <div class="flex justify-between items-center p-2 text-red-500 dark:text-red-400 text-xs border-b border-black/5 dark:border-white/5">
+                    <span>11. (-) IRPJ e CSLL (34% sobre LAIR no Lucro Real)</span>
+                    <span id="dre-irpj-csll">- R$ 0,00</span>
+                </div>
+
+                <!-- 12. Lucro Líquido Final -->
+                <div class="flex justify-between items-center py-3.5 px-4 bg-cyan-500/15 border-2 border-cyan-500/40 rounded-xl mt-1 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-cyan-800 dark:text-cyan-200 text-base">12. (=) Lucro Líquido Final</span>
+                        <span id="badge-margem-liquida" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/30 text-cyan-700 dark:text-cyan-300 font-bold">0%</span>
+                    </div>
+                    <span id="dre-lucro-liquido" class="font-black text-cyan-600 dark:text-cyan-400 text-lg font-mono">R$ 0,00</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Coluna 3: Demonstração dos Fluxos de Caixa (DFC) e Balanço -->
+        <div class="space-y-4">
+            
+            <!-- DFC -->
+            <div class="space-y-3">
+                <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="ph ph-trend-up text-cyan-500"></i> DFC (Fluxo de Caixa)
+                </h3>
+                
+                <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-cyan-500 space-y-3 text-sm">
+                    <div class="flex justify-between items-center pb-2 border-b border-black/5 dark:border-white/5">
+                        <span class="text-slate-600 dark:text-slate-400 font-medium">Saldo Atual de Caixa</span>
+                        <span id="dfc-saldo-caixa" class="font-bold text-cyan-600 dark:text-cyan-400 text-base">R$ 0,00</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between items-center p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                            <span class="text-slate-600 dark:text-slate-300">FCO (Operacional Líquido)</span>
+                            <span id="dfc-fco" class="font-medium text-emerald-600 dark:text-emerald-400">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                            <span class="text-slate-600 dark:text-slate-300">FCI (Investimentos CAPEX)</span>
+                            <span id="dfc-fci" class="font-medium text-amber-600 dark:text-amber-400">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                            <span class="text-slate-600 dark:text-slate-300">FCF (Financiamentos)</span>
+                            <span id="dfc-fcf" class="font-medium text-slate-600 dark:text-slate-400">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20 text-xs text-slate-600 dark:text-slate-300">
+                        <p class="font-semibold text-cyan-700 dark:text-cyan-400 mb-0.5"><i class="ph ph-info"></i> Desempate DRE vs Caixa:</p>
+                        <p>O DRE mede o lucro econômico por competência, enquanto o DFC atesta a liquidez real de caixa para operações e embarques.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Balanço Patrimonial Sintético -->
+            <div class="space-y-3">
+                <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="ph ph-scales text-cyan-500"></i> Balanço Patrimonial
+                </h3>
+                
+                <div class="glass-panel p-5 rounded-2xl space-y-2 text-xs">
+                    <div class="flex justify-between items-center p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                        <span class="text-slate-600 dark:text-slate-300">Ativo Circulante</span>
+                        <span id="bal-ativo-circ" class="font-medium text-slate-800 dark:text-slate-200">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-black/5 dark:bg-white/5 rounded-lg">
+                        <span class="text-slate-600 dark:text-slate-300">Ativo Não Circulante (Imobilizado)</span>
+                        <span id="bal-ativo-nao-circ" class="font-medium text-slate-800 dark:text-slate-200">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-cyan-500/10 border border-cyan-500/20 rounded-lg">
+                        <span class="font-medium text-cyan-700 dark:text-cyan-300">Patrimônio Líquido (PL)</span>
+                        <span id="bal-patrimonio" class="font-bold text-cyan-600 dark:text-cyan-400">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>

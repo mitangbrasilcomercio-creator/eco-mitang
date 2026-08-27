@@ -1,0 +1,208 @@
+<!-- ==========================================
+     PARAMETROS.HTML - GERENCIADOR GLOBAL DE CATEGORIAS & PARÂMETROS
+     Centros de Custo • Insumos BOM • Plano de Contas • Verticais • Subsea
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & Ações Globais -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-sliders-horizontal text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">Gerenciador Global de Categorias & Parâmetros</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Controle dinâmico de listas, centros de custo, tags contábeis e insumos atualizados em todo o sistema.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="parametrosModule.abrirModalNovaCategoria()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i class="ph ph-plus-circle text-lg"></i> Nova Categoria
+            </button>
+            <button onclick="parametrosModule.executarSeed()" title="Restaura as categorias padrão recomendadas" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Padrão
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Centros de Custo -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Centros de Custo</span>
+                    <h3 class="text-2xl font-bold text-cyan-400 mt-1" id="kpi-total-cc">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-briefcase"></i> Projetos & Galpão
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-buildings text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: Categorias de Insumos -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Insumos da BOM</span>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="kpi-total-insumos">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-battery-charging"></i> Pilhas, Conectores, Resinas
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <i class="ph ph-cpu text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Categorias Financeiras -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Plano de Contas</span>
+                    <h3 class="text-2xl font-bold text-purple-400 mt-1" id="kpi-total-fin">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-chart-line-up"></i> Receitas & Despesas
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-tag text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Verticais de Negócio -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Verticais de Atuação</span>
+                    <h3 class="text-2xl font-bold text-blue-400 mt-1" id="kpi-total-verticais">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-anchor"></i> Linhas Operacionais
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <i class="ph ph-git-branch text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Domínios -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="parametrosModule.trocarDominio('TODOS')" id="tab-dom-todos" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-list-dashes text-base"></i> Todas as Categorias
+        </button>
+        <button onclick="parametrosModule.trocarDominio('CENTRO_CUSTO')" id="tab-dom-cc" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-buildings text-base"></i> Centros de Custo
+        </button>
+        <button onclick="parametrosModule.trocarDominio('CATEGORIA_INSUMO')" id="tab-dom-insumo" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-battery-charging text-base"></i> Insumos BOM
+        </button>
+        <button onclick="parametrosModule.trocarDominio('CATEGORIA_FINANCEIRA')" id="tab-dom-fin" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-currency-circle-dollar text-base"></i> Categorias Financeiras
+        </button>
+        <button onclick="parametrosModule.trocarDominio('VERTICAL_NEGOCIO')" id="tab-dom-vert" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-anchor text-base"></i> Verticais de Negócio
+        </button>
+        <button onclick="parametrosModule.trocarDominio('TIPO_ESTRUTURA_DIMCON')" id="tab-dom-dim" class="px-4 py-2 rounded-xl font-medium text-xs transition-all flex items-center gap-1.5 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-ruler text-base"></i> Estruturas Subsea
+        </button>
+    </div>
+
+    <!-- 4. Tabela de Categorias -->
+    <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+                <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                    <tr>
+                        <th class="px-4 py-3.5">Domínio</th>
+                        <th class="px-4 py-3.5">Código Técnico</th>
+                        <th class="px-4 py-3.5">Nome Legível</th>
+                        <th class="px-4 py-3.5">Badge Visual</th>
+                        <th class="px-4 py-3.5">Descrição</th>
+                        <th class="px-4 py-3.5 text-center">Ordem</th>
+                        <th class="px-4 py-3.5 text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-categorias" class="divide-y divide-white/5">
+                    <!-- Linhas renderizadas dinamicamente via parametros.js -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAL: NOVA / EDITAR CATEGORIA GLOBAL
+     ========================================== -->
+<div id="modal-categoria-global" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-lg rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2" id="titulo-modal-categoria">
+                <i class="ph ph-sliders-horizontal text-cyan-400"></i> Categoria Global
+            </h3>
+            <button onclick="parametrosModule.fecharModal('modal-categoria-global')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-categoria-global" onsubmit="parametrosModule.salvarCategoria(event)" class="space-y-3.5 text-xs">
+            <input type="hidden" id="cat-id">
+
+            <div>
+                <label class="block text-slate-400 mb-1">Domínio do Sistema *</label>
+                <select id="cat-dominio" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                    <option value="CENTRO_CUSTO">Centro de Custo (Projetos / Departamentos)</option>
+                    <option value="CATEGORIA_INSUMO">Categoria de Insumos da BOM (Almoxarifado)</option>
+                    <option value="CATEGORIA_FINANCEIRA">Categoria Financeira (Receitas / Despesas)</option>
+                    <option value="VERTICAL_NEGOCIO">Vertical de Negócio (Linhas de Atuação)</option>
+                    <option value="TIPO_ESTRUTURA_DIMCON">Tipo de Estrutura Submarina (Metrologia)</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código Técnico *</label>
+                    <input type="text" id="cat-codigo" required placeholder="Ex: CC-BUZIOS-02" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white uppercase font-mono focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Cor do Badge</label>
+                    <div class="flex items-center gap-2">
+                        <input type="color" id="cat-cor" value="#06b6d4" class="h-9 w-12 rounded-lg bg-transparent border-0 cursor-pointer">
+                        <input type="text" id="cat-cor-hex" value="#06b6d4" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white font-mono text-xs">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Nome Legível para Exibição *</label>
+                <input type="text" id="cat-nome" required placeholder="Ex: Operações Campo de Búzios P-78" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Descrição / Instrução de Uso</label>
+                <textarea id="cat-descricao" rows="2" placeholder="Explique brevemente para qual finalidade este parâmetro deve ser selecionado..." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400"></textarea>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="parametrosModule.fecharModal('modal-categoria-global')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Salvar Parâmetro</button>
+            </div>
+        </form>
+    </div>
+</div>

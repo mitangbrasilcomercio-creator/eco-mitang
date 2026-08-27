@@ -1,0 +1,260 @@
+<!-- arquivos.html - Nova Estrutura (Explorador + Kanban + Auditoria Local) -->
+<div class="h-full flex flex-col md:flex-row gap-6 animate-fade-in relative">
+
+    <!-- Workspace Lateral (Árvore de Pastas) -->
+    <aside class="glass-panel w-full md:w-72 rounded-2xl p-5 flex flex-col shrink-0 z-20">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                <i class="ph ph-hard-drives text-cyan-500 dark:text-cyan-400 text-xl"></i>
+                Meu Workspace
+            </h2>
+            <button id="btn-nova-pasta-workspace" class="text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors" title="Criar Nova Pasta Raiz">
+                <i class="ph ph-plus-circle text-xl"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto pr-2 space-y-4 text-sm font-medium select-none">
+            
+            <!-- Grupo 1: Favoritos / Acesso Rápido -->
+            <div>
+                <div class="flex items-center justify-between p-2 rounded-lg text-slate-800 dark:text-white hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors group" id="toggle-favoritos">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-star text-amber-500"></i>
+                        <span>Acesso Rápido</span>
+                    </div>
+                    <i class="ph ph-caret-down text-xs text-slate-500 group-hover:text-cyan-500 transition-colors"></i>
+                </div>
+                <!-- Subpastas Fixas -->
+                <div class="pl-6 pt-1 space-y-1" id="lista-favoritos">
+                    <div class="folder-item flex items-center gap-2 p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors">
+                        <i class="ph-fill ph-folder text-slate-400"></i>
+                        <span class="truncate">Relatórios Mensais</span>
+                    </div>
+                    <div class="folder-item flex items-center gap-2 p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors">
+                        <i class="ph-fill ph-folder text-slate-400"></i>
+                        <span class="truncate">Modelos de Contrato</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo 2: Propostas Comerciais (Com Drag and Drop) -->
+            <div>
+                <div class="flex items-center justify-between p-2 rounded-lg text-slate-800 dark:text-white hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors group" id="toggle-propostas">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-folder-open text-cyan-600 dark:text-cyan-400"></i>
+                        <span>Propostas Comerciais</span>
+                    </div>
+                    <i class="ph ph-caret-down text-xs text-slate-500 group-hover:text-cyan-500 transition-colors"></i>
+                </div>
+                <!-- Subpastas Clientes -->
+                <div class="pl-6 pt-1 space-y-1" id="lista-clientes-workspace">
+                    <div draggable="true" class="folder-client flex items-center justify-between p-2 rounded-lg text-cyan-700 dark:text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 cursor-pointer">
+                        <div class="flex items-center gap-2 truncate">
+                            <i class="ph-fill ph-folder text-cyan-500 dark:text-cyan-400"></i>
+                            <span class="truncate">Cliente 1 (TechCorp)</span>
+                        </div>
+                    </div>
+                    <div draggable="true" class="folder-client flex items-center justify-between p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-2 truncate">
+                            <i class="ph-fill ph-folder text-slate-400"></i>
+                            <span class="truncate">Cliente 2 (OceanDrill)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo 3: Cofre e Pessoais -->
+            <div class="folder-item flex items-center gap-2 p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors">
+                <i class="ph-fill ph-lock-key text-slate-400"></i>
+                <span>Meu Cofre</span>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5">
+            <div class="flex justify-between text-xs text-slate-500 mb-2">
+                <span>Armazenamento (Local)</span>
+                <span>45%</span>
+            </div>
+            <div class="w-full h-1.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-cyan-500 w-[45%] rounded-full shadow-[0_0_8px_rgba(0,229,255,0.8)]"></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Área Principal do Explorador -->
+    <main class="glass-panel flex-1 rounded-2xl flex flex-col overflow-hidden relative z-10">
+        
+        <!-- Toolbar Superior Master -->
+        <header class="border-b border-black/5 dark:border-white/5 flex flex-col xl:flex-row xl:items-center justify-between p-4 lg:px-6 shrink-0 bg-black/5 dark:bg-transparent gap-4 relative z-30">
+            
+            <!-- Breadcrumbs / Caminho -->
+            <div class="flex items-center gap-2 text-sm font-medium shrink-0">
+                <span class="text-slate-500 dark:text-slate-400 hidden sm:inline">Meu Workspace</span>
+                <i class="ph ph-caret-right text-slate-400 text-xs hidden sm:inline"></i>
+                <span class="text-slate-500 dark:text-slate-400 hidden sm:inline">Propostas Comerciais</span>
+                <i class="ph ph-caret-right text-slate-400 text-xs hidden sm:inline"></i>
+                <span id="breadcrumb-current" class="text-slate-800 dark:text-white text-lg sm:text-base">Cliente 1 (TechCorp)</span>
+            </div>
+
+            <!-- Separador Estrutural: Filtros + Botão Novo -->
+            <div class="flex items-center justify-between xl:justify-end gap-4 w-full xl:w-auto">
+                
+                <!-- Botões de Ação e Alternância (Scrolláveis em telas menores) -->
+                <div class="flex items-center gap-3 overflow-x-auto pb-1 sm:pb-0 flex-1 xl:flex-none">
+                    
+                    <!-- Botão Alternar Visualização (Explorador vs Kanban) -->
+                    <button id="btn-toggle-workflow" class="glass-button flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 dark:text-slate-200 border-dashed hover:border-cyan-500 transition-all whitespace-nowrap">
+                        <i class="ph ph-kanban text-lg text-cyan-600 dark:text-cyan-400"></i> <span id="texto-toggle-workflow">Ativar Workflow (Kanban)</span>
+                    </button>
+
+                    <div class="w-px h-4 bg-black/10 dark:bg-white/10 mx-1 hidden sm:block"></div>
+
+                    <!-- Botões de Filtro -->
+                    <button data-filter="todos" class="btn-filter active px-3 py-1.5 text-xs font-medium rounded-lg text-cyan-700 dark:text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 transition-all whitespace-nowrap">
+                        Todos
+                    </button>
+                    <button data-filter="pdf" class="btn-filter px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 transition-all whitespace-nowrap">
+                        PDF
+                    </button>
+                    <button data-filter="excel" class="btn-filter px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 transition-all whitespace-nowrap">
+                        Excel
+                    </button>
+
+                    <div class="w-px h-4 bg-black/10 dark:bg-white/10 mx-1 hidden sm:block"></div>
+
+                    <!-- Regras da Pasta -->
+                    <button class="px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 transition-all whitespace-nowrap">
+                        <i class="ph ph-gear text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Botão NOVO Dropdown (Fora da área de Scroll, ancorado à direita) -->
+                <div class="relative shrink-0">
+                    <button id="btn-novo-dropdown" class="glass-button flex items-center gap-2 px-4 py-1.5 text-xs font-bold rounded-lg bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 hover:bg-cyan-500 hover:text-white transition-all whitespace-nowrap">
+                        <i class="ph ph-plus text-lg"></i> Novo
+                    </button>
+                    
+                    <!-- Painel Suspenso de Novo Arquivo -->
+                    <div id="menu-novo" class="absolute right-0 mt-2 w-52 glass-panel rounded-xl shadow-2xl py-2 hidden flex-col border border-white/10 transform scale-95 opacity-0 transition-all origin-top-right z-50">
+                        <button class="flex items-center gap-3 px-4 py-2 w-full text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                            <i class="ph-fill ph-folder-plus text-amber-500 text-lg"></i> Nova Pasta
+                        </button>
+                        <div class="h-px bg-black/5 dark:bg-white/10 my-1 mx-2"></div>
+                        
+                        <!-- ADICIONADO: ID no botão da Planilha para capturarmos o clique no JS -->
+                        <button id="btn-abrir-planilha-estrutural" class="flex items-center gap-3 px-4 py-2 w-full text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                            <i class="ph-fill ph-microsoft-excel-logo text-green-500 text-lg"></i> Planilha Estrutural
+                        </button>
+                        
+                        <button class="flex items-center gap-3 px-4 py-2 w-full text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                            <i class="ph-fill ph-file-text text-blue-500 text-lg"></i> Documento de Texto
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- AREA 1: MODO EXPLORADOR DE ARQUIVOS (Padrão Windows) -->
+        <div id="view-explorador" class="flex-1 overflow-y-auto p-6 flex flex-col gap-4">
+            <p class="text-xs text-slate-500 mb-2 uppercase tracking-widest font-medium">Arquivos Locais</p>
+            <div id="grid-explorador" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <!-- Vazio, aguardando JavaScript -->
+            </div>
+        </div>
+
+        <!-- AREA 2: MODO KANBAN (Opcional) -->
+        <div id="view-kanban" class="hidden flex-1 overflow-x-auto overflow-y-hidden p-6 gap-6 items-start">
+            
+            <div class="w-72 lg:w-80 shrink-0 flex flex-col max-h-full">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-slate-400"></div> Rascunhos
+                    </h3>
+                    <span id="count-rascunhos" class="text-xs bg-black/5 dark:bg-white/10 text-slate-500 px-2 py-0.5 rounded-full">0</span>
+                </div>
+                <div id="col-rascunhos" class="space-y-3 overflow-y-auto pr-1 pb-2 min-h-[150px]"></div>
+            </div>
+
+            <div class="w-72 lg:w-80 shrink-0 flex flex-col max-h-full">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="text-sm font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.6)]"></div> Em Validação
+                    </h3>
+                    <span id="count-validacao" class="text-xs bg-black/5 dark:bg-white/10 text-slate-500 px-2 py-0.5 rounded-full">0</span>
+                </div>
+                <div id="col-validacao" class="space-y-3 overflow-y-auto pr-1 pb-2 min-h-[150px]"></div>
+            </div>
+
+            <div class="w-72 lg:w-80 shrink-0 flex flex-col max-h-full">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="text-sm font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(0,229,255,0.8)]"></div> Concluídos
+                    </h3>
+                    <span id="count-concluidos" class="text-xs bg-black/5 dark:bg-white/10 text-slate-500 px-2 py-0.5 rounded-full">0</span>
+                </div>
+                <div id="col-concluidos" class="space-y-3 overflow-y-auto pr-1 pb-2 min-h-[150px]"></div>
+            </div>
+        </div>
+
+        <!-- Painel de Auditoria (ABSOLUTE DENTRO DO MAIN) -->
+        <div id="audit-panel" class="absolute right-0 top-0 h-full w-80 glass-panel border-l border-black/5 dark:border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col bg-white/60 dark:bg-deep-900/80 backdrop-blur-2xl">
+            <div class="p-4 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-black/5 dark:bg-transparent">
+                <h3 class="font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="ph ph-file-text text-cyan-500"></i> Auditoria de Workflow
+                </h3>
+                <button id="btn-close-audit" class="text-slate-400 hover:text-red-500 transition-colors"><i class="ph ph-x text-lg"></i></button>
+            </div>
+            <div class="p-5 flex-1 overflow-y-auto">
+                <p id="audit-filename" class="text-xs font-bold text-cyan-600 dark:text-cyan-400 mb-6 break-all">Arquivo.pdf</p>
+                
+                <div class="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 dark:before:via-slate-700 before:to-transparent">
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full border border-white bg-slate-300 dark:bg-slate-700 text-slate-500 group-[.is-active]:bg-cyan-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <i class="ph-fill ph-check text-[10px]"></i>
+                        </div>
+                        <div class="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.5rem)] glass-panel p-3 rounded shadow">
+                            <div class="flex items-center justify-between space-x-2 mb-1">
+                                <div class="font-bold text-slate-800 dark:text-slate-200 text-xs">Criado</div>
+                                <time class="text-[10px] font-medium text-cyan-500">Há 2 dias</time>
+                            </div>
+                            <div class="text-[10px] text-slate-500">Por Diego Silva</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ELEMENTOS FLUTUANTES FORA DO FLUXO PRINCIPAL (FIXED) -->
+<div id="context-menu" class="hidden fixed z-[90] glass-panel py-2 rounded-xl w-52 shadow-2xl border border-white/10 transform scale-95 opacity-0 transition-all origin-top-left flex-col text-sm">
+    <button id="ctx-abrir" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <i class="ph ph-folder-open text-lg"></i> Abrir
+    </button>
+    <button id="ctx-renomear" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <i class="ph ph-textbox text-lg"></i> Renomear
+    </button>
+    <div class="h-px bg-black/5 dark:bg-white/10 my-1 mx-2"></div>
+    <button id="ctx-copiar" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <i class="ph ph-copy text-lg"></i> Copiar
+    </button>
+    <button id="ctx-recortar" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <i class="ph ph-scissors text-lg"></i> Recortar
+    </button>
+    <button id="ctx-colar" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-400 dark:text-slate-500 cursor-not-allowed transition-colors">
+        <i class="ph ph-clipboard-text text-lg"></i> Colar (Vazio)
+    </button>
+    <div id="ctx-div-trancar" class="h-px bg-black/5 dark:bg-white/10 my-1 mx-2"></div>
+    <button id="ctx-trancar" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+        <i class="ph ph-lock-key text-lg"></i> <span id="ctx-trancar-text">Trancar Edição</span>
+    </button>
+    <button id="ctx-auditoria" class="flex items-center gap-3 px-4 py-2 w-full text-left text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <i class="ph ph-clock-counter-clockwise text-lg"></i> Ver Auditoria
+    </button>
+    <div class="h-px bg-black/5 dark:bg-white/10 my-1 mx-2"></div>
+    <button id="ctx-excluir" class="flex items-center gap-3 px-4 py-2 w-full text-left text-red-500 hover:bg-red-500/10 transition-colors">
+        <i class="ph ph-trash text-lg"></i> Lixeira
+    </button>
+</div>

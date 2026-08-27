@@ -1,0 +1,298 @@
+<div class="h-full flex flex-col gap-6 animate-fade-in relative overflow-hidden">
+
+    <header class="glass-panel p-4 rounded-2xl flex flex-col lg:flex-row items-center justify-between gap-4 shrink-0 relative z-20">
+        
+        <div class="flex items-center gap-4 w-full lg:w-auto">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shadow-[0_0_15px_rgba(0,229,255,0.2)] shrink-0">
+                <i class="ph-fill ph-database text-2xl text-cyan-500"></i>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center gap-2">
+                    <input type="text" id="sheet-title" value="Solicitações de Compras" class="bg-transparent text-xl font-medium text-slate-800 dark:text-white border-b border-transparent hover:border-cyan-500/50 focus:border-cyan-500 focus:outline-none transition-colors w-full px-1 py-0.5">
+                    <span id="badge-template-ativo" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                        <i class="ph-fill ph-tag text-xs"></i> Setor Operacional
+                    </span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 px-1">Planilha Conectada ao Motor de Contabilidade e DFC</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0">
+            
+            <div class="relative shrink-0">
+                <select id="select-sheet-template" class="search-input text-xs font-semibold py-2 px-3 rounded-xl appearance-none pr-8 cursor-pointer border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200">
+                    <option value="sheet_compras">📋 Template: Compras & CAPEX/OPEX</option>
+                    <option value="sheet_colaboradores">👥 Template: DP & Folha de Pagamento</option>
+                    <option value="sheet_vendas">💰 Template: Faturamento & Receitas</option>
+                </select>
+                <i class="ph ph-caret-down absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+            </div>
+
+            <div class="w-px h-6 bg-black/10 dark:bg-white/10 shrink-0"></div>
+
+            <div class="flex items-center bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-black/5 dark:border-white/10 shrink-0">
+                <button data-view="grid" class="main-view-btn active p-2 rounded-lg text-cyan-600 dark:text-cyan-400 bg-white dark:bg-deep-800 shadow-sm transition-all" title="Modo Tabela">
+                    <i class="ph ph-table text-lg"></i>
+                </button>
+                <button data-view="cards" class="main-view-btn p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-all" title="Modo Cartões">
+                    <i class="ph ph-cards text-lg"></i>
+                </button>
+            </div>
+
+            <div class="w-px h-6 bg-black/10 dark:bg-white/10 shrink-0"></div>
+
+            <button id="btn-abrir-dropzone" class="glass-button flex items-center gap-2 px-3 py-2 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white rounded-xl text-sm font-medium transition-all shadow-[0_0_10px_rgba(16,185,129,0.1)] whitespace-nowrap border border-emerald-500/20">
+                <i class="ph ph-file-pdf text-lg"></i> Importar NF-e
+            </button>
+
+            <button id="btn-add-linha" class="glass-button flex items-center gap-2 px-3 py-2 bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 hover:bg-cyan-500 hover:text-white rounded-xl text-sm font-medium transition-all shadow-[0_0_10px_rgba(0,229,255,0.1)] whitespace-nowrap">
+                <i class="ph ph-plus text-lg"></i> Novo Manual
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col overflow-hidden relative z-10">
+        
+        <div id="view-container-grid" class="view-layer flex-1 glass-panel rounded-2xl flex flex-col overflow-hidden shadow-2xl transition-opacity duration-300">
+            <div id="grid-scroll-container" class="flex-1 overflow-auto bg-white/30 dark:bg-deep-900/50 relative">
+                <table class="w-max min-w-full border-collapse text-sm table-fixed">
+                    <thead id="grid-thead" class="text-slate-500 dark:text-slate-400 font-medium text-xs select-none shadow-sm"></thead>
+                    <tbody id="grid-tbody" class="text-slate-700 dark:text-slate-300"></tbody>
+                </table>
+            </div>
+            <div class="border-t border-black/5 dark:border-white/5 p-2 bg-black/5 dark:bg-transparent flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-widest font-medium shrink-0 relative z-20">
+                <span id="sheet-status-count">0 Linhas</span>
+                <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> Workflow Ativo</span>
+            </div>
+        </div>
+
+        <div id="view-container-cards" class="view-layer hidden flex-1 overflow-y-auto pb-6 transition-opacity duration-300">
+            <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+        </div>
+
+        <div id="offcanvas-formulario-nfe" class="absolute right-0 top-0 h-full w-full sm:w-[600px] lg:w-[700px] glass-panel border-l border-black/5 dark:border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.2)] transform translate-x-full transition-transform duration-300 z-[60] flex flex-col bg-white/95 dark:bg-deep-900/95 backdrop-blur-3xl">
+            
+            <div class="p-5 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-black/5 dark:bg-transparent shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center border border-cyan-500/20 shadow-[0_0_10px_rgba(0,229,255,0.2)]">
+                        <i class="ph-fill ph-receipt text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 id="form-nfe-title" class="font-bold text-slate-800 dark:text-white">Formulário de Compra</h3>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <span id="badge-status-linha" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-300">Rascunho</span>
+                            <p id="form-nfe-subtitle" class="text-xs text-slate-500 dark:text-slate-400">Preenchimento Inteligente</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-close-formulario" class="w-8 h-8 flex items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors">
+                    <i class="ph ph-x text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="flex border-b border-black/5 dark:border-white/10 px-5 shrink-0 bg-black/5 dark:bg-transparent overflow-x-auto no-scrollbar">
+                <button data-tab="cabecalho" class="nfe-tab-btn px-4 py-3 text-sm font-semibold text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500 transition-colors whitespace-nowrap">Cabeçalho</button>
+                <button data-tab="itens" class="nfe-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent transition-colors flex items-center gap-1 whitespace-nowrap">Itens <span id="badge-qtd-itens" class="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded-full text-[10px]">0</span></button>
+                <button data-tab="tributos" class="nfe-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent transition-colors flex items-center gap-1 whitespace-nowrap"><i class="ph ph-receipt"></i> Tributos</button>
+                <button data-tab="financeiro" class="nfe-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent transition-colors flex items-center gap-1 whitespace-nowrap">Financeiro <span id="badge-qtd-parcelas" class="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded-full text-[10px]">0</span></button>
+                <button data-tab="json" class="nfe-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent transition-colors flex items-center gap-1 whitespace-nowrap"><i class="ph ph-code"></i> RAW</button>
+            </div>
+
+            <div class="p-5 flex-1 overflow-y-auto relative bg-slate-50/50 dark:bg-transparent">
+                
+                <div id="tab-cabecalho" class="nfe-tab-content space-y-5 animate-fade-in">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl border-2 border-cyan-500/50 bg-cyan-500/5 relative overflow-hidden shadow-[0_0_15px_rgba(0,229,255,0.1)]">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500/10 rounded-bl-full -mr-4 -mt-4"></div>
+                        
+                        <!-- Canal Fiscal -->
+                        <div>
+                            <label class="block text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="ph-fill ph-git-merge"></i> Canal / Destino
+                            </label>
+                            <select id="input-canal-fiscal" class="w-full bg-white dark:bg-deep-800 border border-cyan-500/30 rounded-lg p-2.5 text-sm font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer transition-all">
+                                <option value="COMPRA">Compras & Insumos (Fornecedores)</option>
+                                <option value="VENDA">Venda de Produtos (Clientes)</option>
+                                <option value="SERVICO_TOMADO">Serviços Tomados (Terceiros)</option>
+                                <option value="SERVICO_PRESTADO">Serviços Prestados (Clientes)</option>
+                                <option value="TRANSFERENCIA">Transferência / Remessa</option>
+                            </select>
+                            <p class="text-[10px] text-slate-500 mt-1">Define o fluxo real da nota no ERP.</p>
+                        </div>
+
+                        <!-- Classificação Contábil -->
+                        <div>
+                            <label class="block text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="ph-fill ph-tag"></i> Classificação (CAPEX/OPEX)
+                            </label>
+                            <select id="input-tag-contabil" class="w-full bg-white dark:bg-deep-800 border border-cyan-500/30 rounded-lg p-2.5 text-sm font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer transition-all">
+                                <option value="CAPEX">CAPEX (Imobilizado / Investimento)</option>
+                                <option value="OPEX">OPEX (Despesa / Custo Operacional)</option>
+                                <option value="RECEITA">RECEITA (Faturamento)</option>
+                            </select>
+                            <p class="text-[10px] text-slate-500 mt-1">Define o impacto no Balanço/DRE.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Fornecedor / Emitente</label>
+                            <input type="text" id="input-fornecedor" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg p-2.5 text-sm text-slate-700 dark:text-slate-300" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">CNPJ</label>
+                            <input type="text" id="input-cnpj" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg p-2.5 text-sm text-slate-700 dark:text-slate-300" readonly>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Centro de Custo / Vertical de Negócio</label>
+                        <select id="input-centro-custo" class="w-full bg-white dark:bg-deep-800 border border-black/10 dark:border-white/10 rounded-lg p-2.5 text-sm font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer">
+                            <option value="">Selecione o Projeto / Vertical...</option>
+                            <option value="SURVEY_POSITIONING">Survey Positioning (USBL/LBL)</option>
+                            <option value="CONTROLE_DIMENSIONAL">Controle Dimensional (DimCon)</option>
+                            <option value="CONSTRUCTION_SUPPORT">Construction Support (PLSV)</option>
+                            <option value="DESCOMISSIONAMENTO">Descomissionamento Offshore</option>
+                            <option value="RENEWABLES_EOLICA">Energias Renováveis (Eólicas UXO)</option>
+                            <option value="ONSHORE_CONSULTING">Remote Operations Center (ROC)</option>
+                            <option value="FABRICACAO_BATERIAS">Fabricação de Baterias (LiFePO4)</option>
+                            <option value="ADMINISTRATIVO_GERAL">Administrativo & Sede Barra</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Chave de Acesso (NF-e)</label>
+                            <input type="text" id="input-chave" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg p-2.5 text-sm text-slate-700 dark:text-slate-300 font-mono text-xs" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Data de Emissão</label>
+                            <input type="date" id="input-data" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg p-2.5 text-sm text-slate-700 dark:text-slate-300" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Valor Total (R$)</label>
+                            <input type="text" id="input-valor-total" class="w-full bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2.5 text-lg font-bold text-emerald-600 dark:text-emerald-400 text-right" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-itens" class="nfe-tab-content hidden animate-fade-in h-full flex flex-col">
+                    <div class="flex-1 overflow-x-auto rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-deep-900/50">
+                        <table class="w-max min-w-full text-xs text-left table-fixed border-collapse">
+                            <thead class="bg-black/5 dark:bg-white/5 text-slate-500 uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-3 py-2 w-24">Código</th>
+                                    <th class="px-3 py-2 w-64">Descrição do Produto</th>
+                                    <th class="px-3 py-2 w-20">NCM</th>
+                                    <th class="px-3 py-2 w-16 text-center">Qtd</th>
+                                    <th class="px-3 py-2 w-24 text-right">V. Unit</th>
+                                    <th class="px-3 py-2 w-24 text-right">V. Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-itens-nfe"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-financeiro" class="nfe-tab-content hidden animate-fade-in h-full flex flex-col">
+                    <div class="flex-1 overflow-x-auto rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-deep-900/50">
+                        <table class="w-max min-w-full text-xs text-left table-fixed border-collapse">
+                            <thead class="bg-black/5 dark:bg-white/5 text-slate-500 uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-3 py-2 w-24">Parcela</th>
+                                    <th class="px-3 py-2 w-32">Vencimento</th>
+                                    <th class="px-3 py-2 w-32 text-right">Valor (R$)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-financeiro-nfe"></tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-400 flex gap-2">
+                        <i class="ph-fill ph-warning-circle text-base"></i>
+                        <p>Estas parcelas serão programadas no Módulo Financeiro (DFC) automaticamente após a aprovação da Diretoria.</p>
+                    </div>
+                </div>
+
+                <div id="tab-tributos" class="nfe-tab-content hidden space-y-4 animate-fade-in">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-deep-800">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 mb-1">ICMS Total</p>
+                            <p id="total-icms" class="text-sm font-medium text-slate-800 dark:text-white">R$ 0,00</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-deep-800">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 mb-1">IPI Total</p>
+                            <p id="total-ipi" class="text-sm font-medium text-slate-800 dark:text-white">R$ 0,00</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-deep-800">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 mb-1">PIS Total</p>
+                            <p id="total-pis" class="text-sm font-medium text-slate-800 dark:text-white">R$ 0,00</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-deep-800">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 mb-1">COFINS Total</p>
+                            <p id="total-cofins" class="text-sm font-medium text-slate-800 dark:text-white">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5">
+                        <p class="text-xs text-cyan-700 dark:text-cyan-400 font-medium"><i class="ph-fill ph-info"></i> Os tributos foram extraídos diretamente do arquivo XML para uso futuro na DRE e fluxo de caixa.</p>
+                    </div>
+                </div>
+
+                <div id="tab-json" class="nfe-tab-content hidden h-full flex flex-col animate-fade-in">
+                    <p class="text-xs text-slate-500 mb-2">Estrutura de dados original retida no banco (JSONB):</p>
+                    <div class="flex-1 overflow-hidden rounded-xl border border-black/10 dark:border-white/10 bg-[#0d1117] relative">
+                        <pre id="json-raw-view" class="p-4 text-[11px] font-mono text-emerald-400 h-full overflow-y-auto w-full leading-relaxed"></pre>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="p-4 border-t border-black/5 dark:border-white/10 flex justify-between items-center bg-black/5 dark:bg-transparent shrink-0">
+                <button id="btn-excluir-rascunho" class="px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-500/10 rounded-lg transition-colors flex items-center gap-1">
+                    <i class="ph ph-trash"></i> Excluir
+                </button>
+                <div class="flex gap-2">
+                    <button id="btn-salvar-rascunho" class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-colors">Guardar Rascunho</button>
+                    <button id="btn-enviar-aprovacao" class="glass-button px-5 py-2 bg-cyan-500 text-white hover:bg-cyan-600 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2">
+                        <i class="ph-fill ph-paper-plane-right"></i> Enviar p/ Aprovação
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="modal-dropzone-nfe" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-md transition-opacity duration-300">
+    <div class="glass-panel w-full max-w-lg p-6 rounded-3xl shadow-2xl border border-white/10 transform scale-95 transition-transform duration-300 bg-white/95 dark:bg-deep-900/95 relative overflow-hidden">
+        
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl"></div>
+
+        <div class="flex items-center justify-between pb-2 mb-4 relative z-10">
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                <i class="ph-fill ph-magic-wand text-cyan-500 text-xl"></i> Extrator Fiscal Inteligente
+            </h3>
+            <button id="btn-fechar-dropzone" class="text-slate-400 hover:text-red-500 bg-black/5 dark:bg-white/5 p-1.5 rounded-lg transition-colors"><i class="ph ph-x text-lg"></i></button>
+        </div>
+
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 relative z-10">
+            Arraste o ficheiro <strong class="text-slate-700 dark:text-slate-200">XML da NF-e</strong> (Recomendado) ou o PDF do DANFE.
+        </p>
+
+        <div id="dropzone-area" class="relative z-10 w-full h-48 rounded-2xl border-2 border-dashed border-cyan-500/40 bg-cyan-500/5 hover:bg-cyan-500/10 flex flex-col items-center justify-center cursor-pointer transition-all group">
+            <input type="file" id="input-file-nfe" accept=".xml, .pdf" class="hidden">
+            
+            <div id="dropzone-content-default" class="flex flex-col items-center pointer-events-none transition-opacity duration-300">
+                <div class="w-16 h-16 mb-3 rounded-full bg-white dark:bg-deep-800 shadow-lg flex items-center justify-center text-cyan-500 group-hover:scale-110 transition-transform">
+                    <i class="ph ph-upload-simple text-3xl"></i>
+                </div>
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Clique ou arraste o ficheiro para aqui</span>
+                <span class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Suporta .XML e .PDF</span>
+            </div>
+
+            <div id="dropzone-content-loading" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-deep-900/80 backdrop-blur-sm rounded-xl">
+                <i class="ph ph-spinner-gap text-4xl text-cyan-500 animate-spin mb-2"></i>
+                <span class="text-sm font-bold text-slate-700 dark:text-white" id="dropzone-loading-text">A extrair dados fiscais...</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,260 @@
+<!-- colaboradores.html -->
+<div class="h-full flex flex-col gap-6 animate-fade-in relative">
+
+    <!-- Toolbar Superior -->
+    <header class="glass-panel p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
+        <div>
+            <h2 class="text-xl font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                <i class="ph ph-users text-cyan-600 dark:text-cyan-400"></i> Gestão de Efetivo
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Controle de colaboradores, NRs e Atestados (O&G)</p>
+        </div>
+
+        <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+            
+            <!-- Toggle de Visualização (Grid / Lista) -->
+            <div class="flex p-1 bg-black/5 dark:bg-white/5 rounded-lg border border-black/5 dark:border-white/10">
+                <button id="btn-view-grid" class="view-toggle-btn active p-1.5 rounded text-cyan-600 dark:text-cyan-400 bg-white dark:bg-deep-800 shadow-sm transition-all" title="Visualização em Grade">
+                    <i class="ph ph-squares-four text-lg"></i>
+                </button>
+                <button id="btn-view-list" class="view-toggle-btn p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all" title="Visualização em Lista">
+                    <i class="ph ph-list-dashes text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Botão Novo Cadastro -->
+            <button id="btn-novo-colaborador" class="glass-button flex items-center gap-2 px-4 py-2 bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 hover:bg-cyan-500 hover:text-white rounded-xl text-sm font-medium transition-all shadow-[0_0_10px_rgba(0,229,255,0.1)]">
+                <i class="ph ph-user-plus text-lg"></i>
+                <span class="hidden sm:inline">Novo Cadastro</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Área de Conteúdo Dinâmico (Grid ou Lista será injetado aqui) -->
+    <div id="colaboradores-container" class="flex-1 overflow-y-auto pr-2 pb-4">
+        <!-- Injetado via JavaScript -->
+    </div>
+
+    <!-- Modal de Cadastro / RH Wizard (Oculto por padrão) -->
+    <div id="modal-rh" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-white/40 dark:bg-deep-900/80 backdrop-blur-sm transition-opacity opacity-0 p-4">
+        <div class="glass-panel w-full max-w-4xl rounded-2xl flex flex-col overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 max-h-[90vh]" id="modal-rh-content">
+            
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between p-5 border-b border-black/5 dark:border-white/5 bg-black/5 dark:bg-transparent">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+                        <i class="ph-fill ph-identification-card text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">Dossiê do Colaborador (RH/DP)</h3>
+                        <p class="text-xs text-slate-500">Cadastro Integrado para Gestão Onshore e Offshore</p>
+                    </div>
+                </div>
+                <button id="btn-fechar-modal" class="text-slate-400 hover:text-red-500 transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="flex overflow-x-auto border-b border-black/5 dark:border-white/5 px-6 pt-2 hide-scrollbar">
+                <button class="rh-tab-btn active px-4 py-3 text-sm font-medium text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500 whitespace-nowrap" data-target="tab-pessoal">
+                    <i class="ph ph-user mr-1"></i> Dados Pessoais
+                </button>
+                <button class="rh-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap" data-target="tab-contrato">
+                    <i class="ph ph-file-text mr-1"></i> Contrato & Escala
+                </button>
+                <button class="rh-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap" data-target="tab-sst">
+                    <i class="ph ph-lifebuoy mr-1"></i> SST & Offshore
+                </button>
+                <button class="rh-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap" data-target="tab-epi">
+                    <i class="ph ph-hard-hat mr-1"></i> Medidas / EPIs
+                </button>
+                <button class="rh-tab-btn px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap" data-target="tab-banco">
+                    <i class="ph ph-bank mr-1"></i> Dados Bancários
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
+                
+                <!-- TAB 1: Pessoal -->
+                <div id="tab-pessoal" class="rh-tab-content space-y-5 animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2 space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Nome Completo *</label>
+                            <input type="text" id="colab-nome" placeholder="Nome conforme documento" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">CPF *</label>
+                            <input type="text" id="colab-cpf" placeholder="000.000.000-00" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">RG / Órgão Emissor</label>
+                            <input type="text" id="colab-rg" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Data de Nascimento</label>
+                            <input type="date" id="colab-nascimento" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Estado Civil</label>
+                            <select id="colab-estado-civil" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option>Solteiro(a)</option>
+                                <option>Casado(a)</option>
+                                <option>Divorciado(a)</option>
+                                <option>Viúvo(a)</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-3 space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Endereço Completo</label>
+                            <input type="text" id="colab-endereco" placeholder="Rua, Número, Bairro, Cidade - UF" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: Contrato -->
+                <div id="tab-contrato" class="rh-tab-content space-y-5 hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Cargo / Função *</label>
+                            <input type="text" id="colab-cargo" placeholder="Ex: Técnico de ROV, Engenheiro Subsea" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Matrícula (Crachá)</label>
+                            <input type="text" id="colab-matricula" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Regime de Trabalho</label>
+                            <select id="colab-regime" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option value="CLT">CLT (Consolidação das Leis do Trabalho)</option>
+                                <option value="PJ_HIBRIDO">PJ Simples Híbrido (LC 214/2025)</option>
+                                <option value="PJ_PRESUMIDO">PJ Lucro Presumido</option>
+                                <option value="ESTAGIARIO_TRAINEE">Trainee / Estagiário (Mitang Talent)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Departamento</label>
+                            <select id="colab-departamento" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option value="Operacional">Operacional & Campo</option>
+                                <option value="Engenharia">Engenharia & Subsea</option>
+                                <option value="Manutencao">Manutenção & Oficinas</option>
+                                <option value="Diretoria">Diretoria & C-Level</option>
+                                <option value="Depto Pessoal">Depto Pessoal & RH</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Data de Admissão</label>
+                            <input type="date" id="colab-admissao" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Salário Base (R$)</label>
+                            <input type="number" step="0.01" id="colab-salario" placeholder="0,00" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SST & Offshore -->
+                <div id="tab-sst" class="rh-tab-content space-y-6 hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Validade ASO</label>
+                            <input type="date" id="colab-aso" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Validade CBSP (Salvatagem)</label>
+                            <input type="date" id="colab-cbsp" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Validade HUET (Helicóptero)</label>
+                            <input type="date" id="colab-huet" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Passaporte (Vencimento)</label>
+                            <input type="date" id="colab-passaporte" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none text-slate-600 dark:text-slate-300">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-semibold text-slate-500 mb-2 block">Normas Regulamentadoras (NRs - Ativas)</label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer bg-black/5 dark:bg-white/5 px-4 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 transition-colors">
+                                <input type="checkbox" class="accent-cyan-500 w-4 h-4"> NR-10 (Elétrica)
+                            </label>
+                            <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer bg-black/5 dark:bg-white/5 px-4 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 transition-colors">
+                                <input type="checkbox" class="accent-cyan-500 w-4 h-4"> NR-33 (Espaço Confinado)
+                            </label>
+                            <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer bg-black/5 dark:bg-white/5 px-4 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 transition-colors">
+                                <input type="checkbox" class="accent-cyan-500 w-4 h-4"> NR-35 (Altura)
+                            </label>
+                            <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 cursor-pointer bg-black/5 dark:bg-white/5 px-4 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 transition-colors">
+                                <input type="checkbox" class="accent-cyan-500 w-4 h-4"> CACI
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: EPIs -->
+                <div id="tab-epi" class="rh-tab-content space-y-5 hidden animate-fade-in">
+                    <p class="text-xs text-slate-500 mb-4">Essencial para logística de embarque e controle de almoxarifado.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Macacão/Uniforme</label>
+                            <select class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option>PP</option><option>P</option><option>M</option><option>G</option><option>GG</option><option>EXG</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Bota (Numeração)</label>
+                            <input type="number" min="33" max="48" placeholder="Ex: 41" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Luvas</label>
+                            <select class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option>P</option><option>M</option><option>G</option><option>EG</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: Financeiro -->
+                <div id="tab-banco" class="rh-tab-content space-y-5 hidden animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Banco</label>
+                            <input type="text" placeholder="Ex: Itaú, Bradesco, Nubank" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Tipo de Conta</label>
+                            <select class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                                <option>Conta Corrente</option>
+                                <option>Conta Poupança</option>
+                                <option>Conta Salário</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Agência</label>
+                            <input type="text" placeholder="0000" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Conta com Dígito</label>
+                            <input type="text" placeholder="00000-0" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                        <div class="md:col-span-2 space-y-1">
+                            <label class="text-xs font-semibold text-slate-500">Chave PIX</label>
+                            <input type="text" placeholder="CPF, Email ou Celular" class="search-input w-full rounded-lg py-2 px-3 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Footer Modal -->
+            <div class="p-5 border-t border-black/5 dark:border-white/5 flex justify-end gap-3 bg-black/5 dark:bg-transparent shrink-0">
+                <button id="btn-cancelar-modal" class="px-5 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">Cancelar</button>
+                <button id="btn-salvar-colaborador" class="glass-button px-6 py-2.5 bg-cyan-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-cyan-500/30 hover:bg-cyan-500 transition-all flex items-center gap-2">
+                    <i class="ph-bold ph-floppy-disk"></i> Salvar Dossiê
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

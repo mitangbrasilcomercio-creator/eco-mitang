@@ -1,0 +1,586 @@
+<!-- ==========================================
+     PRODUTOS.HTML - ENGENHARIA & CATÁLOGO DE BATERIAS (FASE 5)
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & KPIs Estratégicos -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-battery-charging text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">Engenharia & Fabricação de Baterias Submarinas</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Classificação Fiscal NCM 8507.60.00 • Bill of Materials (BOM) • Precificação & Margens</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="produtosModule.abrirModalNovoInsumo()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-plus-circle text-lg text-cyan-400"></i> Novo Insumo
+            </button>
+            <button onclick="produtosModule.abrirModalNovoProduto()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i class="ph ph-cube text-lg"></i> Novo Pack / Produto
+            </button>
+            <button onclick="produtosModule.executarSeed()" title="Carrega a base com as baterias e componentes reais da Mitang" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Inicial Mitang
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Total de Produtos -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Packs em Catálogo</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-total-produtos">0</h3>
+                    <span class="text-xs text-emerald-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-check-circle"></i> <span id="kpi-produtos-ativos">0</span> Ativos na Linha
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-package text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: Insumos Cadastrados -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total de Insumos</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-total-insumos">0</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-circles-three-plus"></i> 10 Famílias de Insumos
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <i class="ph ph-cpu text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Alertas de Estoque Mínimo -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Ponto de Reposição</span>
+                    <h3 class="text-2xl font-bold text-amber-400 mt-1" id="kpi-insumos-alerta">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1" id="kpi-insumos-alerta-desc">
+                        Abaixo do Estoque Mínimo
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                    <i class="ph ph-warning text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Cotação Dólar PTAX Mouser -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Câmbio PTAX (Mouser)</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-dolar-ptax">R$ 5,45</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-currency-dollar"></i> Conversão Automática USD
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-arrows-left-right text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Navegação do Módulo -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="produtosModule.trocarAba('catalogo')" id="tab-btn-catalogo" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-grid-four text-lg"></i> Catálogo de Packs & Baterias
+        </button>
+        <button onclick="produtosModule.trocarAba('bom-builder')" id="tab-btn-bom-builder" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-tree-structure text-lg"></i> Construtor de BOM (Engenharia)
+        </button>
+        <button onclick="produtosModule.trocarAba('almoxarifado')" id="tab-btn-almoxarifado" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-warehouse text-lg"></i> Almoxarifado de Insumos & Células
+        </button>
+    </div>
+
+    <!-- 4. Conteúdo da Aba 1: Catálogo de Produtos -->
+    <div id="aba-catalogo" class="space-y-6">
+        <!-- Filtros Rápidos -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <div class="relative flex-1 sm:w-72">
+                    <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="filtro-busca-produtos" oninput="produtosModule.filtrarProdutos()" placeholder="Buscar pack por código, modelo, fabricante..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+                <select id="filtro-quimica-produtos" onchange="produtosModule.filtrarProdutos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todas as Químicas</option>
+                    <option value="Li-SOCL2">Li-SOCL2 (Cloreto de Tionila)</option>
+                    <option value="LiFePO4">LiFePO4 (Lítio Fosfato de Ferro)</option>
+                    <option value="Li-Ion">Li-Ion (Íon de Lítio)</option>
+                    <option value="Alcalina">Alcalina</option>
+                    <option value="Ni-MH">Ni-MH (Níquel Metal Hidreto)</option>
+                </select>
+            </div>
+            <div class="text-xs text-slate-400">
+                Exibindo <span class="font-bold text-cyan-400" id="contador-produtos-exibidos">0</span> packs cadastrados
+            </div>
+        </div>
+
+        <!-- Grid de Cards de Produtos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="grid-produtos">
+            <!-- Cards renderizados dinamicamente via produtos.js -->
+        </div>
+    </div>
+
+    <!-- 5. Conteúdo da Aba 2: Construtor de BOM (BOM Builder) -->
+    <div id="aba-bom-builder" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Painel Esquerdo: Seleção e Composição da BOM (8 Colunas) -->
+            <div class="lg:col-span-8 glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
+                <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                            <i class="ph ph-wrench text-cyan-400"></i> Montagem e Engenharia de Pack (BOM)
+                        </h3>
+                        <p class="text-xs text-slate-400">Adicione insumos, estipule quantidades e acompanhe o custo total em tempo real.</p>
+                    </div>
+                    <button onclick="produtosModule.adicionarItemBOMBuilder()" class="px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-bold transition-all flex items-center gap-1.5">
+                        <i class="ph ph-plus"></i> Adicionar Insumo
+                    </button>
+                </div>
+
+                <!-- Tabela Dinâmica do BOM Builder -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="text-xs uppercase bg-slate-900/50 text-slate-400 border-b border-white/5">
+                            <tr>
+                                <th class="px-3 py-3">Insumo / Componente</th>
+                                <th class="px-3 py-3">Categoria</th>
+                                <th class="px-3 py-3 w-28">Custo Unit. (R$)</th>
+                                <th class="px-3 py-3 w-28">Quantidade</th>
+                                <th class="px-3 py-3 w-32">Subtotal (R$)</th>
+                                <th class="px-2 py-3 w-12 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-bom-builder" class="divide-y divide-white/5">
+                            <!-- Linhas inseridas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Painel Direito: Resumo Financeiro & Formação de Preço (4 Colunas) -->
+            <div class="lg:col-span-4 glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white border-b border-white/10 pb-4 flex items-center gap-2">
+                    <i class="ph ph-calculator text-cyan-400"></i> Formação de Preço
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Custo Total de Pilhas/Células:</span>
+                        <span class="font-semibold text-white" id="bom-resumo-custo-pilhas">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Custo de Componentes & Fios:</span>
+                        <span class="font-semibold text-white" id="bom-resumo-custo-componentes">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm pt-2 border-t border-white/5">
+                        <span class="font-bold text-slate-300">Custo Industrial Total (BOM):</span>
+                        <span class="font-bold text-cyan-400 text-base" id="bom-resumo-custo-total">R$ 0,00</span>
+                    </div>
+
+                    <!-- Configuração de Margem -->
+                    <div class="pt-4 border-t border-white/10 space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-medium text-slate-300">Margem Bruta Alvo (%):</span>
+                            <span class="font-bold text-cyan-400" id="bom-display-margem">45%</span>
+                        </div>
+                        <input type="range" id="bom-slider-margem" min="10" max="80" value="45" oninput="produtosModule.recalcularBOMBuilder()" class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                    </div>
+
+                    <!-- Preço de Venda Sugerido -->
+                    <div class="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-center space-y-1">
+                        <span class="text-xs text-slate-400 uppercase tracking-wider">Preço de Venda Sugerido</span>
+                        <h4 class="text-2xl font-bold text-cyan-400" id="bom-preco-sugerido">R$ 0,00</h4>
+                        <span class="text-[11px] text-slate-400 block">Lucro Bruto Estimado: <strong class="text-emerald-400" id="bom-lucro-estimado">R$ 0,00</strong></span>
+                    </div>
+
+                    <!-- Botão Salvar como Novo Pack -->
+                    <button onclick="produtosModule.salvarBOMComoProduto()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+                        <i class="ph ph-floppy-disk text-lg"></i> Salvar como Novo Pack
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Conteúdo da Aba 3: Almoxarifado de Insumos -->
+    <div id="aba-almoxarifado" class="space-y-6 hidden">
+        <!-- Barra de Controle do Almoxarifado -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="filtro-busca-insumos" oninput="produtosModule.filtrarInsumos()" placeholder="Buscar insumo por código, descrição..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+                <select id="filtro-categoria-insumos" onchange="produtosModule.filtrarInsumos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todas as Categorias</option>
+                    <option value="PILHA">Pilhas & Células</option>
+                    <option value="DIODO">Diodos</option>
+                    <option value="PTC">PTCs (Fusíveis)</option>
+                    <option value="NTC">NTCs (Temperatura)</option>
+                    <option value="CONECTOR">Conectores</option>
+                    <option value="PINO_TERMINAL">Pinos / Terminais</option>
+                    <option value="FIO_SILICONE">Fios & Cabos</option>
+                    <option value="ROUPA_TERMORETRATIL">Roupas / Espaguetes</option>
+                    <option value="CASCO">Cascos de Pressão</option>
+                </select>
+                <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer bg-slate-900/40 px-3 py-2 rounded-xl border border-white/5">
+                    <input type="checkbox" id="filtro-alerta-insumos" onchange="produtosModule.filtrarInsumos()" class="rounded bg-slate-800 border-white/10 text-cyan-500 focus:ring-0">
+                    <span>Apenas Estoque Crítico</span>
+                </label>
+            </div>
+            <button onclick="produtosModule.abrirModalMovimentacao()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-bold transition-all flex items-center gap-1.5">
+                <i class="ph ph-arrows-left-right"></i> Registrar Movimentação
+            </button>
+        </div>
+
+        <!-- Tabela do Almoxarifado -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Código / SKU</th>
+                            <th class="px-4 py-3.5">Descrição</th>
+                            <th class="px-4 py-3.5">Categoria</th>
+                            <th class="px-4 py-3.5">Fornecedor</th>
+                            <th class="px-4 py-3.5 text-right">Custo Unit. (R$)</th>
+                            <th class="px-4 py-3.5 text-right">Saldo em Estoque</th>
+                            <th class="px-4 py-3.5 text-center">Status</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-insumos" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas dinamicamente via produtos.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAIS DO MÓDULO DE PRODUTOS
+     ========================================== -->
+
+<!-- Modal 1: Visualizador Detalhado de BOM -->
+<div id="modal-ver-bom" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-start border-b border-white/10 pb-4">
+            <div>
+                <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider" id="modal-bom-codigo">CMXL48-M</span>
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white mt-0.5" id="modal-bom-nome">cNode Maxi 14.4V 180Ah</h3>
+                <p class="text-xs text-slate-400 mt-1" id="modal-bom-descricao"></p>
+            </div>
+            <button onclick="produtosModule.fecharModal('modal-ver-bom')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Química</span>
+                <span class="font-bold text-white text-sm" id="modal-bom-quimica">-</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Tensão / Energia</span>
+                <span class="font-bold text-white text-sm" id="modal-bom-specs">-</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Custo Total BOM</span>
+                <span class="font-bold text-cyan-400 text-sm" id="modal-bom-custo">-</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Preço de Venda</span>
+                <span class="font-bold text-emerald-400 text-sm" id="modal-bom-preco">-</span>
+            </div>
+        </div>
+
+        <!-- Tabela de Insumos da BOM -->
+        <div class="space-y-2">
+            <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Lista de Materiais (Bill of Materials)</h4>
+            <div class="overflow-x-auto rounded-xl border border-white/5">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900/80 text-slate-400">
+                        <tr>
+                            <th class="px-3 py-2.5">Código</th>
+                            <th class="px-3 py-2.5">Componente</th>
+                            <th class="px-3 py-2.5">Categoria</th>
+                            <th class="px-3 py-2.5 text-right">Qtd</th>
+                            <th class="px-3 py-2.5 text-right">Custo Unit.</th>
+                            <th class="px-3 py-2.5 text-right">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal-bom-tbody" class="divide-y divide-white/5">
+                        <!-- Renderizado dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+            <button onclick="produtosModule.fecharModal('modal-ver-bom')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium">
+                Fechar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Cadastro de Novo Insumo -->
+<div id="modal-novo-insumo" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-lg rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-plus-circle text-cyan-400"></i> Cadastrar Novo Insumo
+            </h3>
+            <button onclick="produtosModule.fecharModal('modal-novo-insumo')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-insumo" onsubmit="produtosModule.salvarNovoInsumo(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código / SKU *</label>
+                    <input type="text" id="insumo-codigo" required placeholder="Ex: ER34615" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Categoria *</label>
+                    <select id="insumo-categoria" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="PILHA">Pilhas & Células</option>
+                        <option value="DIODO">Diodos</option>
+                        <option value="PTC">PTCs (Fusíveis)</option>
+                        <option value="NTC">NTCs (Temperatura)</option>
+                        <option value="CONECTOR">Conectores</option>
+                        <option value="PINO_TERMINAL">Pinos / Terminais</option>
+                        <option value="FIO_SILICONE">Fios & Cabos</option>
+                        <option value="ROUPA_TERMORETRATIL">Roupas / Espaguetes</option>
+                        <option value="CASCO">Cascos de Pressão</option>
+                        <option value="TAMPA">Tampas Usinadas</option>
+                        <option value="OUTRO">Outro Insumo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Descrição Completa *</label>
+                <input type="text" id="insumo-descricao" required placeholder="Ex: Pilha Li-SOCL2 Expower ER34615 3.6V 19Ah D" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Unidade</label>
+                    <input type="text" id="insumo-unidade" value="UN" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Moeda</label>
+                    <select id="insumo-moeda" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="BRL">BRL (R$)</option>
+                        <option value="USD">USD (US$)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Custo Unit. Orig. *</label>
+                    <input type="number" step="0.0001" id="insumo-custo-orig" required placeholder="0.00" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">IPI (%)</label>
+                    <input type="number" step="0.01" id="insumo-ipi" value="0" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Saldo Inicial</label>
+                    <input type="number" step="1" id="insumo-saldo" value="0" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Estoque Mínimo</label>
+                    <input type="number" step="1" id="insumo-minimo" value="10" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Fornecedor Padrão</label>
+                    <input type="text" id="insumo-fornecedor" placeholder="Ex: Mouser, Expower" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Código de Compra (Part Number)</label>
+                    <input type="text" id="insumo-codigo-compra" placeholder="Ex: 538-43645-0400" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="produtosModule.fecharModal('modal-novo-insumo')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Salvar Insumo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 3: Movimentação de Estoque -->
+<div id="modal-movimentacao" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-md rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-arrows-left-right text-cyan-400"></i> Movimentação de Estoque
+            </h3>
+            <button onclick="produtosModule.fecharModal('modal-movimentacao')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-movimentacao" onsubmit="produtosModule.salvarMovimentacao(event)" class="space-y-4 text-xs">
+            <div>
+                <label class="block text-slate-400 mb-1">Insumo / Componente *</label>
+                <select id="mov-insumo-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                    <!-- Opções inseridas dinamicamente -->
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Tipo de Movimentação *</label>
+                    <select id="mov-tipo" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="ENTRADA_COMPRA">Entrada por Compra (NF-e)</option>
+                        <option value="SAIDA_PRODUCAO">Saída para Fabricação</option>
+                        <option value="AJUSTE_POSITIVO">Ajuste Positivo (Inventário)</option>
+                        <option value="AJUSTE_NEGATIVO">Ajuste Negativo (Avaria/Perda)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Quantidade *</label>
+                    <input type="number" step="0.001" id="mov-quantidade" required min="0.001" placeholder="Ex: 50" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Documento de Referência</label>
+                <input type="text" id="mov-doc-ref" placeholder="Ex: NF-e 063922 ou OP-2026-004" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Motivo / Observações</label>
+                <input type="text" id="mov-motivo" placeholder="Ex: Montagem do lote de cNode Maxi para cliente DOF" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="produtosModule.fecharModal('modal-movimentacao')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Confirmar Movimentação</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 4: Cadastro de Novo Produto / Pack -->
+<div id="modal-novo-produto" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-2xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-cube text-cyan-400"></i> Cadastrar Novo Pack / Produto
+            </h3>
+            <button onclick="produtosModule.fecharModal('modal-novo-produto')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-produto" onsubmit="produtosModule.salvarNovoProduto(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código Único do Pack *</label>
+                    <input type="text" id="prod-codigo" required placeholder="Ex: CMXL48-N" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Fabricante Original</label>
+                    <input type="text" id="prod-fabricante" placeholder="Ex: Kongsberg, Teledyne, Sontek" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Nome Comercial do Pack *</label>
+                <input type="text" id="prod-nome" required placeholder="Ex: cNode Maxi (Novo) 14.4V 180Ah 2.592Wh" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Descrição Técnica</label>
+                <textarea id="prod-descricao" rows="2" placeholder="Ex: Pack de acumuladores submarinos de alta densidade energética para transponders oceanográficos..." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400"></textarea>
+            </div>
+
+            <div class="grid grid-cols-4 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Química *</label>
+                    <select id="prod-quimica" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="Li-SOCL2">Li-SOCL2</option>
+                        <option value="LiFePO4">LiFePO4</option>
+                        <option value="Li-Ion">Li-Ion</option>
+                        <option value="Alcalina">Alcalina</option>
+                        <option value="Ni-MH">Ni-MH</option>
+                        <option value="Pb">Chumbo (Pb)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Tensão (V) *</label>
+                    <input type="number" step="0.1" id="prod-tensao" required placeholder="14.4" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Capacidade (Ah) *</label>
+                    <input type="number" step="0.1" id="prod-capacidade" required placeholder="180.0" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Energia (Wh) *</label>
+                    <input type="number" step="0.1" id="prod-energia" required placeholder="2592.0" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Profundidade Máx (m)</label>
+                    <input type="number" id="prod-profundidade" value="3000" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">NCM</label>
+                    <input type="text" id="prod-ncm" value="8507.60.00" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Margem Alvo (%)</label>
+                    <input type="number" step="0.5" id="prod-margem" value="45.0" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Preço Venda (R$)</label>
+                    <input type="number" step="0.01" id="prod-preco-venda" placeholder="0.00" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="produtosModule.fecharModal('modal-novo-produto')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Salvar Pack</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,507 @@
+<!-- ==========================================
+     COMPRAS.HTML - GESTÃO DE COMPRAS (QUA-REG) & PACKING LIST (FASE 7)
+     Ordens de Compra, Mapas de 3 Preços & Romaneio de Carga Offshore
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & Ações Globais -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-shopping-bag text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">Gestão de Compras (QUA-REG) & Romaneio de Carga</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Procedimentos Oficiais QUA-REG-8.4.2.01/02 • Coleta de 3 Preços • Packing List Offshore & Despacho Portuário</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="comprasModule.abrirModalNovoMapa()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-scales text-lg text-amber-400"></i> Mapa de 3 Preços
+            </button>
+            <button onclick="comprasModule.abrirModalNovoRomaneio()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-boat text-lg text-purple-400"></i> Novo Packing List
+            </button>
+            <button onclick="comprasModule.abrirModalNovoPedido()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i class="ph ph-receipt text-lg"></i> Novo Pedido de Compra
+            </button>
+            <button onclick="comprasModule.executarSeed()" title="Carrega pedidos e romaneios históricos reais" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Real
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Total de Ordens de Compra -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Ordens de Compra</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-total-pedidos">0</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-tag"></i> Setor Técnico & Adm
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-shopping-cart text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: Volume Total Comprado -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total em Compras</span>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="kpi-volume-compras">R$ 0,00</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-money"></i> Insumos & Equipamentos
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <i class="ph ph-currency-circle-dollar text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Mapas de Cotação QUA-REG -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Mapas de 3 Preços</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-total-mapas">0</h3>
+                    <span class="text-xs text-amber-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-check-shield"></i> QUA-REG-8.4.2.02
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                    <i class="ph ph-scales text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Romaneios / Carga Offshore -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Romaneios / Cargas</span>
+                    <h3 class="text-2xl font-bold text-purple-400 mt-1" id="kpi-total-romaneios">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-boat"></i> Packing List Embarcado
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-anchor text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Navegação do Módulo -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="comprasModule.trocarAba('pedidos')" id="tab-btn-pedidos" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-receipt text-lg"></i> Pedidos de Compra (QUA-REG-8.4.2.01)
+        </button>
+        <button onclick="comprasModule.trocarAba('mapas')" id="tab-btn-mapas" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-scales text-lg"></i> Mapa de Coleta de 3 Preços (QUA-REG-8.4.2.02)
+        </button>
+        <button onclick="comprasModule.trocarAba('romaneios')" id="tab-btn-romaneios" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-boat text-lg"></i> Romaneio de Carga & Packing List Offshore
+        </button>
+    </div>
+
+    <!-- 4. Conteúdo da Aba 1: Pedidos de Compra -->
+    <div id="aba-pedidos" class="space-y-6">
+        <!-- Barra de Busca e Filtros -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="filtro-busca-pedidos" oninput="comprasModule.filtrarPedidos()" placeholder="Buscar por número, fornecedor..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+                <select id="filtro-setor-pedidos" onchange="comprasModule.filtrarPedidos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todos os Setores</option>
+                    <option value="TECNICO">Setor Técnico</option>
+                    <option value="ADMINISTRATIVO">Setor Administrativo</option>
+                </select>
+                <select id="filtro-status-pedidos" onchange="comprasModule.filtrarPedidos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todos os Status</option>
+                    <option value="APROVADO">Aprovado</option>
+                    <option value="EM_TRANSITO">Em Trânsito</option>
+                    <option value="RECEBIDO">Recebido (Estoque Atualizado)</option>
+                    <option value="COTACAO">Em Cotação</option>
+                    <option value="CANCELADO">Cancelado</option>
+                </select>
+            </div>
+            <div class="text-xs text-slate-400">
+                Total de <span class="font-bold text-cyan-400" id="contador-pedidos-exibidos">0</span> pedidos listados
+            </div>
+        </div>
+
+        <!-- Tabela de Pedidos -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Nº Pedido</th>
+                            <th class="px-4 py-3.5">Setor / Empresa</th>
+                            <th class="px-4 py-3.5">Fornecedor</th>
+                            <th class="px-4 py-3.5">Itens / Escopo</th>
+                            <th class="px-4 py-3.5 text-right">Valor Total (R$)</th>
+                            <th class="px-4 py-3.5 text-center">Criticidade</th>
+                            <th class="px-4 py-3.5 text-center">Status</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-pedidos" class="divide-y divide-white/5">
+                        <!-- Linhas inseridas via compras.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Conteúdo da Aba 2: Mapa de Coleta de 3 Preços -->
+    <div id="aba-mapas" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-cards-mapas">
+            <!-- Cards de Mapas de Cotação renderizados via compras.js -->
+        </div>
+    </div>
+
+    <!-- 6. Conteúdo da Aba 3: Romaneio de Carga Offshore -->
+    <div id="aba-romaneios" class="space-y-6 hidden">
+        <!-- Tabela de Romaneios -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Código Packing List</th>
+                            <th class="px-4 py-3.5">Embarcação / Navio Destino</th>
+                            <th class="px-4 py-3.5">Cliente Operacional</th>
+                            <th class="px-4 py-3.5">Origem ➔ Destino</th>
+                            <th class="px-4 py-3.5 text-right">Peso Total (kg)</th>
+                            <th class="px-4 py-3.5 text-right">Valor Declarado (R$)</th>
+                            <th class="px-4 py-3.5 text-center">Status Despacho</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-romaneios" class="divide-y divide-white/5">
+                        <!-- Linhas inseridas via compras.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAIS DO MÓDULO DE COMPRAS
+     ========================================== -->
+
+<!-- Modal 1: Novo Pedido de Compra (QUA-REG-8.4.2.01) -->
+<div id="modal-novo-pedido" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-receipt text-cyan-400"></i> Emissão de Pedido de Compra (QUA-REG-8.4.2.01)
+            </h3>
+            <button onclick="comprasModule.fecharModal('modal-novo-pedido')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-pedido" onsubmit="comprasModule.salvarNovoPedido(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nº do Pedido *</label>
+                    <input type="text" id="ped-numero" required placeholder="Ex: PC-TEC-2026-006" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Setor Requisitante *</label>
+                    <select id="ped-setor" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="TECNICO">Setor Técnico (Laboratório / Baterias)</option>
+                        <option value="ADMINISTRATIVO">Setor Administrativo</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Empresa Pagadora *</label>
+                    <select id="ped-empresa" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="MITANG">Mitang Comércio e Serviços</option>
+                        <option value="ARANDU">Arandu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Fornecedor Homologado (SRM) *</label>
+                    <select id="ped-fornecedor-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Fornecedores inseridos dinamicamente -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Criticidade da Compra *</label>
+                    <select id="ped-criticidade" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="NORMAL">Normal (Reposição de Estoque)</option>
+                        <option value="URGENTE">Urgente (Campanha Offshore Iminente)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Itens do Pedido -->
+            <div class="space-y-2 pt-2 border-t border-white/5">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Itens Solicitados / Insumos de Bateria</h4>
+                    <button type="button" onclick="comprasModule.adicionarItemPedidoForm()" class="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <i class="ph ph-plus"></i> Adicionar Item
+                    </button>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-white/5">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-900/80 text-slate-400">
+                            <tr>
+                                <th class="px-3 py-2">Insumo do Almoxarifado (Fase 5)</th>
+                                <th class="px-3 py-2">Descrição Detalhada</th>
+                                <th class="px-3 py-2 w-20">Qtd</th>
+                                <th class="px-3 py-2 w-28">Valor Unit. (R$)</th>
+                                <th class="px-3 py-2 w-28 text-right">Subtotal</th>
+                                <th class="px-2 py-2 w-10 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-itens-ped-form" class="divide-y divide-white/5">
+                            <!-- Inserido dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Frete e Condições -->
+            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-white/10">
+                <div>
+                    <label class="block text-slate-400 mb-1">Prazo de Pagamento</label>
+                    <input type="text" id="ped-prazo" value="30 dias" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Valor do Frete (R$)</label>
+                    <input type="number" step="0.01" id="ped-frete" value="0.00" oninput="comprasModule.recalcularTotaisPedidoForm()" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Condição de Pagamento</label>
+                    <input type="text" id="ped-condicao" value="Boleto Bancário / PIX" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Observações / Destinação</label>
+                <input type="text" id="ped-obs" placeholder="Ex: Insumos para fabricação do lote de packs cNode Maxi para Oceanpact" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <!-- Totalizador do Pedido -->
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5 flex justify-between items-center">
+                <span class="text-slate-400">Valor Total do Pedido:</span>
+                <span class="text-xl font-bold text-emerald-400" id="ped-form-total">R$ 0,00</span>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="comprasModule.fecharModal('modal-novo-pedido')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Emitir Pedido de Compra</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 2: Novo Mapa de Coleta de 3 Preços (QUA-REG-8.4.2.02) -->
+<div id="modal-novo-mapa" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-2xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-scales text-amber-400"></i> Mapa de Coleta de 3 Preços (QUA-REG-8.4.2.02)
+            </h3>
+            <button onclick="comprasModule.fecharModal('modal-novo-mapa')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-mapa" onsubmit="comprasModule.salvarNovoMapa(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código do Mapa *</label>
+                    <input type="text" id="mapa-codigo" required placeholder="Ex: MAPA-2026-004" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Fornecedor Vencedor Escolhido *</label>
+                    <input type="text" id="mapa-vencedor" required placeholder="Ex: Strema Indústria de Cabos" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Descrição do Escopo / Insumo *</label>
+                <input type="text" id="mapa-escopo" required placeholder="Ex: Aquisição de Fios Siliconados 18 AWG 200°C" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <!-- Cotações 1, 2 e 3 -->
+            <div class="grid grid-cols-3 gap-3 p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <div class="space-y-2">
+                    <span class="font-bold text-cyan-400 block border-b border-white/10 pb-1">1ª Cotação</span>
+                    <input type="text" id="mapa-forn1-nome" placeholder="Fornecedor 1" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="number" step="0.01" id="mapa-forn1-valor" placeholder="Valor (R$)" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="text" id="mapa-forn1-prazo" placeholder="Prazo entrega" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                </div>
+
+                <div class="space-y-2">
+                    <span class="font-bold text-purple-400 block border-b border-white/10 pb-1">2ª Cotação</span>
+                    <input type="text" id="mapa-forn2-nome" placeholder="Fornecedor 2" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="number" step="0.01" id="mapa-forn2-valor" placeholder="Valor (R$)" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="text" id="mapa-forn2-prazo" placeholder="Prazo entrega" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                </div>
+
+                <div class="space-y-2">
+                    <span class="font-bold text-amber-400 block border-b border-white/10 pb-1">3ª Cotação</span>
+                    <input type="text" id="mapa-forn3-nome" placeholder="Fornecedor 3" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="number" step="0.01" id="mapa-forn3-valor" placeholder="Valor (R$)" required class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                    <input type="text" id="mapa-forn3-prazo" placeholder="Prazo entrega" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Justificativa Formal da Escolha (ISO 9001 / QUA-REG)</label>
+                <input type="text" id="mapa-justificativa" value="Menor preço e melhor prazo de entrega conforme procedimento QUA-REG-8.4.2.02." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="comprasModule.fecharModal('modal-novo-mapa')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-deep-900 font-bold">Salvar Mapa de Cotação</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 3: Novo Romaneio de Carga Offshore (Packing List) -->
+<div id="modal-novo-romaneio" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-boat text-purple-400"></i> Emitir Romaneio de Carga / Packing List Offshore
+            </h3>
+            <button onclick="comprasModule.fecharModal('modal-novo-romaneio')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-romaneio" onsubmit="comprasModule.salvarNovoRomaneio(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código do Romaneio *</label>
+                    <input type="text" id="rom-codigo" required placeholder="Ex: PL-2026-0802" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Embarcação / Navio Destino *</label>
+                    <input type="text" id="rom-embarcacao" required placeholder="Ex: PLSV Oceanicasub IV" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Cliente Operacional *</label>
+                    <select id="rom-cliente-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Clientes inseridos dinamicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Porto / Base de Origem</label>
+                    <input type="text" id="rom-origem" value="Base Macaé / RJ" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Porto / Destino Offshore</label>
+                    <input type="text" id="rom-destino" value="Bacia de Campos / Santos" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Responsável pelo Despacho</label>
+                    <input type="text" id="rom-responsavel" placeholder="Ex: Diego Ribeiro" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <!-- Itens do Romaneio -->
+            <div class="space-y-2 pt-2 border-t border-white/5">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Volumes & Equipamentos Embarcados</h4>
+                    <button type="button" onclick="comprasModule.adicionarItemRomaneioForm()" class="px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <i class="ph ph-plus"></i> Adicionar Volume
+                    </button>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-white/5">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-900/80 text-slate-400">
+                            <tr>
+                                <th class="px-3 py-2">Volume (Case / Rack)</th>
+                                <th class="px-3 py-2">Descrição do Equipamento</th>
+                                <th class="px-3 py-2 w-28">Nº de Série</th>
+                                <th class="px-3 py-2 w-20">Peso (kg)</th>
+                                <th class="px-3 py-2 w-28 text-right">Valor Seguro (R$)</th>
+                                <th class="px-2 py-2 w-10 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-itens-rom-form" class="divide-y divide-white/5">
+                            <!-- Inserido dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Totalizador do Romaneio -->
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5 flex justify-between items-center">
+                <div class="text-xs text-slate-400">
+                    Peso Total: <span class="font-bold text-white text-sm" id="rom-form-peso-total">0.00 kg</span>
+                </div>
+                <div class="text-xs text-slate-400">
+                    Valor Total Declarado: <span class="font-bold text-emerald-400 text-sm" id="rom-form-valor-total">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="comprasModule.fecharModal('modal-novo-romaneio')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-deep-900 font-bold">Emitir Packing List</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 4: Visualizador de Romaneio Formal (Packing List) -->
+<div id="modal-ver-romaneio" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-file-pdf text-cyan-400"></i> Romaneio de Carga Oficial (Packing List)
+            </h3>
+            <button onclick="comprasModule.fecharModal('modal-ver-romaneio')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <div id="conteudo-impressao-romaneio" class="p-4 rounded-xl bg-slate-900/90 border border-white/10 space-y-4 text-xs">
+            <!-- Renderizado dinamicamente via compras.js -->
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold flex items-center gap-2">
+                <i class="ph ph-printer"></i> Imprimir / Exportar PDF
+            </button>
+            <button onclick="comprasModule.fecharModal('modal-ver-romaneio')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                Fechar
+            </button>
+        </div>
+    </div>
+</div>

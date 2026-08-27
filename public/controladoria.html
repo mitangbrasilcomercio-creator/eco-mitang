@@ -1,0 +1,314 @@
+<div id="modulo-controladoria" class="space-y-8 animate-fade-in">
+
+    <!-- Cabeçalho do Módulo -->
+    <div class="flex items-center gap-3 mb-2">
+        <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
+            <i class="ph ph-chart-polar text-2xl text-cyan-500"></i>
+        </div>
+        <div>
+            <h2 class="text-xl font-semibold text-slate-800 dark:text-white tracking-wide">Controladoria e Inteligência</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Dashboard Transversal e Simuladores</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SEÇÃO A: GRID DE INDICADORES DE RISCO
+         ========================================== -->
+    <section class="space-y-4">
+        <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+            <i class="ph ph-warning-circle text-cyan-500"></i> Diagnóstico de Risco e Rentabilidade
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+            
+            <!-- Índice de Liquidez -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Índice de Liquidez Corrente</span>
+                <span id="ind-liquidez" class="text-2xl font-bold text-slate-800 dark:text-white mt-1">1.85</span>
+                <!-- A classe overflow-hidden foi adicionada abaixo -->
+                <div id="chart-ind-liquidez" class="chart-container h-32 w-full mt-4 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 border-dashed flex items-center justify-center text-xs text-slate-400 overflow-hidden">Área do Gráfico</div>
+            </div>
+
+            <!-- Estrutura de Endividamento -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Grau de Endividamento</span>
+                <span id="ind-endividamento" class="text-2xl font-bold text-slate-800 dark:text-white mt-1">45.2%</span>
+                <!-- A classe overflow-hidden foi adicionada abaixo -->
+                <div id="chart-ind-endividamento" class="chart-container h-32 w-full mt-4 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 border-dashed flex items-center justify-center text-xs text-slate-400 overflow-hidden">Área do Gráfico</div>
+            </div>
+
+            <!-- Margem Bruta -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Margem Bruta</span>
+                <span id="ind-margem-bruta" class="text-2xl font-bold text-slate-800 dark:text-white mt-1">62.0%</span>
+                <!-- A classe overflow-hidden foi adicionada abaixo -->
+                <div id="chart-ind-margem-bruta" class="chart-container h-32 w-full mt-4 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 border-dashed flex items-center justify-center text-xs text-slate-400 overflow-hidden">Área do Gráfico</div>
+            </div>
+
+            <!-- Margem Líquida -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col border border-cyan-500/30 bg-cyan-500/5">
+                <span class="text-sm font-medium text-cyan-700 dark:text-cyan-300">Margem Líquida</span>
+                <span id="ind-margem-liquida" class="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mt-1">15.4%</span>
+                <!-- A classe overflow-hidden foi adicionada abaixo -->
+                <div id="chart-ind-margem-liquida" class="chart-container h-32 w-full mt-4 rounded-lg bg-black/5 dark:bg-white/5 border border-cyan-500/30 border-dashed flex items-center justify-center text-xs text-cyan-600/50 dark:text-cyan-400/50 overflow-hidden">Área do Gráfico</div>
+            </div>
+
+            <!-- Margem EBITDA -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Margem EBITDA</span>
+                <span id="ind-margem-ebitda" class="text-2xl font-bold text-slate-800 dark:text-white mt-1">28.9%</span>
+                <!-- A classe overflow-hidden foi adicionada abaixo -->
+                <div id="chart-ind-margem-ebitda" class="chart-container h-32 w-full mt-4 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 border-dashed flex items-center justify-center text-xs text-slate-400 overflow-hidden">Área do Gráfico</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO B: SIMULADOR AVANÇADO DUPONT
+         ========================================== -->
+    <section class="space-y-4">
+        <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+            <i class="ph ph-tree-structure text-cyan-500"></i> Simulador de Retorno ao Acionista (Modelo DuPont)
+        </h3>
+        
+        <div class="glass-panel p-8 rounded-2xl flex flex-col items-center relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none"></div>
+
+            <!-- Nível 1: ROE (Topo) -->
+            <div class="relative z-10 glass-panel px-10 py-5 rounded-2xl border-2 border-cyan-500 shadow-[0_0_20px_rgba(0,184,204,0.15)] flex flex-col items-center w-64">
+                <h4 class="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1">ROE</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center mb-2">Retorno sobre o PL</p>
+                <span id="simulador-roe-resultado" class="text-4xl font-bold text-cyan-600 dark:text-cyan-400">18.5%</span>
+            </div>
+
+            <!-- Conectores Visuais (Linhas CSS) -->
+            <div class="w-px h-8 bg-cyan-500/40 relative z-0"></div>
+            <div class="w-full max-w-3xl border-t-2 border-cyan-500/40 h-8 flex justify-between px-16 relative z-0">
+                <div class="w-px h-8 bg-cyan-500/40"></div>
+                <div class="w-px h-8 bg-cyan-500/40"></div>
+                <div class="w-px h-8 bg-cyan-500/40"></div>
+            </div>
+
+            <!-- Nível 2: Ramificações (Inputs) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full relative z-10">
+                
+                <!-- Ramificação 1: Margem Líquida -->
+                <div class="glass-panel p-5 rounded-xl border-t-4 border-t-emerald-500 flex flex-col bg-white/40 dark:bg-deep-900/40 hover:bg-white/60 dark:hover:bg-deep-900/60 transition-colors">
+                    <h5 class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Margem Líquida</h5>
+                    <span id="display-sim-margem" class="text-2xl font-bold text-slate-800 dark:text-white">12.0%</span>
+                    <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex flex-col gap-2">
+                        <label for="sim-margem" class="text-xs text-slate-500 dark:text-slate-400 flex justify-between">
+                            <span>Simular Projeção</span>
+                        </label>
+                        <input type="range" id="sim-margem" min="0" max="40" step="0.5" value="12" class="w-full accent-cyan-500 h-1.5 bg-black/10 dark:bg-white/10 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Ramificação 2: Giro do Ativo -->
+                <div class="glass-panel p-5 rounded-xl border-t-4 border-t-amber-500 flex flex-col bg-white/40 dark:bg-deep-900/40 hover:bg-white/60 dark:hover:bg-deep-900/60 transition-colors">
+                    <h5 class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Giro do Ativo</h5>
+                    <span id="display-sim-giro" class="text-2xl font-bold text-slate-800 dark:text-white">1.2x</span>
+                    <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex flex-col gap-2">
+                        <label for="sim-giro" class="text-xs text-slate-500 dark:text-slate-400 flex justify-between">
+                            <span>Simular Projeção</span>
+                        </label>
+                        <input type="range" id="sim-giro" min="0.1" max="5" step="0.1" value="1.2" class="w-full accent-cyan-500 h-1.5 bg-black/10 dark:bg-white/10 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Ramificação 3: Alavancagem -->
+                <div class="glass-panel p-5 rounded-xl border-t-4 border-t-purple-500 flex flex-col bg-white/40 dark:bg-deep-900/40 hover:bg-white/60 dark:hover:bg-deep-900/60 transition-colors">
+                    <h5 class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Multiplicador de Alavancagem</h5>
+                    <span id="display-sim-alavancagem" class="text-2xl font-bold text-slate-800 dark:text-white">1.28x</span>
+                    <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex flex-col gap-2">
+                        <label for="sim-alavancagem" class="text-xs text-slate-500 dark:text-slate-400 flex justify-between">
+                            <span>Simular Projeção</span>
+                        </label>
+                        <input type="range" id="sim-alavancagem" min="1" max="4" step="0.05" value="1.28" class="w-full accent-cyan-500 h-1.5 bg-black/10 dark:bg-white/10 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO B.2: SIMULADOR TRIBUTÁRIO (REFORMA & SPLIT BILLING 2027)
+         ========================================== -->
+    <section class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+                <i class="ph ph-receipt text-cyan-500"></i> Simulador de Transição Tributária: IVA Dual & Split Billing (2026 ➔ 2027)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono">Economia Tributária Legal</span>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Controles de Simulação -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-200">Parâmetros do Contrato (R$)</h4>
+                
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label for="sim-fat-eng" class="text-slate-500 mb-1 block">Serviços de Engenharia (CNAE 7112 - Benefício 30% no IVA):</label>
+                        <input type="number" id="sim-fat-eng" value="400000" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-slate-800 dark:text-white font-mono">
+                    </div>
+                    <div>
+                        <label for="sim-fat-ti" class="text-slate-500 mb-1 block">Serviços de TI / ROC / Locação (CNAE 6311 - Alíquota Cheia):</label>
+                        <input type="number" id="sim-fat-ti" value="100000" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-slate-800 dark:text-white font-mono">
+                    </div>
+                    <div>
+                        <label for="sim-custo-insumos" class="text-slate-500 mb-1 block">Custos com Insumos Tributáveis (Crédito Integral):</label>
+                        <input type="number" id="sim-custo-insumos" value="150000" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-slate-800 dark:text-white font-mono">
+                    </div>
+                    <button id="btn-calcular-simulacao-tributaria" class="glass-button w-full py-2.5 bg-cyan-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 mt-2">
+                        <i class="ph ph-arrows-clockwise"></i> Recalcular Cenários
+                    </button>
+                </div>
+            </div>
+
+            <!-- Comparativo dos 3 Cenários -->
+            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <!-- Cenário 1: Lucro Real 2026 -->
+                <div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-deep-900/40 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Cenário 1</span>
+                        <h5 class="text-sm font-bold text-slate-800 dark:text-white mt-0.5">Lucro Real 2026</h5>
+                        <p class="text-[11px] text-slate-400 mt-1">PIS/COFINS (9.25%) + ISS (5.0%)</p>
+                    </div>
+                    <div class="my-4 space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Imposto Bruto:</span><span id="sim-c1-bruto" class="font-mono text-red-500">R$ 71.250</span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Crédito Insumos:</span><span id="sim-c1-credito" class="font-mono text-emerald-500">R$ 13.875</span></div>
+                    </div>
+                    <div class="pt-3 border-t border-black/5 dark:border-white/5">
+                        <span class="text-[10px] text-slate-500">Carga Líquida:</span>
+                        <p id="sim-c1-liquido" class="text-lg font-bold text-slate-800 dark:text-white font-mono">R$ 57.375,00</p>
+                    </div>
+                </div>
+
+                <!-- Cenário 2: IVA Dual 2027 Sem Split Billing -->
+                <div class="p-4 rounded-xl border border-red-500/30 bg-red-500/5 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Cenário 2 (Inadequado)</span>
+                        <h5 class="text-sm font-bold text-red-700 dark:text-red-400 mt-0.5">IVA 2027 Alíquota Cheia</h5>
+                        <p class="text-[11px] text-slate-400 mt-1">Alíquota Única sem Fracionamento (26.5%)</p>
+                    </div>
+                    <div class="my-4 space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Imposto Bruto:</span><span id="sim-c2-bruto" class="font-mono text-red-500">R$ 132.500</span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Crédito Insumos:</span><span id="sim-c2-credito" class="font-mono text-emerald-500">R$ 39.750</span></div>
+                    </div>
+                    <div class="pt-3 border-t border-red-500/20">
+                        <span class="text-[10px] text-slate-500">Carga Líquida:</span>
+                        <p id="sim-c2-liquido" class="text-lg font-bold text-red-600 dark:text-red-400 font-mono">R$ 92.750,00</p>
+                    </div>
+                </div>
+
+                <!-- Cenário 3: IVA Dual 2027 COM SPLIT BILLING (Mitang Especializado) -->
+                <div class="p-4 rounded-xl border-2 border-emerald-500/50 bg-emerald-500/10 flex flex-col justify-between shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Cenário 3 (Estratégico)</span>
+                        <h5 class="text-sm font-bold text-emerald-700 dark:text-emerald-300 mt-0.5">IVA 2027 + Split Billing</h5>
+                        <p class="text-[11px] text-slate-400 mt-1">Engenharia (18.55%) + TI (26.5%)</p>
+                    </div>
+                    <div class="my-4 space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Imposto Bruto:</span><span id="sim-c3-bruto" class="font-mono text-emerald-600 dark:text-emerald-400">R$ 100.700</span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Crédito Insumos:</span><span id="sim-c3-credito" class="font-mono text-emerald-500">R$ 39.750</span></div>
+                    </div>
+                    <div class="pt-3 border-t border-emerald-500/30">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-500">Carga Líquida:</span>
+                                <p id="sim-c3-liquido" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono">R$ 60.950,00</p>
+                            </div>
+                            <span id="sim-c3-economia" class="text-xs px-2 py-1 bg-emerald-500 text-white rounded-lg font-bold shadow-sm">- R$ 31.800</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO C: ALOCAÇÃO DE CAPITAL (CAPEX vs OPEX)
+         ========================================== -->
+    <section class="space-y-4">
+        <h3 class="text-lg font-medium text-slate-800 dark:text-white flex items-center gap-2">
+            <i class="ph ph-chart-pie-slice text-cyan-500"></i> Eficiência de Gastos e Alocação de Capital
+        </h3>
+        
+        <div class="glass-panel p-6 rounded-2xl space-y-6">
+            
+            <!-- Barra de Filtros -->
+            <div class="flex flex-col md:flex-row gap-4 bg-black/5 dark:bg-white/5 p-4 rounded-xl border border-black/5 dark:border-white/5">
+                <div class="flex flex-col gap-1.5 flex-1">
+                    <label for="filtro-data-inicio" class="text-xs font-medium text-slate-500 dark:text-slate-400">Data Inicial</label>
+                    <input type="date" id="filtro-data-inicio" class="bg-white/50 dark:bg-deep-900/50 border border-black/10 dark:border-white/10 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white w-full">
+                </div>
+                <div class="flex flex-col gap-1.5 flex-1">
+                    <label for="filtro-data-fim" class="text-xs font-medium text-slate-500 dark:text-slate-400">Data Final</label>
+                    <input type="date" id="filtro-data-fim" class="bg-white/50 dark:bg-deep-900/50 border border-black/10 dark:border-white/10 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white w-full">
+                </div>
+                <div class="flex flex-col gap-1.5 flex-1">
+                    <label for="filtro-cc" class="text-xs font-medium text-slate-500 dark:text-slate-400">Centro de Custo</label>
+                    <div class="relative">
+                        <select id="filtro-cc" class="bg-white/50 dark:bg-deep-900/50 border border-black/10 dark:border-white/10 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white w-full appearance-none">
+                            <option value="todos" class="bg-white dark:bg-deep-900">Todos os Centros</option>
+                            <option value="ti" class="bg-white dark:bg-deep-900">Tecnologia da Informação</option>
+                            <option value="operacao" class="bg-white dark:bg-deep-900">Operação Logística</option>
+                        </select>
+                        <i class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none"></i>
+                    </div>
+                </div>
+                <div class="flex items-end">
+                    <button class="glass-button px-6 py-2 rounded-lg text-sm text-cyan-600 dark:text-cyan-400 font-medium h-[38px] flex items-center gap-2">
+                        <i class="ph ph-funnel"></i> Filtrar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Área Gráfica Principal -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Gráfico de Pizza: OPEX vs CAPEX -->
+                <!-- Alterado para min-h-[400px] para dar espaço extra para a legenda -->
+                <div class="bg-white/30 dark:bg-deep-900/30 border border-black/5 dark:border-white/5 rounded-xl p-5 flex flex-col min-h-[400px]">
+                    <div class="flex justify-between items-center mb-4 shrink-0">
+                        <h5 class="text-sm font-semibold text-slate-700 dark:text-slate-300">Distribuição do Orçamento (OPEX vs CAPEX)</h5>
+                        <button class="text-slate-400 hover:text-cyan-500 transition-colors"><i class="ph ph-download-simple"></i></button>
+                    </div>
+                    <!-- Adicionado min-h-0 e overflow-hidden para o controle perfeito do Flexbox -->
+                    <div id="chart-opex-capex" class="flex-1 min-h-0 w-full border border-dashed border-black/10 dark:border-white/10 rounded-lg flex items-center justify-center text-slate-400 text-sm overflow-hidden">
+                        <div class="flex flex-col items-center gap-2">
+                            <i class="ph ph-chart-pie-slice text-3xl opacity-50"></i>
+                            <span>Injetar Gráfico de Pizza/Donut Aqui</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Barras: CAPEX vs Financiamentos -->
+                <!-- Alterado para min-h-[400px] para dar espaço extra para os eixos -->
+                <div class="bg-white/30 dark:bg-deep-900/30 border border-black/5 dark:border-white/5 rounded-xl p-5 flex flex-col min-h-[400px]">
+                    <div class="flex justify-between items-center mb-4 shrink-0">
+                        <h5 class="text-sm font-semibold text-slate-700 dark:text-slate-300">Alavancagem de Investimentos (CAPEX vs FCF)</h5>
+                        <button class="text-slate-400 hover:text-cyan-500 transition-colors"><i class="ph ph-download-simple"></i></button>
+                    </div>
+                    <!-- Adicionado min-h-0 e overflow-hidden para o controle perfeito do Flexbox -->
+                    <div id="chart-capex-financiamento" class="flex-1 min-h-0 w-full border border-dashed border-black/10 dark:border-white/10 rounded-lg flex items-center justify-center text-slate-400 text-sm overflow-hidden">
+                        <div class="flex flex-col items-center gap-2">
+                            <i class="ph ph-chart-bar text-3xl opacity-50"></i>
+                            <span>Injetar Gráfico de Barras Aqui</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>

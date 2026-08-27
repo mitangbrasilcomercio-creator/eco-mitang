@@ -1,0 +1,490 @@
+<!-- ==========================================
+     RELATORIOS.HTML - RELATÓRIOS TÉCNICOS, DIMCON & FAT (FASE 8)
+     DPR Offshore, Metrologia Submarina & Certificados de Baterias
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & Ações Globais -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-file-text text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">Engenharia & Relatórios Técnicos Oficiais</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">DPRs Diários Offshore • Metrologia DimCon As-Built • Certificados FAT de Aceitação em Fábrica</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="relatoriosModule.abrirModalNovoFAT()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-certificate text-lg text-emerald-400"></i> Novo Laudo FAT
+            </button>
+            <button onclick="relatoriosModule.abrirModalNovoDimCon()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-ruler text-lg text-purple-400"></i> Nova Metrologia DimCon
+            </button>
+            <button onclick="relatoriosModule.abrirModalNovoDPR()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i class="ph ph-notebook text-lg"></i> Novo DPR Offshore
+            </button>
+            <button onclick="relatoriosModule.executarSeed()" title="Carrega relatórios técnicos históricos da Mitang" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Real
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Total de DPRs Emitidos -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">DPRs Diários</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-total-dpr">0</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-clock"></i> <span id="kpi-horas-operacionais">0h</span> Operacionais
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-notebook text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: Metrologias DimCon -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Metrologias DimCon</span>
+                    <h3 class="text-2xl font-bold text-purple-400 mt-1" id="kpi-total-dimcon">0</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-crosshair"></i> Spools & Jumpers Subsea
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-ruler text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Certificados FAT Homologados -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Laudos FAT (Baterias)</span>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="kpi-total-fat">0</h3>
+                    <span class="text-xs text-emerald-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-battery-charging"></i> 100% Homologados
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <i class="ph ph-certificate text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Taxa de Conformidade Técnica -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Conformidade ISO 9001</span>
+                    <h3 class="text-2xl font-bold text-cyan-400 mt-1" id="kpi-conformidade">100%</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-seal-check"></i> Dentro das Tolerâncias
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <i class="ph ph-shield-check text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Navegação do Módulo -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="relatoriosModule.trocarAba('dpr')" id="tab-btn-dpr" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-notebook text-lg"></i> DPR Offshore (Daily Progress Report)
+        </button>
+        <button onclick="relatoriosModule.trocarAba('dimcon')" id="tab-btn-dimcon" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-ruler text-lg"></i> Metrologia Submarina DimCon As-Built
+        </button>
+        <button onclick="relatoriosModule.trocarAba('fat')" id="tab-btn-fat" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-certificate text-lg"></i> Certificados FAT de Baterias
+        </button>
+    </div>
+
+    <!-- 4. Conteúdo da Aba 1: DPR Offshore -->
+    <div id="aba-dpr" class="space-y-6">
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Código DPR</th>
+                            <th class="px-4 py-3.5">Embarcação / Navio</th>
+                            <th class="px-4 py-3.5">Cliente Operacional</th>
+                            <th class="px-4 py-3.5">Data / Turno</th>
+                            <th class="px-4 py-3.5 text-center">Horas Produtivas</th>
+                            <th class="px-4 py-3.5 text-center">Horas Standby</th>
+                            <th class="px-4 py-3.5">Responsável Técnico</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-dprs" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via relatorios.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Conteúdo da Aba 2: Metrologia DimCon As-Built -->
+    <div id="aba-dimcon" class="space-y-6 hidden">
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Laudo DimCon</th>
+                            <th class="px-4 py-3.5">Campo / Projeto</th>
+                            <th class="px-4 py-3.5">Estrutura Submarina</th>
+                            <th class="px-4 py-3.5 text-right">Comprimento (m)</th>
+                            <th class="px-4 py-3.5 text-center">Desvios (DX, DY, DZ mm)</th>
+                            <th class="px-4 py-3.5 text-center">Atitude (H/P/R °)</th>
+                            <th class="px-4 py-3.5 text-center">Status Tolerância</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-dimcons" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via relatorios.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Conteúdo da Aba 3: Certificados FAT de Baterias -->
+    <div id="aba-fat" class="space-y-6 hidden">
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Certificado FAT</th>
+                            <th class="px-4 py-3.5">Pack de Bateria (Fase 5)</th>
+                            <th class="px-4 py-3.5">Nº de Série</th>
+                            <th class="px-4 py-3.5 text-right">Tensão OCV (V)</th>
+                            <th class="px-4 py-3.5 text-right">Tensão CCV @ 2A (V)</th>
+                            <th class="px-4 py-3.5 text-right">Impedância (mΩ)</th>
+                            <th class="px-4 py-3.5 text-center">Resultado</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-fats" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via relatorios.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAIS DO MÓDULO DE RELATÓRIOS
+     ========================================== -->
+
+<!-- Modal 1: Novo DPR Offshore -->
+<div id="modal-novo-dpr" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-notebook text-cyan-400"></i> Emissão de DPR Offshore (Daily Progress Report)
+            </h3>
+            <button onclick="relatoriosModule.fecharModal('modal-novo-dpr')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-dpr" onsubmit="relatoriosModule.salvarNovoDPR(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código do DPR *</label>
+                    <input type="text" id="dpr-codigo" required placeholder="Ex: DPR-2026-0816" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Embarcação / Navio *</label>
+                    <input type="text" id="dpr-embarcacao" required placeholder="Ex: PLSV Oceanicasub IV" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Cliente Operacional *</label>
+                    <select id="dpr-cliente-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Clientes inseridos dinamicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Data da Operação</label>
+                    <input type="date" id="dpr-data" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Turno</label>
+                    <select id="dpr-turno" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="24H">Turno Completo 24h</option>
+                        <option value="DIURNO">Diurno (06:00 às 18:00)</option>
+                        <option value="NOTURNO">Noturno (18:00 às 06:00)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Condições Meteoceanográficas</label>
+                    <input type="text" id="dpr-meteo" value="Ondas 1.5m, Vento 12 kts NE, Correnteza 0.6 kts" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <!-- Distribuição de Horas -->
+            <div class="grid grid-cols-4 gap-3 p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <div>
+                    <label class="block text-slate-400 mb-1 font-semibold">Horas Operacionais</label>
+                    <input type="number" step="0.5" id="dpr-horas-op" value="24.0" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Standby Clima</label>
+                    <input type="number" step="0.5" id="dpr-horas-clima" value="0.0" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Standby Cliente</label>
+                    <input type="number" step="0.5" id="dpr-horas-cliente" value="0.0" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Manutenção</label>
+                    <input type="number" step="0.5" id="dpr-horas-manut" value="0.0" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Atividades Executadas no Turno *</label>
+                <textarea id="dpr-atividades" required rows="3" placeholder="Descreva as operações de posicionamento acústico, calibração LBL/USBL, metrologia..." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Notas de HSE / Segurança Operacional</label>
+                    <input type="text" id="dpr-hse" value="DDS realizado no início do turno. Zero acidentes / incidentes." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Responsável Técnico / Party Chief</label>
+                    <input type="text" id="dpr-responsavel" placeholder="Ex: Diego Ribeiro (Party Chief)" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="relatoriosModule.fecharModal('modal-novo-dpr')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Emitir DPR</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 2: Nova Metrologia DimCon As-Built -->
+<div id="modal-novo-dimcon" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-ruler text-purple-400"></i> Emissão de Laudo de Metrologia Submarina DimCon
+            </h3>
+            <button onclick="relatoriosModule.fecharModal('modal-novo-dimcon')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-dimcon" onsubmit="relatoriosModule.salvarNovoDimCon(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código do Laudo *</label>
+                    <input type="text" id="dim-codigo" required placeholder="Ex: DIM-2026-005" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Campo / Projeto *</label>
+                    <input type="text" id="dim-campo" required placeholder="Ex: Campo de Búzios - FPSO Almirante Barroso" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Cliente Operacional *</label>
+                    <select id="dim-cliente-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Clientes inseridos dinamicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Estrutura Submarina Inspecionada *</label>
+                    <input type="text" id="dim-estrutura" required placeholder="Ex: Spool Rígido de Produção 12 pol PLEM-A para PLET-B" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Metodologia Utilizada</label>
+                    <select id="dim-metodologia" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="ACOUSTICA_TRANSIT_TIME">Acústica Transit-Time (LBL / Compatt 6)</option>
+                        <option value="LASER_SCANNING">Laser Scanner Submarino 3D</option>
+                        <option value="FOTOGRAMETRIA_SUBSEA">Fotogrametria Submarina de Alta Resolução</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dados Geodésicos & Desvios -->
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-3">
+                <span class="font-bold text-purple-400 block uppercase text-[11px]">Coordenadas & Desvios Dimensional As-Built</span>
+                <div class="grid grid-cols-4 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Distância (m)</label>
+                        <input type="number" step="0.001" id="dim-distancia" value="48.635" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">ΔX (mm)</label>
+                        <input type="number" step="0.1" id="dim-dx" value="12.4" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">ΔY (mm)</label>
+                        <input type="number" step="0.1" id="dim-dy" value="-8.7" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">ΔZ (mm)</label>
+                        <input type="number" step="0.1" id="dim-dz" value="4.2" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/5">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Heading (°)</label>
+                        <input type="number" step="0.01" id="dim-heading" value="142.50" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Pitch (°)</label>
+                        <input type="number" step="0.01" id="dim-pitch" value="2.15" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Roll (°)</label>
+                        <input type="number" step="0.01" id="dim-roll" value="-1.30" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Responsável pelo Cálculo Geodésico</label>
+                <input type="text" id="dim-responsavel" placeholder="Ex: Engenharia Geodésica Subsea Mitang" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="relatoriosModule.fecharModal('modal-novo-dimcon')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-deep-900 font-bold">Salvar Laudo DimCon</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 3: Novo Certificado FAT de Bateria -->
+<div id="modal-novo-fat" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-2xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-certificate text-emerald-400"></i> Emissão de Certificado FAT (Teste Elétrico de Bateria)
+            </h3>
+            <button onclick="relatoriosModule.fecharModal('modal-novo-fat')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-fat" onsubmit="relatoriosModule.salvarNovoFAT(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Código do Certificado *</label>
+                    <input type="text" id="fat-codigo" required placeholder="Ex: FAT-2026-0883" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Modelo da Bateria (Fase 5) *</label>
+                    <select id="fat-produto-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Produtos inseridos dinamicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Número de Série do Pack *</label>
+                    <input type="text" id="fat-ns" required placeholder="Ex: SN-CMX-0883" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Cliente Destinatário</label>
+                    <select id="fat-cliente-id" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Clientes inseridos dinamicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Parâmetros Elétricos -->
+            <div class="grid grid-cols-4 gap-3 p-3 rounded-xl bg-slate-900/60 border border-white/5">
+                <div>
+                    <label class="block text-slate-400 mb-1">Tensão OCV (V) *</label>
+                    <input type="number" step="0.01" id="fat-ocv" required value="14.72" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right font-bold">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Tensão CCV @ 2A (V) *</label>
+                    <input type="number" step="0.01" id="fat-ccv" required value="14.18" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right font-bold">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Impedância (mΩ)</label>
+                    <input type="number" step="1" id="fat-impedancia" value="165" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Fuga (μA)</label>
+                    <input type="number" step="0.01" id="fat-fuga" value="0.01" class="w-full bg-slate-900 border border-white/10 rounded-lg p-2 text-white text-right">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Técnico / Responsável pelo Teste</label>
+                <input type="text" id="fat-responsavel" value="Laboratório de Baterias Submarinas Mitang" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="relatoriosModule.fecharModal('modal-novo-fat')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-deep-900 font-bold">Emitir Certificado FAT</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 4: Visualizador de Relatório Formal para Impressão -->
+<div id="modal-ver-relatorio" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2" id="titulo-modal-ver-relatorio">
+                <i class="ph ph-file-text text-cyan-400"></i> Relatório Técnico Oficial
+            </h3>
+            <button onclick="relatoriosModule.fecharModal('modal-ver-relatorio')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <div id="conteudo-impressao-relatorio" class="p-5 rounded-xl bg-slate-900/90 border border-white/10 space-y-4 text-xs">
+            <!-- Renderizado dinamicamente via relatorios.js -->
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold flex items-center gap-2">
+                <i class="ph ph-printer"></i> Imprimir / Exportar PDF
+            </button>
+            <button onclick="relatoriosModule.fecharModal('modal-ver-relatorio')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                Fechar
+            </button>
+        </div>
+    </div>
+</div>

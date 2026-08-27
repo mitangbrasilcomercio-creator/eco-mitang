@@ -1,0 +1,49 @@
+<!-- orcamento_master.html - Módulo Comercial, Orçamento Master com Branching e Contratos Vivos -->
+<div class="h-full flex flex-col gap-6 animate-fade-in relative overflow-hidden">
+
+    <!-- Header do Módulo -->
+    <header class="glass-panel p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0 relative z-25">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shadow-[0_0_15px_rgba(0,229,255,0.2)] shrink-0">
+                <i class="ph-fill ph-handshake text-2xl text-cyan-500"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-white tracking-wide">Comercial & Contratos Vivos</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Orçamento Master, Branching de Propostas e Passagem de Bastão (Order-to-Cash)</p>
+            </div>
+        </div>
+
+        <!-- Seletor de Visão (Contratos vs Assistente de Orçamento) -->
+        <div class="flex items-center bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-black/5 dark:border-white/10">
+            <button id="btn-tab-contratos" class="px-4 py-2 rounded-lg text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-white dark:bg-deep-800 shadow-sm transition-all flex items-center gap-2">
+                <i class="ph ph-file-text"></i> Pipeline de Contratos
+            </button>
+            <button id="btn-tab-wizard" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-all flex items-center gap-2">
+                <i class="ph ph-plus-circle"></i> Novo Orçamento (Wizard)
+            </button>
+        </div>
+    </header>
+
+    <!-- Área de Conteúdo Principal -->
+    <main class="flex-1 flex flex-col overflow-y-auto relative z-10 pb-6">
+        
+        <!-- VISÃO 1: LISTAGEM DE CONTRATOS E PASSAGEM DE BASTÃO -->
+        <div id="view-contratos-root" class="w-full flex flex-col gap-4">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-base font-semibold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="ph ph-briefcase text-cyan-500"></i> Contratos Vigentes e em Negociação
+                </h3>
+                <span class="text-xs text-slate-500 font-mono">Integração Direta com Financeiro & Operacional</span>
+            </div>
+            <div id="grid-contratos-cards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Cards de contratos injetados via JS -->
+            </div>
+        </div>
+
+        <!-- VISÃO 2: WIZARD DE 4 ETAPAS DE ORÇAMENTO (BRANCHING) -->
+        <div id="orcamento-wizard-root" class="w-full h-full flex flex-col justify-center hidden">
+            <!-- O script injetará o container de passos aqui dentro -->
+        </div>
+
+    </main>
+</div>

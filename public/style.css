@@ -1,0 +1,168 @@
+/* style.css */
+
+:root {
+    /* Variáveis Globais e Tema Light */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* Variáveis dos Botões Glass - Light */
+    --glass-btn-bg: linear-gradient(135deg, rgba(0, 184, 204, 0.05), rgba(0, 184, 204, 0.0));
+    --glass-btn-border: rgba(0, 184, 204, 0.2);
+    --glass-btn-hover-bg: linear-gradient(135deg, rgba(0, 184, 204, 0.15), rgba(0, 184, 204, 0.05));
+    --glass-btn-hover-border: rgba(0, 184, 204, 0.5);
+    --glass-btn-shadow: rgba(0, 184, 204, 0.15);
+}
+
+/* Variáveis para o Tema Dark */
+.dark {
+    --glass-bg: rgba(7, 26, 43, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.5);
+    
+    /* Variáveis dos Botões Glass - Dark */
+    --glass-btn-bg: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(0, 229, 255, 0.0));
+    --glass-btn-border: rgba(0, 229, 255, 0.3);
+    --glass-btn-hover-bg: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 229, 255, 0.1));
+    --glass-btn-hover-border: rgba(0, 229, 255, 0.6);
+    --glass-btn-shadow: rgba(0, 229, 255, 0.2);
+}
+
+body {
+    background-color: #f0f4f8; 
+    overflow: hidden; 
+}
+
+.dark body {
+    background-color: #020b14; 
+}
+
+/* Painéis de Vidro (Glassmorphism) */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Botões Interativos com Efeito Glass */
+.glass-button {
+    background: var(--glass-btn-bg);
+    border: 1px solid var(--glass-btn-border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.glass-button:hover {
+    background: var(--glass-btn-hover-bg);
+    border-color: var(--glass-btn-hover-border);
+    box-shadow: 0 0 15px var(--glass-btn-shadow);
+    transform: translateY(-2px);
+}
+
+/* Navegação Lateral */
+.nav-link {
+    color: #64748b; 
+}
+.nav-link:hover {
+    color: #334155; 
+    background-color: rgba(0, 0, 0, 0.03);
+}
+.dark .nav-link {
+    color: #94a3b8; 
+}
+.dark .nav-link:hover {
+    color: #e2e8f0; 
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Input de Busca */
+.search-input {
+    background-color: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #334155;
+}
+.search-input::placeholder {
+    color: #64748b;
+}
+.search-input:focus {
+    border-color: rgba(0, 184, 204, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.dark .search-input {
+    background-color: rgba(7, 26, 43, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+.dark .search-input::placeholder {
+    color: #64748b;
+}
+.dark .search-input:focus {
+    border-color: rgba(0, 229, 255, 0.5);
+    background-color: rgba(7, 26, 43, 0.8);
+}
+
+/* Estilos do Gráfico Simulado */
+.chart-bar {
+    background-color: rgba(0, 184, 204, 0.2);
+    transition: background-color 0.3s ease;
+}
+.chart-bar:hover {
+    background-color: rgba(0, 184, 204, 0.4);
+}
+.chart-bar.active {
+    background-color: rgba(0, 184, 204, 0.4);
+}
+.chart-bar.highlight {
+    background-color: rgba(0, 184, 204, 0.6);
+    box-shadow: 0 0 15px rgba(0, 184, 204, 0.2);
+}
+
+.dark .chart-bar {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+.dark .chart-bar:hover {
+    background-color: rgba(0, 229, 255, 0.4);
+}
+.dark .chart-bar.active {
+    background-color: rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}
+.dark .chart-bar.highlight {
+    background-color: rgba(0, 229, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+.chart-tooltip {
+    background-color: #ffffff;
+    color: #334155;
+    border-color: rgba(0, 184, 204, 0.3);
+}
+.dark .chart-tooltip {
+    background-color: #071a2b;
+    color: #e2e8f0;
+    border-color: rgba(0, 229, 255, 0.3);
+}
+
+/* Scrollbar Customizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 184, 204, 0.3);
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.3);
+}

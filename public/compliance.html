@@ -1,0 +1,407 @@
+<!-- ==========================================
+     COMPLIANCE.HTML - GOVERNANÇA, CNDS & MULTI-EMPRESA (FASE 9)
+     Robô de CNDs, Gestão Mitang vs Arandu & Simulador da Reforma Tributária
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & Ações Globais -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-shield-check text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">Governança, Compliance & Multi-Empresa</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Robô de CNDs • Consolidação Mitang vs. Arandu • Simulador da Reforma Tributária (IBS/CBS)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="complianceModule.abrirModalNovaCertidao()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-plus-circle text-lg text-cyan-400"></i> Cadastrar CND
+            </button>
+            <button onclick="complianceModule.trocarAba('simulador')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm transition-all shadow-lg shadow-purple-500/20 flex items-center gap-2">
+                <i class="ph ph-calculator text-lg"></i> Simulador Reforma
+            </button>
+            <button onclick="complianceModule.executarSeed()" title="Carrega CNDs e configurações reais das duas empresas" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Real
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: CNDs Regulares Mitang -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">CNDs Mitang</span>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="kpi-cnds-mitang">5 / 5</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-seal-check"></i> 100% Regulares (Habilitada)
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <i class="ph ph-shield-check text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: CNDs Regulares Arandu -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">CNDs Arandu</span>
+                    <h3 class="text-2xl font-bold text-purple-400 mt-1" id="kpi-cnds-arandu">2 / 2</h3>
+                    <span class="text-xs text-purple-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-seal-check"></i> Habilitada para Licitações
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-certificate text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Faturamento Mitang (Baterias & Comércio) -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Faturamento Mitang</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-fat-mitang">R$ 0,00</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-tag"></i> Lucro Real • NF-e
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-buildings text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Faturamento Arandu (Serviços Offshore) -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Faturamento Arandu</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="kpi-fat-arandu">R$ 0,00</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-anchor"></i> Serviços • NFS-e
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <i class="ph ph-briefcase text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Navegação -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="complianceModule.trocarAba('cnds')" id="tab-btn-cnds" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-shield-check text-lg"></i> Robô de CNDs (Certidões Negativas)
+        </button>
+        <button onclick="complianceModule.trocarAba('multi')" id="tab-btn-multi" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-buildings text-lg"></i> Gestão Multi-Empresa (Mitang vs. Arandu)
+        </button>
+        <button onclick="complianceModule.trocarAba('simulador')" id="tab-btn-simulador" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-calculator text-lg"></i> Simulador da Reforma Tributária (IBS/CBS)
+        </button>
+    </div>
+
+    <!-- 4. Conteúdo Aba 1: Robô de CNDs -->
+    <div id="aba-cnds" class="space-y-6">
+        <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <button onclick="complianceModule.filtrarCNDs('TODAS')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-white border border-white/10 hover:bg-slate-700">Todas as CNDs</button>
+                <button onclick="complianceModule.filtrarCNDs('MITANG')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/10">Mitang (Baterias)</button>
+                <button onclick="complianceModule.filtrarCNDs('ARANDU')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-purple-400 border border-purple-500/20 hover:bg-purple-500/10">Arandu (Serviços)</button>
+            </div>
+            <span class="text-xs text-slate-400">Verificação de regularidade fiscal em tempo real</span>
+        </div>
+
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Empresa</th>
+                            <th class="px-4 py-3.5">Certidão Negativa (CND)</th>
+                            <th class="px-4 py-3.5">Órgão Emissor</th>
+                            <th class="px-4 py-3.5">Nº / Código de Controle</th>
+                            <th class="px-4 py-3.5">Data de Validade</th>
+                            <th class="px-4 py-3.5 text-center">Dias Restantes</th>
+                            <th class="px-4 py-3.5 text-center">Status</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-cnds" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via compliance.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Conteúdo Aba 2: Gestão Multi-Empresa -->
+    <div id="aba-multi" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Card 1: Mitang -->
+            <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 space-y-4">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                            <i class="ph ph-battery-charging text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">Pessoa Jurídica 01</span>
+                            <h3 class="text-base font-bold text-white mt-1">MITANG BRASIL COMÉRCIO E SERVIÇOS LTDA</h3>
+                            <p class="text-xs font-mono text-cyan-300">CNPJ: 50.158.455/0001-08 • IE: 12.284.519</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-1.5 text-xs">
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Regime Tributário:</span>
+                        <span class="font-bold text-white">Lucro Real (Não-Cumulativo)</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Foco Operacional:</span>
+                        <span class="font-bold text-cyan-400">Fabricação de Baterias Submarinas & NF-e</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Endereço Fiscal:</span>
+                        <span class="text-slate-300">Recreio dos Bandeirantes, Rio de Janeiro - RJ</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5">
+                        <span class="text-[10px] text-slate-400 block uppercase">Faturamento NF-e</span>
+                        <span class="text-lg font-bold text-cyan-400" id="card-mitang-fat">R$ 0,00</span>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5">
+                        <span class="text-[10px] text-slate-400 block uppercase">Orçamentos Ativos</span>
+                        <span class="text-lg font-bold text-white" id="card-mitang-orc">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Arandu -->
+            <div class="glass-panel p-6 rounded-2xl border border-purple-500/20 space-y-4">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                            <i class="ph ph-anchor text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">Pessoa Jurídica 02</span>
+                            <h3 class="text-base font-bold text-white mt-1">ARANDU ENGENHARIA E SERVIÇOS SUBMARINOS</h3>
+                            <p class="text-xs font-mono text-purple-300">CNPJ: 42.189.340/0001-90 • IM: 0.985.412-3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-1.5 text-xs">
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Regime Tributário:</span>
+                        <span class="font-bold text-white">Simples Nacional / Presumido</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Foco Operacional:</span>
+                        <span class="font-bold text-purple-400">Serviços Offshore, Metrologia & NFS-e</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span class="text-slate-400">Endereço Fiscal:</span>
+                        <span class="text-slate-300">Centro, Rio de Janeiro - RJ</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5">
+                        <span class="text-[10px] text-slate-400 block uppercase">Faturamento NFS-e</span>
+                        <span class="text-lg font-bold text-purple-400" id="card-arandu-fat">R$ 0,00</span>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5">
+                        <span class="text-[10px] text-slate-400 block uppercase">Orçamentos Ativos</span>
+                        <span class="text-lg font-bold text-white" id="card-arandu-orc">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Conteúdo Aba 3: Simulador da Reforma Tributária -->
+    <div id="aba-simulador" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Coluna 1: Formulário de Simulação -->
+            <div class="glass-panel p-6 rounded-2xl border border-white/5 space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="ph ph-sliders text-purple-400"></i> Parâmetros da Operação
+                </h3>
+                
+                <form id="form-simulador-reforma" onsubmit="complianceModule.executarSimulacao(event)" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Valor Total da Operação (R$) *</label>
+                        <input type="number" step="100" id="sim-valor" required value="14850" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white font-bold text-base focus:outline-none focus:border-cyan-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-400 mb-1">Tipo de Operação</label>
+                        <select id="sim-tipo" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                            <option value="PRODUTO">Venda de Bateria Industrial (Pack cNode / ADCP)</option>
+                            <option value="SERVICO">Prestação de Serviço de Survey / Metrologia</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-400 mb-1">Custo de Insumos / BOM Creditável (R$)</label>
+                        <input type="number" step="10" id="sim-insumos" value="4820" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <span class="text-[10px] text-slate-500">Valor das pilhas Li-SOCL2, chicotes e conectores que geram crédito no IVA Dual.</span>
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-purple-500/20 transition-all flex items-center justify-center gap-2">
+                        <i class="ph ph-calculator"></i> Calcular Carga Tributária
+                    </button>
+                </form>
+            </div>
+
+            <!-- Coluna 2 e 3: Painel Comparativo e Diagnóstico -->
+            <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-white/5 space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="ph ph-chart-bar text-cyan-400"></i> Comparativo: Regime Atual vs. Reforma Tributária (PEC 45/2019)
+                </h3>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Box 1: Regime Atual -->
+                    <div class="p-4 rounded-xl bg-slate-900/60 border border-white/5 space-y-2 text-xs">
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Sistema Atual (PIS / COFINS / ICMS / ISS)</span>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Tributos Totais:</span>
+                            <span class="font-bold text-white" id="res-atual-total">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Alíquota Efetiva:</span>
+                            <span class="font-bold text-amber-400" id="res-atual-aliquota">0,00%</span>
+                        </div>
+                    </div>
+
+                    <!-- Box 2: Reforma Tributária -->
+                    <div class="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 space-y-2 text-xs">
+                        <span class="text-[11px] font-bold text-purple-300 uppercase tracking-wider block">Reforma (IBS 17.7% + CBS 8.8% = 26.5%)</span>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">IVA Bruto:</span>
+                            <span class="font-semibold text-white" id="res-reforma-bruto">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-emerald-400">Crédito Insumos BOM:</span>
+                            <span class="font-bold text-emerald-400" id="res-reforma-credito">- R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between border-t border-white/10 pt-1">
+                            <span class="text-slate-300 font-bold">IVA Líquido a Recolher:</span>
+                            <span class="font-bold text-purple-400 text-sm" id="res-reforma-liquido">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Alíquota Efetiva Líquida:</span>
+                            <span class="font-bold text-cyan-400" id="res-reforma-aliquota">0,00%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-white/10 space-y-2 text-xs">
+                    <span class="font-bold text-cyan-400 flex items-center gap-1.5">
+                        <i class="ph ph-lightbulb"></i> Diagnóstico de Planejamento Tributário da IA:
+                    </span>
+                    <p class="text-slate-300 leading-relaxed" id="res-diagnostico-reforma">
+                        Execute uma simulação para calcular o impacto da compensação integral de créditos e a desoneração de operações de exportação e fornecimento para a indústria naval/petróleo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAL: CADASTRAR / RENOVAR CND
+     ========================================== -->
+<div id="modal-nova-cnd" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-2xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-shield-check text-cyan-400"></i> Cadastro / Renovação de CND
+            </h3>
+            <button onclick="complianceModule.fecharModal('modal-nova-cnd')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-nova-cnd" onsubmit="complianceModule.salvarCND(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Empresa do Grupo *</label>
+                    <select id="cnd-empresa" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="MITANG">Mitang Brasil Comércio e Serviços (Baterias)</option>
+                        <option value="ARANDU">Arandu Engenharia e Serviços Submarinos</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Tipo de Certidão *</label>
+                    <select id="cnd-tipo" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="FEDERAL_PGFN">Federal / PGFN (Dívida Ativa da União)</option>
+                        <option value="FGTS_CAIXA">CRF / FGTS (Caixa Econômica)</option>
+                        <option value="TRABALHISTA_CNDT">Trabalhista (CNDT / TST)</option>
+                        <option value="ESTADUAL_SEFAZ_RJ">Estadual (SEFAZ-RJ / ICMS)</option>
+                        <option value="MUNICIPAL_ISS_RJ">Municipal (Prefeitura RJ / ISS)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Nome Completo da Certidão *</label>
+                <input type="text" id="cnd-nome" required placeholder="Ex: Certidão Negativa de Débitos Federais" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Número da Certidão</label>
+                    <input type="text" id="cnd-numero" placeholder="Ex: 98F4.28B1.890C.E145" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Código de Controle / Validação</label>
+                    <input type="text" id="cnd-codigo" placeholder="Ex: PGFN-2026-98124" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Data de Emissão</label>
+                    <input type="date" id="cnd-data-emissao" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Data de Validade (Vencimento) *</label>
+                    <input type="date" id="cnd-data-validade" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Órgão Emissor</label>
+                <input type="text" id="cnd-orgao" placeholder="Ex: Secretaria da Receita Federal do Brasil / PGFN" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="complianceModule.fecharModal('modal-nova-cnd')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Salvar CND</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,583 @@
+<!-- ==========================================
+     CRM.HTML - CRM & SRM 360° (FASE 6)
+     Dossiê de Clientes, Fornecedores, LTV & Funil de Orçamentos
+     Ecossistema Mitang - Deep Sea UI Glassmorphism
+     ========================================== -->
+
+<div class="space-y-6 animate-fade-in pb-12">
+
+    <!-- 1. Header do Módulo & Ações Globais -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-white/5">
+        <div>
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+                    <i class="ph ph-users-four text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white">CRM & SRM 360° — Ecossistema Corporativo</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Dossiê Completo de Clientes • Fornecedores Homologados • Lifetime Value (LTV) • Gestão de Orçamentos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button onclick="crmModule.abrirModalNovoFornecedor()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-truck text-lg text-purple-400"></i> Novo Fornecedor
+            </button>
+            <button onclick="crmModule.abrirModalNovoCliente()" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-200 border border-white/10 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-user-plus text-lg text-cyan-400"></i> Novo Cliente
+            </button>
+            <button onclick="crmModule.abrirModalNovoOrcamento()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-deep-900 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i class="ph ph-file-text text-lg"></i> Novo Orçamento
+            </button>
+            <button onclick="crmModule.executarSeed()" title="Carrega a base histórica de clientes, fornecedores e propostas" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium transition-all flex items-center gap-2">
+                <i class="ph ph-database text-lg"></i> Carga Histórica Real
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Grid de Cards KPI -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Total de Clientes -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Clientes Ativos</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="crm-kpi-total-clientes">0</h3>
+                    <span class="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-buildings"></i> Segmentos Offshore / Subsea
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                    <i class="ph ph-users text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 2: LTV Total Acumulado -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">LTV Total Acumulado</span>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="crm-kpi-ltv-total">R$ 0,00</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-money"></i> Faturamento Histórico Consolidado
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <i class="ph ph-chart-line-up text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 3: Fornecedores Qualificados -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Fornecedores SRM</span>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mt-1" id="crm-kpi-total-fornecedores">0</h3>
+                    <span class="text-xs text-purple-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-shield-check"></i> Insumos & Componentes
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="ph ph-truck text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+        </div>
+
+        <!-- KPI 4: Taxa de Conversão Comercial -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Taxa de Conversão</span>
+                    <h3 class="text-2xl font-bold text-cyan-400 mt-1" id="crm-kpi-conversao">0%</h3>
+                    <span class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                        <i class="ph ph-check-circle"></i> Propostas Aprovadas com P.O
+                    </span>
+                </div>
+                <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <i class="ph ph-target text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- 3. Abas de Navegação do Módulo -->
+    <div class="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+        <button onclick="crmModule.trocarAba('clientes')" id="crm-tab-btn-clientes" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i class="ph ph-buildings text-lg"></i> Dossiê 360° de Clientes (CRM)
+        </button>
+        <button onclick="crmModule.trocarAba('fornecedores')" id="crm-tab-btn-fornecedores" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-truck text-lg"></i> Gestão de Fornecedores (SRM)
+        </button>
+        <button onclick="crmModule.trocarAba('orcamentos')" id="crm-tab-btn-orcamentos" class="px-5 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-white/5">
+            <i class="ph ph-file-text text-lg"></i> Central de Orçamentos & Funil
+        </button>
+    </div>
+
+    <!-- 4. Conteúdo da Aba 1: CRM Clientes -->
+    <div id="crm-aba-clientes" class="space-y-6">
+        <!-- Barra de Busca e Filtros -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <div class="relative flex-1 sm:w-72">
+                    <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="filtro-busca-clientes" oninput="crmModule.filtrarClientes()" placeholder="Buscar cliente por razão social, CNPJ..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+                <select id="filtro-segmento-clientes" onchange="crmModule.filtrarClientes()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todos os Segmentos</option>
+                    <option value="OFFSHORE_SURVEY">Offshore & Posicionamento Subsea</option>
+                    <option value="OCEANOGRAFIA">Oceanografia & Hidrografia</option>
+                    <option value="PORTUARIO">Engenharia Portuária & Dragagem</option>
+                    <option value="PESQUISA_UNIVERSITARIA">Pesquisa Universitária / Coppetec</option>
+                    <option value="HOSPITALAR">Equipamentos Médicos / Hospitalar</option>
+                </select>
+            </div>
+            <div class="text-xs text-slate-400">
+                Total de <span class="font-bold text-cyan-400" id="contador-clientes-exibidos">0</span> clientes listados
+            </div>
+        </div>
+
+        <!-- Tabela de Clientes -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Cliente / Razão Social</th>
+                            <th class="px-4 py-3.5">Segmento</th>
+                            <th class="px-4 py-3.5">Contato & Telefone</th>
+                            <th class="px-4 py-3.5 text-right">LTV (Total Faturado)</th>
+                            <th class="px-4 py-3.5 text-right">Ticket Médio</th>
+                            <th class="px-4 py-3.5 text-center">Propostas / POs</th>
+                            <th class="px-4 py-3.5 text-center">Status CND</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-clientes" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via crm.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Conteúdo da Aba 2: SRM Fornecedores -->
+    <div id="crm-aba-fornecedores" class="space-y-6 hidden">
+        <!-- Barra de Busca de Fornecedores -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="relative flex-1 sm:w-80">
+                <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="filtro-busca-fornecedores" oninput="crmModule.filtrarFornecedores()" placeholder="Buscar fornecedor por razão social, CNPJ..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+            </div>
+            <div class="text-xs text-slate-400">
+                Total de <span class="font-bold text-purple-400" id="contador-fornecedores-exibidos">0</span> fornecedores homologados
+            </div>
+        </div>
+
+        <!-- Tabela de Fornecedores -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Fornecedor / Razão Social</th>
+                            <th class="px-4 py-3.5">Especialidade / Insumos</th>
+                            <th class="px-4 py-3.5">Contato</th>
+                            <th class="px-4 py-3.5 text-right">Total Comprado (R$)</th>
+                            <th class="px-4 py-3.5 text-center">NFs de Entrada</th>
+                            <th class="px-4 py-3.5 text-center">Status CND</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-fornecedores" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via crm.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Conteúdo da Aba 3: Central de Orçamentos & Funil -->
+    <div id="crm-aba-orcamentos" class="space-y-6 hidden">
+        <!-- Barra de Filtros de Orçamentos -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-panel p-4 rounded-xl border border-white/5">
+            <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="filtro-busca-orcamentos" oninput="crmModule.filtrarOrcamentos()" placeholder="Buscar por número, cliente, título..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+                <select id="filtro-status-orcamentos" onchange="crmModule.filtrarOrcamentos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todos os Status</option>
+                    <option value="RASCUNHO">Rascunho</option>
+                    <option value="ENVIADO">Enviado ao Cliente</option>
+                    <option value="COMPRA_APROVADA">Compra Aprovada (Com P.O)</option>
+                    <option value="COMPRA_FINALIZADA">Compra Finalizada (Faturado)</option>
+                    <option value="CANCELADO">Cancelado / Não Aprovado</option>
+                </select>
+                <select id="filtro-empresa-orcamentos" onchange="crmModule.filtrarOrcamentos()" class="bg-slate-900/60 border border-white/10 rounded-xl py-2 px-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400">
+                    <option value="">Todas as Empresas</option>
+                    <option value="MITANG">Mitang Comércio e Serviços</option>
+                    <option value="ARANDU">Arandu</option>
+                </select>
+            </div>
+            <div class="text-xs text-slate-400">
+                Total de <span class="font-bold text-cyan-400" id="contador-orcamentos-exibidos">0</span> propostas
+            </div>
+        </div>
+
+        <!-- Tabela de Orçamentos -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-white/10">
+                        <tr>
+                            <th class="px-4 py-3.5">Nº Orçamento</th>
+                            <th class="px-4 py-3.5">Empresa</th>
+                            <th class="px-4 py-3.5">Cliente</th>
+                            <th class="px-4 py-3.5">Descrição / Título</th>
+                            <th class="px-4 py-3.5 text-right">Valor Líquido (R$)</th>
+                            <th class="px-4 py-3.5 text-center">Fiscal</th>
+                            <th class="px-4 py-3.5 text-center">Status / P.O</th>
+                            <th class="px-4 py-3.5 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-orcamentos" class="divide-y divide-white/5">
+                        <!-- Linhas renderizadas via crm.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAIS & DRAWERS DO MÓDULO CRM
+     ========================================== -->
+
+<!-- Modal 1: Dossiê 360° com Linha do Tempo -->
+<div id="modal-dossie-cliente" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-4xl rounded-2xl border border-white/10 p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-start border-b border-white/10 pb-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-cyan-400 tracking-wider" id="dossie-cnpj">CNPJ</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" id="dossie-segmento">OFFSHORE</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mt-1" id="dossie-razao-social">Razão Social do Cliente</h3>
+                <p class="text-xs text-slate-400 mt-1" id="dossie-contato-info"></p>
+            </div>
+            <button onclick="crmModule.fecharModal('modal-dossie-cliente')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <!-- Cards com Métricas Financeiras do Cliente -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">LTV Total Faturado</span>
+                <span class="font-bold text-emerald-400 text-base" id="dossie-total-faturado">R$ 0,00</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Total Recebido</span>
+                <span class="font-bold text-cyan-400 text-base" id="dossie-total-recebido">R$ 0,00</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">A Vencer / Pendente</span>
+                <span class="font-bold text-amber-400 text-base" id="dossie-total-pendente">R$ 0,00</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                <span class="text-[11px] text-slate-400 block">Propostas / Contratos</span>
+                <span class="font-bold text-white text-base" id="dossie-propostas-contratos">0 / 0</span>
+            </div>
+        </div>
+
+        <!-- Linha do Tempo Unificada 360° -->
+        <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider flex items-center gap-2">
+                <i class="ph ph-clock-counter-clockwise text-cyan-400"></i> Linha do Tempo Cronológica Unificada (360°)
+            </h4>
+            <div class="space-y-3 pl-4 border-l-2 border-cyan-500/20" id="dossie-timeline-container">
+                <!-- Eventos inseridos dinamicamente via crm.js -->
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+            <button onclick="crmModule.fecharModal('modal-dossie-cliente')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium">
+                Fechar Dossiê
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Novo Cliente -->
+<div id="modal-novo-cliente" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-lg rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-user-plus text-cyan-400"></i> Cadastrar Novo Cliente
+            </h3>
+            <button onclick="crmModule.fecharModal('modal-novo-cliente')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-cliente" onsubmit="crmModule.salvarNovoCliente(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">CNPJ / CPF *</label>
+                    <input type="text" id="cli-cnpj" required placeholder="00.000.000/0000-00" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Segmento de Mercado</label>
+                    <select id="cli-segmento" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="OFFSHORE_SURVEY">Offshore & Posicionamento Subsea</option>
+                        <option value="OCEANOGRAFIA">Oceanografia & Hidrografia</option>
+                        <option value="PORTUARIO">Engenharia Portuária & Dragagem</option>
+                        <option value="PESQUISA_UNIVERSITARIA">Pesquisa Universitária / Coppetec</option>
+                        <option value="HOSPITALAR">Equipamentos Médicos / Hospitalar</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Razão Social *</label>
+                <input type="text" id="cli-razao" required placeholder="Ex: OCEANPACT SERVICOS MARITIMOS S.A." class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nome Fantasia</label>
+                    <input type="text" id="cli-fantasia" placeholder="Ex: Oceanpact" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Inscrição Estadual (IE)</label>
+                    <input type="text" id="cli-ie" placeholder="Ex: 12.284.519" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">E-mail de Contato</label>
+                    <input type="email" id="cli-email" placeholder="compras@cliente.com" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Telefone</label>
+                    <input type="text" id="cli-telefone" placeholder="(21) 3214-0000" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Responsável / Contato</label>
+                    <input type="text" id="cli-responsavel" placeholder="Ex: Gerente de Suprimentos" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Endereço Completo</label>
+                    <input type="text" id="cli-endereco" placeholder="Ex: Rio de Janeiro - RJ" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="crmModule.fecharModal('modal-novo-cliente')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Salvar Cliente</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 3: Novo Fornecedor -->
+<div id="modal-novo-fornecedor" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-lg rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-truck text-purple-400"></i> Cadastrar Fornecedor (SRM)
+            </h3>
+            <button onclick="crmModule.fecharModal('modal-novo-fornecedor')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-fornecedor" onsubmit="crmModule.salvarNovoFornecedor(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">CNPJ / Identificação *</label>
+                    <input type="text" id="forn-cnpj" required placeholder="00.000.000/0000-00" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Especialidade / Segmento</label>
+                    <input type="text" id="forn-segmento" placeholder="Ex: Semicondutores, Células Lítio" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-400 mb-1">Razão Social *</label>
+                <input type="text" id="forn-razao" required placeholder="Ex: MOUSER ELECTRONICS INC" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nome Fantasia</label>
+                    <input type="text" id="forn-fantasia" placeholder="Ex: Mouser" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">E-mail de Contato</label>
+                    <input type="email" id="forn-email" placeholder="vendas@fornecedor.com" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="crmModule.fecharModal('modal-novo-fornecedor')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-deep-900 font-bold">Salvar Fornecedor</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 4: Novo Orçamento Comercial -->
+<div id="modal-novo-orcamento" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-file-text text-cyan-400"></i> Emitir Novo Orçamento Comercial
+            </h3>
+            <button onclick="crmModule.fecharModal('modal-novo-orcamento')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-novo-orcamento" onsubmit="crmModule.salvarNovoOrcamento(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nº do Orçamento *</label>
+                    <input type="text" id="orc-numero" required placeholder="Ex: 080826" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Empresa Emissora *</label>
+                    <select id="orc-empresa" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="MITANG">Mitang Comércio e Serviços</option>
+                        <option value="ARANDU">Arandu</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Documento Fiscal *</label>
+                    <select id="orc-tipo-fiscal" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="NFE">NF-e (Produto / Baterias)</option>
+                        <option value="NFSE">NFS-e (Serviço / Manutenção)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-400 mb-1">Cliente *</label>
+                    <select id="orc-cliente-id" required class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                        <!-- Clientes inseridos dinamicamente -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Título / Escopo da Proposta *</label>
+                    <input type="text" id="orc-titulo" required placeholder="Ex: Fornecimento de Baterias Submarinas cNode Maxi" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <!-- Itens do Orçamento -->
+            <div class="space-y-2 pt-2 border-t border-white/5">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Itens do Orçamento (Packs ou Serviços)</h4>
+                    <button type="button" onclick="crmModule.adicionarItemOrcamentoForm()" class="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-bold flex items-center gap-1">
+                        <i class="ph ph-plus"></i> Adicionar Item
+                    </button>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-white/5">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-900/80 text-slate-400">
+                            <tr>
+                                <th class="px-3 py-2">Produto do Catálogo (Fase 5)</th>
+                                <th class="px-3 py-2">Descrição / Escopo</th>
+                                <th class="px-3 py-2 w-20">Qtd</th>
+                                <th class="px-3 py-2 w-28">Valor Unit. (R$)</th>
+                                <th class="px-3 py-2 w-28 text-right">Subtotal</th>
+                                <th class="px-2 py-2 w-10 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-itens-orc-form" class="divide-y divide-white/5">
+                            <!-- Linhas adicionadas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Condições Comerciais e Totais -->
+            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-white/10">
+                <div>
+                    <label class="block text-slate-400 mb-1">Prazo de Pagamento</label>
+                    <input type="text" id="orc-prazo" value="30 dias" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Condição de Pagamento</label>
+                    <input type="text" id="orc-condicao" value="Boleto Bancário / PIX" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Desconto Comercial (%)</label>
+                    <input type="number" step="0.5" id="orc-desconto" value="0" oninput="crmModule.recalcularTotaisOrcForm()" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+
+            <!-- Totalizador do Orçamento -->
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-white/5 flex justify-between items-center">
+                <span class="text-slate-400">Total Líquido da Proposta:</span>
+                <span class="text-xl font-bold text-emerald-400" id="orc-form-total-liquido">R$ 0,00</span>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="crmModule.fecharModal('modal-novo-orcamento')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Emitir Orçamento</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 5: Atualizar Status do Orçamento (Aprovação / P.O) -->
+<div id="modal-status-orcamento" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-md rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="ph ph-check-square-offset text-cyan-400"></i> Atualizar Status da Proposta
+            </h3>
+            <button onclick="crmModule.fecharModal('modal-status-orcamento')" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <form id="form-status-orcamento" onsubmit="crmModule.salvarStatusOrcamento(event)" class="space-y-4 text-xs">
+            <input type="hidden" id="status-orc-id">
+
+            <div>
+                <label class="block text-slate-400 mb-1">Novo Status Comercial *</label>
+                <select id="status-orc-select" required onchange="crmModule.toggleCamposPO(this.value)" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                    <option value="ENVIADO">Enviado ao Cliente</option>
+                    <option value="COMPRA_APROVADA">Compra Aprovada (Cliente enviou P.O)</option>
+                    <option value="COMPRA_FINALIZADA">Compra Finalizada (Faturado / Pago)</option>
+                    <option value="CANCELADO">Pedido Cancelado / Não Aprovado</option>
+                </select>
+            </div>
+
+            <div id="campo-po-container">
+                <label class="block text-slate-400 mb-1">Nº do Pedido de Compra do Cliente (P.O) *</label>
+                <input type="text" id="status-orc-po" placeholder="Ex: PO-OCP-2026-882" class="w-full bg-slate-900 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <button type="button" onclick="crmModule.fecharModal('modal-status-orcamento')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancelar</button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-deep-900 font-bold">Atualizar Status</button>
+            </div>
+        </form>
+    </div>
+</div>

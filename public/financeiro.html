@@ -1,0 +1,73 @@
+<div class="animate-fade-in">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-white mb-2">Módulo Financeiro</h1>
+        <p class="text-gray-400">Gestão de Contas a Pagar, Receber e Fluxo de Caixa.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-gray-900 bg-opacity-60 backdrop-blur-md border border-gray-700 rounded-xl p-6 shadow-lg relative overflow-hidden transition-all hover:border-gray-600">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500 opacity-10 rounded-bl-full"></div>
+            <h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-2">A Receber</h3>
+            <p class="text-3xl font-bold text-cyan-400" id="total-receber">R$ 0,00</p>
+        </div>
+        
+        <div class="bg-gray-900 bg-opacity-60 backdrop-blur-md border border-gray-700 rounded-xl p-6 shadow-lg relative overflow-hidden transition-all hover:border-gray-600">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-red-500 opacity-10 rounded-bl-full"></div>
+            <h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-2">A Pagar</h3>
+            <p class="text-3xl font-bold text-red-400" id="total-pagar">R$ 0,00</p>
+        </div>
+
+        <div class="bg-gray-900 bg-opacity-60 backdrop-blur-md border border-cyan-700 rounded-xl p-6 shadow-[0_0_15px_rgba(6,182,212,0.15)] relative overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500 opacity-20 rounded-bl-full"></div>
+            <h3 class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-2">Saldo Projetado</h3>
+            <p class="text-3xl font-bold text-white" id="saldo-projetado">R$ 0,00</p>
+        </div>
+    </div>
+
+    <div class="bg-gray-900 bg-opacity-60 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg overflow-hidden">
+        
+        <div class="p-6 border-b border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4">
+            <h2 class="text-xl font-semibold text-white">Lançamentos Financeiros</h2>
+            
+            <div class="flex flex-wrap gap-2" id="filtros-financeiros">
+                <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-colors bg-cyan-900 text-cyan-300 hover:bg-cyan-800" data-filter="TODOS">
+                    Todos
+                </button>
+                <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-colors bg-gray-800 text-gray-400 hover:bg-gray-700" data-filter="PENDENTE">
+                    Pendentes
+                </button>
+                <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-colors bg-gray-800 text-gray-400 hover:bg-gray-700" data-filter="PAGO">
+                    Concluídos
+                </button>
+                <button class="filtro-btn px-4 py-2 rounded-full text-sm font-medium transition-colors bg-gray-800 text-gray-400 hover:bg-gray-700" data-filter="ATRASADO">
+                    Atrasados
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-max">
+                <thead>
+                    <tr class="bg-gray-800 bg-opacity-50 text-gray-400 text-sm uppercase tracking-wider">
+                        <th class="p-4 font-medium">Vencimento</th>
+                        <th class="p-4 font-medium">Participante</th>
+                        <th class="p-4 font-medium">Tipo</th>
+                        <th class="p-4 font-medium">Status</th>
+                        <th class="p-4 font-medium text-right">Valor</th>
+                        <th class="p-4 font-medium text-center">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-financeiro-body" class="text-gray-300 text-sm divide-y divide-gray-800">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div id="financeiro-empty-state" class="hidden flex flex-col items-center justify-center p-12 text-center">
+            <svg class="w-16 h-16 text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <p class="text-gray-400 text-lg">Nenhum lançamento financeiro encontrado.</p>
+            <p class="text-gray-500 text-sm mt-1">Aprove notas fiscais no módulo de Compras para gerar parcelas.</p>
+        </div>
+    </div>
+</div>
