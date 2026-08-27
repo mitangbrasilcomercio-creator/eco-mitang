@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscador de CNPJ (Brasil API)</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 20px auto; }
+    textarea { width: 100%; height: 100px; }
+    .log { background: #f4f4f4; padding: 10px; height: 150px; overflow-y: auto; font-family: monospace; font-size: 12px; }
+    button { margin: 5px; }
+    .progress { height: 20px; background: #eee; }
+    .progress-bar { height: 100%; width: 0; background: #4caf50; text-align: center; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Buscador automático de CNPJ</h1>
+  <p>Adicione CNPJs (14 dígitos, um por linha) ou carregue um arquivo:</p>
+  <textarea id="inputCnpjs" placeholder="00000000000191&#10;12345678000195"></textarea><br>
+  <button onclick="addCnpjs()">Adicionar à fila</button>
+  <input type="file" id="fileInput" accept=".json,.txt" onchange="loadFile()">
+  <br>
+  <div class="progress"><div id="progressBar" class="progress-bar">0%</div></div>
+  <p>Status: <span id="status">Parado</span> | Processados: <span id="processed">0</span>/<span id="totalQueue">0</span></p>
+  <button onclick="exportData()">📥 Exportar dados completos (JSON)</button>
+  <button onclick="clearQueue()">🗑 Limpar fila</button>
+  <div class="log" id="log"></div>
+
+  <script>
+    const API_URL = 'https://brasilapi.com.br/api/cnpj/v1/';
+    const DELAY_MS = 2000; // 2 segundos entre consultas
+
+    let queue = [];
+    let data = {};
+    let running = false;
+    let timerId = null;
+
+    // Carrega estado salvo
+    function loadState() {
+      try {
+        queue = JSON.parse(localStorage.getItem('cnpjQueue') || '[]');
+        data = JSON.parse(localStorage.getItem('cnpjData') || '{}');
+      } catch (e) {
+        queue = [];
+        data = {};
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('cnpjQueue', JSON.stringify(queue));
+      localStorage.setItem('cnpjData', JSON.stringify(data));
+    }
+
+    function updateUI() {
+      document.getElementById('totalQueue').textContent = queue.length;
+      document.getElementById('processed').textContent = Object.keys(data).length;
+      const total = queue.length + Object.keys(data).length;
+      const percent = total ? Math.round((Object.keys(data).length / total) * 100) : 0;
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressBar').textContent = percent + '%';
+      document.getElementById('status').textContent = running ? 'Executando...' : 'Parado';
+    }
+
+    function log(msg) {
+      const logEl = document.getElementById('log');
+      logEl.innerHTML += `<div>${new Date().toLocaleTimeString()} - ${msg}</div>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function addCnpjs() {
+      const raw = document.getElementById('inputCnpjs').value.trim();
+      if (!raw) return;
+      const cnpjs = raw.split(/[\n,;]+/).map(s => s.replace(/\D/g, '')).filter(s => s.length === 14);
+      const newOnes = cnpjs.filter(cnpj => !queue.includes(cnpj) && !(cnpj in data));
+      if (newOnes.length) {
+        queue = queue.concat(newOnes);
+        saveState();
+        log(`Adicionados ${newOnes.length} CNPJs à fila.`);
+        updateUI();
+        if (!running) startProcessing();
+      } else {
+        log('Todos os CNPJs já estão na fila ou já foram consultados.');
+      }
+      document.getElementById('inputCnpjs').value = '';
+    }
+
+    function loadFile() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('inputCnpjs').value = e.target.result;
+        addCnpjs();
+      };
+      reader.readAsText(file);
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function fetchCnpj(cnpj) {
+      const response = await fetch(API_URL + cnpj);
+      if (response.status === 429) {
+        log(`429 - Muitas requisições para ${cnpj}, aguardando 10s...`);
+        await sleep(10000);
+        return fetchCnpj(cnpj); // retry
+      }
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+      }
+      return await response.json();
+    }
+
+    async function processQueue() {
+      running = true;
+      saveState();
+      updateUI();
+      while (queue.length > 0) {
+        const cnpj = queue[0];
+        log(`Consultando ${cnpj}...`);
+        try {
+          const json = await fetchCnpj(cnpj);
+          data[cnpj] = {
+            ...json,
+            _lastUpdated: new Date().toISOString()
+          };
+          queue.shift(); // remove da fila
+          saveState();
+          log(`✔ ${cnpj} consultado com sucesso.`);
+        } catch (err) {
+          log(`✖ Erro ao consultar ${cnpj}: ${err.message}`);
+          // Opção: remover da fila e guardar erro, ou manter na fila para retry posterior
+          // Vamos remover e guardar erro para não travar
+          data[cnpj] = { error: err.message, _lastUpdated: new Date().toISOString() };
+          queue.shift();
+          saveState();
+        }
+        updateUI();
+        if (queue.length > 0) {
+          await sleep(DELAY_MS);
+        }
+      }
+      running = false;
+      updateUI();
+      log('Fila concluída!');
+    }
+
+    function startProcessing() {
+      if (running) return;
+      processQueue().catch(e => {
+        log('Erro inesperado: ' + e.message);
+        running = false;
+        updateUI();
+      });
+    }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cnpj_data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearQueue() {
+      if (confirm('Apagar toda a fila? Os dados já consultados serão mantidos.')) {
+        queue = [];
+        saveState();
+        updateUI();
+        log('Fila limpa.');
+      }
+    }
+
+    // Inicialização
+    loadState();
+    updateUI();
+    // Se já existiam CNPJs na fila, iniciar automaticamente
+    if (queue.length > 0 && !running) {
+      log('Retomando processamento automático da fila...');
+      startProcessing();
+    }
+  </script>
+</body>
+</html>

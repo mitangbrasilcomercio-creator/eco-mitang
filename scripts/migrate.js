@@ -13,7 +13,10 @@ const migrationFiles = [
   '07_financeiro_receber.sql',
   '08_qsms_auditoria.sql',
   '09_analytics_cqrs.sql',
-  '10_clientes_historico.sql'
+  '10_clientes_historico.sql',
+  '11_extratos_ofx_conciliacao.sql',
+  '12_nfe_nfse_xml_armazenamento.sql',
+  '13_baterias_e_orcamentos_historico.sql'
 ];
 
 async function runMigrations() {

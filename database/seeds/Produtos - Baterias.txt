@@ -1,0 +1,710 @@
+--- Page 1 ---
+
+Tipo
+Setor
+Fabricante
+Produto
+Código
+Química
+Bateria
+Náutico
+Jasco
+AMAR G4 - Ultra Deep - 12v / 164Ah / 1.968Wh
+JAG4UD
+Alcalina
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 1200kHz - 32,4v / 1820Wh - (4 Furos)
+ADL12
+Li-SOCL2
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 1200kHz - 42v / 630Wh - (4 Furos)
+ADA12
+Alcalina
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)
+ADL30
+Li-SOCL2
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 300kHz - 42v / 630Wh - (4 Furos)
+ADA30
+Alcalina
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 600kHz - 32,4v / 1820Wh - (4 Furos)
+ADL60
+Li-SOCL2
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse 600kHz - 42v / 630Wh - (4 Furos)
+ADA60
+Alcalina
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse LR 150kHz - 32,4v / 1820Wh - (2 Furos)
+ADL15
+Li-SOCL2
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse LR 150kHz - 42v / 630Wh - (2 Furos)
+ADA15
+Alcalina
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+Li-SOCL2
+Bateria
+Náutico
+Teledyne
+ADCP Workhorse LR 75kHz - 42v / 630Wh - (2 Furos)
+ADA75
+Alcalina
+Bateria
+Náutico
+Sontek
+ADP - 18v (Em estudo)
+ADPL18
+Li-SOCL2
+Bateria
+Náutico
+Sontek
+ADP - 18v / 35,5Ah / 640Wh
+ADPA18
+Alcalina
+Bateria
+Náutico
+Nortek
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+Li-Ion
+Bateria
+Náutico
+Nortek
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+Alcalina
+Bateria
+Náutico
+Nortek
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+Alcalina
+Bateria
+Náutico
+Nortek
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+Li-SOCL2
+Bateria
+Náutico
+Nortek
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+Li-SOCL2
+Bateria
+Náutico
+Sontek
+Argonaut ADV - 10,5v / 23,3Ah / 230Wh
+ADV10
+Alcalina
+Bateria
+Náutico
+Sontek
+Argonaut MD - 10,5v / 38Ah / 400Wh
+AMD
+Alcalina
+Bateria
+Náutico
+Sontek
+Argornaut XR - 12v / 45Ah / 540Wh
+AXR
+Alcalina
+Bateria
+Náutico
+Nortek
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+Alcalina
+Bateria
+Náutico
+Nortek
+AWAC - 15v / 120Ah / 1800Wh
+220029
+Li-SOCL2
+Bateria
+Náutico
+Nortek
+AWAC 2 - 18v / 100Ah / 1800Wh
+220051-2
+Li-SOCL2
+Bateria
+Náutico
+Nortek
+AWAC 2 - 18v / 30Ah / 540Wh
+220014-2
+Alcalina
+Bateria
+Geral
+-
+Bateria Selada - 12v / 7Ah / 84Wh
+VRLA
+Pb
+Bateria
+Geral
+Panasonic
+Bateria Selada LC-R123R4PG - 12v / 3.4Ah
+LC-R123R4PG
+Pb
+Bateria
+Náutico
+Blue Robotics
+Blue ROV2 - 14,8 / 18Ah / 266,4Wh
+BLU
+Li-ion
+Bateria
+Náutico
+NKE
+Boia Derivadora SC 40 I BUOY - 10,5v
+BD-SC-40
+Alcalina
+Bateria
+Hospitalar
+Lifemed
+Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh
+BILF
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Capacitor Híbrido - Expower - 4v - Plus Pulse EXP-HPC1550 - AA
+HPC1550
+Capacitor
+Bateria
+Hospitalar
+Instramed
+Cardioversor Cardiomax - 14,4v / 4,4Ah / 64Wh
+CDM
+Ni-MH
+Bateria
+Hospitalar
+Vela
+Carefusion - 12v / 4Ah / 48Wh
+VL12
+Ni-MH
+Acessório
+Náutico
+Nortek
+Carregador p/ Aquadopp 75Wh
+220067
+-
+Bateria
+Náutico
+Kongsberg
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+Li-SOCL2
+Bateria
+Náutico
+Kongsberg
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+Li-SOCL2
+Bateria
+Náutico
+Kongsberg
+cNode MiniS - 25,6v / 2,8Ah / 71,7Wh
+CNML16
+LiFePO4
+Bateria
+Náutico
+FSI
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+Alcalina
+Bateria
+Náutico
+Teledyne
+Correntômetro DVS - 18v
+DVS18
+Alcalina
+Bateria
+Náutico
+-
+Derivadora ERB - 10,5v / 30Ah / 315Wh
+ERB
+Alcalina
+Bateria
+Hospitalar
+Zoll
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+Pb
+Bateria
+Hospitalar
+Philips / Molicel
+Efficia - 11,1v / 2,4Ah / 26,6Wh
+ME202EK
+Li-Ion
+Bateria
+Hospitalar
+Bionet
+Eletrocardiógrafo CardioCare - 12v / 2,2Ah / 26,4Wh
+ECB-2
+Ni-MH
+Bateria
+Hospitalar
+Bionet
+Eletrocardiógrafo CardioCare - 12v / 4,4Ah / 52,8Wh
+ECB-4
+Ni-MH
+Bateria
+Náutico
+-
+Hanzas-01-18
+HNZS
+Li-Ion
+Bateria
+Náutico
+-
+Hanzas-01-18
+HNZS
+Li-Ion
+Bateria
+Hospitalar
+GenesisBPS
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+Ni-MH
+Bateria
+Hospitalar
+Macopharma
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+Li-Ion
+Bateria
+Náutico
+-
+Jasco AMAR G4 - Ultra Deep
+JAG4UD
+Alcalina
+Bateria
+Náutico
+Edgetech
+Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh
+LAE
+Alcalina
+Bateria
+Náutico
+Benthos
+Liberador Acústico Benthos - 13,5v
+BT13
+Alcalina
+Bateria
+Náutico
+Benthos
+Liberador Acústico Benthos - 27v
+BT27
+Alcalina
+Bateria
+Hospitalar
+HillRom
+Liko Viking M - 24v / 2,5Ah / 60Wh
+HRLV
+Ni-MH
+Bateria
+Hospitalar
+Leistung
+Luft 3 - 11,1v / 13,2Ah / 146,5Wh
+LL3
+Li-Ion
+Bateria
+Náutico
+Nautronix
+Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)
+NTV-16-10
+Alcalina
+Bateria
+Náutico
+Nautronix
+Maxi Beacon II - 9v+12v+24v / 16,6Ah (6 Blocos)
+NTV-16-6
+Alcalina
+Bateria
+Náutico
+Nautronix
+Maxi Beacon II - 9v+12v+24v / 20,5Ah (6 Blocos)
+NTV-20-6
+Alcalina
+Bateria
+Náutico
+Nautronix
+Maxi Beacon II - 9v+12v+24v / 20,5h (10 Blocos)
+NTV-20-10
+Alcalina
+Bateria
+Náutico
+Megger
+Megger TDR 2000/2P - 9,6v / 1,5Ah / 14,4Wh
+M-TDR-2-2P
+Ni-MH
+Bateria
+Hospitalar
+Mindray
+Monitor BeneVision N12/N15/N17 - 11,1v / 4,5Ah / 49,9Wh
+MM-N12
+Li-Ion
+Bateria
+Hospitalar
+Mindray
+Monitor ECG uMEC - 10,95v / 2,5Ah / 27Wh
+EUM
+Li-Ion
+Bateria
+Hospitalar
+Mindray
+Monitor iMEC12 - 11,1v / 2,6Ah / 28,8Wh
+iMEC12
+Li-Ion
+Pilha
+Matéria-Prima
+Duracell
+Pilha Alcalina - Duracell - MN1300 - 1,5v - D
+MN1300
+Alcalina
+Pilha
+Matéria-Prima
+Duracell
+Pilha Alcalina - Duracell - MN1400 - 1,5v - C
+MN1400
+Alcalina
+Pilha
+Matéria-Prima
+Duracell
+Pilha Alcalina - Duracell - MN1500 - 1,5v - AA
+MN1500
+Alcalina
+Pilha
+Matéria-Prima
+Duracell
+Pilha Alcalina - Duracell - MN1600 - 1,5v - AAA
+MN1600
+Alcalina
+Pilha
+Matéria-Prima
+Duracell
+Pilha Alcalina - Duracell - MN1604 - 9v
+MN1604 
+Alcalina
+Pilha
+Matéria-Prima
+Energizer
+Pilha Alcalina - Energizer - LR20 - 1,5v - D
+E-LR20
+Alcalina
+Pilha
+Matéria-Prima
+Toshiba
+Pilha Alcalina - Toshiba - LR06GC - 1,5v - AA
+LR06GC
+Alcalina
+Pilha
+Matéria-Prima
+Toshiba
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+Alcalina
+Pilha
+Matéria-Prima
+Expower
+Pilha LiFEPO4 - Expower - 18650 - 3,2v - 1,4Ah (5C)
+LI-FE-18650
+LiFePO4
+Pilha
+Matéria-Prima
+Expower
+Pilha LiFEPO4 - Expower - 26650 - 3,2v - 2,4Ah (15C)
+LI-FE-26650
+LiFePO4
+Pilha
+Matéria-Prima
+Expower
+Pilha LiFEPO4 - Expower - 26700 - 3,2v - 4Ah (3C)
+LI-FE-26700
+LiFePO4
+Pilha
+Matéria-Prima
+Expower
+Pilha LiFEPO4 - Expower - 32700 - 3,2v - 6Ah (3C)
+LI-FE-32700
+LiFePO4
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-ION - Expower INR18650 - 3,6v - 2,6Ah (3C)
+LI-ION-18650
+Li-Ion
+Pilha
+Matéria-Prima
+LG
+Pilha Li-ION - LG - INR18650-MJ1 - 3,7v - 3,5Ah
+INR18650-MJ1
+Li-Ion
+Pilha
+Matéria-Prima
+Samsung
+Pilha Li-ION - Samsung - INR18650-30Q - 3,7v - 3Ah
+INR18650-30Q
+Li-Ion
+Pilha
+Matéria-Prima
+Duracell
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17345
+CR123A
+Li-MNO2
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+Li-SOCL2
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-SOCL2 - Expower - ER26500 - 3,6v - 9Ah - C
+ER26500
+Li-SOCL2
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-SOCL2 - Expower - ER26500M - 3,6v - 6Ah - C (High Power)
+ER26500M
+Li-SOCL2
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D
+ER34615
+Li-SOCL2
+Pilha
+Matéria-Prima
+Expower
+Pilha Li-SOCL2 - Expower - ER34615M - 3,6v - 15Ah - D (High Power)
+ER34615M
+Li-SOCL2
+Pilha
+Matéria-Prima
+Saft
+Pilha Li-SOCL2 - SAFT - LS14500 - 3,6v - 2,4Ah - AA
+LS14500
+Li-SOCL2
+Pilha
+Matéria-Prima
+Saft
+Pilha Li-SOCL2 - SAFT - LS33600 - 3,6v - 17Ah - D
+LS33600
+Li-SOCL2
+Pilha
+Matéria-Prima
+Saft
+Pilha Li-SOCL2 - SAFT - LSH14 - 3,6v - 5,8Ah - C
+LSH14
+Li-SOCL2
+Pilha
+Matéria-Prima
+Saft
+Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D
+LSH20
+Li-SOCL2
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-CD - Expower - 1,2v - 1,8Ah - SC (Recarregável)
+Ni-CD-SC-1.8
+Ni-CD
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-CD - Expower - 1,2v - 2Ah - SC (High Power) (Recarregável)
+Ni-CD-SC-2
+Ni-CD
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-CD - Expower - 1,2v - 3Ah - C - (Recarregável)
+Ni-CD-C
+Ni-CD
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 0,9Ah - AAA (Recarregável)
+Ni-MH-AAA
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 2,2Ah - AA (Recarregável)
+Ni-MH-AA-2.2
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 2,5Ah - AA (Recarregável)
+Ni-MH-AA-2.5
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 3Ah - SC (Recarregável)
+Ni-MH-SC
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 4,5Ah - C (Recarregável)
+Ni-MH-C
+Ni-MH
+Pilha
+Matéria-Prima
+Expower
+Pilha Ni-MH - Expower - 1,2v - 4Ah - 4/3A (Recarregável)
+Ni-MH-4-3
+Ni-MH
+Pilha
+Matéria-Prima
+Cyclon
+Pilha Pb - Cyclon Enersys - 2v - 2,5Ah - D Cell - (Recarregável)
+C-E-Pb
+Pb
+Bateria
+Náutico
+Sontek
+Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh
+DGPS-RS-M9-2
+Ni-MH
+Bateria
+Náutico
+Sontek
+Riversurveyor M9 - 14,4v / 2,5Ah / 36Wh
+DGPS-RS-M9-5
+Ni-MH
+Bateria
+Náutico
+Sonardyne
+RT 6-3000 DORT
+SDORT
+Li-SOCL2
+Bateria
+Náutico
+Sonardyne
+RT6-3000 - 4,5v
+RT6-3-A
+Alcalina
+Bateria
+Náutico
+Kongsberg
+Seaglider - 10,8v / 78Ah / 842,4Wh
+SGD10
+Li-SOCL2
+Bateria
+Náutico
+Kongsberg
+Seaglider - 24v / 117Ah / 2.948,4Wh
+SGD24
+Li-SOCL2
+Bateria
+Náutico
+Aanderaa
+Seaguard II - 7v / 35Ah / 245Wh
+SEL
+Li-SOCL2
+Bateria
+Náutico
+Aanderaa
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+Alcalina
+Bateria
+Hospitalar
+Macopharma
+Seladora Macoseal PS2/SE160 - 25,6v
+PS2
+LiFePO4
+Bateria
+Hospitalar
+GenesisBPS
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+Ni-MH
+Bateria
+Hospitalar
+Maquet
+Servo S - 12v / 4Ah / 48Wh
+MQ
+Ni-MH
+Bateria
+Hospitalar
+-
+Shenzhen CPKD - 11,1v / 2,5Ah / 27,75Wh
+SCPKD
+Li-Ion
+Bateria
+Náutico
+Nortek
+Signature - 15v / 6Ah / 90Wh
+220047
+Alcalina
+Bateria
+Náutico
+Nortek
+Signature - 18v / 100Ah / 1800Wh
+220051
+Li-SOCL2
+Bateria
+Náutico
+Nortek
+Signature - 18v / 10Ah / 180Wh
+220052
+Alcalina
+Bateria
+Náutico
+Nortek
+Signature - 18v / 30Ah / 540Wh
+220014
+Alcalina
+Bateria
+Náutico
+Sontek
+SL500 - 12v / 45Ah / 540Wh
+SL50
+Li-SOCL2
+Bateria
+Hospitalar
+Stryker
+Stryker System 5 - 9,6v
+SS5
+Ni-CD
+Bateria
+Náutico
+Mindray
+SV300 - 14,4v / 5,7Ah / 82Wh
+SV30
+Li-Ion
+Bateria
+Náutico
+Exail
+Canopus - 15v / 36Ah / 540Wh
+EXCP
+Alcalina

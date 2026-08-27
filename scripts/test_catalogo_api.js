@@ -177,6 +177,7 @@ async function runTests() {
   const clientRes = await client.query(`
     INSERT INTO clientes (empresa_id, razao_social_nome, cnpj_cpf)
     VALUES ($1, 'Cliente Teste Bloqueio SA', '12345678000199')
+    ON CONFLICT (empresa_id, cnpj_cpf) DO UPDATE SET razao_social_nome = EXCLUDED.razao_social_nome
     RETURNING id;
   `, [empresaId]);
   const clienteId = clientRes.rows[0].id;

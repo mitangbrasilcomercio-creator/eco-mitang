@@ -1,0 +1,10859 @@
+--- Page 1 ---
+
+Orçamento
+Vendido Por
+Mês Emiss.
+Ano Emiss.
+Data de Emissão
+Empresa
+CNPJ / CPF
+Contato
+Pack
+Código
+Qnt.
+Química
+Orçamento Enviado
+Aprovado
+P.O
+Data de Aprovação
+Mês Aprov.
+Ano Aprov.
+Tipo de NFe
+Dias para Enviar NF
+Data de Envio da NF
+Nº NFe/NFSe
+Prazo
+Vencimento
+Mês Venc.
+Ano Venc.
+Método de Pag.
+Status
+Valor Unitário
+Valor/Qnt.
+Desconto
+Frete
+Valor Final
+Pagamento
+SITUAÇÃO
+Observação
+N°
+010125
+Mitang
+jan
+2025
+07/01/2025
+Medsave
+37.135.254/0001-27
+Felipe
+Servo S - 12v / 4Ah / 48Wh
+MQ
+15
+Ni-MH
+Sim
+Compra Aprovada
+NFSe - Serviço
+-
+00.000.041
+À Vista
+-
+-
+Pago
+R$ 701,80
+R$ 10.527,00
+5%
+R$ 0,00
+R$ 10.000,65
+Ok
+Compra Finalizada
+-
+1
+020125
+Mitang
+jan
+2025
+08/01/2025
+Minas Med
+44.875.316/0001-00
+Rafael
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Compra Aprovada
+NFSe - Serviço
+-
+00.000.044
+10/02/2025
+Fev
+2025
+Pago
+R$ 701,80
+R$ 1.403,60
+0%
+R$ 0,00
+R$ 1.403,60
+Ok
+Compra Finalizada
+Pago em atraso através do PIX dia 21/02/2025
+2
+030125
+Mitang
+jan
+2025
+09/01/2025
+Biomed
+45.782.717/0001-70
+Rodrigo
+Servo S - 12v / 4Ah / 48Wh
+MQ
+1
+Ni-MH
+Sim
+Compra Aprovada
+NFSe - Serviço
+-
+00.000.042
+À Vista
+-
+-
+Extornado
+R$ 701,80
+R$ 701,80
+0%
+R$ 0,00
+R$ 701,80
+Extornado
+Pedido Cancelado
+Pix
+3
+040125
+Mitang
+jan
+2025
+13/01/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 876,80
+R$ 1.753,60
+0%
+R$ 0,00
+R$ 1.753,60
+-
+Compra Não Finalizada
+-
+4
+050125
+Mitang
+jan
+2025
+14/01/2025
+Medsave
+37.135.254/0001-27
+Felipe
+Servo S - 12v / 4Ah / 48Wh
+MQ
+4
+Ni-MH
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.045
+À Vista
+-
+-
+Pago
+R$ 701,80
+R$ 2.807,20
+0%
+R$ 0,00
+R$ 2.807,20
+Ok
+Compra Finalizada
+-
+5
+060125
+Mitang
+jan
+2025
+14/01/2025
+Oceanpact Serviços Marítimos
+09.114.805/0008-07
+Luiza Bastos
+Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh
+LAE
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.171
+19/02/2025
+Fev
+2025
+Pago
+R$ 3.267,00
+R$ 6.534,00
+0%
+R$ 0,00
+R$ 6.534,00
+Ok
+Compra Finalizada
+-
+6
+070125
+Mitang
+jan
+2025
+14/01/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+8
+Li-SOCL2
+Sim
+Compra Aprovada
+NFe - Venda
+1º ao 24º Dia
+-
+00.000.170
+28
+16/02/2025
+Fev
+2025
+Pago
+R$ 8.769,00
+R$ 70.152,00
+0%
+R$ 0,00
+R$ 70.152,00
+Ok
+Compra Finalizada
+Valor Total do Orçamento "070125" = R$138.096,01
+7
+070125
+Mitang
+jan
+2025
+14/01/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+9
+Li-SOCL2
+Sim
+Compra Aprovada
+NFe - Venda
+1º ao 24º Dia
+-
+00.000.170
+28
+16/02/2025
+Fev
+2025
+Pago
+R$ 6.980,00
+R$ 62.820,00
+0%
+R$ 0,00
+R$ 62.820,00
+Ok
+Compra Finalizada
+Valor Total do Orçamento "070125" = R$138.096,00
+8
+070125
+Mitang
+jan
+2025
+14/01/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+84
+Li-SOCL2
+Sim
+Compra Aprovada
+NFe - Venda
+1º ao 24º Dia
+-
+00.000.170
+28
+16/02/2025
+Fev
+2025
+Pago
+R$ 61,00
+R$ 5.124,00
+0%
+R$ 0,00
+R$ 5.124,00
+Ok
+Compra Finalizada
+Valor Total do Orçamento "070125" = R$138.096,01
+9
+080125
+Mitang
+jan
+2025
+21/01/2025
+Ambipar / Ekman
+12.285.662/0001-34
+Ivan
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+1
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.172
+22/02/2025
+Fev
+2025
+Pago
+R$ 465,00
+R$ 465,00
+0%
+R$ 0,00
+R$ 465,00
+Ok
+Compra Finalizada
+-
+10
+090125
+Mitang
+jan
+2025
+21/01/2025
+Equipacare Paraty
+17.040.595/0001-01
+Victor Franklin
+Luft 3 - 11,1v / 13,2Ah / 146,5Wh
+LL3
+1
+Li-Ion
+Valor por Whatsapp
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Compra Não Finalizada
+-
+11
+100125
+Mitang
+jan
+2025
+21/01/2025
+Hospital Di Camp
+02.745.280/0001-92
+Dione Amorim
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+1
+Pb
+Sim
+Compra Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.987,00
+R$ 1.987,00
+0%
+R$ 0,00
+R$ 1.987,00
+-
+Compra Não Finalizada
+A bateria não foi enviada para reparo até hoje
+12
+110125
+Mitang
+jan
+2025
+21/01/2025
+UFRJ - Fundacao Coppetec
+72.060.999/0001-75
+Thiago Leão
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+1
+Alcalina
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 949,90
+R$ 949,90
+0%
+R$ 0,00
+R$ 949,90
+-
+Compra Não Finalizada
+-
+13
+130125
+Mitang
+jan
+2025
+21/01/2025
+CP Tech Engenharia
+55.584.895/0001-40
+Caio da Silva Pinheiro
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+25
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 61,00
+R$ 1.525,00
+0%
+R$ 0,00
+R$ 1.525,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "130125" com Frete = R$8.118,20
+14
+130125
+Mitang
+jan
+2025
+21/01/2025
+CP Tech Engenharia
+55.584.895/0001-40
+Caio da Silva Pinheiro
+Pilha Li-ION - Samsung - INR18650-30Q - 3,7v - 3Ah
+INR18650
+15
+Li-Ion
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 270,00
+R$ 4.050,00
+0%
+R$ 0,00
+R$ 4.050,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "130125" com Frete = R$8.118,20
+15
+130125
+Mitang
+jan
+2025
+21/01/2025
+CP Tech Engenharia
+55.584.895/0001-40
+Caio da Silva Pinheiro
+Capacitor Híbrido - Expower - 4v - Plus Pulse EXP-HPC1550 - AA
+EXP-HPC1550
+25
+Capacitor Híbrido
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 87,50
+R$ 2.187,50
+0%
+R$ 0,00
+R$ 2.187,50
+-
+Compra Não Finalizada
+Valor Total do Orçamento "130125" com Frete = R$8.118,20
+16
+120125
+Mitang
+jan
+2025
+22/01/2025
+UFC - Universidade Federal do Ceará
+003.043.733-33
+Marcelo de Oliveira
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+1
+Li-ION
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.770,00
+R$ 1.770,00
+0%
+R$ 0,00
+R$ 1.770,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "120125" = R$2.110,00
+17
+120125
+Mitang
+jan
+2025
+22/01/2025
+UFC - Universidade Federal do Ceará
+003.043.733-33
+Marcelo de Oliveira
+Carregador p/ Aquadopp 75Wh
+220067
+1
+Li-ION
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 340,00
+R$ 340,00
+0%
+R$ 0,00
+R$ 340,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "120125" = R$2.110,00
+18
+140125
+Mitang
+jan
+2025
+24/01/2025
+Martell
+02.956.455/0001-00
+Heldecler
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.780,00
+R$ 1.780,00
+0%
+R$ 0,00
+R$ 1.780,00
+-
+Compra Não Finalizada
+-
+19
+150125
+Mitang
+jan
+2025
+27/01/2025
+MV3
+12.334.122/0001-01
+Eng. Clínica
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17345
+CR123A
+10
+LiMnO2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 79,00
+R$ 790,00
+0%
+R$ 0,00
+R$ 790,00
+-
+Compra Não Finalizada
+-
+20
+160125
+Mitang
+jan
+2025
+28/01/2025
+Oceanpact Geociências
+16.492.411/0001-81
+William Stelling
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+6
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.182
+17/03/2025
+Mar
+2025
+Pago
+R$ 2.527,00
+R$ 15.162,00
+0%
+R$ 0,00
+R$ 15.162,00
+Ok
+Compra Finalizada
+Já foi avisado do atraso, aguardando pagamento
+21
+170125
+Mitang
+jan
+2025
+28/01/2025
+USP - Centro de Biologia Marinha
+63.025.530/0079-74
+Breylla Campos
+ADP - 18v / 35,5Ah / 640Wh
+ADPA18
+2
+Alcalina
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 2.817,99
+R$ 5.635,98
+0%
+R$ 0,00
+R$ 5.635,98
+-
+Compra Não Finalizada
+-
+22
+180125
+Mitang
+jan
+2025
+29/01/2025
+Oceanpact Geociências
+16.492.411/0003-43
+Thales
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+1
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 8.121,00
+R$ 8.121,00
+0%
+R$ 0,00
+R$ 8.121,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "180125" = R$15.011,00
+23
+180125
+Mitang
+jan
+2025
+29/01/2025
+Oceanpact Geociências
+16.492.411/0003-43
+Thales
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+1
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 6.890,00
+R$ 6.890,00
+0%
+R$ 0,00
+R$ 6.890,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "180125" = R$15.011,00
+24
+190125
+Mitang
+jan
+2025
+31/01/2025
+Nortek Brasil
+13.389.555/0001-19
+Renato Arruk
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.175
+06/03/2025
+Mar
+2025
+Pago
+R$ 949,90
+R$ 1.899,80
+10%
+R$ 0,00
+R$ 1.709,82
+Ok
+Compra Finalizada
+-
+25
+200125
+Mitang
+jan
+2025
+31/01/2025
+Hidromares
+04.919.751/0001-67
+Alexandre Mendes
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+2
+Alcalina
+Sim
+Compra Aprovada
+NFSe - Serviço
+-
+00.000.047
+03/03/2025
+Mar
+2025
+Pago
+R$ 2.527,00
+R$ 5.054,00
+6%
+R$ 0,00
+R$ 4.750,76
+Ok
+Compra Finalizada
+-
+26
+010225
+Mitang
+fev
+2025
+04/02/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.174
+06/03/2025
+Mar
+2025
+Pago
+R$ 876,80
+R$ 1.753,60
+0%
+R$ 0,00
+R$ 1.753,60
+Ok
+Compra Finalizada
+Pagamento realizado em atraso (Valor recebido - R$1.772,14)
+27
+010225
+Mitang
+fev
+2025
+04/02/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Bateria 12v - 7Ah
+VRLA
+8
+Pb
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 178,80
+R$ 1.430,40
+0%
+R$ 0,00
+R$ 1.430,40
+-
+Pedido Cancelado
+-
+28
+020225
+Mitang
+fev
+2025
+06/02/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan
+SV300 - 14,4v / 5,7Ah / 82Wh
+SV30
+1
+Li-Ion
+Não
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+Orçamento não foi feito
+29
+030225
+Mitang
+fev
+2025
+06/02/2025
+UFRJ - Fundacao Coppetec
+124.417.777-69
+Thiago Leão
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+1
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+000.000.184
+À Vista
+-
+-
+À Vista
+Pago
+R$ 949,90
+R$ 949,90
+7,359%
+R$ 0,00
+R$ 880,00
+Ok
+Compra Finalizada
+-
+30
+040225
+Mitang
+fev
+2025
+06/02/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Efficia - 11,1v / 2,4Ah / 26,6Wh
+ME202EK
+1
+Li-Ion
+-
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+Orçamento não foi feito
+31
+050225
+Mitang
+fev
+2025
+10/02/2025
+Marco Antônio da Silva Santos
+177.407.147-98
+Marco Antônio
+Servo S - 12v / 4Ah / 48Wh
+MQ
+1
+Ni-MH
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 876,80
+R$ 876,80
+0%
+R$ 0,00
+R$ 876,80
+-
+Compra Não Finalizada
+-
+32
+060225
+Mitang
+fev
+2025
+12/02/2025
+Viva Rio 
+00.343.941/0001-28
+Jonathan Ribeiro
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+1
+Pb
+Sim
+Compra Aprovada
+25052075.01
+NFSe - Serviço
+-
+00.000.053
+-
+-
+-
+Transferência Bancária
+Pago
+R$ 1.760,00
+R$ 1.760,00
+0%
+R$ 0,00
+R$ 1.760,00
+Ok
+Compra Finalizada
+Pago dia 11/06/2025 (Sem Juros)
+33
+070225
+Mitang
+fev
+2025
+13/02/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+2
+Alcalina
+Sim
+Não Aprovada
+Sem NFe/NFSe
+1º ao 24º Dia
+-
+-
+28
+-
+-
+-
+-
+R$ 949,90
+R$ 1.899,80
+0%
+R$ 0,00
+R$ 1.899,80
+-
+Compra Não Finalizada
+34
+070225
+Mitang
+fev
+2025
+13/02/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Não Aprovada
+Sem NFe/NFSe
+1º ao 24º Dia
+-
+-
+28
+-
+-
+-
+-
+R$ 1.584,70
+R$ 3.169,40
+0%
+R$ 0,00
+R$ 3.169,40
+-
+Compra Não Finalizada
+Decidindo entre 2 modelos de aquadopp
+35
+080225
+Mitang
+fev
+2025
+18/02/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Signature - 18v / 30Ah / 540Wh
+220014
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.176
+18/03/2025
+Mar
+2025
+Pago
+R$ 2.527,00
+R$ 5.054,00
+0%
+R$ 0,00
+R$ 5.054,00
+Ok
+Compra Finalizada
+Foi pago dia 11/04/2025
+36
+090225
+Mitang
+fev
+2025
+18/02/2025
+Oceanpact Geociências
+16.492.411/0002-62
+William Stelling
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.179
+26/03/2025
+Mar
+2025
+Pago
+R$ 949,90
+R$ 1.899,80
+0%
+R$ 0,00
+R$ 1.899,80
+Ok
+Compra Finalizada
+Pago em Bradesco
+37
+100225
+Mitang
+fev
+2025
+18/02/2025
+Oceanpact Geociências
+16.492.411/0002-62
+William Stelling
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+2
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 6.890,00
+R$ 13.780,00
+0%
+R$ 0,00
+R$ 13.780,00
+-
+Compra Não Finalizada
+-
+38
+110225
+Mitang
+fev
+2025
+20/02/2025
+Hidromares
+04.919.751/0001-67
+Alexandre Mendes
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.177
+20/03/2025
+Mar
+2025
+Pago
+R$ 2.527,00
+R$ 5.054,00
+6%
+R$ 0,00
+R$ 4.750,76
+Ok
+Compra Finalizada
+-
+39
+120225
+Mitang
+fev
+2025
+20/02/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+1
+Li-Ion
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.940,00
+R$ 1.940,00
+0%
+R$ 0,00
+R$ 1.940,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "120225" = R$2.280,00
+40
+120225
+Mitang
+fev
+2025
+20/02/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Carregador p/ Aquadopp 75Wh
+220067
+1
+Li-Ion
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 340,00
+R$ 340,00
+0%
+R$ 0,00
+R$ 340,00
+-
+Compra Não Finalizada
+Valor Total do Orçamento "120225" = R$2.280,00
+41
+140225
+Mitang
+fev
+2025
+24/02/2025
+3NGEO
+06.033.405/0001-02
+Lucas Santos
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+1
+Alcalina
+-
+Compra Aprovada
+NFe - Venda
+-
+00.000.178
+20/03/2025
+Mar
+2025
+Pago
+R$ 425,00
+R$ 425,00
+0%
+R$ 0,00
+R$ 425,00
+Ok
+Compra Finalizada
+Aprovado Sem Orçamento
+42
+150225
+Mitang
+fev
+2025
+24/02/2025
+C-Innovation
+09.477.772/0001-93
+Bruno Fucelini
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+2
+Alcalina
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.181
+09/04/2025
+Abr
+2025
+Pago
+R$ 425,00
+R$ 850,00
+0%
+R$ 0,00
+R$ 850,00
+Ok
+Compra Finalizada
+-
+43
+160225
+Mitang
+fev
+2025
+25/02/2025
+Comprehense
+08.441.389/0001-12
+Edimilson Felipe
+Panasonic LC-R123R4PG - 12v - 3.4Ah/20Hr
+LC-R123R4PG
+2
+Chumbo-Ácido
+-
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+Sem Disponibilidade  da Bateria na Empresa "Por Apenas"
+44
+180225
+Mitang
+fev
+2025
+27/02/2025
+Martell
+02.956.455/0001-00
+Rafael
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+1
+Ni-MH
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+-
+Compra Não Finalizada
+-
+45
+190225
+Mitang
+fev
+2025
+28/02/2025
+Martell
+02.956.455/0001-00
+Rafael
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+2
+Ni-MH
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 728,00
+R$ 1.456,00
+0%
+R$ 0,00
+R$ 1.456,00
+-
+Compra Não Finalizada
+-
+46
+010325
+Mitang
+mar
+2025
+06/03/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+1
+Pb
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.760,00
+R$ 1.760,00
+0%
+R$ 0,00
+R$ 1.760,00
+-
+Compra Não Finalizada
+-
+47
+020325
+Mitang
+mar
+2025
+06/03/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+1
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 3.780,00
+R$ 3.780,00
+0%
+R$ 0,00
+R$ 3.780,00
+-
+Compra Não Finalizada
+-
+48
+020325
+Mitang
+mar
+2025
+06/03/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+1
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 6.890,00
+R$ 6.890,00
+0%
+R$ 0,00
+R$ 6.890,00
+-
+Compra Não Finalizada
+-
+49
+030325
+Mitang
+mar
+2025
+10/03/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+24
+Li-SOCL2
+Sim
+Compra Aprovada
+NFe - Venda
+1º ao 24º Dia
+-
+00.000.180
+28
+07/04/2025
+Abr
+2025
+Pago
+R$ 61,00
+R$ 1.464,00
+0%
+R$ 0,00
+R$ 1.464,00
+Ok
+Compra Finalizada
+-
+50
+050325
+Mitang
+mar
+2025
+10/03/2025
+Hidromares
+04.919.751/0001-67
+Alexandre Mendes
+Seaguard II - 7v / 35Ah / 245Wh
+SEL
+52
+Li-SOCL2
+Sim
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 1.880,00
+R$ 97.760,00
+10%
+R$ 0,00
+R$ 87.984,00
+-
+Compra Não Finalizada
+-
+51
+060325
+Mitang
+mar
+2025
+12/03/2025
+Martell
+02.956.455/0001-00
+Rafael
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Compra Aprovada
+NFe - Venda
+-
+00.000.183
+04/04/2025
+Abr
+2025
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+-
+52
+070325
+Mitang
+mar
+2025
+17/03/2025
+Bluemed7
+34.171.032/0001-71
+Marcio Aurelio
+Liko Viking M - 24v / 2,5Ah / 60Wh
+HRLV
+12
+Ni-MH
+-
+Não Aprovada
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+Orçamento não foi feito
+53
+080325
+Mitang
+mar
+2025
+17/03/2025
+FCPC - Fundação Cearense de Pesquisa e Cultura
+05.330.436/0001-62
+Bárbara Paiva
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+1
+Li-Ion
+Sim
+Compra Aprovada
+00547/2025
+NFe - Venda
+-
+-
+-
+-
+-
+-
+R$ 2.176,80
+R$ 2.176,80
+0%
+R$ 0,00
+R$ 2.176,80
+-
+Pedido Cancelado
+As baterias foram doadas pelo atraso na emissão de NF
+54
+080325
+Mitang
+mar
+2025
+17/03/2025
+FCPC - Fundação Cearense de Pesquisa e Cultura
+05.330.436/0001-62
+Bárbara Paiva
+Carregador p/ Aquadopp 75Wh
+220067
+1
+Li-Ion
+Sim
+Compra Aprovada
+00547/2025
+NFe - Venda
+-
+-
+-
+-
+-
+-
+R$ 452,50
+R$ 452,50
+0%
+R$ 0,00
+R$ 452,50
+-
+Pedido Cancelado
+As baterias foram doadas pelo atraso na emissão de NF
+55
+090325
+Mitang
+mar
+2025
+20/03/2025
+SeaSurvey
+49.977.717/0001-87
+Wellington (Tom)
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+4
+Li-SOCL2
+Sim
+Compra Aprovada
+3251290
+NFSe - Serviço
+-
+00.000.052
+24/04/2025
+Abr
+2025
+Pago
+R$ 16.527,00
+R$ 66.108,00
+21%
+R$ 0,00
+R$ 52.225,32
+Ok
+Compra Finalizada
+VENDIDO PELA SEASURVEY - CMXL48-010325, CMXL48-020325, CMXL48-030325, CMXL48-040325
+56
+100325
+Mitang
+mar
+2025
+26/03/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Signature - 18v / 30Ah / 540Wh
+220014
+6
+Alcalina
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 2.527,00
+R$ 15.162,00
+0%
+R$ 0,00
+R$ 15.162,00
+-
+Compra Não Finalizada
+100325 -  Sem frete = R$18.700,00 / Com Frete = R$
+57
+100325
+Mitang
+mar
+2025
+26/03/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+58
+Alcalina
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 61,00
+R$ 3.538,00
+0%
+R$ 0,00
+R$ 3.538,00
+-
+Compra Não Finalizada
+100325 -  Sem frete = R$18.700,00 / Com Frete = R$
+58
+110325
+Mitang
+mar
+2025
+26/03/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Signature - 18v / 30Ah / 540Wh
+220014
+10
+Alcalina
+Sim
+Compra Aprovada
+17307-2025
+NFe - Venda
+-
+00.000.185
+-
+-
+-
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 25.270,00
+0%
+R$ 1.182,50
+R$ 26.452,50
+Ok
+Compra Finalizada
+-
+59
+110325
+Mitang
+mar
+2025
+26/03/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+58
+Alcalina
+Sim
+Compra Aprovada
+17307-2025
+NFe - Venda
+-
+00.000.185
+-
+-
+-
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 3.538,00
+0%
+R$ 0,00
+R$ 3.538,00
+Ok
+Compra Finalizada
+-
+60
+120325
+Mitang
+mar
+2025
+28/03/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Eletrocardiógrafo CardioCare - 12v / 2,2Ah / 26,4Wh
+ECB-2
+1
+Ni-MH
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 680,00
+R$ 680,00
+0%
+R$ 0,00
+R$ 680,00
+-
+Compra Não Finalizada
+-
+61
+130325
+Mitang
+mar
+2025
+31/03/2025
+DOF Brasil
+07.925.451/0001-89
+Nadjane Araujo
+cNode MiniS - 25,6v / 2,8Ah / 71,7Wh
+CMNL16
+2
+Li-FePO4
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+Transferência Bancária
+-
+R$ 6.768,00
+R$ 13.536,00
+0%
+R$ 0,00
+R$ 13.536,00
+-
+Compra Não Finalizada
+-
+62
+010425
+Mitang
+abr
+2025
+04/04/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh
+BILF
+5
+Ni-MH
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+-
+-
+R$ 435,60
+R$ 2.178,00
+0%
+R$ 0,00
+R$ 2.178,00
+-
+Compra Não Finalizada
+-
+63
+020425
+Mitang
+abr
+2025
+04/04/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+384
+Alcalina
+Sim
+Compra Aprovada
+PO030052
+NFe - Venda
+03/07/2025
+00.000.190
+30
+02/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 34,20
+R$ 13.132,80
+0%
+R$ 400,00
+R$ 13.532,80
+Ok
+Compra Finalizada
+-
+64
+030425
+Mitang
+abr
+2025
+07/04/2025
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Vando Gomes
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+-
+NFSe - Serviço
+-
+00.000.051
+09/04/2025
+Abr
+2025
+Pago
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 150,00
+R$ 1.734,70
+Ok
+Compra Finalizada
+-
+65
+040425
+Mitang
+abr
+2025
+09/04/2025
+DOF Brasil
+07.925.451/0001-89
+Nadjane Araujo
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sem Orçamento
+Compra Aprovada
+3251525
+NFSe - Serviço
+-
+00.000.049
+15/05/2025
+Mai
+2025
+Transferência Bancária
+Pago
+R$ 16.227,00
+R$ 32.454,00
+0%
+R$ 0,00
+R$ 32.454,00
+Ok
+Compra Finalizada
+-
+66
+050425
+Mitang
+abr
+2025
+14/04/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+AMAR G4 - Ultra Deep - 12v / 164Ah / 1.968Wh
+JAG4UD
+8
+Alcalina
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+1º ao 24º Dia
+-
+-
+28
+-
+-
+-
+-
+R$ 5.680,00
+R$ 45.440,00
+0%
+R$ 0,00
+R$ 45.440,00
+-
+Compra Não Finalizada
+-
+67
+060425
+Mitang
+abr
+2025
+17/04/2025
+Hidromares
+04.919.751/0001-67
+Alexandre Mendes
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+2
+Alcalina
+Sim
+Compra Aprovada
+60425
+NFSe - Serviço
+-
+00.000.050
+15/05/2025
+Mai
+2025
+Pago
+R$ 2.527,00
+R$ 5.054,00
+0%
+R$ 400,00
+R$ 5.454,00
+Ok
+Compra Finalizada
+-
+68
+070425
+Mitang
+abr
+2025
+25/04/2025
+MV3
+12.334.122/0001-01
+Rafaela
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 876,80
+R$ 1.753,60
+0%
+R$ 0,00
+R$ 1.753,60
+-
+Compra Não Finalizada
+-
+69
+080425
+Mitang
+abr
+2025
+29/04/2025
+Nortek Brasil
+13.389.555/0001-19
+Diego
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+6
+Li-Ion
+-
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 2.701,80
+R$ 16.210,80
+0%
+R$ 0,00
+R$ 16.210,80
+-
+Compra Não Finalizada
+Esperando cotação da empresa de exportação (Enviado para exportadora por E-mail)
+70
+080425
+Mitang
+abr
+2025
+29/04/2025
+Nortek Brasil
+13.389.555/0001-19
+Diego
+Carregador p/ Aquadopp 75Wh
+220067
+2
+Li-Ion
+-
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 427,50
+R$ 855,00
+0%
+R$ 0,00
+R$ 855,00
+-
+Compra Não Finalizada
+Esperando cotação da empresa de exportação (Enviado para exportadora por E-mail)
+71
+010525
+Mitang
+mai
+2025
+06/05/2025
+EnvironPact
+14.532.052/0001-13
+Paula Charnaux
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+6
+Alcalina
+Sim
+Compra Aprovada
+18030
+NFe - Venda
+03/07/2025
+00.000.186
+30
+02/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 15.162,00
+0%
+R$ 0,00
+R$ 15.162,00
+Ok
+Compra Finalizada
+Produto Entregue - Aguardando Pagamento
+72
+020525
+Mitang
+mai
+2025
+08/05/2025
+Eletrônica Henrique
+31.533.367/0001-02
+Henrique
+Blue ROV2 - 14,8 / 18Ah / 266,4Wh
+BLU
+2
+Li-ion
+Sim
+Não Aprovada
+NFSe - Serviço
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 4.718,00
+R$ 9.436,00
+0%
+R$ 100,00
+R$ 9.536,00
+-
+Compra Não Finalizada
+-
+73
+030525
+Mitang
+mai
+2025
+13/05/2025
+Valaris
+04.336.088/0001-78
+Tom Azevedo
+Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)
+NTV-16-10
+12
+Alcalina
+Sem Orçamento
+Compra Aprovada
+NFSe - Serviço
+-
+-
+60
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Pago
+R$ 13.880,00
+R$ 166.560,00
+0%
+R$ 0,00
+R$ 166.560,00
+Ok
+Compra Finalizada
+R$18.044,00 (Valor unitário da Mitang Soluções)
+74
+040525
+Mitang
+mai
+2025
+14/05/2024
+Medsave
+37.135.254/0001-27
+Karyne marinho
+Servo S - 12v / 4Ah / 48Wh
+MQ
+24
+Ni-MH
+Sim
+Não Aprovada
+-
+NFSe - Serviço
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 876,80
+R$ 21.043,20
+0%
+R$ 0,00
+R$ 21.043,20
+-
+Compra Não Finalizada
+-
+75
+050525
+Mitang
+mai
+2025
+15/05/2025
+Estuarina Ambiental
+43.312.328/0001-56
+Leandro
+Argornaut XR - 12v / 45Ah / 540Wh
+AXR
+1
+Alcalina
+Sim
+Compra Aprovada
+-
+NFSe - Serviço
+16/05/2025
+00.000.054
+0
+16/05/2025
+Mai
+2025
+Pago
+R$ 1.628,00
+R$ 1.628,00
+0%
+R$ 0,00
+R$ 1.628,00
+Ok
+Compra Finalizada
+-
+76
+060525
+Mitang
+mai
+2025
+21/05/2025
+Martell
+02.956.455/0001-00
+Rafael
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+-
+Compra Não Finalizada
+Talvez seja nota de serviço - no aguardo da aprovação
+77
+070525
+Mitang
+mai
+2025
+30/05/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+33
+Li-SOCL2
+Sim
+Compra Aprovada
+30686
+NFe - Venda
+03/07/2025
+00.000.189
+30
+02/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 3.238,62
+R$ 106.874,46
+8%
+R$ 0,00
+R$ 98.324,50
+Ok
+Compra Finalizada
+Fazer bateria e fazer nota fiscal de venda
+78
+080525
+Mitang
+mai
+2025
+30/05/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Derivadora ERB - 10,5v / 30Ah / 315Wh
+ERB
+6
+Alcalina
+Sim
+Compra Aprovada
+80525
+NFe - Venda
+1º ao 24º Dia
+03/07/2025
+00.000.191
+28
+31/07/2025
+Jul
+2025
+Transferência Bancária
+Pago
+R$ 1.375,00
+R$ 8.250,00
+0%
+R$ 0,00
+R$ 8.250,00
+Ok
+Compra Finalizada
+Material entregue - apenas no aguardo da situação da nota fiscal ser resolvida e entrega-lo
+79
+010625
+Mitang
+jun
+2025
+03/06/2025
+Martell
+02.956.455/0001-00
+Rafael
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+3
+Ni-MH
+Sim
+Compra Aprovada
+-
+NFSe - Serviço
+16/06/2025
+00.000.055
+30
+16/07/2025
+Jul
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+Pagamento em boleto parcelado em duas vezes 1° 30 dias 2° 60 dias
+80
+010625
+Mitang
+jun
+2025
+03/06/2025
+Martell
+02.956.455/0001-00
+Rafael
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+2
+Ni-MH
+Sim
+Compra Aprovada
+-
+NFSe - Serviço
+16/06/2025
+00.000.055
+60
+15/08/2025
+Ago
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+Ok
+Compra Finalizada
+Pagamento em boleto parcelado em duas vezes 1° 30 dias 2° 60 dias
+81
+020625
+Mitang
+jun
+2025
+12/06/2025
+Blueocean
+36.941.795/0001-80
+Carla Beatriz
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 60,00
+R$ 1.644,70
+-
+Compra Não Finalizada
+Frete e Pagamento serão pagos juntos em 01/07/2025
+82
+030625
+Mitang
+jun
+2025
+13/06/2025
+Oceanpact Geociências
+16.492.411/0002-62
+Thales
+Signature - 18v / 100Ah / 1800Wh
+220051
+2
+Lítio
+Sim
+Compra Aprovada
+46118
+25/06/2025
+NFe - Venda
+1º ao 20º Dia
+04/07/2025
+00.000.192
+30
+03/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 10.961,00
+R$ 21.922,00
+0%
+R$ 0,00
+R$ 21.922,00
+Ok
+Compra Finalizada
+-
+83
+030625
+Mitang
+jun
+2025
+13/06/2025
+Oceanpact Geociências
+16.492.411/0002-62
+Thales
+Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh
+LAE
+2
+Alcalina
+Sim
+Compra Aprovada
+46118
+25/06/2025
+NFe - Venda
+1º ao 20º Dia
+04/07/2025
+00.000.192
+30
+03/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 2.970,00
+R$ 5.940,00
+0%
+R$ 0,00
+R$ 5.940,00
+Ok
+Compra Finalizada
+-
+84
+030625
+Mitang
+jun
+2025
+13/06/2025
+Oceanpact Geociências
+16.492.411/0002-62
+Thales
+ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)
+ADL30
+1
+Lítio
+Sim
+Compra Aprovada
+46118
+25/06/2025
+NFe - Venda
+1º ao 20º Dia
+04/07/2025
+00.000.192
+30
+03/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 8.121,00
+R$ 8.121,00
+0%
+R$ 0,00
+R$ 8.121,00
+Ok
+Compra Finalizada
+-
+85
+040625
+Mitang
+jun
+2025
+17/06/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Servo S - 12v / 4Ah / 48Wh
+MQ
+6
+Ni-MH
+Sim
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 876,80
+R$ 5.260,80
+0%
+R$ 0,00
+R$ 5.260,80
+-
+Compra Não Finalizada
+Orçamento atualizado dia 23/06/2025
+86
+050625
+Arandu
+jun
+2025
+18/06/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D
+ER34615
+132
+Li-SOCL2
+Sim
+Compra Aprovada
+PO031204
+03/07/2025
+NFe - Venda
+-
+04/07/2025
+00.000.002
+45
+18/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 189,00
+R$ 24.948,00
+0%
+R$ 0,00
+R$ 24.948,00
+Ok
+Compra Finalizada
+Orçamento enviado pela Arandu - Prazo de Pagamento (45 Dias)
+87
+060625
+Arandu
+jun
+2025
+23/06/2025
+Ecco Engenharia
+72.502.073/0001-92
+Margareth Bonan
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+60625
+NFe - Venda
+-
+-
+00.000.001
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+Venda Feita pela Arandu
+88
+070625
+Arandu
+jun
+2025
+25/06/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+2
+Ni-MH
+Sim
+Compra Aprovada
+-
+NFe - Venda
+-
+04/07/2025
+00.000.003
+30
+03/08/2025
+Ago
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+Ok
+Compra Finalizada
+-
+89
+080625
+Mitang
+jun
+2025
+30/06/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Servo S - 12v / 4Ah / 48Wh
+MQ
+13
+Ni-MH
+Sim
+Compra Aprovada
+25056019.01
+04/08/2025
+NFSe - Serviço
+-
+13/08/2025
+00.000.059
+30
+12/09/2025
+Set
+2025
+Transferência Bancária
+Pago
+R$ 876,80
+R$ 11.398,40
+7,03%
+R$ 0,00
+R$ 10.597,09
+Ok
+Compra Finalizada
+-
+90
+010725
+Arandu
+jul
+2025
+01/07/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+8
+Li-SOCL2
+Sim
+Compra Aprovada
+10725
+NFe - Venda
+1º ao 24º Dia
+04/07/2025
+00.000.004
+28
+01/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 10.961,00
+R$ 87.688,00
+10,59%
+R$ 0,00
+R$ 78.400,09
+Ok
+Compra Finalizada
+Venda pela Arandu
+91
+010725
+Arandu
+jul
+2025
+01/07/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+11
+Li-SOCL2
+Sim
+Compra Aprovada
+10725
+NFe - Venda
+1º ao 24º Dia
+04/07/2025
+00.000.004
+28
+01/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 6.890,00
+R$ 75.790,00
+0%
+R$ 0,00
+R$ 75.790,00
+Ok
+Compra Finalizada
+Venda pela Arandu
+92
+010725
+Arandu
+jul
+2025
+01/07/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+108
+Li-SOCL2
+Sim
+Compra Aprovada
+10725
+NFe - Venda
+1º ao 24º Dia
+04/07/2025
+00.000.004
+28
+01/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 6.588,00
+0%
+R$ 0,00
+R$ 6.588,00
+Ok
+Compra Finalizada
+Venda pela Arandu
+93
+020725
+Arandu
+jul
+2025
+02/07/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+5
+Alcalina
+Sim
+Compra Aprovada
+20725
+NFe - Venda
+1º ao 24º Dia
+04/07/2025
+00.000.005
+28
+01/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 3.990,00
+0%
+R$ 0,00
+R$ 3.990,00
+Ok
+Compra Finalizada
+Venda pela Arandu
+94
+030725
+Mitang
+jul
+2025
+09/07/2025
+Hospital Di Camp
+02.745.280/0001-92
+Dione Amorim
+Carefusion - 12v / 4Ah / 48Wh
+VL12
+4
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 876,80
+R$ 3.507,20
+0%
+R$ 0,00
+R$ 3.507,20
+-
+Compra Não Finalizada
+95
+040725
+Mitang
+jul
+2025
+17/07/2025
+Blueocean
+36.941.795/0001-80
+Carla Beatriz
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Compra Aprovada
+16
+18/07/2025
+NFe - Venda
+1º ao 25º Dia
+19/07/2025
+00.000.194
+30
+18/08/2025
+Ago
+2025
+Boleto
+Pago
+R$ 1.584,70
+R$ 3.169,40
+4%
+R$ 0,00
+R$ 3.042,62
+Ok
+Compra Finalizada
+O frete será grátis
+96
+050725
+Mitang
+jul
+2025
+22/07/2025
+Ecco Engenharia
+72.502.073/0001-92
+Margareth Bonan
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+50725
+11/08/2025
+NFe - Venda
+-
+11/08/2025
+00.000.198
+1
+12/08/2025
+Ago
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+97
+050725
+Arandu
+jul
+2025
+28/07/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-SOCL2 - SAFT - LS33600 - 3,6v - 17Ah - D
+LS33600
+270
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 189,00
+R$ 51.030,00
+0%
+R$ 0,00
+R$ 51.030,00
+-
+Compra Não Finalizada
+98
+060725
+Arandu
+jul
+2025
+28/07/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D
+ER34615
+196
+Li-SOCL2
+Sim
+Compra Aprovada
+PO031722
+29/07/2025
+NFe - Venda
+-
+29/07/2025
+00.000.006
+45
+12/09/2025
+Set
+2025
+Transferência Bancária
+Pago
+R$ 189,00
+R$ 37.044,00
+0%
+R$ 0,00
+R$ 37.044,00
+Ok
+Compra Finalizada
+99
+060725
+Arandu
+jul
+2025
+28/07/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-SOCL2 - Expower - ER34615M - 3,6v - 15Ah - D (High Power)
+ER34615M
+74
+Li-SOCL2
+Sim
+Compra Aprovada
+PO031722
+29/07/2025
+NFe - Venda
+-
+29/07/2025
+00.000.006
+45
+12/09/2025
+Set
+2025
+Transferência Bancária
+Pago
+R$ 189,00
+R$ 13.986,00
+0%
+R$ 0,00
+R$ 13.986,00
+Ok
+Compra Finalizada
+100
+010825
+Arandu
+ago
+2025
+01/08/2025
+Martell
+02.956.455/0001-00
+Rafael
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+-
+05/08/2025
+NFe - Venda
+-
+05/08/2025
+00.000.007
+28
+02/09/2025
+Set
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+101
+020825
+Arandu
+ago
+2025
+04/08/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 30Ah / 540Wh
+220014
+12
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 2.527,00
+R$ 30.324,00
+0%
+R$ 0,00
+R$ 30.324,00
+-
+Compra Não Finalizada
+102
+020825
+Arandu
+ago
+2025
+04/08/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+10
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 9.800,00
+R$ 98.000,00
+0%
+R$ 0,00
+R$ 98.000,00
+-
+Compra Não Finalizada
+103
+020825
+Arandu
+ago
+2025
+04/08/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+20
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 6.890,00
+R$ 137.800,00
+0%
+R$ 0,00
+R$ 137.800,00
+-
+Compra Não Finalizada
+104
+020825
+Arandu
+ago
+2025
+04/08/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+18
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 4.380,00
+R$ 78.840,00
+0%
+R$ 0,00
+R$ 78.840,00
+-
+Compra Não Finalizada
+105
+020825
+Arandu
+ago
+2025
+04/08/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+12
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 61,00
+R$ 732,00
+0%
+R$ 0,00
+R$ 732,00
+-
+Compra Não Finalizada
+106
+030825
+Mitang
+ago
+2025
+29/07/2025
+MV3
+12.334.122/0001-01
+Mayara Oliveira
+Monitor iMEC12 - 11,1v / 2,6Ah / 28,8Wh
+iMEC12
+1
+Li-Ion
+Sim
+Compra Aprovada
+-
+05/08/2025
+NFe - Venda
+-
+05/08/2025
+00.000.196
+21
+26/08/2025
+Ago
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+107
+040825
+Mitang
+ago
+2025
+05/08/2025
+C-Innovation
+09.477.772/0001-93
+Luiz Ferreira
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+3
+Alcalina
+Sim
+Compra Aprovada
+34364
+15/08/2025
+NFe - Venda
+-
+18/08/2025
+00.000.199
+60
+17/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 425,00
+R$ 1.275,00
+0%
+R$ 0,00
+R$ 1.275,00
+Ok
+Compra Finalizada
+108
+050825
+Mitang
+ago
+2025
+05/08/2025
+DOF Brasil
+07.925.451/0001-89
+Nadjane Araujo
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 16.227,00
+R$ 32.454,00
+0%
+R$ 0,00
+R$ 32.454,00
+-
+Pedido Cancelado
+Prediram para trocar para Venda, e não queria orçamento para serviço
+109
+060825
+Arandu
+ago
+2025
+06/08/2025
+Martell
+02.956.455/0001-00
+Rafael
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+-
+06/08/2025
+NFe - Venda
+-
+06/08/2025
+00.000.008
+28
+03/09/2025
+Set
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+110
+070825
+Mitang
+ago
+2025
+14/08/2025
+Oceano Engenharia
+01.016.038/0001-15
+Rômulo Floriano
+Blue ROV2 - 14,8 / 18Ah / 266,4Wh
+BLU
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+Sem NFe/NFSe
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 4.718,00
+R$ 4.718,00
+10%
+R$ 0,00
+R$ 4.246,20
+-
+Compra Não Finalizada
+O cliente não quer NF
+111
+080825
+Mitang
+ago
+2025
+14/08/2025
+Viva Rio
+00.343.941/0001-28
+Jorge Veríssimo
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 876,80
+R$ 1.753,60
+0%
+R$ 0,00
+R$ 1.753,60
+-
+Compra Não Finalizada
+112
+090825
+Mitang
+ago
+2025
+18/08/2025
+DOF Brasil
+07.925.451/0001-89
+Nadjane Araujo
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+2
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 16.227,00
+R$ 32.454,00
+0%
+R$ 0,00
+R$ 32.454,00
+-
+Compra Não Finalizada
+113
+100825
+Mitang
+ago
+2025
+18/08/2025
+Acquaplan
+06.326.419/0001-14
+Isadora Grevenhagen 
+AWAC - 15v / 120Ah / 1800Wh
+220029
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 10.961,00
+R$ 10.961,00
+0%
+R$ 125,00
+R$ 11.086,00
+-
+Compra Não Finalizada
+114
+100825
+Mitang
+ago
+2025
+18/08/2025
+Acquaplan
+06.326.419/0001-14
+Isadora Grevenhagen 
+Signature - 18v / 100Ah / 1800Wh
+220051
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 10.961,00
+R$ 10.961,00
+0%
+R$ 125,00
+R$ 11.086,00
+-
+Compra Não Finalizada
+115
+110825
+Mitang
+ago
+2025
+18/08/2025
+Acquaplan
+06.326.419/0001-14
+Isadora Grevenhagen 
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+2
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.527,00
+R$ 5.054,00
+0%
+R$ 250,00
+R$ 5.304,00
+-
+Compra Não Finalizada
+116
+120825
+Mitang
+ago
+2025
+19/08/2025
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Servo S - 12v / 4Ah / 48Wh
+MQ
+5
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 876,80
+R$ 4.384,00
+0%
+R$ 0,00
+R$ 4.384,00
+-
+Compra Não Finalizada
+117
+130825
+Arandu
+ago
+2025
+21/08/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+-
+Compra Não Finalizada
+118
+130825
+Arandu
+ago
+2025
+21/08/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Seaguard II - 7v / 35Ah / 245Wh
+SEL
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.380,00
+R$ 2.380,00
+0%
+R$ 0,00
+R$ 2.380,00
+-
+Compra Não Finalizada
+119
+140825
+Arandu
+ago
+2025
+22/08/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+4
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 3.238,62
+R$ 12.954,48
+0%
+R$ 0,00
+R$ 12.954,48
+-
+Compra Não Finalizada
+120
+150825
+Mitang
+ago
+2025
+22/08/2025
+Viva Rio
+00.343.941/0001-28
+Jorge Selim
+Servo S - 12v / 4Ah / 48Wh
+MQ
+4
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 876,80
+R$ 3.507,20
+0%
+R$ 0,00
+R$ 3.507,20
+-
+Compra Não Finalizada
+121
+160825
+Mitang
+ago
+2025
+26/08/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Signature - 18v / 30Ah / 540Wh
+220014
+8
+Alcalina
+Sim
+Compra Aprovada
+-
+01/09/2025
+NFe - Venda
+-
+08/09/2025
+00.000.200
+30
+08/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 20.216,00
+0%
+R$ 700,00
+R$ 20.916,00
+Ok
+Compra Finalizada
+122
+160825
+Mitang
+ago
+2025
+26/08/2025
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+98
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+01/09/2025
+NFe - Venda
+-
+08/09/2025
+00.000.200
+30
+08/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 5.978,00
+0%
+R$ 100,00
+R$ 6.078,00
+Ok
+Compra Finalizada
+123
+170825
+Arandu
+ago
+2025
+27/08/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+-
+04/09/2025
+NFe - Venda
+-
+04/09/2025
+00.000.009
+28
+02/10/2025
+Out
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+124
+010925
+Mitang
+ago
+2025
+03/09/2025
+Oceanpact Geociências
+16.492.411/0002-62
+Larissa Santiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+15/09/2025
+NFe - Venda
+1º ao 20º Dia
+24/09/2025
+00.000.201
+30
+24/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 10.961,00
+R$ 21.922,00
+3,0%
+R$ 90,00
+R$ 21.351,64
+Ok
+Compra Finalizada
+125
+010925
+Mitang
+ago
+2025
+03/09/2025
+Oceanpact Geociências
+16.492.411/0002-62
+Larissa Santiago
+ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)
+ADL30
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+15/09/2025
+NFe - Venda
+1º ao 20º Dia
+24/09/2025
+00.000.201
+30
+24/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 8.421,00
+R$ 8.421,00
+3,0%
+R$ 40,00
+R$ 8.207,17
+Ok
+Compra Finalizada
+126
+020925
+Mitang
+ago
+2025
+04/09/2025
+SudMed
+20.368.834/0001-61
+Alexandre Seib
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 85,00
+R$ 2.479,00
+-
+Compra Não Finalizada
+127
+030925
+Arandu
+ago
+2025
+05/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 30Ah / 540Wh
+220014
+12
+Alcalina
+Sim
+Compra Aprovada
+-
+08/09/2025
+NFe - Venda
+1º ao 24º Dia
+09/09/2025
+00.000.010
+28
+07/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 30.324,00
+0%
+R$ 0,00
+R$ 30.324,00
+Ok
+Compra Finalizada
+128
+030925
+Arandu
+ago
+2025
+05/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+10
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+08/09/2025
+NFe - Venda
+1º ao 24º Dia
+09/09/2025
+00.000.010
+28
+07/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 9.800,00
+R$ 98.000,00
+0%
+R$ 0,00
+R$ 98.000,00
+Ok
+Compra Finalizada
+129
+030925
+Arandu
+ago
+2025
+05/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+20
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+08/09/2025
+NFe - Venda
+1º ao 24º Dia
+09/09/2025
+00.000.010
+28
+07/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 6.890,00
+R$ 137.800,00
+0%
+R$ 0,00
+R$ 137.800,00
+Ok
+Compra Finalizada
+130
+030925
+Arandu
+ago
+2025
+05/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+9
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+08/09/2025
+NFe - Venda
+1º ao 24º Dia
+09/09/2025
+00.000.010
+28
+07/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 7.923,00
+R$ 71.307,00
+0%
+R$ 0,00
+R$ 71.307,00
+Ok
+Compra Finalizada
+Serão enviados 18x Aquadopps de 250Wh no lugar de 9x 520Wh (Houve mudança)
+131
+030925
+Arandu
+ago
+2025
+05/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+12
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+08/09/2025
+NFe - Venda
+1º ao 24º Dia
+09/09/2025
+00.000.010
+28
+07/10/2025
+Out
+2025
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 732,00
+0%
+R$ 0,00
+R$ 732,00
+Ok
+Compra Finalizada
+132
+040925
+Arandu
+ago
+2025
+08/09/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+2
+Ni-MH
+Sim
+Compra Aprovada
+-
+09/09/2025
+NFe - Venda
+-
+10/09/2025
+00.000.011
+28
+08/10/2025
+Out
+2025
+Boleto
+Pago
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+Ok
+Compra Finalizada
+133
+050925
+Mitang
+ago
+2025
+10/09/2025
+UFSP - Universidade Federal de São Paulo
+60.453.032/0001-74
+Breylla Campos
+Signature - 18v / 100Ah / 1800Wh
+220051
+2
+Li-SOCL2
+SIm
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 10.961,00
+R$ 21.922,00
+0%
+R$ 0,00
+R$ 21.922,00
+-
+Compra Não Finalizada
+Bateria Signature Lítio 1800Wh
+134
+060925
+Arandu
+ago
+2025
+11/09/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+6
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+-
+NFe - Venda
+-
+22/09/2025
+00.000.012
+45
+06/11/2025
+Nov
+2025
+Transferência Bancária
+Pago
+R$ 4.238,00
+R$ 25.428,00
+0%
+R$ 0,00
+R$ 25.428,00
+Ok
+Compra Finalizada
+Serão enviados apenas 6x Aquadopps de 250Wh (NF com apenas os 250Wh) - Valor Total Real R$24.322,00
+135
+070925
+Mitang
+ago
+2025
+15/09/2025
+BM2
+39.413.837/0001-06
+Lucca Cabaleiro
+Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh
+BILF
+10
+Ni-MH
+Sim
+Compra Aprovada
+-
+08/10/2025
+NFe - Venda
+-
+08/10/2025
+00.000.203
+30
+07/11/2025
+Nov
+2025
+Transferência Bancária
+Pago
+R$ 435,60
+R$ 4.356,00
+0%
+R$ 0,00
+R$ 4.356,00
+Ok
+Compra Finalizada
+Dividido em 2 vezes - R$2.178,00 já foi pago na aprovação
+136
+080925
+Mitang
+ago
+2025
+15/09/2025
+MessenOcean
+27.136.015/0001-38
+Mayara Passos
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.527,00
+R$ 2.527,00
+0%
+R$ 0,00
+R$ 2.527,00
+-
+Compra Não Finalizada
+137
+090925
+Arandu
+ago
+2025
+17/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Seaglider - 24v / 117Ah / 2.948,4Wh
+SGD24
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 88.200,00
+R$ 88.200,00
+0%
+R$ 0,00
+R$ 88.200,00
+-
+Compra Não Finalizada
+138
+090925
+Arandu
+ago
+2025
+17/09/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Seaglider - 10,8v / 78Ah / 842,4Wh
+SGD10
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 25.280,00
+R$ 25.280,00
+0%
+R$ 0,00
+R$ 25.280,00
+-
+Compra Não Finalizada
+139
+100925
+Mitang
+ago
+2025
+24/09/2025
+MV3
+12.334.122/0001–01
+Gabriela Oliveira
+Servo S - 12v / 4Ah / 48Wh
+MQ
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+21
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 876,80
+R$ 1.753,60
+0%
+R$ 0,00
+R$ 1.753,60
+-
+Compra Não Finalizada
+140
+110925
+Mitang
+ago
+2025
+25/09/2025
+Oceanpact Geociências
+16.492.411/0003-43
+William Stelling
+Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh
+LAE
+2
+Alcalina
+-
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.970,00
+R$ 5.940,00
+0%
+R$ 0,00
+R$ 5.940,00
+-
+Pedido Cancelado
+-
+141
+120925
+Mitang
+ago
+2025
+26/09/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 (2,5Ah)
+DGPS-RS-M9-5
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.398,00
+R$ 2.796,00
+0%
+R$ 80,00
+R$ 2.876,00
+-
+Compra Não Finalizada
+142
+120925
+Mitang
+ago
+2025
+26/09/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh
+DGPS-RS-M9-2
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 989,00
+R$ 1.978,00
+0%
+R$ 80,00
+R$ 2.058,00
+-
+Compra Não Finalizada
+143
+130925
+Mitang
+ago
+2025
+29/09/2025
+EnvironPact
+14.532.052/0001-13
+Paula Charnaux
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+6
+Alcalina
+Sim
+Compra Aprovada
+-
+09/10/2025
+NFe - Venda
+1º ao 20º Dia
+09/10/2025
+00.000.204
+28
+06/11/2025
+Nov
+2025
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 15.162,00
+0%
+R$ 50,00
+R$ 15.212,00
+Ok
+Compra Finalizada
+144
+011025
+Mitang
+out
+2025
+03/10/2025
+DOF Brasil
+07.925.451/0001-89
+Wagner Cotrim
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+DS211-25-1003-S
+03/10/2025
+NFe - Venda
+3
+07/10/2025
+00.000.202
+30
+06/11/2025
+Nov
+2025
+Transferência Bancária
+Pago
+R$ 16.527,00
+R$ 33.054,00
+0%
+R$ 0,00
+R$ 33.054,00
+Ok
+Compra Finalizada
+145
+021025
+Mitang
+out
+2025
+07/10/2025
+MV3
+12.334.122/0001-01
+Misael
+Eletrocardiógrafo CardioCare - 12v / 2,2Ah / 26,4Wh
+ECB-2
+1
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto Bancário
+-
+R$ 770,00
+R$ 770,00
+0%
+R$ 0,00
+R$ 770,00
+-
+Compra Não Finalizada
+146
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - SAFT - LS33600 - 3,6v - 17Ah - D
+LS33600BA
+409
+Li-SOCL2
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 410,00
+R$ 167.690,00
+0%
+R$ 0,00
+R$ 167.690,00
+-
+Compra Não Finalizada
+Valor do Mercado Livre
+147
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Energizer - LR20 - 1,5v - D
+E-LR20
+502
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 14,33
+R$ 7.193,66
+0%
+R$ 0,00
+R$ 7.193,66
+-
+Compra Não Finalizada
+Preço da Toshiba
+148
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)
+ADL30
+22
+Lítio
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Compra Não Finalizada
+149
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17345
+CR123A
+114
+LiMnO2
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 79,00
+R$ 9.006,00
+0%
+R$ 0,00
+R$ 9.006,00
+-
+Compra Não Finalizada
+150
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Signature 500
+-
+1
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 2.527,00
+R$ 2.527,00
+0%
+R$ 0,00
+R$ 2.527,00
+-
+Compra Não Finalizada
+151
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Não Aprovada
+-
+Sem NFe/NFSe
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Compra Não Finalizada
+152
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - SAFT - LS14500 - 3,6v - 2,4Ah - AA
+LS14500
+74
+Lítio
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 79,90
+R$ 5.912,60
+0%
+R$ 0,00
+R$ 5.912,60
+-
+Compra Não Finalizada
+153
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+14
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 798,00
+R$ 11.172,00
+0%
+R$ 0,00
+R$ 11.172,00
+-
+Compra Não Finalizada
+154
+031025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Sonardyne DORT
+SDORT
+7
+Lítio
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 8.421,00
+R$ 58.947,00
+0%
+R$ 0,00
+R$ 58.947,00
+-
+Compra Não Finalizada
+155
+041025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Duracell - MN1300 - 1,5v - D
+MN1300
+2208
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 34,20
+R$ 75.513,60
+0%
+R$ 0,00
+R$ 75.513,60
+-
+Compra Não Finalizada
+Preço da Toshiba
+156
+041025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+92
+Li-SOCL2
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 4.238,00
+R$ 389.896,00
+0%
+R$ 0,00
+R$ 389.896,00
+-
+Compra Não Finalizada
+Alternativa para o pack original (Aquadopp 165Wh)
+157
+041025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D
+LSH20
+102
+Li-SOCL2
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 129,00
+R$ 13.158,00
+0%
+R$ 0,00
+R$ 13.158,00
+-
+Compra Não Finalizada
+158
+041025
+Arandu
+out
+2025
+10/10/2025
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+-
+-
+34
+Alcalina
+Sim
+Não Aprovada
+-
+NFe - Venda
+-
+-
+-
+-
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Compra Não Finalizada
+159
+051025
+Mitang
+out
+2025
+10/10/2025
+FEST - Fundação Espirito Santense de Tecnologia
+852.139.076-63
+Valeria da Silva
+Aquadopp - 10,8v / 7Ah / 75,6Wh
+220066
+1
+Li-Ion
+Sim
+Compra Aprovada
+-
+NFe - Venda
+1
+15/10/2025
+00.000.206
+1
+16/10/2025
+Out
+2025
+À Vista
+Pago
+R$ 2.701,80
+R$ 2.701,80
+0%
+R$ 30,00
+R$ 2.731,80
+Ok
+Compra Finalizada
+160
+051025
+Mitang
+out
+2025
+10/10/2025
+FEST - Fundação Espirito Santense de Tecnologia
+852.139.076-63
+Valeria da Silva
+Carregador p/ Aquadopp 75Wh
+220067
+1
+Li-Ion
+Sim
+Compra Aprovada
+-
+NFe - Venda
+1
+15/10/2025
+00.000.206
+1
+16/10/2025
+Out
+2025
+À Vista
+Pago
+R$ 427,50
+R$ 427,50
+0%
+R$ 30,00
+R$ 457,50
+Ok
+Compra Finalizada
+161
+061025
+Mitang
+out
+2025
+16/10/2025
+Nortek Brasil
+13.389.555/0001-19
+Ariel Freitas
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+2
+Alcalina
+Sim
+Compra Aprovada
+-
+-
+NFe - Venda
+-
+17/10/2025
+00.000.207
+30
+16/11/2025
+Nov
+2025
+Boleto
+Pago
+R$ 949,90
+R$ 1.899,80
+10%
+R$ 0,00
+R$ 1.709,82
+Ok
+Compra Finalizada
+162
+071025
+Mitang
+out
+2025
+20/10/2025
+HD Survey
+44.498.314/0001-31
+Diogo Fernandes
+ADCP Workhorse 1200kHz - 42v / 630Wh - (4 Furos)
+ADA12
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+-
+R$ 2.398,00
+R$ 2.398,00
+0%
+R$ 0,00
+R$ 2.398,00
+-
+Compra Não Finalizada
+163
+071025
+Mitang
+out
+2025
+20/10/2025
+HD Survey
+44.498.314/0001-31
+Diogo Fernandes
+ADCP Workhorse 1200kHz - 32,4v / 1820Wh - (4 Furos)
+ADL12
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+1
+Sem Previsão
+Sem Previsão
+Sem Previsão
+-
+-
+R$ 8.421,00
+R$ 8.421,00
+0%
+R$ 0,00
+R$ 8.421,00
+-
+Compra Não Finalizada
+164
+081025
+Arandu
+out
+2025
+28/10/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17346
+CR123A
+42
+LiMnO2
+Sim
+Compra Aprovada
+-
+31/10/2025
+NFe - Venda
+0
+31/10/2025
+00.000.013
+45
+15/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 129,00
+R$ 5.418,00
+0%
+R$ 0,00
+R$ 5.418,00
+Ok
+Compra Finalizada
+165
+081025
+Arandu
+out
+2025
+28/10/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+201
+Alcalina
+Sim
+Compra Aprovada
+-
+31/10/2025
+NFe - Venda
+0
+31/10/2025
+00.000.013
+45
+15/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 24,90
+R$ 5.004,90
+0%
+R$ 0,00
+R$ 5.004,90
+Ok
+Compra Finalizada
+166
+081025
+Arandu
+out
+2025
+28/10/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D
+ER34615
+73
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+31/10/2025
+NFe - Venda
+0
+31/10/2025
+00.000.013
+45
+15/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 243,00
+R$ 17.739,00
+0%
+R$ 0,00
+R$ 17.739,00
+Ok
+Compra Finalizada
+167
+081025
+Arandu
+out
+2025
+28/10/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+4
+Alcalina
+Sim
+Compra Aprovada
+-
+31/10/2025
+NFe - Venda
+0
+31/10/2025
+00.000.013
+45
+15/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 3.192,00
+0%
+R$ 0,00
+R$ 3.192,00
+Ok
+Compra Finalizada
+168
+081025
+Arandu
+out
+2025
+28/10/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+6
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+31/10/2025
+NFe - Venda
+0
+31/10/2025
+00.000.013
+45
+15/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 10.105,20
+R$ 60.631,20
+0%
+R$ 0,00
+R$ 60.631,20
+Ok
+Compra Finalizada
+Valor emergencial, acrescido de 20% - Somente no ADCP
+169
+091025
+Mitang
+out
+2025
+31/10/2025
+UFPE - Universidade Federal de Pernambuco
+24.134.488/0001-08
+Alex Costa
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 91,40
+R$ 1.676,10
+-
+Compra Não Finalizada
+170
+011125
+Arandu
+nov
+2025
+03/11/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+3
+Li-Ion
+Sim
+Compra Aprovada
+-
+06/11/2025
+NFe - Venda
+0
+06/11/2025
+00.000.014
+28
+04/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+R$770,00/Unidade se for emitido em NFS
+171
+011125
+Arandu
+nov
+2025
+03/11/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora Macoseal PS2/SE160 - 25,6v
+PS2
+1
+LiFePO4
+Sim
+Compra Aprovada
+-
+06/11/2025
+NFe - Venda
+0
+06/11/2025
+00.000.014
+28
+04/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+R$770,00/Unidade se for emitido em NFS
+172
+021125
+Mitang
+nov
+2025
+04/11/2025
+USP - Universidade de São Paulo
+63.025.530/0002-95
+Áurea Maria Ciotti
+ADP - 18v / 35,5Ah / 640Wh
+ADPA18
+3
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 2.763,60
+R$ 8.290,80
+0%
+R$ 450,00
+R$ 8.740,80
+-
+Compra Não Finalizada
+173
+031125
+Mitang
+nov
+2025
+04/11/2025
+USP - Universidade de São Paulo
+63.025.530/0002-95
+Áurea Maria Ciotti
+ADP - 18v (Em estudo)
+ADPL18
+3
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 10.961,00
+R$ 32.883,00
+0%
+R$ 450,00
+R$ 33.333,00
+-
+Compra Não Finalizada
+Mesma bateria do Signature Lítio
+174
+041125
+Arandu
+nov
+2025
+06/11/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+AMAR G4 - Ultra Deep - 12v / 164Ah / 1.968Wh
+JAG4UD
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+1º ao 24º Dia
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 5.680,00
+R$ 5.680,00
+0%
+R$ 0,00
+R$ 5.680,00
+-
+Compra Não Finalizada
+175
+051125
+Arandu
+nov
+2025
+07/11/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+2
+Alcalina
+Sim
+Compra Aprovada
+PO033972
+10/11/2025
+NFe - Venda
+0
+10/11/2025
+00.000.015
+45
+25/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 957,60
+R$ 1.915,20
+0%
+R$ 0,00
+R$ 1.915,20
+Ok
+Compra Finalizada
+176
+051125
+Arandu
+nov
+2025
+07/11/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+13
+Li-SOCL2
+Sim
+Compra Aprovada
+PO033972
+10/11/2025
+NFe - Venda
+0
+10/11/2025
+00.000.015
+45
+25/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 73,20
+R$ 951,60
+0%
+R$ 0,00
+R$ 951,60
+Ok
+Compra Finalizada
+177
+051125
+Arandu
+nov
+2025
+07/11/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+PO033972
+10/11/2025
+NFe - Venda
+0
+10/11/2025
+00.000.015
+45
+25/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 10.105,20
+R$ 20.210,40
+0%
+R$ 0,00
+R$ 20.210,40
+Ok
+Compra Finalizada
+178
+061125
+Arandu
+nov
+2025
+10/11/2025
+HD Survey
+44.498.314/0001-31
+Diogo Fernandes
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+3
+Alcalina
+-
+Compra Aprovada
+-
+12/11/2025
+Sem NFe/NFSe
+Não terá NF
+12/11/2025
+Não terá NF
+30
+12/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 949,90
+R$ 2.849,70
+12%
+R$ 0,00
+R$ 2.507,74
+Ok
+Compra Finalizada
+Data de pagamento estimada para o dia 15/01/2026
+179
+071125
+Mitang
+nov
+2025
+12/11/2025
+IRD - Instituto Francês Para Pesquisa do Desenvolvimento
+50.273.789/0001-22
+Camila de Freitas
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+-
+14/11/2025
+NFe - Venda
+0
+14/11/2025
+00.000.210
+0
+14/11/2025
+Nov
+2025
+À Vista
+Pago
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 91,40
+R$ 1.676,10
+Ok
+Compra Finalizada
+180
+081125
+Arandu
+nov
+2025
+13/11/2025
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+-
+14/11/2025
+NFe - Venda
+0
+14/11/2025
+00.000.016
+28
+12/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+181
+091125
+Mitang
+nov
+2025
+13/11/2025
+FADESP - Fundação de Amparo e Desenvolvimento da Pesquisa
+05.572.870/0001-59
+Marcelo Rollnic
+Signature - 18v / 30Ah / 540Wh
+220014
+16
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 2.727,00
+R$ 43.632,00
+0%
+R$ 3.493,00
+R$ 47.125,00
+-
+Compra Não Finalizada
+Intermediado pela Nortek
+182
+101125
+Arandu
+nov
+2025
+17/11/2025
+Fugro
+03.595.293/0001-95
+Rogério Alves
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+PO034082
+17/11/2025
+NFe - Venda
+0
+17/11/2025
+00.000.017
+45
+01/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 8.514,00
+R$ 8.514,00
+0%
+R$ 0,00
+R$ 8.514,00
+Ok
+Compra Finalizada
+Aprovaram 1 unidade, eram originalmente 2 unidades
+183
+111125
+Arandu
+nov
+2025
+24/11/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+AMAR G4 - Ultra Deep - 12v / 164Ah / 1.968Wh
+JAG4UD
+8
+Alcalina
+Sim
+Compra Aprovada
+PO111125
+27/11/2025
+NFe - Venda
+1º ao 24º Dia
+01/12/2025
+00.000.019
+28
+29/12/2025
+Dez
+2025
+Transferência Bancária
+Pago
+R$ 5.680,00
+R$ 45.440,00
+20%
+R$ 0,00
+R$ 36.352,00
+Ok
+Compra Finalizada
+Foi aplicado um desconto de 20% devido a quantidade solicitada pelo cliente
+184
+121125
+Mitang
+nov
+2025
+27/11/2025
+DOF Brasil
+07.925.451/0001-89
+Rodrigo Kirk
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+PO3256258
+28/11/2025
+NFe - Venda
+3
+03/12/2025
+00.000.212
+30
+02/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 16.527,00
+R$ 16.527,00
+0%
+R$ 0,00
+R$ 16.527,00
+Ok
+Compra Finalizada
+185
+131225
+Mitang
+dez
+2025
+02/12/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 - 14,4v / 2,5Ah / 36Wh
+DGPS-RS-M9-5
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 1.398,00
+R$ 2.796,00
+0%
+R$ 80,00
+R$ 2.876,00
+-
+Compra Não Finalizada
+186
+131225
+Mitang
+dez
+2025
+02/12/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh
+DGPS-RS-M9-2
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 989,00
+R$ 1.978,00
+0%
+R$ 80,00
+R$ 2.058,00
+-
+Compra Não Finalizada
+187
+141225
+Mitang
+dez
+2025
+03/12/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 - 14,4v / 2,5Ah / 36Wh
+DGPS-RS-M9-5
+1
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 1.398,00
+R$ 1.398,00
+0%
+R$ 80,00
+R$ 1.478,00
+-
+Compra Não Finalizada
+188
+141225
+Mitang
+dez
+2025
+03/12/2025
+FEENG - Fundação Empresa-Escola de Engenharia da UFRGS
+02.475.386/0001-13
+José Carlos
+Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh
+DGPS-RS-M9-2
+1
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 989,00
+R$ 989,00
+0%
+R$ 80,00
+R$ 1.069,00
+-
+Compra Não Finalizada
+189
+151225
+Mitang
+dez
+2025
+09/12/2025
+Centro de Estudos do Mar
+667.904.413-87
+Pedro Paulo de Freitas 
+Signature - 18v / 30Ah / 540Wh
+220014
+1
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+09/12/2025
+NFe - Venda
+0
+09/12/2025
+00.000.213
+0
+09/12/2025
+Dez
+2025
+À Vista
+Pago
+R$ 2.727,00
+R$ 2.727,00
+0%
+R$ 160,00
+R$ 2.887,00
+Ok
+Compra Finalizada
+Indicação da Nortek, mandar 10% do valor para a Nortek
+190
+161225
+Arandu
+dez
+2025
+15/12/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+161225
+18/12/2025
+NFe - Venda
+1º ao 24º Dia
+18/12/2025
+00.000.020
+28
+15/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 9.800,00
+R$ 19.600,00
+0%
+R$ 0,00
+R$ 19.600,00
+Ok
+Compra Finalizada
+191
+161225
+Arandu
+dez
+2025
+15/12/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+12
+Li-SOCL2
+Sim
+Compra Aprovada
+161225
+18/12/2025
+NFe - Venda
+1º ao 24º Dia
+18/12/2025
+00.000.020
+28
+15/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 6.890,00
+R$ 82.680,00
+0%
+R$ 0,00
+R$ 82.680,00
+Ok
+Compra Finalizada
+192
+161225
+Arandu
+dez
+2025
+15/12/2025
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+108
+Li-SOCL2
+Sim
+Compra Aprovada
+161225
+18/12/2025
+NFe - Venda
+1º ao 24º Dia
+18/12/2025
+00.000.020
+28
+15/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 6.588,00
+0%
+R$ 0,00
+R$ 6.588,00
+Ok
+Compra Finalizada
+193
+171225
+Mitang
+dez
+2025
+16/12/2025
+Ermec
+05.303.513/0001-95
+Edmar Miranda
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+-
+Compra Não Finalizada
+194
+171225
+Mitang
+dez
+2025
+16/12/2025
+Ermec
+05.303.513/0001-95
+Edmar Miranda
+Seladora Macoseal PS2/SE160 - 25,6v
+PS2
+3
+LiFePO4
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+-
+Compra Não Finalizada
+195
+181225
+Mitang
+dez
+2025
+19/12/2025
+DOF Brasil
+07.925.451/0001-89
+Rodrigo Kirk
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+DS218-25-0126-S
+23/12/2025
+NFe - Venda
+3
+23/12/2025
+00.000.214
+30
+22/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 16.527,00
+R$ 33.054,00
+0%
+R$ 0,00
+R$ 33.054,00
+Ok
+Compra Finalizada
+196
+191225
+Mitang
+dez
+2025
+23/12/2025
+Oceânica
+29.980.141/0004-42
+Jamille Costa
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Compra Aprovada
+125716
+25/03/2026
+NFe - Venda
+0
+01/04/2026
+00.000.225
+30
+01/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 3.169,40
+0%
+R$ 50,00
+R$ 3.219,40
+Ok
+Compra Finalizada
+197
+201225
+Mitang
+dez
+2025
+30/12/2025
+Oceanpact Serviços Marítimos
+09.114.805/0008-07
+Douglas Leal Azevedo
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+5
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 16.820,00
+R$ 84.100,00
+0%
+R$ 0,00
+R$ 84.100,00
+-
+Compra Não Finalizada
+Faltam informações da empresa - Pedir novamente o CNPJ da empresa
+198
+201225
+Mitang
+dez
+2025
+30/12/2025
+Oceanpact Serviços Marítimos
+09.114.805/0008-07
+Douglas Leal Azevedo
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+5
+Li-SOCL2
+Sim
+Compra Aprovada
+300151
+05/02/2026
+NFe - Venda
+0
+05/02/2026
+00.000.219
+30
+07/03/2026
+Mar
+2026
+Transferência Bancária
+Pago
+R$ 19.890,00
+R$ 99.450,00
+0%
+R$ 0,00
+R$ 99.450,00
+Ok
+Compra Finalizada
+Faltam informações da empresa - Pedir novamente o CNPJ da empresa
+199
+211225
+Mitang
+dez
+2025
+30/12/2025
+Centro de Estudos do Mar
+667.904.413-87
+Pedro Paulo de Freitas
+Signature - 18v / 30Ah / 540Wh
+220014
+1
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+02/01/2026
+NFe - Venda
+0
+06/01/2026
+00.000.215
+0
+06/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 2.727,00
+R$ 2.727,00
+0%
+R$ 310,20
+R$ 3.037,20
+Ok
+Compra Finalizada
+200
+221225
+Mitang
+dez
+2025
+30/12/2025
+Centro de Estudos do Mar
+667.904.413-87
+Pedro Paulo de Freitas
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+02/01/2026
+NFe - Venda
+0
+06/01/2026
+00.000.215
+0
+06/01/2026
+Jan
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 225,80
+R$ 1.810,50
+Ok
+Compra Finalizada
+201
+010126
+Mitang
+jan
+2026
+06/01/2026
+DOF Brasil
+07.925.451/0001-89
+Wagner Cotrim
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+DS237-26-0003-S
+18/01/2026
+NFSe - Serviço
+0
+19/01/2026
+NFS - Nº2
+30
+18/02/2026
+Fev
+2026
+Transferência Bancária
+Pago
+R$ 16.820,00
+R$ 33.640,00
+0%
+R$ 0,00
+R$ 33.640,00
+Ok
+Compra Finalizada
+NF de transporte - Nº 000.000.218
+202
+020126
+Arandu
+jan
+2026
+06/01/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+3
+Alcalina
+Sim
+Compra Aprovada
+126
+08/01/2026
+NFe - Venda
+0
+09/01/2026
+00.000.021
+28
+06/02/2026
+Fev
+2026
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+203
+020126
+Arandu
+jan
+2026
+06/01/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Liberador Acústico Benthos - 27v
+BT27
+1
+Alcalina
+Sim
+Compra Aprovada
+126
+08/01/2026
+NFe - Venda
+0
+09/01/2026
+00.000.021
+28
+06/02/2026
+Fev
+2026
+Transferência Bancária
+Pago
+R$ 2.394,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+204
+030126
+Mitang
+jan
+2026
+14/01/2026
+Blueocean
+36.941.795/0001-80
+Matheus Rezende
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+109
+16/01/2026
+NFe - Venda
+1º ao 25º Dia
+18/01/2026
+00.000.217
+30
+17/02/2026
+Fev
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 0,00
+R$ 1.584,70
+Ok
+Compra Finalizada
+205
+040126
+Arandu
+jan
+2026
+21/01/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+672
+Alcalina
+Sim
+Compra Aprovada
+PO035169
+28/01/2026
+NFe - Venda
+0
+02/02/2026
+00.000.024
+45
+19/03/2026
+Mar
+2026
+Transferência bancária
+Pago
+R$ 24,90
+R$ 16.732,80
+10%
+R$ 0,00
+R$ 15.059,52
+Ok
+Compra Finalizada
+Emitir apenas no dia do envio com a data do pagamento
+206
+040126
+Arandu
+jan
+2026
+21/01/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+23
+Li-SOCL2
+Sim
+Compra Aprovada
+PO035169
+28/01/2026
+NFe - Venda
+0
+02/02/2026
+00.000.024
+45
+19/03/2026
+Mar
+2026
+Transferência bancária
+Pago
+R$ 4.238,00
+R$ 97.474,00
+10%
+R$ 0,00
+R$ 87.726,60
+Ok
+Compra Finalizada
+Emitir apenas no dia do envio com a data do pagamento
+207
+050126
+Arandu
+jan
+2026
+23/01/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+27/01/2026
+NFe - Venda
+0
+28/01/2026
+00.000.022
+30
+27/02/2026
+Fev
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+208
+010226
+Mitang
+fev
+2026
+02/02/2026
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Monitor ECG uMEC - 10,95v / 2,5Ah / 27Wh
+EUM
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+-
+Compra Não Finalizada
+209
+020226
+Mitang
+fev
+2026
+02/02/2026
+UFPR - Universidade Federal do Paraná
+645.585.339-34
+Maurício  Almeida
+Argornaut XR - 12v / 45Ah / 540Wh
+AXR
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 1.789,00
+R$ 1.789,00
+0%
+R$ 150,00
+R$ 1.939,00
+-
+Compra Não Finalizada
+210
+030226
+Mitang
+fev
+2026
+03/02/2026
+DTA Engenharia
+02.385.674/0001-87
+Guilherme
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+2
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 2.727,00
+R$ 5.454,00
+0%
+R$ 350,00
+R$ 5.804,00
+-
+Compra Não Finalizada
+211
+030226
+Mitang
+fev
+2026
+03/02/2026
+DTA Engenharia
+02.385.674/0001-87
+Guilherme
+AWAC - 15v / 120Ah / 1800Wh
+220029
+2
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+0
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 10.961,00
+R$ 21.922,00
+0%
+R$ 350,00
+R$ 22.272,00
+-
+Compra Não Finalizada
+212
+040226
+Arandu
+fev
+2026
+04/02/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+06/02/2026
+NFe - Venda
+0
+06/02/2026
+00.000.025
+28
+06/03/2026
+Mar
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+213
+050226
+Mitang
+fev
+2026
+10/02/2026
+UFRJ - Fundacao Coppetec
+72.060.999/0001-75
+Prf. Marcos Nicolas
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.727,00
+R$ 2.727,00
+0%
+R$ 0,00
+R$ 2.727,00
+-
+Compra Não Finalizada
+214
+060226
+Mitang
+fev
+2026
+10/02/2026
+UFRJ - Fundacao Coppetec
+72.060.999/0001-75
+Prf. Marcos Nicolas
+AWAC - 15v / 120Ah / 1800Wh
+220029
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 10.961,00
+R$ 10.961,00
+0%
+R$ 0,00
+R$ 10.961,00
+-
+Compra Não Finalizada
+215
+070226
+Mitang
+fev
+2026
+10/02/2026
+DOF Brasil
+07.925.451/0001-89
+Wagner Cotrim
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+DS237-26-0038-S
+10/02/2026
+NFe - Venda
+0
+19/02/2026
+00.000.220
+30
+21/03/2026
+Mar
+2026
+Transferência Bancária
+Pago
+R$ 19.890,00
+R$ 19.890,00
+0%
+R$ 0,00
+R$ 19.890,00
+Ok
+Compra Finalizada
+216
+080226
+Arandu
+fev
+2026
+11/02/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17347
+CR123A
+54
+LiMnO2
+Sim
+Compra Aprovada
+PO035696
+20/02/2026
+NFe - Venda
+0
+20/02/2026
+00.000.026
+45
+06/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 129,00
+R$ 6.966,00
+0%
+R$ 0,00
+R$ 6.966,00
+Ok
+Compra Finalizada
+217
+080226
+Arandu
+fev
+2026
+11/02/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D
+LSH20
+30
+Li-SOCL2
+Sim
+Compra Aprovada
+PO035696
+20/02/2026
+NFe - Venda
+0
+20/02/2026
+00.000.026
+45
+06/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 189,00
+R$ 5.670,00
+0%
+R$ 0,00
+R$ 5.670,00
+Ok
+Compra Finalizada
+218
+090226
+Mitang
+fev
+2026
+12/02/2026
+MV3
+12.334.122/0001–01
+Mayara Oliveira
+Servo S - 12v / 4Ah / 48Wh
+MQ
+4
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+26/02/2026
+NFe - Venda
+0
+26/02/2026
+00.000.223
+60
+27/04/2026
+Abr
+2026
+Boleto
+Pago
+R$ 876,80
+R$ 3.507,20
+0%
+R$ 0,00
+R$ 3.507,20
+Ok
+Compra Finalizada
+Boleto dividido em 2x de R$ 1.753,60 - "28/03/2026 (1ª Parcela Paga)" & 27/04/2026
+219
+100226
+Arandu
+fev
+2026
+23/02/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+-
+Pedido Cancelado
+220
+110226
+Mitang
+fev
+2026
+24/02/2026
+DOF Brasil
+07.925.451/0001-89
+Flavia Parvan
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+DS235-26-0053-S
+10/04/2026
+NFe - Venda
+0
+10/04/2026
+00.000.229
+30
+10/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 16.820,00
+R$ 16.820,00
+0%
+R$ 0,00
+R$ 16.820,00
+Ok
+Compra Finalizada
+221
+120226
+Arandu
+fev
+2026
+25/02/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+26/02/2026
+NFe - Venda
+0
+26/02/2026
+00.000.027
+56
+23/04/2026
+Abr
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+Boleto dividido em 2x de R$ 1.197,00 - "26/03/2026 (1ª Parcela Paga)" & "23/04/2026  (2ª Parcela Paga)"
+222
+130226
+Mitang
+fev
+2026
+26/02/2026
+Viva Rio
+00.343.941/0001-28
+Jorge Selim
+Servo S - 12v / 4Ah / 48Wh
+MQ
+8
+Ni-MH
+Sim
+Compra Aprovada
+26067299.02
+12/06/2026
+NFSe - Serviço
+-
+25/06/2026
+NFS - Nº12
+30
+25/07/2026
+Jul
+2026
+Transferência Bancária
+Em Atraso
+R$ 876,80
+R$ 7.014,40
+0%
+R$ 0,00
+R$ 7.014,40
+-
+Aguardando Pagamento
+P.O emitida solicitando 6 unidades, mas corrigiram pedindo 8 unidades
+223
+140226
+Arandu
+fev
+2026
+26/02/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+27/02/2026
+NFe - Venda
+0
+27/02/2026
+00.000.028
+31
+30/03/2026
+Mar
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+224
+150226
+Mitang
+fev
+2026
+26/02/2026
+Valaris
+04.336.088/0001-78
+Tom Azevedo
+Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)
+NTV-16-10
+7
+Alcalina
+Não
+Compra Aprovada
+10117-0000106956
+06/01/2026
+NFSe - Serviço
+0
+06/05/2026
+NFS - Nº8
+60
+05/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 13.880,00
+R$ 97.160,00
+0%
+R$ 0,00
+R$ 97.160,00
+Ok
+Compra Finalizada
+R$18.855,98 (Valor unitário da Mitang Soluções)
+225
+010326
+Mitang
+mar
+2026
+02/03/2026
+Viva Rio
+00.343.941/0001-28
+Jorge Selim
+Monitor BeneVision N12/N15/N17 - 11,1v / 4,5Ah / 49,9Wh
+MM-N12
+1
+Li-Ion
+-
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+226
+020326
+Mitang
+mar
+2026
+02/03/2026
+Instituto Nacional do Cancêr (INCA)
+00.394.544/0171-50
+Sandro De Lucena Barboza
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 798,00
+0%
+R$ 60,00
+R$ 858,00
+-
+Compra Não Finalizada
+227
+030326
+Arandu
+mar
+2026
+03/03/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+1
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+12/03/2026
+NFe - Venda
+0
+17/03/2026
+00.000.029
+28
+14/04/2026
+Abr
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+228
+030326
+Arandu
+mar
+2026
+03/03/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+12/03/2026
+NFe - Venda
+0
+17/03/2026
+00.000.029
+28
+14/04/2026
+Abr
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+Ok
+Compra Finalizada
+229
+040326
+Mitang
+mar
+2026
+10/03/2026
+Hospital Di Camp
+02.745.280/0001-92
+Dione Amorim
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+1
+Pb
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.987,00
+R$ 1.987,00
+0%
+R$ 60,00
+R$ 2.047,00
+-
+Compra Não Finalizada
+230
+050326
+Mitang
+mar
+2026
+19/03/2026
+UFPE - Universidade Federal de Pernambuco
+24.134.488/0001-08
+Alex Costa
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+-
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 125,00
+R$ 1.709,70
+-
+Compra Não Finalizada
+231
+050326
+Mitang
+mar
+2026
+19/03/2026
+UFPE - Universidade Federal de Pernambuco
+24.134.488/0001-08
+Alex Costa
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+1
+Alcalina
+-
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.727,00
+R$ 2.727,00
+0%
+R$ 125,00
+R$ 2.852,00
+-
+Compra Não Finalizada
+232
+060326
+Arandu
+mar
+2026
+26/03/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 30Ah / 540Wh
+220014
+10
+Alcalina
+Sim
+Compra Aprovada
+300326
+30/03/2026
+NFe - Venda
+28
+01/04/2026
+00.000.030
+28
+29/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 2.527,00
+R$ 25.270,00
+0%
+R$ 0,00
+R$ 25.270,00
+Ok
+Compra Finalizada
+233
+060326
+Arandu
+mar
+2026
+26/03/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+8
+Li-SOCL2
+Sim
+Compra Aprovada
+300326
+30/03/2026
+NFe - Venda
+28
+01/04/2026
+00.000.030
+28
+29/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 9.800,00
+R$ 78.400,00
+0%
+R$ 0,00
+R$ 78.400,00
+Ok
+Compra Finalizada
+234
+060326
+Arandu
+mar
+2026
+26/03/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+18
+Li-SOCL2
+Sim
+Compra Aprovada
+300326
+30/03/2026
+NFe - Venda
+28
+01/04/2026
+00.000.030
+28
+29/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 6.890,00
+R$ 124.020,00
+0%
+R$ 0,00
+R$ 124.020,00
+Ok
+Compra Finalizada
+235
+060326
+Arandu
+mar
+2026
+26/03/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+16
+Li-SOCL2
+Sim
+Compra Aprovada
+300326
+30/03/2026
+NFe - Venda
+28
+01/04/2026
+00.000.030
+28
+29/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 3.961,50
+R$ 63.384,00
+0%
+R$ 0,00
+R$ 63.384,00
+Ok
+Compra Finalizada
+236
+060326
+Arandu
+mar
+2026
+26/03/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+12
+Li-SOCL2
+Sim
+Compra Aprovada
+300326
+30/03/2026
+NFe - Venda
+28
+01/04/2026
+00.000.030
+28
+29/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 732,00
+0%
+R$ 0,00
+R$ 732,00
+Ok
+Compra Finalizada
+237
+070326
+Mitang
+mar
+2026
+26/03/2026
+Oceanpact Geociências
+16.492.411/0002-62
+Nelson Carvalho
+Signature - 18v / 100Ah / 1800Wh
+220051
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+51044
+06/04/2026
+NFe - Venda
+30
+06/04/2026
+00.000.226
+30
+06/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 10.961,00
+R$ 21.922,00
+0%
+R$ 125,00
+R$ 22.047,00
+Ok
+Compra Finalizada
+238
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+250
+Alcalina
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 24,90
+R$ 6.225,00
+10%
+R$ 0,00
+R$ 5.602,50
+Ok
+Compra Finalizada
+239
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Signature - 18v / 30Ah / 540Wh
+220014
+2
+Alcalina
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 2.727,00
+R$ 5.454,00
+10%
+R$ 0,00
+R$ 4.908,60
+Ok
+Compra Finalizada
+240
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+24
+Li-SOCL2
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 4.238,00
+R$ 101.712,00
+10%
+R$ 0,00
+R$ 91.540,80
+Ok
+Compra Finalizada
+241
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+51
+Li-SOCL2
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 3.111,00
+10%
+R$ 0,00
+R$ 2.799,90
+Ok
+Compra Finalizada
+242
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Seaguard II - 9V / 15Ah / 135Wh
+SEA
+4
+Alcalina
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 3.192,00
+10%
+R$ 0,00
+R$ 2.872,80
+Ok
+Compra Finalizada
+243
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Seaguard II - 7v / 35Ah / 245Wh
+SEL
+6
+Li-SOCL2
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 2.380,00
+R$ 14.280,00
+10%
+R$ 0,00
+R$ 12.852,00
+Ok
+Compra Finalizada
+244
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Sonardyne DORT
+SDORT
+3
+Li-SOCL2
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 8.421,00
+R$ 25.263,00
+10%
+R$ 0,00
+R$ 22.736,70
+Ok
+Compra Finalizada
+245
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+468
+Alcalina
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 24,90
+R$ 11.653,20
+10%
+R$ 0,00
+R$ 10.487,88
+Ok
+Compra Finalizada
+246
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+12
+Li-SOCL2
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 8.421,00
+R$ 101.052,00
+10%
+R$ 0,00
+R$ 90.946,80
+Ok
+Compra Finalizada
+247
+080326
+Arandu
+mar
+2026
+26/03/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Compra Aprovada
+PO036825
+09/04/2026
+NFe - Venda
+0
+22/04/2026
+00.000.031
+45
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 3.169,40
+10%
+R$ 0,00
+R$ 2.852,46
+Ok
+Compra Finalizada
+248
+090326
+Mitang
+mar
+2026
+27/03/2026
+Hidrotopo
+31.250.137/0001-28
+Ana Beatriz
+AWAC - 15v / 120Ah / 1800Wh
+220029
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 10.961,00
+R$ 10.961,00
+0%
+R$ 0,00
+R$ 10.961,00
+-
+Compra Não Finalizada
+249
+090326
+Mitang
+mar
+2026
+27/03/2026
+Hidrotopo
+31.250.137/0001-28
+Ana Beatriz
+AWAC - 13,5v / 40Ah / 540Wh
+220011
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 2.727,00
+R$ 2.727,00
+0%
+R$ 0,00
+R$ 2.727,00
+-
+Compra Não Finalizada
+250
+100326
+Mitang
+mar
+2026
+27/03/2026
+3NGEO
+06.033.405/0001-02
+Nivaldo
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+2
+Alcalina
+Sim
+Compra Aprovada
+Paulo aprovou
+31/03/2026
+NFe - Venda
+0
+31/03/2026
+00.000.224
+30
+30/04/2026
+Abr
+2026
+Transferência Bancária
+Pago
+R$ 425,00
+R$ 850,00
+0%
+R$ 0,00
+R$ 850,00
+Ok
+Compra Finalizada
+251
+010426
+Arandu
+abr
+2026
+06/04/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Compra Aprovada
+E-mail
+12/05/2026
+NFe - Venda
+0
+12/05/2026
+00.000.033
+28
+09/06/2026
+Jun
+2026
+Boleto
+Pago
+R$ 1.780,00
+R$ 1.780,00
+0%
+R$ 0,00
+R$ 1.780,00
+Ok
+Compra Finalizada
+252
+010426
+Arandu
+abr
+2026
+06/04/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+12/05/2026
+NFe - Venda
+0
+12/05/2026
+00.000.033
+28
+09/06/2026
+Jun
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+253
+020426
+Mitang
+abr
+2026
+09/04/2026
+MV3
+12.334.122/0001–01
+Mayara Oliveira
+Monitor iMEC12 - 11,1v / 2,6Ah / 28,8Wh
+iMEC12
+1
+Li-Ion
+Sim
+Compra Aprovada
+E-mail
+10/04/2026
+NFe - Venda
+0
+10/04/2026
+00.000.228
+30
+10/05/2026
+Mai
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+254
+030426
+Mitang
+abr
+2026
+09/04/2026
+Oceanpact Geociências
+16.492.411/0002-62
+Christian Silva
+ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)
+ADL30
+3
+Li-SOCL2
+Sim
+Compra Aprovada
+51501
+12/05/2026
+NFSe - Serviço
+1º à 20º Dia útil
+03/06/2026
+NFS - Nº14
+30
+03/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 8.421,00
+R$ 25.263,00
+8%
+R$ 0,00
+R$ 23.241,96
+Ok
+Compra Finalizada
+NFS-8 Cancelada, substituida pela NFS-14, reemitida dia 07/07/2026 (Código de serviço errado)
+255
+030426
+Mitang
+abr
+2026
+09/04/2026
+Oceanpact Geociências
+16.492.411/0002-62
+Christian Silva
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+32
+Li-SOCL2
+Sim
+Compra Aprovada
+51501
+12/05/2026
+NFSe - Serviço
+1º à 20º Dia útil
+03/06/2026
+NFS - Nº14
+30
+03/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 8.421,00
+R$ 269.472,00
+8%
+R$ 0,00
+R$ 247.914,24
+Ok
+Compra Finalizada
+NFS-8 Cancelada, substituida pela NFS-14, reemitida dia 07/07/2026 (Código de serviço errado)
+256
+030426
+Mitang
+abr
+2026
+09/04/2026
+Oceanpact Geociências
+16.492.411/0002-62
+Christian Silva
+Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh
+LAE
+10
+Alcalina
+Sim
+Compra Aprovada
+51501
+12/05/2026
+NFSe - Serviço
+1º à 20º Dia útil
+03/06/2026
+NFS - Nº14
+30
+03/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 3.267,00
+R$ 32.670,00
+8%
+R$ 0,00
+R$ 30.056,40
+Ok
+Compra Finalizada
+NFS-8 Cancelada, substituida pela NFS-14, reemitida dia 07/07/2026 (Código de serviço errado)
+257
+030426
+Mitang
+abr
+2026
+09/04/2026
+Oceanpact Geociências
+16.492.411/0002-62
+Christian Silva
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+18
+Alcalina
+Sim
+Compra Aprovada
+51501
+12/05/2026
+NFSe - Serviço
+1º à 20º Dia útil
+03/06/2026
+NFS - Nº14
+30
+03/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 28.524,60
+8%
+R$ 0,00
+R$ 26.242,63
+Ok
+Compra Finalizada
+NFS-8 Cancelada, substituida pela NFS-14, reemitida dia 07/07/2026 (Código de serviço errado)
+258
+040426
+Mitang
+abr
+2026
+15/04/2026
+Ambipar / Ekman
+12.285.662/0001-34
+Ivan Mizutori
+Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh
+FSI
+2
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+29/04/2026
+NFe - Venda
+-
+29/04/2026
+00.000.230
+30
+29/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 425,00
+R$ 850,00
+0%
+R$ 0,00
+R$ 850,00
+Ok
+Compra Finalizada
+259
+050426
+Arandu
+abr
+2026
+17/04/2026
+CLS
+04.001.949/0001-67
+Rafael Lapagesse
+Liberador Acústico Benthos - 27v
+BT27
+4
+Alcalina
+Sim
+Compra Aprovada
+PO_240426
+24/04/2026
+NFe - Venda
+-
+24/04/2026
+00.000.032
+28
+22/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 2.394,00
+R$ 9.576,00
+0%
+R$ 0,00
+R$ 9.576,00
+Ok
+Compra Finalizada
+260
+060426
+Arandu
+abr
+2026
+24/04/2026
+CLS
+04.001.949/0001-67
+Rafael Lapagesse
+Correntômetro DVS Teledyne 18v
+DVS18
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.598,00
+R$ 1.598,00
+0%
+R$ 0,00
+R$ 1.598,00
+-
+Compra Não Finalizada
+261
+070426
+Mitang
+abr
+2026
+24/04/2026
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Luci Cajueiro Carneiro
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+29/04/2026
+NFe - Venda
+-
+07/05/2026
+00.000.231
+30
+06/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 260,00
+R$ 1.844,70
+Ok
+Compra Finalizada
+262
+080426
+Mitang
+abr
+2026
+24/04/2026
+Fundepag - Fundação De Desenvolvimento Da Pesquisa Do Agronegócio
+50.276.237/0001-78
+Andrea Pontes
+Shenzhen CPKD - 11,1v / 2,5Ah / 27,75Wh
+SCPKD
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 890,00
+R$ 890,00
+0%
+R$ 0,00
+R$ 890,00
+-
+Compra Não Finalizada
+263
+090426
+Mitang
+abr
+2026
+28/04/2026
+Viva Rio
+00.343.941/0001-28
+Jonathan Ribeiro
+Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh
+BILF
+8
+Ni-MH
+Sim
+Compra Aprovada
+26066035.02
+01/06/2026
+NFe - Venda
+-
+30/06/2026
+00.000.241
+30
+30/07/2026
+Jul
+2026
+Transferência Bancária
+Em Atraso
+R$ 435,60
+R$ 3.484,80
+0%
+R$ 0,00
+R$ 3.484,80
+-
+Aguardando Pagamento
+264
+100426
+Mitang
+abr
+2026
+29/04/2026
+C-Innovation
+09.477.772/0001-93
+Bruno Fucelini
+Hanzas-01-18
+HNZS
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.389,00
+R$ 1.389,00
+0%
+R$ 0,00
+R$ 1.389,00
+-
+Compra Não Finalizada
+265
+110426
+Mitang
+abr
+2026
+27/04/2026
+Aerodrone
+44.209.460/0001-08
+Guilherme
+Blue ROV2 - 14,8 / 18Ah / 266,4Wh
+BLU
+1
+Li-Ion
+Não
+Compra Aprovada
+Paulo aprovou
+07/04/2026
+NFSe - Serviço
+-
+07/04/2026
+Serviço
+30
+07/05/2026
+Mai
+2026
+Boleto
+-
+R$ 4.000,00
+R$ 4.000,00
+0%
+R$ 0,00
+R$ 4.000,00
+-
+Pedido Cancelado
+Material Devolvido a Mitang
+266
+010526
+Mitang
+mai
+2026
+08/05/2026
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+206
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 24,90
+R$ 5.129,40
+0%
+R$ 710,40
+R$ 5.839,80
+-
+Compra Não Finalizada
+267
+010526-2
+Mitang
+mai
+2026
+08/05/2026
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+98
+Li-SOCL2
+Sim
+Compra Aprovada
+29191/2026
+22/05/2026
+NFe - Venda
+-
+15/06/2026
+00.000.235
+30
+15/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 5.978,00
+0%
+R$ 506,80
+R$ 6.484,80
+Ok
+Compra Finalizada
+Fazer NF ao enviar os produtos
+268
+010526-2
+Mitang
+mai
+2026
+08/05/2026
+FEST - Fundação Espirito Santense de Tecnologia
+02.980.103/0001-90
+Júlia Salviato
+Signature - 18v / 30Ah / 540Wh
+220014
+12
+Alcalina
+Sim
+Compra Aprovada
+29191/2026
+22/05/2026
+NFe - Venda
+-
+15/06/2026
+00.000.235
+30
+15/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 2.727,00
+R$ 32.724,00
+0%
+R$ 506,80
+R$ 33.230,80
+Ok
+Compra Finalizada
+Fazer NF ao enviar os produtos
+269
+020526
+Mitang
+mai
+2026
+08/05/2026
+Oceanpact Geociências
+16.492.411/0002-62
+William Stelling
+Aquadopp - 14,4v / 26,3Ah / 380Wh
+AQL38
+18
+Li-SOCL2
+Sim
+Compra Aprovada
+51756
+21/05/2026
+NFSe - Serviço
+1º à 20º Dia útil
+05/06/2026
+NFS - Nº15
+30
+05/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 6.890,00
+R$ 124.020,00
+21,16%
+R$ 0,00
+R$ 97.777,37
+Ok
+Compra Finalizada
+NFS-9 Cancelada, substituida pela NFS-15, reemitida dia 07/07/2026 (Código de serviço errado)
+270
+030526
+Arandu
+mai
+2026
+11/05/2026
+Fugro
+03.595.293/0001-95
+Aline Santos
+Pilha Li-SOCL2 - SAFT - LSH14 - 3,6v - 5,8Ah - C
+LSH14
+6
+Li-SOCL2
+Sim
+Compra Aprovada
+PO037366
+02/06/2026
+NFe - Venda
+-
+16/06/2026
+00.000.037
+45
+31/07/2026
+Jul
+2026
+Transferência Bancária
+Em Atraso
+R$ 597,00
+R$ 3.582,00
+0%
+R$ 0,00
+R$ 3.582,00
+-
+Aguardando Pagamento
+271
+030526
+Arandu
+mai
+2026
+11/05/2026
+Fugro
+03.595.293/0001-95
+Aline Santos
+Pilha Li-SOCL2 - Expower - ER26500M - 3,6v - 6Ah - C (High Power)
+ER26500M
+6
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 239,00
+R$ 1.434,00
+0%
+R$ 0,00
+R$ 1.434,00
+-
+Compra Não Finalizada
+272
+040526
+Mitang
+mai
+2026
+11/05/2026
+Hidrotopo
+31.250.137/0001-28
+Ana Beatriz
+AWAC 2 - 18v / 30Ah / 540Wh
+220014-2
+2
+Alcalina
+Sim
+Compra Aprovada
+E-mail
+12/05/2026
+NFe - Venda
+-
+12/05/2026
+00.000.232
+0
+12/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 2.727,00
+R$ 5.454,00
+0%
+R$ 200,00
+R$ 5.654,00
+Ok
+Compra Finalizada
+273
+040526
+Mitang
+mai
+2026
+11/05/2026
+Hidrotopo
+31.250.137/0001-28
+Ana Beatriz
+Rabicho 20cm (Conector Fêmea 3 Vias c/ 2 Fios)
+RB20CM
+1
+-
+Sim
+Compra Aprovada
+E-mail
+12/05/2026
+NFe - Venda
+-
+12/05/2026
+00.000.232
+0
+12/05/2026
+Mai
+2026
+Transferência Bancária
+Pago
+R$ 49,50
+R$ 49,50
+0%
+R$ 200,00
+R$ 249,50
+Ok
+Compra Finalizada
+274
+050526
+Arandu
+mai
+2026
+18/05/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Seaguard II - 7v / 35Ah / 245Wh
+SEL
+6
+Li-SOCL2
+Sim
+Compra Aprovada
+PO037548
+19/05/2026
+NFe - Venda
+-
+22/05/2026
+00.000.035
+45
+06/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 2.380,00
+R$ 14.280,00
+0%
+R$ 0,00
+R$ 14.280,00
+Ok
+Compra Finalizada
+275
+050526
+Arandu
+mai
+2026
+18/05/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17348
+CR123A
+18
+LiMnO2
+Sim
+Compra Aprovada
+PO037548
+19/05/2026
+NFe - Venda
+-
+22/05/2026
+00.000.035
+45
+06/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 129,00
+R$ 2.322,00
+0%
+R$ 0,00
+R$ 2.322,00
+Ok
+Compra Finalizada
+276
+050526
+Arandu
+mai
+2026
+18/05/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Duracell - MN1500 - 1,5v - AA
+MN1500
+24
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 11,00
+R$ 264,00
+0%
+R$ 0,00
+R$ 264,00
+-
+Pedido Cancelado
+277
+050526
+Arandu
+mai
+2026
+18/05/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR06GC - 1,5v - AA
+LR6GCP
+24
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 7,50
+R$ 180,00
+0%
+R$ 0,00
+R$ 180,00
+-
+Pedido Cancelado
+278
+060526
+Arandu
+mai
+2026
+21/05/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora Macoseal PS2/SE160 - 25,6v
+PS2
+1
+LiFePO4
+Sim
+Compra Aprovada
+E-mail
+27/05/2026
+NFe - Venda
+-
+05/06/2026
+00.000.036
+76
+20/08/2026
+Ago
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+Boleto parcelado e 3x - 1ª R$1.500 (21/06) | 2ª R$1.500 (21/07) | 3ª R$1.174 (20/08)
+279
+060526
+Arandu
+mai
+2026
+21/05/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh
+HM
+2
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+27/05/2026
+NFe - Venda
+-
+05/06/2026
+00.000.036
+76
+20/08/2026
+Ago
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+Ok
+Compra Finalizada
+Boleto parcelado e 3x - 1ª R$1.500 (21/06) | 2ª R$1.500 (21/07) | 3ª R$1.174 (20/08)
+280
+060526
+Arandu
+mai
+2026
+21/05/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Compra Aprovada
+E-mail
+27/05/2026
+NFe - Venda
+-
+05/06/2026
+00.000.036
+76
+20/08/2026
+Ago
+2026
+Boleto
+Pago
+R$ 1.780,00
+R$ 1.780,00
+0%
+R$ 0,00
+R$ 1.780,00
+Ok
+Compra Finalizada
+Boleto parcelado e 3x - 1ª R$1.500 (21/06) | 2ª R$1.500 (21/07) | 3ª R$1.174 (20/08)
+281
+070526
+Arandu
+mai
+2026
+26/05/2026
+Fugro
+03.595.293/0001-95
+Aline Santos
+Megger TDR 2000/2P - 9,6v / 1,5Ah / 14,4Wh
+M-TDR-2-2P
+4
+Ni-MH
+Sim
+Compra Aprovada
+PO037920
+15/06/2026
+NFe - Venda
+-
+30/06/2026
+00.000.039
+45
+14/08/2026
+Ago
+2026
+Transferência Bancária
+Em Atraso
+R$ 1.189,00
+R$ 4.756,00
+0%
+R$ 0,00
+R$ 4.756,00
+-
+Aguardando Pagamento
+282
+080526
+Mitang
+mai
+2026
+26/05/2026
+DOF Brasil
+07.925.451/0001-89
+Nadjane Araujo
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+DS218-26-0110-S
+29/05/2026
+NFSe - Serviço
+-
+27/05/2026
+NFS - Nº7
+30
+26/06/2026
+Jun
+2026
+Transferência Bancária
+Pago
+R$ 16.820,00
+R$ 33.640,00
+0%
+R$ 0,00
+R$ 33.640,00
+Ok
+Compra Finalizada
+Skandi Chieftain Subsea
+283
+090526
+Mitang
+mai
+2026
+29/05/2026
+Ana Schmidt Hospital e Clínica
+28.700.530/0025-39
+Diego Lutz
+Stryker System 5 - 9,6v
+SS5
+1
+Ni-CD
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.189,00
+R$ 1.189,00
+0%
+R$ 65,00
+R$ 1.254,00
+-
+Compra Não Finalizada
+284
+010626
+Mitang
+jun
+2026
+02/06/2026
+DOF Brasil
+07.925.451/0001-89
+Regina Cezario
+cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh
+CMXL48-M
+2
+Li-SOCL2
+Sim
+Compra Aprovada
+DS237-26-0145-S
+17/06/2026
+NFSe - Serviço
+-
+18/06/2026
+NFS-Nº10
+30
+18/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 16.820,00
+R$ 33.640,00
+0%
+R$ 0,00
+R$ 33.640,00
+Ok
+Compra Finalizada
+Request for quotation "DS237-26-0145-S"
+285
+020626
+Mitang
+jun
+2026
+09/06/2026
+DOF Brasil
+07.925.451/0001-89
+Flavia Parvan
+cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh
+CMXL48-N
+1
+Li-SOCL2
+Sim
+Compra Aprovada
+DS226-26-0203-S
+24/06/2026
+NFe - Venda
+-
+25/06/2026
+00.000.239
+30
+25/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 19.890,00
+R$ 19.890,00
+0%
+R$ 0,00
+R$ 19.890,00
+Ok
+Compra Finalizada
+Skandi Urca - Price inquiry DS226-26-0203-S
+286
+030626
+Arandu
+jun
+2026
+09/06/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Signature - 18v / 30Ah / 540Wh
+220014
+4
+Alcalina
+Sim
+Compra Aprovada
+PO037950
+11/06/2026
+NFe - Venda
+-
+19/06/2026
+00.000.038
+45
+03/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 2.727,00
+R$ 10.908,00
+4%
+R$ 0,00
+R$ 10.471,68
+Ok
+Compra Finalizada
+287
+030626
+Arandu
+jun
+2026
+09/06/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+4
+Alcalina
+Sim
+Compra Aprovada
+PO037950
+11/06/2026
+NFe - Venda
+-
+19/06/2026
+00.000.038
+45
+03/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 6.338,80
+4%
+R$ 0,00
+R$ 6.085,25
+Ok
+Compra Finalizada
+288
+040626
+Mitang
+jun
+2026
+11/06/2026
+Viva Rio
+00.343.941/0001-28
+Pedro
+Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh
+ZLR
+1
+Pb
+Sim
+Compra Aprovada
+26069534.01
+19/06/2026
+NFSe - Serviço
+-
+06/07/2026
+00.000.013
+30
+05/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 1.987,00
+R$ 1.987,00
+0%
+R$ 0,00
+R$ 1.987,00
+Ok
+Compra Finalizada
+Material será recebido na empresa dia 26/06/2026
+289
+050626
+Mitang
+jun
+2026
+11/06/2026
+Blueocean
+36.941.795/0001-80
+Gustavo Cerqueira
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Compra Aprovada
+177
+02/07/2026
+NFe - Venda
+-
+06/07/2026
+00.000.242
+30
+05/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 1.584,70
+R$ 3.169,40
+0%
+R$ 0,00
+R$ 3.169,40
+Ok
+Compra Finalizada
+Enviar NF e XML, aos respectivos e-mails: Carla.beatriz@brblueocean.com,giovanafreitas.vianna@BRBlueocean.com, barbara.souza@brblueocean.com,graziela.soares@brblueocean.com,matheus.rezende@brblueocean.com,gustavo.cerqueira@BRBlueocean.com
+290
+060626
+Mitang
+jun
+2026
+16/06/2026
+BM2
+39.413.837/0001-06
+Gustavo Spindola
+Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh
+BILF
+8
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+17/06/2026
+NFe - Venda
+-
+17/06/2026
+00.000.236
+30
+17/07/2026
+Jul
+2026
+Transferência Bancária
+Pago
+R$ 435,60
+R$ 3.484,80
+0%
+R$ 0,00
+R$ 3.484,80
+Ok
+Compra Finalizada
+291
+070626
+Mitang
+jun
+2026
+19/06/2026
+CSA Ciências Oceânicas
+15.349.654/0001-00
+Weslei Silva
+ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)
+ADL75
+1
+Li-SOCL2
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 8.421,00
+R$ 8.421,00
+0%
+R$ 0,00
+R$ 8.421,00
+-
+Compra Não Finalizada
+292
+070626
+Mitang
+jun
+2026
+19/06/2026
+CSA Ciências Oceânicas
+15.349.654/0001-00
+Weslei Silva
+ADCP Workhorse LR 75kHz - 42v / 630Wh - (2 Furos)
+ADA75
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 2.398,00
+R$ 2.398,00
+0%
+R$ 0,00
+R$ 2.398,00
+-
+Compra Não Finalizada
+293
+080626
+Mitang
+jun
+2026
+16/06/2026
+Tetra Tech Engenharia e Consultoria Ltda.
+56.088.990/0004-69
+Ricardo Busoli
+Boia Derivadora SC 40 I BUOY - 10,5v
+BD-SC-40
+2
+Alcalina
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+À Vista
+-
+R$ 2.727,00
+R$ 5.454,00
+0%
+R$ 150,00
+R$ 5.604,00
+-
+Compra Não Finalizada
+294
+090626
+Arandu
+jun
+2026
+22/06/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 750,00
+R$ 750,00
+0%
+R$ 0,00
+R$ 750,00
+-
+Compra Não Finalizada
+295
+090626
+Arandu
+jun
+2026
+22/06/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 1.780,00
+R$ 1.780,00
+0%
+R$ 0,00
+R$ 1.780,00
+-
+Compra Não Finalizada
+296
+100626
+Arandu
+jun
+2026
+30/06/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+-
+Compra Não Finalizada
+297
+100626
+Arandu
+jun
+2026
+30/06/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Não Aprovada
+-
+-
+NFSe - Serviço
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 750,00
+R$ 750,00
+0%
+R$ 0,00
+R$ 750,00
+-
+Compra Não Finalizada
+298
+010726
+Mitang
+jul
+2026
+03/07/2026
+UFRJ - Fundacao Coppetec
+72.060.999/0001-75
+Thiago Leão
+Aquadopp - 13,5v / 3,7Ah / 50Wh
+220010
+2
+Alcalina
+Sim
+Compra Aprovada
+2290/2026
+09/07/2026
+NFe - Venda
+-
+09/07/2026
+00.000.243
+30
+08/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 949,90
+R$ 1.899,80
+0%
+R$ 0,00
+R$ 1.899,80
+Ok
+Compra Finalizada
+299
+020726
+Arandu
+jul
+2026
+06/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+2
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+06/07/2026
+NFe - Venda
+-
+07/07/2026
+00.000.040
+28
+04/08/2026
+Ago
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+Ok
+Compra Finalizada
+300
+030726
+Arandu
+jul
+2026
+08/07/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D
+LR20GCP
+1000
+Alcalina
+Sim
+Compra Aprovada
+PO038740
+30/07/2026
+NFe - Venda
+-
+13/08/2026
+00.000.046
+45
+27/09/2026
+Set
+2026
+Transferência Bancária
+À Vencer
+R$ 24,90
+R$ 24.900,00
+0%
+R$ 0,00
+R$ 24.900,00
+-
+Aguardando Pagamento
+301
+030726
+Arandu
+jul
+2026
+08/07/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+28
+Li-SOCL2
+Sim
+Compra Aprovada
+PO038740
+30/07/2026
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+À Vencer
+R$ 4.238,00
+R$ 118.664,00
+0%
+R$ 0,00
+R$ 118.664,00
+-
+Aguardando Pagamento
+302
+030726
+Arandu
+jul
+2026
+08/07/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - Expower - ER34615M - 3,6v - 15Ah - D (High Power)
+ER34615M
+18
+Li-SOCL2
+Sim
+Compra Aprovada
+PO038740
+30/07/2026
+NFe - Venda
+-
+13/08/2026
+00.000.046
+45
+27/09/2026
+Set
+2026
+Transferência Bancária
+À Vencer
+R$ 245,00
+R$ 4.410,00
+0%
+R$ 0,00
+R$ 4.410,00
+-
+Aguardando Pagamento
+303
+030726
+Arandu
+jul
+2026
+08/07/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D
+LSH20
+53
+Li-SOCL2
+Sim
+Compra Aprovada
+PO038740
+30/07/2026
+NFe - Venda
+-
+13/08/2026
+00.000.046
+45
+27/09/2026
+Set
+2026
+Transferência Bancária
+À Vencer
+R$ 810,00
+R$ 42.930,00
+0%
+R$ 0,00
+R$ 42.930,00
+-
+Aguardando Pagamento
+304
+030726
+Arandu
+jul
+2026
+08/07/2026
+Fugro
+03.595.293/0001-95
+Gleison Ferreira
+RT6-3000 - 4,5v
+RT6-3-A
+4
+Alcalina
+Não
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+45
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 0,00
+R$ 0,00
+0%
+R$ 0,00
+R$ 0,00
+-
+Pedido Cancelado
+305
+040726
+Arandu
+jul
+2026
+08/07/2026
+Araujo Abreu Engenharia S.A
+33.373.325/0001-79
+Pâmela Braz Lima
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+1
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+16/07/2026
+NFe - Venda
+-
+-
+-
+À Vista
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+Pago
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+Ok
+Compra Finalizada
+Confeccionar o pack quando realizarem o pagamento
+306
+050726
+Arandu
+jul
+2026
+08/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+2
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 1.596,00
+0%
+R$ 0,00
+R$ 1.596,00
+-
+Compra Não Finalizada
+307
+060726
+Arandu
+jul
+2026
+08/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+4
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 798,00
+R$ 3.192,00
+0%
+R$ 0,00
+R$ 3.192,00
+-
+Compra Não Finalizada
+308
+070726
+Arandu
+jul
+2026
+13/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+5
+Ni-MH
+Sim
+Compra Aprovada
+E-mail
+13/07/2026
+NFe - Venda
+-
+16/07/2026
+00.000.041
+28
+13/08/2026
+Ago
+2026
+Boleto
+Pago
+R$ 798,00
+R$ 3.990,00
+0%
+R$ 0,00
+R$ 3.990,00
+Ok
+Compra Finalizada
+Boleto parcelado em 2x - 1ª R$1.995 (13/08) | 2ª R$1.995 (10/09)
+309
+080726
+Arandu
+jul
+2026
+13/07/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Derivadora ERB - 10,5v / 30Ah / 315Wh
+ERB
+3
+Alcalina
+Sim
+Compra Aprovada
+130726
+13/07/2026
+NFe - Venda
+-
+16/07/2026
+00.000.042
+28
+13/08/2026
+Ago
+2026
+Transferência Bancária
+Pago
+R$ 1.375,00
+R$ 4.125,00
+0%
+R$ 0,00
+R$ 4.125,00
+Ok
+Compra Finalizada
+310
+090726
+Arandu
+jul
+2026
+13/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh
+DCN7-M
+1
+Li-Ion
+Sim
+Compra Aprovada
+E-mail
+13/07/2026
+NFSe - Serviço
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 750,00
+R$ 750,00
+0%
+R$ 0,00
+R$ 750,00
+-
+Pedido Cancelado
+311
+100726
+Arandu
+jul
+2026
+27/07/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora SE640 - 12v / 4,5Ah / 54Wh
+SL
+3
+Ni-MH
+Sim
+Não Aprovada
+-
+-
+-
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+-
+R$ 798,00
+R$ 2.394,00
+0%
+R$ 0,00
+R$ 2.394,00
+-
+Compra Não Finalizada
+312
+010826
+Arandu
+Ago
+2026
+03/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Signature - 18v / 100Ah / 1800Wh
+220051
+4
+Li-SOCL2
+Sim
+Compra Aprovada
+040826
+04/08/2026
+Ago
+2026
+NFe - Venda
+-
+12/08/2026
+00.000.045
+28
+09/09/2026
+Set
+2026
+Transferência Bancária
+Pago
+R$ 10.961,00
+R$ 43.844,00
+10,59%
+R$ 0,00
+R$ 39.200,04
+Ok
+Compra Finalizada
+313
+010826
+Arandu
+Ago
+2026
+03/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Aquadopp - 14,4v / 17,3Ah / 250Wh
+AQL25
+14
+Li-SOCL2
+Sim
+Compra Aprovada
+040826
+04/08/2026
+Ago
+2026
+NFe - Venda
+-
+12/08/2026
+00.000.045
+28
+09/09/2026
+Set
+2026
+Transferência Bancária
+Pago
+R$ 4.238,00
+R$ 59.332,00
+0%
+R$ 0,00
+R$ 59.332,00
+Ok
+Compra Finalizada
+315
+010826
+Arandu
+Ago
+2026
+03/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+60
+Li-SOCL2
+Sim
+Compra Aprovada
+040826
+04/08/2026
+Ago
+2026
+NFe - Venda
+-
+12/08/2026
+00.000.045
+28
+09/09/2026
+Set
+2026
+Transferência Bancária
+Pago
+R$ 61,00
+R$ 3.660,00
+0%
+R$ 0,00
+R$ 3.660,00
+Ok
+Compra Finalizada
+316
+010826
+Arandu
+Ago
+2026
+03/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Liberador Acústico Benthos - 27v
+BT27
+2
+Alcalina
+Sim
+Compra Aprovada
+040826
+04/08/2026
+Ago
+2026
+NFe - Venda
+-
+12/08/2026
+00.000.045
+28
+09/09/2026
+Set
+2026
+Transferência Bancária
+Pago
+R$ 2.394,00
+R$ 4.788,00
+0%
+R$ 0,00
+R$ 4.788,00
+Ok
+Compra Finalizada
+317
+020826
+Mitang
+Ago
+2026
+07/08/2026
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Vando Gomes (CPF)
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+2
+Alcalina
+Sim
+Não Aprovada
+-
+-
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.584,70
+R$ 3.169,40
+0%
+R$ 200,00
+R$ 3.369,40
+-
+Compra Não Finalizada
+318
+030826
+Arandu
+Ago
+2026
+07/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Derivadora ERB - 10,5v / 30Ah / 315Wh
+ERB
+2
+Alcalina
+Sim
+Compra Aprovada
+120826
+07/08/2026
+Ago
+2026
+NFe - Venda
+-
+12/08/2026
+00.000.044
+28
+09/09/2026
+Set
+2026
+Transferência Bancária
+Pago
+R$ 1.375,00
+R$ 2.750,00
+0%
+R$ 0,00
+R$ 2.750,00
+Ok
+Compra Finalizada
+319
+01.S.26.042.038
+Mitang
+Ago
+2026
+07/08/2026
+Valaris
+04.336.088/0001-78
+Mitang Soluções
+Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)
+NTV-16-10
+7
+Alcalina
+Sim
+Não Aprovada
+-
+-
+-
+-
+NFe - Venda
+-
+-
+-
+60
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 14.574,00
+R$ 102.018,00
+0%
+R$ 0,00
+R$ 102.018,00
+-
+Compra Não Finalizada
+320
+040826
+Mitang
+Ago
+2026
+12/08/2026
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Luci Cajueiro Carneiro
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Não Aprovada
+-
+-
+-
+-
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+-
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 200,00
+R$ 1.784,70
+-
+Compra Não Finalizada
+321
+050826
+Arandu
+Ago
+2026
+14/08/2026
+CLS
+04.001.949/0001-67
+Pedro São Thiago
+Derivadora ERB - 10,5v / 30Ah / 315Wh
+ERB
+3
+Alcalina
+Sim
+Compra Aprovada
+140826
+14/08/2026
+Ago
+2026
+NFe - Venda
+-
+17/08/2026
+00.000.047
+28
+14/09/2026
+Set
+2026
+Transferência Bancária
+À Vencer
+R$ 1.375,00
+R$ 4.125,00
+0%
+R$ 0,00
+R$ 4.125,00
+-
+Aguardando Pagamento
+322
+060826
+Arandu
+Ago
+2026
+17/08/2026
+Martell
+02.956.455/0001-00
+Bianca Freitas
+Seladora Macoseal PS2/SE160 - 25,6v
+PS2
+1
+LiFePO4
+Sim
+Compra Aprovada
+E-mail
+17/08/2026
+Ago
+2026
+NFe - Venda
+-
+-
+-
+28
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Boleto
+À Vencer
+R$ 798,00
+R$ 798,00
+0%
+R$ 0,00
+R$ 798,00
+-
+Aguardando Pagamento
+323
+070826
+Arandu
+Ago
+2026
+20/08/2026
+WAMS
+51.952.954/0001-35
+Waldeney dos Santos
+Canopus - 15v / 36Ah / 540Wh
+EXCP
+50
+Alcalina
+Sim
+Compra Aprovada
+WA-PO-12408-26
+24/08/2026
+Ago
+2026
+NFe - Venda
+-
+-
+-
+30
+Sem Previsão
+Sem Previsão
+Sem Previsão
+Transferência Bancária
+À Vencer
+R$ 5.872,00
+R$ 293.600,00
+6%
+R$ 0,00
+R$ 275.984,00
+-
+Aguardando Pagamento
+50% Aprovação = R$ 137.992,00 (R$70.000 pagos em 25/08 || Faltam R$67.992) --- 50% após a coleta = R$ 137.992,00 - Valor unitário R$ 5.519,68
+324
+080826
+Mitang
+Ago
+2026
+21/08/2026
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Luci Cajueiro Carneiro
+Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA
+ER14505
+8
+Li-SOCL2
+Sim
+Compra Aprovada
+-
+-
+-
+-
+NFe - Venda
+-
+24/08/2026
+00.000.245
+15
+08/09/2026
+Set
+2026
+Boleto
+À Vencer
+R$ 61,00
+R$ 488,00
+0%
+R$ 100,00
+R$ 588,00
+-
+Aguardando Pagamento
+Boleto para CPF - 695.610.360-53 - Nils Edvin Asp Neto - CNPq  (445367/2024-5 )
+325
+080826
+Mitang
+Ago
+2026
+21/08/2026
+UFPA - Universidade Federal do Pará
+34.621.748/0001-23
+Luci Cajueiro Carneiro
+Aquadopp - 13,5v / 7,4Ah / 100Wh
+220008
+1
+Alcalina
+Sim
+Compra Aprovada
+-
+-
+-
+-
+NFe - Venda
+-
+24/08/2026
+00.000.245
+15
+08/09/2026
+Set
+2026
+Boleto
+À Vencer
+R$ 1.584,70
+R$ 1.584,70
+0%
+R$ 200,00
+R$ 1.784,70
+-
+Aguardando Pagamento
+Boleto para CPF - 695.610.360-53 - Nils Edvin Asp Neto - CNPq  (445367/2024-5 )
+326

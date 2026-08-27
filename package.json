@@ -15,6 +15,11 @@
     "test:catalogo": "node scripts/test_catalogo_api.js",
     "test:travas": "node scripts/test_webhook_travas.js",
     "test:eav": "node scripts/test_item_catalogo_eav.js",
+    "test:adversarial": "node scripts/test_adversarial_e_clientes.js",
+    "test:ofx": "node scripts/test_ofx_ingestion_reais.js",
+    "test:xml": "node scripts/test_xml_nfe_ingestion.js",
+    "test:baterias": "node scripts/test_baterias_e_orcamentos.js",
+    "test:all": "node scripts/test_catalogo_api.js && node scripts/test_webhook_travas.js && node scripts/test_adversarial_e_clientes.js && node scripts/test_ofx_ingestion_reais.js && node scripts/test_xml_nfe_ingestion.js && node scripts/test_baterias_e_orcamentos.js",
     "docs:flow": "node scripts/generate_workflow_diagram.js"
   },
   "keywords": [
@@ -37,6 +42,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "fast-xml-parser": "^5.11.0",
     "pg": "^8.13.3",
     "zod": "^3.24.2"
   },

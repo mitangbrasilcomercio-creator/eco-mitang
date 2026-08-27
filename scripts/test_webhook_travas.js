@@ -39,7 +39,7 @@ async function runTestTravas() {
   // CENÁRIO 1: Criação de Cotação e Ordem de Serviço com Travas Ativas
   // --------------------------------------------------------------------------
   console.log('\n[ETAPA 1] Criando Cotação e Ordem de Serviço com Travas Ativas...');
-  const cliRes = await client.query("INSERT INTO clientes (empresa_id, razao_social_nome, cnpj_cpf) VALUES ($1, 'Petrobras E&P', '33000167000101') RETURNING id;", [empresaId]);
+  const cliRes = await client.query("INSERT INTO clientes (empresa_id, razao_social_nome, cnpj_cpf) VALUES ($1, 'Petrobras E&P', '33000167000101') ON CONFLICT (empresa_id, cnpj_cpf) DO UPDATE SET razao_social_nome = EXCLUDED.razao_social_nome RETURNING id;", [empresaId]);
   const clienteId = cliRes.rows[0].id;
 
   const cotRes = await client.query(`

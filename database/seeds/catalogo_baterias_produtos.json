@@ -1,0 +1,1640 @@
+[
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Jasco",
+    "nome": "AMAR G4 - Ultra Deep - 12v / 164Ah / 1.968Wh",
+    "codigo_sku": "JAG4UD",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 164,
+      "energia_nominal_wh": 1968,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 1200kHz - 32,4v / 1820Wh - (4 Furos)",
+    "codigo_sku": "ADL12",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 32.4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 1820,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 1200kHz - 42v / 630Wh - (4 Furos)",
+    "codigo_sku": "ADA12",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 42,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 630,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)",
+    "codigo_sku": "ADL30",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 32.4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 1820,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 300kHz - 42v / 630Wh - (4 Furos)",
+    "codigo_sku": "ADA30",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 42,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 630,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 600kHz - 32,4v / 1820Wh - (4 Furos)",
+    "codigo_sku": "ADL60",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 32.4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 1820,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse 600kHz - 42v / 630Wh - (4 Furos)",
+    "codigo_sku": "ADA60",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 42,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 630,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse LR 150kHz - 32,4v / 1820Wh - (2 Furos)",
+    "codigo_sku": "ADL15",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 32.4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 1820,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse LR 150kHz - 42v / 630Wh - (2 Furos)",
+    "codigo_sku": "ADA15",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 42,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 630,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)",
+    "codigo_sku": "ADL75",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 32.4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 1820,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "ADCP Workhorse LR 75kHz - 42v / 630Wh - (2 Furos)",
+    "codigo_sku": "ADA75",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 42,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 630,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "ADP - 18v (Em estudo)",
+    "codigo_sku": "ADPL18",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "ADP - 18v / 35,5Ah / 640Wh",
+    "codigo_sku": "ADPA18",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 35.5,
+      "energia_nominal_wh": 640,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Aquadopp - 10,8v / 7Ah / 75,6Wh",
+    "codigo_sku": "220066",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.8,
+      "capacidade_nominal_ah": 7,
+      "energia_nominal_wh": 75.6,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Aquadopp - 13,5v / 3,7Ah / 50Wh",
+    "codigo_sku": "220010",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 13.5,
+      "capacidade_nominal_ah": 3.7,
+      "energia_nominal_wh": 50,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Aquadopp - 13,5v / 7,4Ah / 100Wh",
+    "codigo_sku": "220008",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 13.5,
+      "capacidade_nominal_ah": 7.4,
+      "energia_nominal_wh": 100,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Aquadopp - 14,4v / 17,3Ah / 250Wh",
+    "codigo_sku": "AQL25",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 17.3,
+      "energia_nominal_wh": 250,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Aquadopp - 14,4v / 26,3Ah / 380Wh",
+    "codigo_sku": "AQL38",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 26.3,
+      "energia_nominal_wh": 380,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "Argonaut ADV - 10,5v / 23,3Ah / 230Wh",
+    "codigo_sku": "ADV10",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.5,
+      "capacidade_nominal_ah": 23.3,
+      "energia_nominal_wh": 230,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "Argonaut MD - 10,5v / 38Ah / 400Wh",
+    "codigo_sku": "AMD",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.5,
+      "capacidade_nominal_ah": 38,
+      "energia_nominal_wh": 400,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "Argornaut XR - 12v / 45Ah / 540Wh",
+    "codigo_sku": "AXR",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 45,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "AWAC - 13,5v / 40Ah / 540Wh",
+    "codigo_sku": "220011",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 13.5,
+      "capacidade_nominal_ah": 40,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "AWAC - 15v / 120Ah / 1800Wh",
+    "codigo_sku": "220029",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 15,
+      "capacidade_nominal_ah": 120,
+      "energia_nominal_wh": 1800,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "AWAC 2 - 18v / 100Ah / 1800Wh",
+    "codigo_sku": "220051-2",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 100,
+      "energia_nominal_wh": 1800,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "AWAC 2 - 18v / 30Ah / 540Wh",
+    "codigo_sku": "220014-2",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 30,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "GERAL",
+    "fabricante": "-",
+    "nome": "Bateria Selada - 12v / 7Ah / 84Wh",
+    "codigo_sku": "VRLA",
+    "quimica": "Pb",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 7,
+      "energia_nominal_wh": 84,
+      "quimica_detalhada": "Pb"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "GERAL",
+    "fabricante": "Panasonic",
+    "nome": "Bateria Selada LC-R123R4PG - 12v / 3.4Ah",
+    "codigo_sku": "LC-R123R4PG",
+    "quimica": "Pb",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Pb"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Blue Robotics",
+    "nome": "Blue ROV2 - 14,8 / 18Ah / 266,4Wh",
+    "codigo_sku": "BLU",
+    "quimica": "Li-ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": 18,
+      "energia_nominal_wh": 266.4,
+      "quimica_detalhada": "Li-ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "NKE",
+    "nome": "Boia Derivadora SC 40 I BUOY - 10,5v",
+    "codigo_sku": "BD-SC-40",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Lifemed",
+    "nome": "Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh",
+    "codigo_sku": "BILF",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 7.2,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 18,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Capacitor Híbrido - Expower - 4v - Plus Pulse EXP-HPC1550 - AA",
+    "codigo_sku": "HPC1550",
+    "quimica": "Capacitor",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 4,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Capacitor"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Instramed",
+    "nome": "Cardioversor Cardiomax - 14,4v / 4,4Ah / 64Wh",
+    "codigo_sku": "CDM",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 4.4,
+      "energia_nominal_wh": 64,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Vela",
+    "nome": "Carefusion - 12v / 4Ah / 48Wh",
+    "codigo_sku": "VL12",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4,
+      "energia_nominal_wh": 48,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "ACESSÓRIO",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Carregador p/ Aquadopp 75Wh",
+    "codigo_sku": "220067",
+    "quimica": "-",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": 75,
+      "quimica_detalhada": "-"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Kongsberg",
+    "nome": "cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh",
+    "codigo_sku": "CMXL48-M",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 180,
+      "energia_nominal_wh": 2592,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Kongsberg",
+    "nome": "cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh",
+    "codigo_sku": "CMXL48-N",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 180,
+      "energia_nominal_wh": 2592,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Kongsberg",
+    "nome": "cNode MiniS - 25,6v / 2,8Ah / 71,7Wh",
+    "codigo_sku": "CNML16",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 25.6,
+      "capacidade_nominal_ah": 2.8,
+      "energia_nominal_wh": 71.7,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "FSI",
+    "nome": "Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh",
+    "codigo_sku": "FSI",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 7.5,
+      "capacidade_nominal_ah": 12,
+      "energia_nominal_wh": 90,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Teledyne",
+    "nome": "Correntômetro DVS - 18v",
+    "codigo_sku": "DVS18",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "-",
+    "nome": "Derivadora ERB - 10,5v / 30Ah / 315Wh",
+    "codigo_sku": "ERB",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.5,
+      "capacidade_nominal_ah": 30,
+      "energia_nominal_wh": 315,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Zoll",
+    "nome": "Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh",
+    "codigo_sku": "ZLR",
+    "quimica": "Pb",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 25,
+      "quimica_detalhada": "Pb"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Philips / Molicel",
+    "nome": "Efficia - 11,1v / 2,4Ah / 26,6Wh",
+    "codigo_sku": "ME202EK",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 11.1,
+      "capacidade_nominal_ah": 2.4,
+      "energia_nominal_wh": 26.6,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Bionet",
+    "nome": "Eletrocardiógrafo CardioCare - 12v / 2,2Ah / 26,4Wh",
+    "codigo_sku": "ECB-2",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 2.2,
+      "energia_nominal_wh": 26.4,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Bionet",
+    "nome": "Eletrocardiógrafo CardioCare - 12v / 4,4Ah / 52,8Wh",
+    "codigo_sku": "ECB-4",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4.4,
+      "energia_nominal_wh": 52.8,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "-",
+    "nome": "Hanzas-01-18",
+    "codigo_sku": "HNZS",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "-",
+    "nome": "Hanzas-01-18",
+    "codigo_sku": "HNZS",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "GenesisBPS",
+    "nome": "Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh",
+    "codigo_sku": "HM",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4.5,
+      "energia_nominal_wh": 54,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Macopharma",
+    "nome": "Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh",
+    "codigo_sku": "DCN7-M",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 22.2,
+      "capacidade_nominal_ah": 3,
+      "energia_nominal_wh": 66.6,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "-",
+    "nome": "Jasco AMAR G4 - Ultra Deep",
+    "codigo_sku": "JAG4UD",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Edgetech",
+    "nome": "Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh",
+    "codigo_sku": "LAE",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": 25.5,
+      "energia_nominal_wh": 230,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Benthos",
+    "nome": "Liberador Acústico Benthos - 13,5v",
+    "codigo_sku": "BT13",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 13.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Benthos",
+    "nome": "Liberador Acústico Benthos - 27v",
+    "codigo_sku": "BT27",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 27,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "HillRom",
+    "nome": "Liko Viking M - 24v / 2,5Ah / 60Wh",
+    "codigo_sku": "HRLV",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 24,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 60,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Leistung",
+    "nome": "Luft 3 - 11,1v / 13,2Ah / 146,5Wh",
+    "codigo_sku": "LL3",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 11.1,
+      "capacidade_nominal_ah": 13.2,
+      "energia_nominal_wh": 146.5,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nautronix",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)",
+    "codigo_sku": "NTV-16-10",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": 16.6,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nautronix",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 16,6Ah (6 Blocos)",
+    "codigo_sku": "NTV-16-6",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": 16.6,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nautronix",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 20,5Ah (6 Blocos)",
+    "codigo_sku": "NTV-20-6",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": 20.5,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nautronix",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 20,5h (10 Blocos)",
+    "codigo_sku": "NTV-20-10",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Megger",
+    "nome": "Megger TDR 2000/2P - 9,6v / 1,5Ah / 14,4Wh",
+    "codigo_sku": "M-TDR-2-2P",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9.6,
+      "capacidade_nominal_ah": 1.5,
+      "energia_nominal_wh": 14.4,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Mindray",
+    "nome": "Monitor BeneVision N12/N15/N17 - 11,1v / 4,5Ah / 49,9Wh",
+    "codigo_sku": "MM-N12",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 11.1,
+      "capacidade_nominal_ah": 4.5,
+      "energia_nominal_wh": 49.9,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Mindray",
+    "nome": "Monitor ECG uMEC - 10,95v / 2,5Ah / 27Wh",
+    "codigo_sku": "EUM",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.95,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 27,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Mindray",
+    "nome": "Monitor iMEC12 - 11,1v / 2,6Ah / 28,8Wh",
+    "codigo_sku": "iMEC12",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 11.1,
+      "capacidade_nominal_ah": 2.6,
+      "energia_nominal_wh": 28.8,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Alcalina - Duracell - MN1300 - 1,5v - D",
+    "codigo_sku": "MN1300",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Alcalina - Duracell - MN1400 - 1,5v - C",
+    "codigo_sku": "MN1400",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Alcalina - Duracell - MN1500 - 1,5v - AA",
+    "codigo_sku": "MN1500",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Alcalina - Duracell - MN1600 - 1,5v - AAA",
+    "codigo_sku": "MN1600",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Alcalina - Duracell - MN1604 - 9v",
+    "codigo_sku": "MN1604",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Energizer",
+    "nome": "Pilha Alcalina - Energizer - LR20 - 1,5v - D",
+    "codigo_sku": "E-LR20",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Toshiba",
+    "nome": "Pilha Alcalina - Toshiba - LR06GC - 1,5v - AA",
+    "codigo_sku": "LR06GC",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Toshiba",
+    "nome": "Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D",
+    "codigo_sku": "LR20GCP",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha LiFEPO4 - Expower - 18650 - 3,2v - 1,4Ah (5C)",
+    "codigo_sku": "LI-FE-18650",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.2,
+      "capacidade_nominal_ah": 1.4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha LiFEPO4 - Expower - 26650 - 3,2v - 2,4Ah (15C)",
+    "codigo_sku": "LI-FE-26650",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.2,
+      "capacidade_nominal_ah": 2.4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha LiFEPO4 - Expower - 26700 - 3,2v - 4Ah (3C)",
+    "codigo_sku": "LI-FE-26700",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.2,
+      "capacidade_nominal_ah": 4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha LiFEPO4 - Expower - 32700 - 3,2v - 6Ah (3C)",
+    "codigo_sku": "LI-FE-32700",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.2,
+      "capacidade_nominal_ah": 6,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-ION - Expower INR18650 - 3,6v - 2,6Ah (3C)",
+    "codigo_sku": "LI-ION-18650",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 2.6,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "LG",
+    "nome": "Pilha Li-ION - LG - INR18650-MJ1 - 3,7v - 3,5Ah",
+    "codigo_sku": "INR18650-MJ1",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.7,
+      "capacidade_nominal_ah": 3.5,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Samsung",
+    "nome": "Pilha Li-ION - Samsung - INR18650-30Q - 3,7v - 3Ah",
+    "codigo_sku": "INR18650-30Q",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.7,
+      "capacidade_nominal_ah": 3,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Duracell",
+    "nome": "Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17345",
+    "codigo_sku": "CR123A",
+    "quimica": "Li-MNO2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3,
+      "capacidade_nominal_ah": 1.55,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-MNO2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA",
+    "codigo_sku": "ER14505",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 2.4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-SOCL2 - Expower - ER26500 - 3,6v - 9Ah - C",
+    "codigo_sku": "ER26500",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 9,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-SOCL2 - Expower - ER26500M - 3,6v - 6Ah - C (High Power)",
+    "codigo_sku": "ER26500M",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 6,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D",
+    "codigo_sku": "ER34615",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 19,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Li-SOCL2 - Expower - ER34615M - 3,6v - 15Ah - D (High Power)",
+    "codigo_sku": "ER34615M",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 15,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Saft",
+    "nome": "Pilha Li-SOCL2 - SAFT - LS14500 - 3,6v - 2,4Ah - AA",
+    "codigo_sku": "LS14500",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 2.4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Saft",
+    "nome": "Pilha Li-SOCL2 - SAFT - LS33600 - 3,6v - 17Ah - D",
+    "codigo_sku": "LS33600",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 17,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Saft",
+    "nome": "Pilha Li-SOCL2 - SAFT - LSH14 - 3,6v - 5,8Ah - C",
+    "codigo_sku": "LSH14",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 5.8,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Saft",
+    "nome": "Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D",
+    "codigo_sku": "LSH20",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 3.6,
+      "capacidade_nominal_ah": 13,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 1,8Ah - SC (Recarregável)",
+    "codigo_sku": "Ni-CD-SC-1.8",
+    "quimica": "Ni-CD",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 1.8,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-CD"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 2Ah - SC (High Power) (Recarregável)",
+    "codigo_sku": "Ni-CD-SC-2",
+    "quimica": "Ni-CD",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 2,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-CD"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 3Ah - C - (Recarregável)",
+    "codigo_sku": "Ni-CD-C",
+    "quimica": "Ni-CD",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 3,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-CD"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 0,9Ah - AAA (Recarregável)",
+    "codigo_sku": "Ni-MH-AAA",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 0.9,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 2,2Ah - AA (Recarregável)",
+    "codigo_sku": "Ni-MH-AA-2.2",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 2.2,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 2,5Ah - AA (Recarregável)",
+    "codigo_sku": "Ni-MH-AA-2.5",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 3Ah - SC (Recarregável)",
+    "codigo_sku": "Ni-MH-SC",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 3,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 4,5Ah - C (Recarregável)",
+    "codigo_sku": "Ni-MH-C",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 4.5,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Expower",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 4Ah - 4/3A (Recarregável)",
+    "codigo_sku": "Ni-MH-4-3",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 1.2,
+      "capacidade_nominal_ah": 4,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "PILHA",
+    "setor": "MATÉRIA-PRIMA",
+    "fabricante": "Cyclon",
+    "nome": "Pilha Pb - Cyclon Enersys - 2v - 2,5Ah - D Cell - (Recarregável)",
+    "codigo_sku": "C-E-Pb",
+    "quimica": "Pb",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 2,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Pb"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh",
+    "codigo_sku": "DGPS-RS-M9-2",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 2.2,
+      "energia_nominal_wh": 31.6,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "Riversurveyor M9 - 14,4v / 2,5Ah / 36Wh",
+    "codigo_sku": "DGPS-RS-M9-5",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 36,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sonardyne",
+    "nome": "RT 6-3000 DORT",
+    "codigo_sku": "SDORT",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": null,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sonardyne",
+    "nome": "RT6-3000 - 4,5v",
+    "codigo_sku": "RT6-3-A",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 4.5,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Kongsberg",
+    "nome": "Seaglider - 10,8v / 78Ah / 842,4Wh",
+    "codigo_sku": "SGD10",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 10.8,
+      "capacidade_nominal_ah": 78,
+      "energia_nominal_wh": 842.4,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Kongsberg",
+    "nome": "Seaglider - 24v / 117Ah / 2.948,4Wh",
+    "codigo_sku": "SGD24",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 24,
+      "capacidade_nominal_ah": 117,
+      "energia_nominal_wh": 948.4,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Aanderaa",
+    "nome": "Seaguard II - 7v / 35Ah / 245Wh",
+    "codigo_sku": "SEL",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 7,
+      "capacidade_nominal_ah": 35,
+      "energia_nominal_wh": 245,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Aanderaa",
+    "nome": "Seaguard II - 9V / 15Ah / 135Wh",
+    "codigo_sku": "SEA",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9,
+      "capacidade_nominal_ah": 15,
+      "energia_nominal_wh": 135,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Macopharma",
+    "nome": "Seladora Macoseal PS2/SE160 - 25,6v",
+    "codigo_sku": "PS2",
+    "quimica": "LiFePO4",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 25.6,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "LiFePO4"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "GenesisBPS",
+    "nome": "Seladora SE640 - 12v / 4,5Ah / 54Wh",
+    "codigo_sku": "SL",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4.5,
+      "energia_nominal_wh": 54,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Maquet",
+    "nome": "Servo S - 12v / 4Ah / 48Wh",
+    "codigo_sku": "MQ",
+    "quimica": "Ni-MH",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 4,
+      "energia_nominal_wh": 48,
+      "quimica_detalhada": "Ni-MH"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "-",
+    "nome": "Shenzhen CPKD - 11,1v / 2,5Ah / 27,75Wh",
+    "codigo_sku": "SCPKD",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 11.1,
+      "capacidade_nominal_ah": 2.5,
+      "energia_nominal_wh": 27.75,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Signature - 15v / 6Ah / 90Wh",
+    "codigo_sku": "220047",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 15,
+      "capacidade_nominal_ah": 6,
+      "energia_nominal_wh": 90,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Signature - 18v / 100Ah / 1800Wh",
+    "codigo_sku": "220051",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 100,
+      "energia_nominal_wh": 1800,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Signature - 18v / 10Ah / 180Wh",
+    "codigo_sku": "220052",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 10,
+      "energia_nominal_wh": 180,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Nortek",
+    "nome": "Signature - 18v / 30Ah / 540Wh",
+    "codigo_sku": "220014",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 18,
+      "capacidade_nominal_ah": 30,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Alcalina"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Sontek",
+    "nome": "SL500 - 12v / 45Ah / 540Wh",
+    "codigo_sku": "SL50",
+    "quimica": "Li-SOCL2",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 12,
+      "capacidade_nominal_ah": 45,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Li-SOCL2"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "HOSPITALAR",
+    "fabricante": "Stryker",
+    "nome": "Stryker System 5 - 9,6v",
+    "codigo_sku": "SS5",
+    "quimica": "Ni-CD",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 9.6,
+      "capacidade_nominal_ah": null,
+      "energia_nominal_wh": null,
+      "quimica_detalhada": "Ni-CD"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Mindray",
+    "nome": "SV300 - 14,4v / 5,7Ah / 82Wh",
+    "codigo_sku": "SV30",
+    "quimica": "Li-Ion",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 14.4,
+      "capacidade_nominal_ah": 5.7,
+      "energia_nominal_wh": 82,
+      "quimica_detalhada": "Li-Ion"
+    }
+  },
+  {
+    "tipo": "BATERIA",
+    "setor": "NÁUTICO",
+    "fabricante": "Exail",
+    "nome": "Canopus - 15v / 36Ah / 540Wh",
+    "codigo_sku": "EXCP",
+    "quimica": "Alcalina",
+    "especificacoes_tecnicas": {
+      "tensao_nominal_v": 15,
+      "capacidade_nominal_ah": 36,
+      "energia_nominal_wh": 540,
+      "quimica_detalhada": "Alcalina"
+    }
+  }
+]
