@@ -57,9 +57,14 @@ export class CatalogoRepository {
   }
 
   async list(empresaId: string, filters: FilterCatalogoQuery): Promise<{ items: CatalogoUniversalItem[]; total: number }> {
-    const conditions: string[] = ['empresa_id = $1'];
-    const params: any[] = [empresaId];
-    let paramIndex = 2;
+    const conditions: string[] = [];
+    const params: any[] = [];
+    let paramIndex = 1;
+
+    if (empresaId && empresaId !== 'all') {
+      conditions.push(`empresa_id = $${paramIndex++}`);
+      params.push(empresaId);
+    }
 
     if (filters.tipo_item) {
       conditions.push(`tipo_item = $${paramIndex++}`);

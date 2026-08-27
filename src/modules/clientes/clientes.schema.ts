@@ -106,11 +106,12 @@ export const UpdateClienteSchema = z.object({
 
 export const FilterClienteQuerySchema = z.object({
   busca: z.string().optional(),
+  tipo_entidade: z.enum(['CLIENTE', 'FORNECEDOR', 'COLABORADOR_PJ']).optional(),
   situacao_cadastral: z.enum(['ATIVA', 'SUSPENSA', 'INAPTA', 'BAIXADA', 'NULA']).optional(),
   bloqueio_fiscal: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
   ativo: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
   page: z.coerce.number().min(1).default(1),
-  limit: z.coerce.number().min(1).max(100).default(20)
+  limit: z.coerce.number().min(1).max(500).default(20)
 });
 
 export type CreateClienteInput = z.infer<typeof CreateClienteSchema>;

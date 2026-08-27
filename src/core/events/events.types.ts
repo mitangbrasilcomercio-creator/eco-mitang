@@ -115,3 +115,13 @@ export interface ClienteSituacaoFiscalAlteradaPayload {
   alertar_compliance: boolean;
 }
 
+export interface FinanceiroExtratoOfxImportadoPayload {
+  importacao_id: string;
+  empresa_id: string;
+  conta_bancaria_id: string;
+  nome_arquivo: string;
+  transacoes_inseridas: number;
+  transacoes_duplicadas_ignoradas: number;
+  saldo_final_extrato?: number;
+}
+

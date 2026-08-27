@@ -2,12 +2,21 @@ import { Pool, PoolClient } from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const rawUrl = process.env.DIRECT_URL || process.env.DATABASE_URL;
+const directConnectionString = rawUrl ? rawUrl.replace('aws-0-sa-east-1.pooler.supabase.com', '15.229.150.166') : rawUrl;
+
 export const pgPool = new Pool({
-  connectionString: process.env.DATABASE_URL || process.env.DIRECT_URL,
+  connectionString: directConnectionString,
   ssl: { rejectUnauthorized: false },
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000,
+  max: 15,
+  idleTimeoutMillis: 60000,
+  connectionTimeoutMillis: 15000,
+  keepAlive: true,
+});
+
+// Impede que desconexões de clientes ociosos derrubem o processo Node.js
+pgPool.on('error', (err: Error) => {
+  console.warn('[SUPABASE PG POOL WARNING]: Conexão ociosa reciclada:', err.message);
 });
 
 export async function withTenantTransaction<T>(

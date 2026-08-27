@@ -11,26 +11,20 @@ export function tenantMiddleware(req: TenantRequest, res: Response, next: NextFu
   const userRole = (req.headers['x-user-role'] as string) || 'Vendedor';
   const userId = (req.headers['x-user-id'] as string) || 'anonymous-user';
 
-  if (!empresaId) {
-    res.status(400).json({
-      success: false,
-      error: 'Cabecalho obrigatorio x-empresa-id ausente na requisicao.',
-      code: 'MISSING_TENANT_ID'
-    });
-    return;
-  }
+  // Se ausente, adota Mitang Brasil como tenant padrão
+  const effectiveEmpresaId = empresaId || '29ea0857-7cf7-44e1-ba36-a3f323c4670c';
 
   const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  if (!UUID_REGEX.test(empresaId)) {
+  if (effectiveEmpresaId !== 'all' && !UUID_REGEX.test(effectiveEmpresaId)) {
     res.status(400).json({
       success: false,
-      error: 'Tenant ID informado no cabecalho x-empresa-id deve ser um UUID valido.',
+      error: 'Tenant ID informado no cabecalho x-empresa-id deve ser um UUID valido ou "all".',
       code: 'INVALID_TENANT_UUID'
     });
     return;
   }
 
-  req.empresaId = empresaId;
+  req.empresaId = effectiveEmpresaId;
   req.userRole = userRole;
   req.userId = userId;
   next();

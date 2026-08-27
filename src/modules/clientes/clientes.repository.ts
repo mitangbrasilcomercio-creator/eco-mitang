@@ -76,9 +76,19 @@ export class ClientesRepository {
   }
 
   async list(empresaId: string, filters: FilterClienteQuery): Promise<{ items: Cliente[]; total: number }> {
-    const conditions: string[] = ['empresa_id = $1'];
-    const params: any[] = [empresaId];
-    let paramIndex = 2;
+    const conditions: string[] = [];
+    const params: any[] = [];
+    let paramIndex = 1;
+
+    if (empresaId && empresaId !== 'all') {
+      conditions.push(`empresa_id = $${paramIndex++}`);
+      params.push(empresaId);
+    }
+
+    if (filters.tipo_entidade) {
+      conditions.push(`tipo_entidade = $${paramIndex++}`);
+      params.push(filters.tipo_entidade);
+    }
 
     if (filters.situacao_cadastral) {
       conditions.push(`situacao_cadastral = $${paramIndex++}`);
@@ -101,7 +111,7 @@ export class ClientesRepository {
       paramIndex++;
     }
 
-    const whereClause = conditions.join(' AND ');
+    const whereClause = conditions.length > 0 ? conditions.join(' AND ') : '1=1';
     const countQuery = `SELECT COUNT(*)::int as total FROM clientes WHERE ${whereClause};`;
     const countParams = [...params];
 
