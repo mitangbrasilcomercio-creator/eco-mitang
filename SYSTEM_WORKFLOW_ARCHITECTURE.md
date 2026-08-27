@@ -219,3 +219,59 @@ Ao assumir o desenvolvimento deste repositório em qualquer IDE ou agente:
 5. **Design System**:
    - Mantenha o padrão de **abas segmentadas** ("menos é mais") com a função global `window.switchTab(moduleName, tabId)`.
    - Evite acumular gráficos ou tabelas pesadas sem segmentação por abas na mesma viewport.
+
+---
+
+### 2.6. Arquitetura de Alta Disponibilidade (Mirror Local Resistente a Quedas)
+
+Para anular qualquer impacto de instabilidade, pausas de inatividade ou limites de conexões do plano Free do Supabase / AWS, o ERP Eco-Mitang implementa uma camada híbrida de alta disponibilidade com espelho em disco:
+
+```mermaid
+flowchart TD
+    Req[Requisição HTTP do Frontend] --> CacheCheck{1. Cache em Memória RAM?<br/><i>TTL 30s-300s</i>}
+    CacheCheck -->|Sim &lt;1ms| FastResp[Resposta Instantânea]
+    CacheCheck -->|Não| SupabaseRace[2. Consulta ao Supabase PostgreSQL<br/><i>Timeout de 2.0s</i>]
+    SupabaseRace -->|Sucesso &lt;2.0s| WriteMirror[Entrega Dados & Sincroniza Mirror Local]
+    SupabaseRace -->|Timeout / Erro 503 / Standby| FallbackLocal[3. Circuit Breaker: Mirror Local em Disco<br/><i>database/local_mirror/ &lt;2ms</i>]
+    FallbackLocal --> UserOk[Usuário Atendido sem Erro nem Tela em Branco]
+```
+
+### 2.7. Motor de Enriquecimento e Dossiê 360° de Parceiros
+
+Ao clicar em qualquer linha de cliente, fornecedor ou colaborador PJ:
+1. O backend busca os dados públicos da Receita Federal armazenados em `dados_receita_brutos`.
+2. A IA infere automaticamente a **Vertical / Nicho de Mercado** a partir do CNAE:
+   - **Offshore, Petróleo & Gás Subsea** (CNAEs `06`, `09`, `7112000`, ou termos como Petrobras, Fugro, Oceanpact).
+   - **Hospitalar & Equipamentos Médicos** (CNAEs `86`, `4773`, `3250`, ex: MV3 Hospitalar).
+   - **Indústria & Insumos Manufaturados** (CNAEs `22`, `17`, `27`, ex: Strema, SBT Embalagens).
+   - **Serviços Técnicos & Consultoria PJ** (CNAEs `71`, `70`, `69`, `62`).
+   - **Comércio & Distribuição Geral** (CNAEs `46`, `47`).
+3. O modal **Dossiê 360°** consolida dados cadastrais, QSA com faixa etária, histórico de notas fiscais, propostas comerciais, ranking de baterias negociadas e extrato bancário de pagamentos.
+
+### 2.8. Blindagem Anti-Duplicação de Internet Banking
+
+- **Problema do Bradesco**: O Internet Banking do Bradesco anexa os lançamentos do dia corrente ao final de extratos mensais passados, gerando FITIDs dinâmicos (`N102DF`, `N1048B`).
+- **Solução Mandatória**: Deduplicação pela chave de negócio `SHA-256(banco + conta + data + valor + memo_sanitizado)`.
+- **Segregação de Saldos Informativos**: Transações com memos de saldo diário (`SALDO MOVIMENTAÇÃO CONTA`, `SALDO TOTAL DISPONÍVEL`) recebem `is_saldo_informativo = TRUE` e são excluídas do fluxo de caixa operacional.
+
+### 2.9. Padronização Nacional Estrita de Datas (Brasil)
+
+- **Regra do Sistema**: Todas as datas exibidas na interface do usuário são estritamente formatadas em `DD/MM/AAAA` (ex: `26/08/2026`) ou `DD/MM/AAAA HH:mm:ss`. O formato `AAAA-MM-DD` é restrito à persistência interna do banco de dados.
+
+---
+
+## 3. Comandos Úteis de Manutenção e Sincronização
+
+```bash
+# Compilação TypeScript do ERP
+npm run build
+
+# Inicialização do servidor Node.js
+node dist/server.js
+
+# Forçar sincronização do mirror local de alta disponibilidade
+node scripts/sync_local_mirror.js
+
+# Executar auto-enriquecimento de CNPJs pendentes via Receita Federal
+node scripts/enrich_all_partners.js
+```

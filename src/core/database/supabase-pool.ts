@@ -8,9 +8,9 @@ const directConnectionString = rawUrl ? rawUrl.replace('aws-0-sa-east-1.pooler.s
 export const pgPool = new Pool({
   connectionString: directConnectionString,
   ssl: { rejectUnauthorized: false },
-  max: 15,
-  idleTimeoutMillis: 60000,
-  connectionTimeoutMillis: 15000,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 30000,
   keepAlive: true,
 });
 

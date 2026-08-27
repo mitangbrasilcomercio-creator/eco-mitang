@@ -19,7 +19,7 @@ No setor offshore e industrial marítimo, transações envolvem cifras expressiv
 
 1. **Capital Social (`capital_social`)**:
    - *Finalidade*: Mensurar a capacidade patrimonial e a solidez financeira do cliente antes de fechar grandes contratos de locação ou manufatura de baterias.
-   - *Regra*: Clientes com capital social de grande porte (ex: Fugro com R$ 447M, Oceanpact com R$ 842M) são elegíveis a condições especiais de pagamento e contratos anuais de fornecimento garantido. Clientes com capital baixo exigem sinal antecipado e garantias operacionais.
+   - *Regra*: Clientes com capital social de grande porte (ex: Fugro com R$ 447M, Oceanpact com R$ 842M, Petrobras com R$ 205B) são elegíveis a condições especiais de pagamento e contratos anuais de fornecimento garantido. Clientes com capital baixo exigem sinal antecipado e garantias operacionais.
 
 2. **Quadro de Sócios e Administradores (`qsa` - JSONB)**:
    - *Finalidade*: Identificar os sócios formais, administradores delegados e procuradores.
@@ -42,21 +42,34 @@ No setor offshore e industrial marítimo, transações envolvem cifras expressiv
 
 ---
 
-## 2. Padrão de Fila e Resiliência em Consultas em Lote (Motor de Extração)
+## 2. Classificação Automática de Verticais e Nichos por CNAE
 
-Ao efetuar consultas em lote de CNPJs (como realizado pelo motor histórico de extração da empresa):
-- **Delay entre Requisições**: Manter intervalo de segurança (`DELAY_MS = 2000` ms) para respeitar limites de taxa dos órgãos emissores.
-- **Tratamento de HTTP 429 (Too Many Requests)**: Aplicar backoff exponencial (sleep de 10 segundos e retry automático).
-- **Idempotência no Banco**: Realizar UPSERT com `ON CONFLICT (empresa_id, cnpj_cpf) DO UPDATE`, garantindo que os dados sejam atualizados sem duplicações.
+Para apoiar a tomada de decisão comercial e o direcionamento de propostas técnicas, a IA classifica automaticamente cada parceiro em uma das 5 verticais estratégicas da holding:
+
+| Vertical de Mercado | CNAEs Típicos | Exemplos de Empresas | Aplicação de Baterias / Serviços |
+| :--- | :--- | :--- | :--- |
+| **Offshore, Petróleo & Gás Subsea** | `06xxx`, `09xxx`, `7112000`, ou termos "SUBSEA", "OCEAN", "PETROLEO" | Petrobras, Fugro, Oceanpact, Modec, Ensco | Packs primários Li-SOCl2 / Alcalinas para ADCPs, acústicos e oceanografia |
+| **Hospitalar & Equipamentos Médicos** | `86xxx`, `4773`, `3250`, `4645`, ou termos "HOSPITAL", "MEDIC", "CLINIC" | MV3 Hospitalar, Clínicas Médicas | Packs recarregáveis para ventiladores Servo, Liko Viking e monitores |
+| **Indústria & Insumos Manufaturados** | `22xxx` (plásticos), `17xxx` (embalagens), `27xxx` (eletroeletrônica) | Strema, SBT Embalagens, Ryndack, Hayamax | Fornecimento de matéria-prima, células e componentes |
+| **Serviços Técnicos & Consultoria PJ** | `71xxx`, `70xxx`, `69xxx`, `62xxx`, `63xxx` | Consultorias de Engenharia, Perícias, TI | Treinamentos HUET/CBSP, softwares e assessoria |
+| **Comércio & Distribuição Geral** | `46xxx`, `47xxx` | Distribuidores e Atacadistas de Variedades | Pilhas de prateleira e baterias secas |
 
 ---
 
-## 3. Monitoramento Silencioso em Background ("Por Trás dos Panos")
+## 3. Arquitetura do Dossiê 360° do Parceiro (UI / UX)
 
-O serviço `ClienteSyncBackgroundService` executa rotinas periódicas que:
-1. Reconsultam clientes ativos da carteira na Receita Federal.
-2. Fazem *deep diff* contra o registro local.
-3. Se detectarem alterações (ex: sócio alterado, empresa baixada, novo endereço):
-   - Atualizam o registro no DB silenciosamente.
-   - Gravam cada divergência na tabela `clientes_historico_alteracoes` (SCD Tipo 2) registrando o `campo_alterado`, `valor_anterior`, `valor_novo` e **data de vigência oficial**.
-   - Publicam o evento de domínio `CLIENTE.DADOS_ATUALIZADOS_AUTOMATICAMENTE` no barramento `globalEventBus`.
+Ao clicar sobre qualquer cliente ou fornecedor no CRM ou em transações:
+1. **Cabeçalho Executivo**: Razão Social, Fantasia, CNPJ formatado no padrão `XX.XXX.XXX/XXXX-XX`, botão de cópia rápida, status RFB em tempo real e badge de nicho com ícone e cor correspondente.
+2. **Ficha Cadastral & QSA**: Capital Social, Tempo de Mercado, Endereço completo com CEP, telefones, e-mails, e tabela do Quadro de Sócios e Administradores com qualificação e faixa etária.
+3. **Histórico de Notas Fiscais**: Relatório de todas as NF-e (produtos) e NFS-e (serviços) emitidas e recebidas, com data formatada em `DD/MM/AAAA`.
+4. **Cotações & Orçamentos**: Todas as propostas comerciais emitidas pela Arandu ou Mitang, com status (`Compra Aprovada`, `Em Negociação`) e valor monetário.
+5. **Ranking de Baterias / Produtos**: Modelos mais vendidos ou comprados, com SKU, quantidade física e valor financeiro acumulado.
+6. **Extrato Bancário OFX**: Relação de TEDs, PIXs e boletos vinculados àquele CNPJ/CPF com data `DD/MM/AAAA`.
+
+---
+
+## 4. Prevenção de Duplicidades em Consultas Multi-Tenant
+
+Para evitar duplicações de parceiros nas listagens consolidadas da holding:
+- A consulta consolidada (`empresa_id = 'all'`) deve sempre aplicar agregação por CNPJ (`DISTINCT ON (regexp_replace(cnpj_cpf, '[^0-9]', '', 'g'))`).
+- Todas as datas devem ser exibidas estritamente no padrão brasileiro (`DD/MM/AAAA` e `DD/MM/AAAA HH:mm:ss`), jamais no formato americano `AAAA-MM-DD`.

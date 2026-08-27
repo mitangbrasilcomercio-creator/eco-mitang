@@ -14,5 +14,6 @@ clientesRouter.post('/sincronizacao-background', controller.dispararSincronizaca
 clientesRouter.get('/', controller.listar);
 clientesRouter.post('/', controller.criar);
 clientesRouter.get('/:id', controller.buscarPorId);
+clientesRouter.get('/:id/dossie', controller.obterDossieCompleto);
 clientesRouter.put('/:id', controller.atualizar);
 clientesRouter.get('/:id/historico', controller.obterHistorico);

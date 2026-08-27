@@ -1,0 +1,3077 @@
+[
+  {
+    "id": "60009acb-8039-4362-acf9-7cc40d8d656f",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Canopus - 15v / 36Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Exail (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "EXCP",
+      "fabricante": "Exail",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 15,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 36
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2cacf794-efb7-4468-be10-8ff9e019c705",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Signature - 18v / 10Ah / 180Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220052",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 180,
+        "capacidade_nominal_ah": 10
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "05129b8b-4a0c-4a4d-aa9b-4f4560cd40f5",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Signature - 18v / 30Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220014",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 30
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "63827587-ffe5-4ece-b750-eb7a1cc15e66",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "SL500 - 12v / 45Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "SL50",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 45
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3a4ebd1f-c190-4bb2-a8ef-6323376b2b9d",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Stryker System 5 - 9,6v",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Stryker (Ni-CD)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-CD",
+      "codigo_sku": "SS5",
+      "fabricante": "Stryker",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9.6,
+        "quimica_detalhada": "Ni-CD",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "e0480248-7e80-4051-8b26-75c8cd59d25c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "SV300 - 14,4v / 5,7Ah / 82Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Mindray (Li-Ion)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-Ion",
+      "codigo_sku": "SV30",
+      "fabricante": "Mindray",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 82,
+        "capacidade_nominal_ah": 5.7
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "42adc121-c2e9-468d-abf5-98ee403ed022",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 1200kHz - 32,4v / 1820Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADL12",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 32.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1820,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "53f24be2-d298-4913-ab83-adb94c1fe163",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 1200kHz - 42v / 630Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADA12",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 42,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 630,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3371ab23-dcd9-493d-b36a-b59b1d5db760",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 300kHz - 32,4v / 1820Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADL30",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 32.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1820,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "593d0191-1f7d-4ba6-a399-876821aa137b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 300kHz - 42v / 630Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADA30",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 42,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 630,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "7b5abeab-6e8c-413f-81e9-0ee5ff7abc6f",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 600kHz - 32,4v / 1820Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADL60",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 32.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1820,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1a5c0525-8ff4-48dc-b2b8-de6c5a9de679",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse 600kHz - 42v / 630Wh - (4 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADA60",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 42,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 630,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "308a65c4-0fba-4f0f-9778-0923dde52be6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse LR 150kHz - 32,4v / 1820Wh - (2 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADL15",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 32.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1820,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5e6eabc5-d4d5-4970-999a-d262696c2ad7",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse LR 150kHz - 42v / 630Wh - (2 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADA15",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 42,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 630,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5db8f694-6237-4964-8d36-ab11860fb6ff",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse LR 75kHz - 32,4v / 1820Wh - (2 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADL75",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 32.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1820,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2d4a4d7d-27a4-4c0d-85c0-f11cf9be1002",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADCP Workhorse LR 75kHz - 42v / 630Wh - (2 Furos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADA75",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 42,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 630,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "af65929c-db4f-4cb6-8e07-f43121937253",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "ADP - 18v (Em estudo)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ADPL18",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "9ad41247-12de-41cd-ab4f-7551c30700e9",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "ADP - 18v / 35,5Ah / 640Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADPA18",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 640,
+        "capacidade_nominal_ah": 35.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4cc76b9d-3461-43d5-b57f-651b10b598ac",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Aquadopp - 10,8v / 7Ah / 75,6Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-Ion)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-Ion",
+      "codigo_sku": "220066",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.8,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 75.6,
+        "capacidade_nominal_ah": 7
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "936f6d05-ac41-408d-bb72-ee5697d07795",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Aquadopp - 13,5v / 3,7Ah / 50Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220010",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 13.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 50,
+        "capacidade_nominal_ah": 3.7
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "56c4be85-f830-4f8d-a431-e53d506f9c87",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Aquadopp - 13,5v / 7,4Ah / 100Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220008",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 13.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 100,
+        "capacidade_nominal_ah": 7.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4f08cb46-ce5e-4ff0-98b6-af26e58d0a4b",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Aquadopp - 14,4v / 17,3Ah / 250Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "AQL25",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 250,
+        "capacidade_nominal_ah": 17.3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "45197a2d-21c4-44e4-af05-32282991f599",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Aquadopp - 14,4v / 26,3Ah / 380Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "AQL38",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 380,
+        "capacidade_nominal_ah": 26.3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "34a1e048-e1fd-4895-9381-7e82f2de9641",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Argonaut ADV - 10,5v / 23,3Ah / 230Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ADV10",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 230,
+        "capacidade_nominal_ah": 23.3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "26d225cc-fb79-4d12-96fe-06b9c587ce6c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Argonaut MD - 10,5v / 38Ah / 400Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "AMD",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 400,
+        "capacidade_nominal_ah": 38
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2024537b-56d5-4ed6-a839-d8c0a9a60a00",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Argornaut XR - 12v / 45Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "AXR",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 45
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2cc89d08-0729-4a31-9845-9f90b0d42ba2",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "AWAC - 13,5v / 40Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220011",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 13.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 40
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1ebf039b-73c5-42a8-9e23-3d8064861721",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "AWAC - 15v / 120Ah / 1800Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "220029",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 15,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1800,
+        "capacidade_nominal_ah": 120
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "dd20085b-8643-42e4-bf99-da0f7f01cfe2",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "AWAC 2 - 18v / 100Ah / 1800Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "220051-2",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1800,
+        "capacidade_nominal_ah": 100
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "202f48c6-a12b-4a47-bca7-5f1176a8e9f6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "AWAC 2 - 18v / 30Ah / 540Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220014-2",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 540,
+        "capacidade_nominal_ah": 30
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "588a8c79-2f46-43ce-a060-1419eb75d9fc",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Bateria Selada - 12v / 7Ah / 84Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor GERAL - Fabricante: - (Pb)",
+    "detalhes": {
+      "setor": "GERAL",
+      "quimica": "Pb",
+      "codigo_sku": "VRLA",
+      "fabricante": "-",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Pb",
+        "energia_nominal_wh": 84,
+        "capacidade_nominal_ah": 7
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "630b7972-e8dc-4bb9-be11-a4ebaaa62756",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Bateria Selada LC-R123R4PG - 12v / 3.4Ah",
+    "descricao_tecnica": "Bateria Especializada para Setor GERAL - Fabricante: Panasonic (Pb)",
+    "detalhes": {
+      "setor": "GERAL",
+      "quimica": "Pb",
+      "codigo_sku": "LC-R123R4PG",
+      "fabricante": "Panasonic",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Pb",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5860afdd-7009-45c5-836f-8bbad9600570",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Blue ROV2 - 14,8 / 18Ah / 266,4Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Blue Robotics (Li-ion)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-ion",
+      "codigo_sku": "BLU",
+      "fabricante": "Blue Robotics",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": null,
+        "quimica_detalhada": "Li-ion",
+        "energia_nominal_wh": 266.4,
+        "capacidade_nominal_ah": 18
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "0797fb37-6a9b-49b6-99cd-f8ea8e142aed",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Boia Derivadora SC 40 I BUOY - 10,5v",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: NKE (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "BD-SC-40",
+      "fabricante": "NKE",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "0bb3b0ed-01d1-4a47-8170-3d7e179a45f4",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Bomba Infusora LF Inject - 7,2v / 2,5Ah / 18Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Lifemed (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "BILF",
+      "fabricante": "Lifemed",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 7.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 18,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "7be6c5b7-3f48-470d-b709-df5b5660b18b",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Capacitor Híbrido - Expower - 4v - Plus Pulse EXP-HPC1550 - AA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Capacitor)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Capacitor",
+      "codigo_sku": "HPC1550",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 4,
+        "quimica_detalhada": "Capacitor",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5db770e2-6b5d-4c92-a4f8-70f42afc23b0",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Cardioversor Cardiomax - 14,4v / 4,4Ah / 64Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Instramed (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "CDM",
+      "fabricante": "Instramed",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 64,
+        "capacidade_nominal_ah": 4.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "79a7a8d4-676a-4e73-9eb6-fd2a60019809",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Carefusion - 12v / 4Ah / 48Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Vela (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "VL12",
+      "fabricante": "Vela",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 48,
+        "capacidade_nominal_ah": 4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "a9e1b07e-4d33-4fc9-872b-5aa151ce5e34",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Carregador p/ Aquadopp 75Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (-)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "-",
+      "codigo_sku": "220067",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": null,
+        "quimica_detalhada": "-",
+        "energia_nominal_wh": 75,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3279113e-de4c-4c34-a450-d6f2f613c50a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "cNode Maxi (Manutenção) - 14,4v / 180Ah / 2.592Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Kongsberg (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "CMXL48-M",
+      "fabricante": "Kongsberg",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 2592,
+        "capacidade_nominal_ah": 180
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "6072820e-7432-45e0-a5fa-5e4326965221",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "cNode Maxi (Novo) - 14,4v / 180Ah / 2.592Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Kongsberg (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "CMXL48-N",
+      "fabricante": "Kongsberg",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 2592,
+        "capacidade_nominal_ah": 180
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "49889b62-610e-423c-b014-95ae496e026e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "cNode MiniS - 25,6v / 2,8Ah / 71,7Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Kongsberg (LiFePO4)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "LiFePO4",
+      "codigo_sku": "CNML16",
+      "fabricante": "Kongsberg",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 25.6,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": 71.7,
+        "capacidade_nominal_ah": 2.8
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4c6e9742-0742-4e95-b676-d8f487f4ff4c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Correntômetro ACM-PLUS - 7,5v / 12Ah / 90Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: FSI (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "FSI",
+      "fabricante": "FSI",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 7.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 90,
+        "capacidade_nominal_ah": 12
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "912715f5-f96b-433c-806e-f6eddfd20c0f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Correntômetro DVS - 18v",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Teledyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "DVS18",
+      "fabricante": "Teledyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3aae95e8-1090-486f-9b2a-445ba5266e0f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Derivadora ERB - 10,5v / 30Ah / 315Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: - (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "ERB",
+      "fabricante": "-",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 315,
+        "capacidade_nominal_ah": 30
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1172e2cb-d545-4648-9acf-b184a5ca94e5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Desfibrilador M-Series PD4410 - 10v / 2,5Ah / 25Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Zoll (Pb)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Pb",
+      "codigo_sku": "ZLR",
+      "fabricante": "Zoll",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10,
+        "quimica_detalhada": "Pb",
+        "energia_nominal_wh": 25,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "c3e56355-7fc5-42d9-b8b5-9e60e04aa8ec",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Efficia - 11,1v / 2,4Ah / 26,6Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Philips / Molicel (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "ME202EK",
+      "fabricante": "Philips / Molicel",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 11.1,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 26.6,
+        "capacidade_nominal_ah": 2.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "9fa2daba-0c23-42c3-bccd-3bd37277303f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Eletrocardiógrafo CardioCare - 12v / 2,2Ah / 26,4Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Bionet (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "ECB-2",
+      "fabricante": "Bionet",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 26.4,
+        "capacidade_nominal_ah": 2.2
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "03dbbc21-1c7b-44b4-bbcc-87ffcf142a4e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Eletrocardiógrafo CardioCare - 12v / 4,4Ah / 52,8Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Bionet (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "ECB-4",
+      "fabricante": "Bionet",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 52.8,
+        "capacidade_nominal_ah": 4.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "88ebacb3-1a68-4b01-a3d6-2f0ef60aa3fe",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Hanzas-01-18",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: - (Li-Ion)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-Ion",
+      "codigo_sku": "HNZS",
+      "fabricante": "-",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": null,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "8142c0f8-d015-4639-b8a4-921634a69312",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Homogeneizador DCM-3000 - 12v / 4,5Ah / 54Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: GenesisBPS (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "HM",
+      "fabricante": "GenesisBPS",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 54,
+        "capacidade_nominal_ah": 4.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "395d76b9-a33e-4056-847d-a07e106df54d",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Homogeneizador Maconix DCN7 - 22,2v / 3Ah / 66,6Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Macopharma (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "DCN7-M",
+      "fabricante": "Macopharma",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 22.2,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 66.6,
+        "capacidade_nominal_ah": 3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "16405cc5-405f-43b8-a845-0acea73849f7",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Jasco AMAR G4 - Ultra Deep",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: - (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "JAG4UD",
+      "fabricante": "-",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": null,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "469e119b-4cca-406a-8ea0-65f83eadd084",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Liberador Acústico 8242SX - 9v / 25,5Ah  / 230Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Edgetech (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "LAE",
+      "fabricante": "Edgetech",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 230,
+        "capacidade_nominal_ah": 25.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3289b11c-8631-4323-bd42-74561f3288e6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Liberador Acústico Benthos - 13,5v",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Benthos (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "BT13",
+      "fabricante": "Benthos",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 13.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "e235476b-4f98-49b8-b0ba-b65334f73eb3",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Liberador Acústico Benthos - 27v",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Benthos (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "BT27",
+      "fabricante": "Benthos",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 27,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "10b28dc4-32a5-4c54-9e77-5028019cc9e6",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Liko Viking M - 24v / 2,5Ah / 60Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: HillRom (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "HRLV",
+      "fabricante": "HillRom",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 24,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 60,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "58c0d548-be97-4b71-9e36-c91d542a9984",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Luft 3 - 11,1v / 13,2Ah / 146,5Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Leistung (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "LL3",
+      "fabricante": "Leistung",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 11.1,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 146.5,
+        "capacidade_nominal_ah": 13.2
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3feb20cb-064a-40c3-932b-ae48b0cf9182",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 16,6Ah (10 Blocos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nautronix (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "NTV-16-10",
+      "fabricante": "Nautronix",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 16.6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2f3be9f1-37de-425a-ba21-625816d5cb03",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 16,6Ah (6 Blocos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nautronix (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "NTV-16-6",
+      "fabricante": "Nautronix",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 16.6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "05fc28a1-9d8e-4e3b-aa31-3134687b27fb",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 20,5Ah (6 Blocos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nautronix (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "NTV-20-6",
+      "fabricante": "Nautronix",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 20.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "24dad17b-b519-4fbf-803a-80a392b0d087",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Maxi Beacon II - 9v+12v+24v / 20,5h (10 Blocos)",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nautronix (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "NTV-20-10",
+      "fabricante": "Nautronix",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "7030fafc-8a1d-4a49-ab82-c3f129ef3296",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Megger TDR 2000/2P - 9,6v / 1,5Ah / 14,4Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Megger (Ni-MH)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Ni-MH",
+      "codigo_sku": "M-TDR-2-2P",
+      "fabricante": "Megger",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9.6,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 14.4,
+        "capacidade_nominal_ah": 1.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "730d438e-831d-4517-88f0-437f59b667cf",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Monitor BeneVision N12/N15/N17 - 11,1v / 4,5Ah / 49,9Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Mindray (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "MM-N12",
+      "fabricante": "Mindray",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 11.1,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 49.9,
+        "capacidade_nominal_ah": 4.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1a879f82-0efa-45b1-a417-c11c43523be3",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Monitor ECG uMEC - 10,95v / 2,5Ah / 27Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Mindray (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "EUM",
+      "fabricante": "Mindray",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.95,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 27,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "8083450f-576a-424f-9a13-03da3724ed17",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Monitor iMEC12 - 11,1v / 2,6Ah / 28,8Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Mindray (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "iMEC12",
+      "fabricante": "Mindray",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 11.1,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 28.8,
+        "capacidade_nominal_ah": 2.6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "383f1043-2198-464a-8bf5-fc1026840f83",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Duracell - MN1300 - 1,5v - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "MN1300",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3dde753c-ba78-4c18-b504-0bb083b5f9c0",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Duracell - MN1400 - 1,5v - C",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "MN1400",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "12e7ecc9-f9ce-4dc3-976e-d3b453b0733f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Duracell - MN1500 - 1,5v - AA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "MN1500",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "6e31aefe-7f18-44d8-b2e0-49195221894e",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Duracell - MN1600 - 1,5v - AAA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "MN1600",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2114c7c4-3d7d-4874-a02c-602435a42572",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Duracell - MN1604 - 9v",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "MN1604",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4f0c482d-818c-49b1-a933-4d11dc640d52",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Energizer - LR20 - 1,5v - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Energizer (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "E-LR20",
+      "fabricante": "Energizer",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "43af9667-7186-4a57-bbae-f9f3546be0af",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Toshiba - LR06GC - 1,5v - AA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Toshiba (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "LR06GC",
+      "fabricante": "Toshiba",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "179495a4-6486-4159-90c0-249f11f83c03",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Alcalina - Toshiba - LR20GCP - 1,5v - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Toshiba (Alcalina)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Alcalina",
+      "codigo_sku": "LR20GCP",
+      "fabricante": "Toshiba",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "bfc0209d-ee54-49af-8719-4dc4bb973f20",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha LiFEPO4 - Expower - 18650 - 3,2v - 1,4Ah (5C)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (LiFePO4)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "LiFePO4",
+      "codigo_sku": "LI-FE-18650",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.2,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 1.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "a1a09ad5-9df4-48ee-86b7-9dadeae7ce77",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha LiFEPO4 - Expower - 26650 - 3,2v - 2,4Ah (15C)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (LiFePO4)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "LiFePO4",
+      "codigo_sku": "LI-FE-26650",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.2,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "7b9c9100-f127-4fd2-934a-ea784b6df2cb",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha LiFEPO4 - Expower - 26700 - 3,2v - 4Ah (3C)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (LiFePO4)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "LiFePO4",
+      "codigo_sku": "LI-FE-26700",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.2,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "691f04c6-bea6-43e7-baad-000f702ec41e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha LiFEPO4 - Expower - 32700 - 3,2v - 6Ah (3C)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (LiFePO4)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "LiFePO4",
+      "codigo_sku": "LI-FE-32700",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.2,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "473aa200-1523-449c-8e2a-22b4dfd63841",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-ION - Expower INR18650 - 3,6v - 2,6Ah (3C)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-Ion)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-Ion",
+      "codigo_sku": "LI-ION-18650",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "31ea2d62-2f0c-42e4-9f65-a580893d5278",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-ION - LG - INR18650-MJ1 - 3,7v - 3,5Ah",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: LG (Li-Ion)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-Ion",
+      "codigo_sku": "INR18650-MJ1",
+      "fabricante": "LG",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.7,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 3.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "a74072c9-f10e-4dbc-b13c-ae100b0cf4a2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-ION - Samsung - INR18650-30Q - 3,7v - 3Ah",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Samsung (Li-Ion)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-Ion",
+      "codigo_sku": "INR18650-30Q",
+      "fabricante": "Samsung",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.7,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "0adbf05e-11f4-4a1f-b013-d790519f7702",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-MNO2 - Duracell - 3v - 1,55Ah - CR123A / CR17345",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Duracell (Li-MNO2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-MNO2",
+      "codigo_sku": "CR123A",
+      "fabricante": "Duracell",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3,
+        "quimica_detalhada": "Li-MNO2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 1.55
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5d6cf6da-320d-44df-9fef-add00dda7031",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - Expower - ER14505 - 3,6v - 2,4Ah - AA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ER14505",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "83ff69ab-ee47-4d7e-8f8a-35fc70c6589a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - Expower - ER26500 - 3,6v - 9Ah - C",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ER26500",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 9
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "00f47619-99a7-4308-ad70-2a23b5cb09c1",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - Expower - ER26500M - 3,6v - 6Ah - C (High Power)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ER26500M",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "56fb440e-5584-4d99-a19b-f1fd9882b3a6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - Expower - ER34615 - 3,6v - 19Ah - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ER34615",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 19
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "ecd17e8f-be32-4449-8fbb-85a4689d2825",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - Expower - ER34615M - 3,6v - 15Ah - D (High Power)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "ER34615M",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 15
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "0566d798-f704-487c-bb11-e2bde2e7623b",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - SAFT - LS14500 - 3,6v - 2,4Ah - AA",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Saft (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "LS14500",
+      "fabricante": "Saft",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5180f18e-991c-49bf-bcca-f022f5fa908c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - SAFT - LS33600 - 3,6v - 17Ah - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Saft (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "LS33600",
+      "fabricante": "Saft",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 17
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1334b7de-1017-4c5c-8be3-4f9e68b84ab7",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - SAFT - LSH14 - 3,6v - 5,8Ah - C",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Saft (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "LSH14",
+      "fabricante": "Saft",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 5.8
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "51647e4f-9a2f-4978-9bdf-7d027f95435f",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Li-SOCL2 - SAFT - LSH20 - 3,6v - 13Ah - D",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Saft (Li-SOCL2)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "LSH20",
+      "fabricante": "Saft",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 3.6,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 13
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "24ba4425-989f-4958-b609-d48721cc259e",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 1,8Ah - SC (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-CD)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-CD",
+      "codigo_sku": "Ni-CD-SC-1.8",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-CD",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 1.8
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4c41698f-3073-407b-a528-ac45b5a8b7f7",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 2Ah - SC (High Power) (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-CD)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-CD",
+      "codigo_sku": "Ni-CD-SC-2",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-CD",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "e771fb42-0f52-4b93-8dcf-5b38a93fe0c7",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-CD - Expower - 1,2v - 3Ah - C - (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-CD)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-CD",
+      "codigo_sku": "Ni-CD-C",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-CD",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5c7ecc7b-138e-4ef3-a83a-e1ebcb34ae79",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 0,9Ah - AAA (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-AAA",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 0.9
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "84fdabdb-1ae7-4a63-a8cd-8bbaf861f274",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 2,2Ah - AA (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-AA-2.2",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.2
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "a5aa7809-026f-4dcc-91c2-3726f8853bee",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 2,5Ah - AA (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-AA-2.5",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "17dd2cd0-ffe7-48eb-a05e-fb095130a069",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 3Ah - SC (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-SC",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 3
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "3d45bbbd-b31e-42e6-a2e5-67826e0506c4",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 4,5Ah - C (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-C",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 4.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "1263cc76-c477-435d-96be-516f656724c0",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Ni-MH - Expower - 1,2v - 4Ah - 4/3A (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Expower (Ni-MH)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Ni-MH",
+      "codigo_sku": "Ni-MH-4-3",
+      "fabricante": "Expower",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 1.2,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "22fb3eed-bebb-4e95-9a27-b016d503212b",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Pilha Pb - Cyclon Enersys - 2v - 2,5Ah - D Cell - (Recarregável)",
+    "descricao_tecnica": "Bateria Especializada para Setor MATÉRIA-PRIMA - Fabricante: Cyclon (Pb)",
+    "detalhes": {
+      "setor": "MATÉRIA-PRIMA",
+      "quimica": "Pb",
+      "codigo_sku": "C-E-Pb",
+      "fabricante": "Cyclon",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 2,
+        "quimica_detalhada": "Pb",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "543a1ff0-8f8f-44b0-90f3-fb11489b0300",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Riversurveyor M9 - 14,4v / 2,2Ah / 31,6Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Ni-MH)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Ni-MH",
+      "codigo_sku": "DGPS-RS-M9-2",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 31.6,
+        "capacidade_nominal_ah": 2.2
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "72886abf-5f44-4b55-a717-d09eac676a01",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Riversurveyor M9 - 14,4v / 2,5Ah / 36Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sontek (Ni-MH)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Ni-MH",
+      "codigo_sku": "DGPS-RS-M9-5",
+      "fabricante": "Sontek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 14.4,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 36,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "30c188ef-695a-42e6-ba85-870232899797",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "RT 6-3000 DORT",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sonardyne (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "SDORT",
+      "fabricante": "Sonardyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": null,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "5ab6d6c7-e9ff-4099-a7c7-f5d44ba407ba",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "RT6-3000 - 4,5v",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Sonardyne (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "RT6-3-A",
+      "fabricante": "Sonardyne",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 4.5,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "17036514-6cbb-44bf-81d6-f5f31862a3f2",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Seaglider - 10,8v / 78Ah / 842,4Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Kongsberg (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "SGD10",
+      "fabricante": "Kongsberg",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 10.8,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 842.4,
+        "capacidade_nominal_ah": 78
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "9dfcf77c-ed4a-43f3-87e5-f64236e241d6",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Seaglider - 24v / 117Ah / 2.948,4Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Kongsberg (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "SGD24",
+      "fabricante": "Kongsberg",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 24,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 948.4,
+        "capacidade_nominal_ah": 117
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "4667e1ee-8b9e-4830-a433-bb1a92bf9967",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Seaguard II - 7v / 35Ah / 245Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Aanderaa (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "SEL",
+      "fabricante": "Aanderaa",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 7,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 245,
+        "capacidade_nominal_ah": 35
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "e34be5f1-939f-4b47-bf4d-2e66b30389bb",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Seaguard II - 9V / 15Ah / 135Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Aanderaa (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "SEA",
+      "fabricante": "Aanderaa",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 9,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 135,
+        "capacidade_nominal_ah": 15
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "0e58751e-d3b8-43cc-b72f-7eef65ea572d",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Seladora Macoseal PS2/SE160 - 25,6v",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Macopharma (LiFePO4)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "LiFePO4",
+      "codigo_sku": "PS2",
+      "fabricante": "Macopharma",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 25.6,
+        "quimica_detalhada": "LiFePO4",
+        "energia_nominal_wh": null,
+        "capacidade_nominal_ah": null
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "c580cee8-6db9-438e-8297-27823cb53e17",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Seladora SE640 - 12v / 4,5Ah / 54Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: GenesisBPS (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "SL",
+      "fabricante": "GenesisBPS",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 54,
+        "capacidade_nominal_ah": 4.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "2692deac-9114-40ce-8c06-6f3a2677f3d2",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Servo S - 12v / 4Ah / 48Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: Maquet (Ni-MH)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Ni-MH",
+      "codigo_sku": "MQ",
+      "fabricante": "Maquet",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 12,
+        "quimica_detalhada": "Ni-MH",
+        "energia_nominal_wh": 48,
+        "capacidade_nominal_ah": 4
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "27a6419c-c780-4f96-92e2-10991f3d80f9",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
+    "tipo_item": "PRODUTO",
+    "nome": "Shenzhen CPKD - 11,1v / 2,5Ah / 27,75Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor HOSPITALAR - Fabricante: - (Li-Ion)",
+    "detalhes": {
+      "setor": "HOSPITALAR",
+      "quimica": "Li-Ion",
+      "codigo_sku": "SCPKD",
+      "fabricante": "-",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 11.1,
+        "quimica_detalhada": "Li-Ion",
+        "energia_nominal_wh": 27.75,
+        "capacidade_nominal_ah": 2.5
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "ac88301e-c6f4-41eb-ac92-1785f1a0dc98",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Signature - 15v / 6Ah / 90Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Alcalina)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Alcalina",
+      "codigo_sku": "220047",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 15,
+        "quimica_detalhada": "Alcalina",
+        "energia_nominal_wh": 90,
+        "capacidade_nominal_ah": 6
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "68556a41-ce59-4d3d-9c50-b11e2ff5d896",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Signature - 18v / 100Ah / 1800Wh",
+    "descricao_tecnica": "Bateria Especializada para Setor NÁUTICO - Fabricante: Nortek (Li-SOCL2)",
+    "detalhes": {
+      "setor": "NÁUTICO",
+      "quimica": "Li-SOCL2",
+      "codigo_sku": "220051",
+      "fabricante": "Nortek",
+      "preco_base": 0,
+      "estoque_atual": 10,
+      "unidade_medida": "UN",
+      "especificacoes_tecnicas": {
+        "tensao_nominal_v": 18,
+        "quimica_detalhada": "Li-SOCL2",
+        "energia_nominal_wh": 1800,
+        "capacidade_nominal_ah": 100
+      }
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:44:59.493Z",
+    "updated_at": "2026-08-27T01:44:59.493Z"
+  },
+  {
+    "id": "24e03d87-ced6-4659-b54a-4271cecfc3a1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Bateria Subsea Teste Blindagem",
+    "descricao_tecnica": null,
+    "detalhes": {
+      "preco_base": 18000,
+      "unidade_medida": "UN"
+    },
+    "quantidade_estoque_atual": "10.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:06:38.713Z",
+    "updated_at": "2026-08-27T01:06:38.713Z"
+  },
+  {
+    "id": "4eccde41-c99a-42a4-9299-f813c2bb4187",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "CURSO",
+    "nome": "Treinamento de Seguranca Subsea CBSP & HUET",
+    "descricao_tecnica": "Curso homologado Marinha do Brasil para embarque offshore",
+    "detalhes": {
+      "modalidade": "PRESENCIAL",
+      "preco_base": 1800,
+      "validade_meses": 60,
+      "carga_horaria_horas": 40
+    },
+    "quantidade_estoque_atual": "0.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:06:36.854Z",
+    "updated_at": "2026-08-27T01:06:36.854Z"
+  },
+  {
+    "id": "57ce4bd7-88a4-4b1b-a01d-a51cc77130e8",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "SERVICO",
+    "nome": "Inspecao Subsea NDT com Ultrassom",
+    "descricao_tecnica": "Ensaios Nao Destrutivos em risers e dutos submarinos",
+    "detalhes": {
+      "preco_base": 450,
+      "necessita_art": true,
+      "funcao_tecnica": "Inspetor NDT Nivel 3",
+      "unidade_medida": "HORA_HOMEM"
+    },
+    "quantidade_estoque_atual": "0.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:06:36.832Z",
+    "updated_at": "2026-08-27T01:06:36.832Z"
+  },
+  {
+    "id": "eac1b2cb-9f0f-4e79-b824-79a4a7bd6845",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "LOCACAO",
+    "nome": "Cabrestante de Tracionamento 100T",
+    "descricao_tecnica": "Equipamento para lancamento de dutos flexiveis",
+    "detalhes": {
+      "preco_base": 14500,
+      "unidade_cobranca": "DIARIA",
+      "exige_mobilizacao": true,
+      "certificado_offshore_obrigatorio": true
+    },
+    "quantidade_estoque_atual": "3.000",
+    "ativo": true,
+    "created_at": "2026-08-27T01:06:36.810Z",
+    "updated_at": "2026-08-27T01:06:36.810Z"
+  },
+  {
+    "id": "ba985deb-3083-4db1-9f8a-da450bcfadb5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
+    "tipo_item": "PRODUTO",
+    "nome": "Bateria Subsea Lithium High-Cap 24V [ATUALIZADA]",
+    "descricao_tecnica": "Bateria de alta performance para ROV e AUV submarinos",
+    "detalhes": {
+      "ncm": "85076000",
+      "codigo_sku": "BAT-LITH-HC24",
+      "preco_base": 32000,
+      "capacidade_ah": 200,
+      "unidade_medida": "UN",
+      "voltagem_nominal": 24
+    },
+    "quantidade_estoque_atual": "25.000",
+    "ativo": false,
+    "created_at": "2026-08-27T01:06:36.786Z",
+    "updated_at": "2026-08-27T01:06:36.982Z"
+  }
+]

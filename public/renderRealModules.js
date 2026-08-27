@@ -4,6 +4,60 @@
 // Módulos: Dashboard, Catálogo, Fluxo de Caixa, Notas Fiscais, DRE, Controladoria, CRM
 // ============================================================================
 
+// ============================================================================
+// FORMATADORES UNIVERSAIS NO PADRÃO BRASILEIRO (DD/MM/AAAA, MOEDA R$, CNPJ)
+// ============================================================================
+window.formatDateBR = function(dateStr) {
+  if (!dateStr) return '-';
+  try {
+    const s = String(dateStr).trim();
+    if (/^\d{4}-\d{2}-\d{2}/.test(s)) {
+      const parts = s.split('T')[0].split('-');
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return String(dateStr);
+    const dia = String(d.getUTCDate()).padStart(2, '0');
+    const mes = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const ano = d.getUTCFullYear();
+    return `${dia}/${mes}/${ano}`;
+  } catch (e) {
+    return String(dateStr);
+  }
+};
+
+window.formatDateTimeBR = function(dateStr) {
+  if (!dateStr) return '-';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return String(dateStr);
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const ano = d.getFullYear();
+    const hora = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    const seg = String(d.getSeconds()).padStart(2, '0');
+    return `${dia}/${mes}/${ano} ${hora}:${min}:${seg}`;
+  } catch (e) {
+    return String(dateStr);
+  }
+};
+
+window.formatCurrencyBR = function(val) {
+  const num = Number(val || 0);
+  return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+window.formatCnpjBR = function(cnpjRaw) {
+  const c = String(cnpjRaw || '').replace(/[^\d]/g, '');
+  if (c.length === 14) {
+    return `${c.slice(0, 2)}.${c.slice(2, 5)}.${c.slice(5, 8)}/${c.slice(8, 12)}-${c.slice(12, 14)}`;
+  } else if (c.length === 11) {
+    return `${c.slice(0, 3)}.${c.slice(3, 6)}.${c.slice(6, 9)}-${c.slice(9, 11)}`;
+  }
+  return cnpjRaw || '-';
+};
+
 // Helper universal para alternar abas de forma limpa e fluida
 window.switchTab = function(moduleName, tabId) {
   const panels = document.querySelectorAll(`[data-module="${moduleName}"][data-tab-content]`);
@@ -22,6 +76,376 @@ window.switchTab = function(moduleName, tabId) {
   if (activeBtn) {
     activeBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
     activeBtn.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40', 'shadow-sm');
+  }
+};
+
+// ============================================================================
+// DOSSIÊ 360° COMPLETO DO PARCEIRO (RFB, QSA, CNAEs, NOTAS, COTAÇÕES, BATERIAS)
+// ============================================================================
+window.abrirDossie360 = async function(clienteId) {
+  const oldModal = document.getElementById('dossie-modal-overlay');
+  if (oldModal) oldModal.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'dossie-modal-overlay';
+  overlay.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in';
+  overlay.innerHTML = `
+    <div class="glass-panel w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-slate-950/95 text-slate-200">
+      <div id="dossie-modal-loader" class="p-16 flex flex-col items-center justify-center gap-4">
+        <i class="ph ph-spinner animate-spin text-4xl text-cyan-400"></i>
+        <p class="text-sm font-semibold text-slate-300">Carregando Dossiê 360° com inteligência cadastral e transacional...</p>
+      </div>
+      <div id="dossie-modal-content" class="hidden flex-1 flex flex-col overflow-hidden"></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  try {
+    const res = await window.apiService.getDossieCliente(clienteId);
+    if (!res.success || !res.data) {
+      document.getElementById('dossie-modal-loader').innerHTML = `
+        <i class="ph ph-warning-circle text-4xl text-amber-400"></i>
+        <p class="text-sm text-slate-300">Não foi possível carregar o dossiê: ${res.error || 'Parceiro não encontrado'}</p>
+        <button onclick="document.getElementById('dossie-modal-overlay').remove()" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-semibold hover:bg-white/20">Fechar</button>
+      `;
+      return;
+    }
+
+    const { cliente: c, vertical: v, kpis, notas_fiscais, orcamentos, produtos_mais_movimentados, transacoes_bancarias } = res.data;
+    const loader = document.getElementById('dossie-modal-loader');
+    const content = document.getElementById('dossie-modal-content');
+    if (loader) loader.remove();
+    if (!content) return;
+    content.classList.remove('hidden');
+
+    const cnpjFormatado = window.formatCnpjBR(c.cnpj_cpf);
+    const capitalSocialFmt = c.capital_social > 0 ? window.formatCurrencyBR(c.capital_social) : 'Não informado';
+    const dataFundacaoFmt = window.formatDateBR(c.data_situacao_cadastral || c.data_inicio_atividade || c.created_at);
+    const qsaList = Array.isArray(c.qsa) ? c.qsa : [];
+
+    let badgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30';
+    let badgeLabel = 'Cliente Comprador';
+    if (c.tipo_entidade === 'FORNECEDOR') {
+      badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+      badgeLabel = 'Fornecedor de Insumos';
+    } else if (c.tipo_entidade === 'COLABORADOR_PJ') {
+      badgeClass = 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+      badgeLabel = 'Colaborador PJ';
+    }
+
+    content.innerHTML = `
+      <div class="p-6 border-b border-white/10 bg-slate-900/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl shrink-0">
+            <i class="ph ${v.icone || 'ph-buildings'}"></i>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h2 class="text-lg font-bold text-slate-100">${c.razao_social_nome}</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">
+                ${badgeLabel}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${v.badgeClass || 'bg-slate-500/20 text-slate-300 border-slate-500/30'} flex items-center gap-1">
+                <i class="ph ${v.icone || 'ph-tag'}"></i> ${v.vertical || 'Segmento Geral'}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${c.situacao_cadastral === 'ATIVA' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-red-500/20 text-red-300 border-red-500/30'}">
+                RFB: ${c.situacao_cadastral || 'ATIVA'}
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-400 font-mono">
+              <span>CNPJ: <strong class="text-cyan-300 font-bold">${cnpjFormatado}</strong></span>
+              <button onclick="navigator.clipboard.writeText('${c.cnpj_cpf}'); this.innerText='Copiado!';" class="text-[11px] text-cyan-400 hover:text-cyan-300 underline">Copiar</button>
+              ${c.nome_fantasia ? `<span>• Fantasia: <strong class="text-slate-300 font-sans">${c.nome_fantasia}</strong></span>` : ''}
+              ${c.municipio ? `<span>• <strong class="text-slate-300 font-sans">${c.municipio}/${c.uf}</strong></span>` : ''}
+            </div>
+          </div>
+        </div>
+
+        <button onclick="document.getElementById('dossie-modal-overlay').remove()" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-all ml-auto">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 px-6 pt-3 border-b border-white/5 bg-slate-900/40 overflow-x-auto text-xs font-semibold">
+        <button onclick="switchDossieTab('visao_geral')" id="dossie-tab-btn-visao_geral" class="px-4 py-2.5 border-b-2 border-cyan-400 text-cyan-300 flex items-center gap-1.5 transition-all">
+          <i class="ph ph-identification-card text-sm"></i> Ficha Cadastral & QSA
+        </button>
+        <button onclick="switchDossieTab('notas_fiscais')" id="dossie-tab-btn-notas_fiscais" class="px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+          <i class="ph ph-receipt text-sm"></i> Notas Fiscais (${notas_fiscais.length})
+        </button>
+        <button onclick="switchDossieTab('orcamentos')" id="dossie-tab-btn-orcamentos" class="px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+          <i class="ph ph-file-text text-sm"></i> Cotações & Propostas (${orcamentos.length})
+        </button>
+        <button onclick="switchDossieTab('produtos')" id="dossie-tab-btn-produtos" class="px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+          <i class="ph ph-battery-charging text-sm"></i> Ranking de Baterias (${produtos_mais_movimentados.length})
+        </button>
+        <button onclick="switchDossieTab('bancario')" id="dossie-tab-btn-bancario" class="px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+          <i class="ph ph-bank text-sm"></i> Extrato Bancário (${transacoes_bancarias.length})
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6 space-y-6">
+        <div id="dossie-tab-content-visao_geral" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+              <span class="text-[10px] uppercase font-bold text-slate-400">Capital Social</span>
+              <p class="text-xl font-bold text-slate-100 mt-1">${capitalSocialFmt}</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Porte: ${c.porte || 'DEMAIS'}</p>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+              <span class="text-[10px] uppercase font-bold text-slate-400">Total Faturado Vendas</span>
+              <p class="text-xl font-bold text-emerald-400 mt-1">${window.formatCurrencyBR(kpis.total_faturado_vendas)}</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">${notas_fiscais.filter(n => n.direcao === 'EMITIDA').length} NF-e emitidas</p>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+              <span class="text-[10px] uppercase font-bold text-slate-400">Compras de Insumos</span>
+              <p class="text-xl font-bold text-amber-400 mt-1">${window.formatCurrencyBR(kpis.total_compras_insumos)}</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">${notas_fiscais.filter(n => n.direcao === 'RECEBIDA').length} NF-e recebidas</p>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+              <span class="text-[10px] uppercase font-bold text-slate-400">Conversão Comercial</span>
+              <p class="text-xl font-bold text-cyan-400 mt-1">${kpis.taxa_conversao}</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Ticket Médio: ${window.formatCurrencyBR(kpis.ticket_medio)}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                <i class="ph ph-map-pin"></i> Endereço & Localização
+              </h3>
+              <div class="text-xs space-y-1.5 text-slate-300">
+                <p><strong>Logradouro:</strong> ${c.logradouro || 'Não informado'}, ${c.numero || 'S/N'}${c.complemento ? ' - ' + c.complemento : ''}</p>
+                <p><strong>Bairro:</strong> ${c.bairro || 'Não informado'} | <strong>CEP:</strong> ${c.cep || '-'}</p>
+                <p><strong>Município:</strong> ${c.municipio || '-'}/${c.uf || '-'}</p>
+                <p><strong>Telefone:</strong> ${c.telefone || 'Não informado'} | <strong>E-mail:</strong> ${c.email || 'Não informado'}</p>
+              </div>
+            </div>
+
+            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                <i class="ph ph-briefcase"></i> Atividade Econômica & Regime
+              </h3>
+              <div class="text-xs space-y-1.5 text-slate-300">
+                <p><strong>CNAE Principal:</strong> <span class="font-mono text-cyan-300">${c.cnae_principal || '-'}</span> - ${c.cnae_descricao || 'Não informado'}</p>
+                <p><strong>Regime Tributário:</strong> ${c.natureza_juridica || 'Sociedade Empresária Limitada'}</p>
+                <p><strong>Simples Nacional:</strong> ${c.opcao_pelo_simples ? 'Optante pelo Simples' : 'Não Optante'} | <strong>MEI:</strong> ${c.opcao_pelo_mei ? 'Sim' : 'Não'}</p>
+                <p><strong>Início de Atividade:</strong> ${dataFundacaoFmt}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="p-4 border-b border-white/5 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+                <i class="ph ph-users"></i> Quadro de Sócios e Administradores (QSA)
+              </h3>
+              <span class="text-xs font-mono text-slate-400">${qsaList.length} sócios registrados</span>
+            </div>
+            ${qsaList.length > 0 ? `
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-black/20 text-slate-400 uppercase font-semibold">
+                    <tr>
+                      <th class="p-3">Nome do Sócio</th>
+                      <th class="p-3">Qualificação / Cargo</th>
+                      <th class="p-3">Faixa Etária</th>
+                      <th class="p-3">Entrada na Sociedade</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    ${qsaList.map(s => `
+                      <tr class="hover:bg-white/5">
+                        <td class="p-3 font-semibold text-slate-100">${s.nome_socio || s.nome || '-'}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-cyan-500/20 text-cyan-300">${s.qualificacao_socio || s.qualificacao || 'Sócio'}</span></td>
+                        <td class="p-3 text-slate-400">${s.faixa_etaria || '-'}</td>
+                        <td class="p-3 text-slate-400 font-mono">${window.formatDateBR(s.data_entrada_sociedade)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `
+              <div class="p-6 text-center text-xs text-slate-500">Nenhum sócio administrador listado na base pública para esta entidade.</div>
+            `}
+          </div>
+        </div>
+
+        <div id="dossie-tab-content-notas_fiscais" class="space-y-4 hidden">
+          <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="p-4 border-b border-white/5 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Notas Fiscais Vinculadas (NF-e / NFS-e)</h3>
+              <span class="text-xs font-mono text-slate-400">${notas_fiscais.length} documentos fiscais</span>
+            </div>
+            ${notas_fiscais.length > 0 ? `
+              <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0">
+                    <tr>
+                      <th class="p-3">Nº Nota</th>
+                      <th class="p-3">Tipo / Direção</th>
+                      <th class="p-3">Data Emissão</th>
+                      <th class="p-3 text-right">Valor Total</th>
+                      <th class="p-3 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    ${notas_fiscais.map(n => `
+                      <tr class="hover:bg-white/5">
+                        <td class="p-3 font-mono font-bold text-cyan-400">#${n.numero_nota}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold ${n.direcao === 'EMITIDA' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-blue-500/20 text-blue-300'}">${n.direcao} • ${n.tipo_documento === 'NFSE_SERVICO' ? 'NFS-e' : 'NF-e'}</span></td>
+                        <td class="p-3 font-mono text-slate-400">${window.formatDateBR(n.data_emissao)}</td>
+                        <td class="p-3 text-right font-mono font-bold text-slate-100">${window.formatCurrencyBR(n.valor_total)}</td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">Autorizada</span></td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `
+              <div class="p-8 text-center text-xs text-slate-500">Nenhuma nota fiscal registrada no sistema para este CNPJ até o momento.</div>
+            `}
+          </div>
+        </div>
+
+        <div id="dossie-tab-content-orcamentos" class="space-y-4 hidden">
+          <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="p-4 border-b border-white/5 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Histórico de Cotações & Propostas</h3>
+              <span class="text-xs font-mono text-slate-400">${orcamentos.length} propostas</span>
+            </div>
+            ${orcamentos.length > 0 ? `
+              <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0">
+                    <tr>
+                      <th class="p-3">Nº Cotação</th>
+                      <th class="p-3">Empresa Emissora</th>
+                      <th class="p-3">Data Emissão</th>
+                      <th class="p-3 text-right">Valor Total</th>
+                      <th class="p-3 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    ${orcamentos.map(o => `
+                      <tr class="hover:bg-white/5">
+                        <td class="p-3 font-mono font-bold text-cyan-400">#${o.numero_orcamento}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold ${o.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300' : 'bg-blue-500/20 text-blue-300'}">${o.vendido_por}</span></td>
+                        <td class="p-3 font-mono text-slate-400">${window.formatDateBR(o.data_emissao)}</td>
+                        <td class="p-3 text-right font-mono font-bold text-slate-100">${window.formatCurrencyBR(o.valor_total)}</td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-[10px] font-semibold ${o.status_aprovacao === 'Compra Aprovada' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-slate-400'}">${o.status_aprovacao}</span></td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `
+              <div class="p-8 text-center text-xs text-slate-500">Nenhum orçamento histórico vinculado a este CNPJ na base.</div>
+            `}
+          </div>
+        </div>
+
+        <div id="dossie-tab-content-produtos" class="space-y-4 hidden">
+          <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="p-4 border-b border-white/5 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Ranking de Modelos de Baterias Negociados</h3>
+              <span class="text-xs font-mono text-slate-400">${produtos_mais_movimentados.length} itens distintos</span>
+            </div>
+            ${produtos_mais_movimentados.length > 0 ? `
+              <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0">
+                    <tr>
+                      <th class="p-3">SKU</th>
+                      <th class="p-3">Modelo / Nome da Bateria</th>
+                      <th class="p-3 text-right">Qtd Acumulada</th>
+                      <th class="p-3 text-right">Valor Total Movimentado</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    ${produtos_mais_movimentados.map(p => `
+                      <tr class="hover:bg-white/5">
+                        <td class="p-3 font-mono text-cyan-300">${p.sku}</td>
+                        <td class="p-3 font-semibold text-slate-100">${p.nome}</td>
+                        <td class="p-3 text-right font-mono font-bold text-slate-200">${p.qtd} un</td>
+                        <td class="p-3 text-right font-mono font-bold text-emerald-400">${window.formatCurrencyBR(p.valorTotal)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `
+              <div class="p-8 text-center text-xs text-slate-500">Nenhum produto individual identificado nos orçamentos deste parceiro.</div>
+            `}
+          </div>
+        </div>
+
+        <div id="dossie-tab-content-bancario" class="space-y-4 hidden">
+          <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+            <div class="p-4 border-b border-white/5 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Lançamentos de Extratos Bancários (OFX)</h3>
+              <span class="text-xs font-mono text-slate-400">${transacoes_bancarias.length} transações</span>
+            </div>
+            ${transacoes_bancarias.length > 0 ? `
+              <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0">
+                    <tr>
+                      <th class="p-3">Data</th>
+                      <th class="p-3">Conta Bancária</th>
+                      <th class="p-3">Descrição / Histórico</th>
+                      <th class="p-3 text-right">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    ${transacoes_bancarias.map(t => {
+                      const isPos = Number(t.valor) > 0;
+                      return `
+                        <tr class="hover:bg-white/5">
+                          <td class="p-3 font-mono text-slate-400">${window.formatDateBR(t.data_lancamento)}</td>
+                          <td class="p-3 text-slate-300">${t.banco_nome} (${t.conta_numero})</td>
+                          <td class="p-3 text-slate-200 truncate max-w-[280px]" title="${t.memo}">${t.memo}</td>
+                          <td class="p-3 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">${window.formatCurrencyBR(t.valor)}</td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `
+              <div class="p-8 text-center text-xs text-slate-500">Nenhum lançamento bancário com correspondência de CNPJ/Razão Social encontrado.</div>
+            `}
+          </div>
+        </div>
+      </div>
+    `;
+
+    window.switchDossieTab = function(tabId) {
+      const tabs = ['visao_geral', 'notas_fiscais', 'orcamentos', 'produtos', 'bancario'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`dossie-tab-content-${t}`);
+        const btn = document.getElementById(`dossie-tab-btn-${t}`);
+        if (panel) panel.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('border-cyan-400', 'text-cyan-300');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
+      });
+      const activePanel = document.getElementById(`dossie-tab-content-${tabId}`);
+      const activeBtn = document.getElementById(`dossie-tab-btn-${tabId}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-slate-400');
+        activeBtn.classList.add('border-cyan-400', 'text-cyan-300');
+      }
+    };
+
+  } catch (err) {
+    console.error('Erro abrirDossie360:', err);
   }
 };
 
@@ -248,7 +672,7 @@ window.renderDashboardRealData = async function() {
           const isPos = Number(t.valor) > 0;
           return `
             <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-3 text-slate-400 font-mono">${t.data_lancamento ? t.data_lancamento.split('T')[0] : '-'}</td>
+              <td class="p-3 text-slate-400 font-mono">${window.formatDateBR(t.data_lancamento)}</td>
               <td class="p-3 font-medium text-slate-200">${t.banco_nome || 'Banco'} (${t.agencia}/${t.conta_numero})</td>
               <td class="p-3 text-slate-300 truncate max-w-[280px]" title="${t.memo}">${t.memo}</td>
               <td class="p-3 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">
@@ -607,7 +1031,7 @@ window.renderFluxoCaixaRealData = async function() {
         const isPos = Number(t.valor) > 0;
         return `
           <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-3.5 font-mono text-slate-400">${t.data_lancamento ? t.data_lancamento.split('T')[0] : '-'}</td>
+            <td class="p-3.5 font-mono text-slate-400">${window.formatDateBR(t.data_lancamento)}</td>
             <td class="p-3.5 font-medium text-slate-200">${t.banco_nome || 'Banco'} (${t.agencia}/${t.conta_numero})</td>
             <td class="p-3.5 text-slate-300 truncate max-w-[320px]" title="${t.memo}">${t.memo}</td>
             <td class="p-3.5 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">
@@ -734,7 +1158,7 @@ window.renderNotasFiscaisRealData = async function() {
                 ${n.tipo_documento === 'NFSE_SERVICO' ? 'NFS-e' : 'NF-e'} • ${n.direcao}
               </span>
             </td>
-            <td class="p-3.5 text-slate-400 font-mono">${n.data_emissao ? n.data_emissao.split('T')[0] : '-'}</td>
+            <td class="p-3.5 text-slate-400 font-mono">${window.formatDateBR(n.data_emissao)}</td>
             <td class="p-3.5 text-slate-200 truncate max-w-[200px]" title="${n.emitente_nome}">${n.emitente_nome}</td>
             <td class="p-3.5 text-slate-200 truncate max-w-[200px]" title="${n.destinatario_nome}">${n.destinatario_nome || '-'}</td>
             <td class="p-3.5 text-right font-mono font-bold text-slate-100">
@@ -1078,21 +1502,22 @@ window.renderCrmRealData = async function() {
       </div>
 
       <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
-        <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
+        <div class="overflow-x-auto max-h-[540px] overflow-y-auto">
           <table class="w-full text-left text-xs border-collapse">
             <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
               <tr>
                 <th class="p-3.5">CNPJ</th>
                 <th class="p-3.5">Razão Social / Nome Fantasia</th>
-                <th class="p-3.5">Tipo de Entidade</th>
+                <th class="p-3.5">Vertical de Mercado</th>
+                <th class="p-3.5">Tipo</th>
                 <th class="p-3.5 text-right">Capital Social</th>
                 <th class="p-3.5">Cidade / UF</th>
-                <th class="p-3.5">Sócios Administradores (QSA)</th>
                 <th class="p-3.5 text-center">Status</th>
+                <th class="p-3.5 text-center">Ação</th>
               </tr>
             </thead>
             <tbody id="tabela-crm-corpo" class="divide-y divide-white/5 text-slate-300">
-              <tr><td colspan="7" class="p-6 text-center text-slate-500">Carregando carteira...</td></tr>
+              <tr><td colspan="8" class="p-6 text-center text-slate-500">Carregando carteira de parceiros...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1129,32 +1554,38 @@ window.renderCrmRealData = async function() {
       if (!tbody) return;
 
       if (filtrados.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Nenhum parceiro encontrado nesta categoria.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Nenhum parceiro encontrado nesta categoria.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = filtrados.map(c => {
         const cap = Number(c.capital_social || 0);
         const isPesado = cap >= 10000000;
-        const qsa = Array.isArray(c.qsa) ? c.qsa.map(s => s.nome || s.nome_socio).filter(Boolean).slice(0, 2).join(', ') : '-';
         const isBloqueado = c.bloqueio_fiscal === true;
+        const cnpjFmt = window.formatCnpjBR(c.cnpj_cpf);
+        const vert = (c.dados_receita_brutos && c.dados_receita_brutos.vertical) ? c.dados_receita_brutos.vertical : {};
 
-        let badgeClass = 'bg-cyan-500/20 text-cyan-300';
+        let badgeClass = 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
         let badgeLabel = 'Cliente';
         if (c.tipo_entidade === 'FORNECEDOR') {
-          badgeClass = 'bg-amber-500/20 text-amber-300';
+          badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
           badgeLabel = 'Fornecedor';
         } else if (c.tipo_entidade === 'COLABORADOR_PJ') {
-          badgeClass = 'bg-purple-500/20 text-purple-300';
+          badgeClass = 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
           badgeLabel = 'Colaborador PJ';
         }
 
         return `
-          <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-3.5 font-mono text-cyan-400 font-bold">${c.cnpj_cpf}</td>
+          <tr onclick="window.abrirDossie360('${c.id}')" class="cursor-pointer hover:bg-cyan-500/10 transition-colors group">
+            <td class="p-3.5 font-mono text-cyan-400 font-bold whitespace-nowrap">${cnpjFmt}</td>
             <td class="p-3.5">
-              <p class="font-bold text-slate-100">${c.razao_social_nome || '-'}</p>
+              <p class="font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">${c.razao_social_nome || '-'}</p>
               ${c.nome_fantasia ? `<p class="text-[10px] text-slate-400">${c.nome_fantasia}</p>` : ''}
+            </td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${vert.badgeClass || 'bg-slate-500/20 text-slate-300 border-slate-500/30'} flex items-center gap-1 w-fit">
+                <i class="ph ${vert.icone || 'ph-tag'}"></i> ${vert.vertical || 'Geral'}
+              </span>
             </td>
             <td class="p-3.5">
               <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${badgeClass}">
@@ -1162,14 +1593,19 @@ window.renderCrmRealData = async function() {
               </span>
             </td>
             <td class="p-3.5 text-right font-mono font-bold ${isPesado ? 'text-emerald-400' : 'text-slate-200'}">
-              ${cap > 0 ? 'R$ ' + cap.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '-'}
+              ${cap > 0 ? window.formatCurrencyBR(cap) : '-'}
             </td>
-            <td class="p-3.5 text-slate-400">${c.municipio || '-'}/${c.uf || '-'}</td>
-            <td class="p-3.5 text-slate-300 truncate max-w-[200px]" title="${qsa}">${qsa}</td>
+            <td class="p-3.5 text-slate-400 whitespace-nowrap">${c.municipio || '-'}/${c.uf || '-'}</td>
             <td class="p-3.5 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${isBloqueado ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${isBloqueado ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
                 ${isBloqueado ? 'Bloqueio' : 'Regular'}
               </span>
+            </td>
+            <td class="p-3.5 text-center">
+              <button onclick="event.stopPropagation(); window.abrirDossie360('${c.id}')" 
+                      class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 flex items-center gap-1 mx-auto transition-all shadow-sm">
+                <i class="ph ph-identification-card text-sm"></i> Dossiê 360°
+              </button>
             </td>
           </tr>
         `;
@@ -1300,7 +1736,7 @@ window.renderOrcamentosRealData = async function() {
                 ${o.vendido_por}
               </span>
             </td>
-            <td class="p-3.5 text-slate-400 font-mono">${o.data_emissao ? o.data_emissao.split('T')[0] : (o.mes_emissao + '/' + o.ano_emissao)}</td>
+            <td class="p-3.5 text-slate-400 font-mono">${window.formatDateBR(o.data_emissao || (o.mes_emissao + '/' + o.ano_emissao))}</td>
             <td class="p-3.5 font-medium text-slate-100">${o.cliente_nome}</td>
             <td class="p-3.5 text-right font-mono font-bold text-slate-100">
               R$ ${Number(o.valor_total).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}

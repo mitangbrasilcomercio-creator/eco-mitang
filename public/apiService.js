@@ -92,6 +92,11 @@ class ApiService {
     const query = new URLSearchParams(params).toString();
     return this.request(`/contabilidade/dre?${query}`);
   }
+
+  // 9. Dossiê 360° Completo do Parceiro (Cadastral, Histórico, NF-e, Cotações, Produtos)
+  async getDossieCliente(id) {
+    return this.request(`/clientes/${id}/dossie`);
+  }
 }
 
 window.apiService = new ApiService();
