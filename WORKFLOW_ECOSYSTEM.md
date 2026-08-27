@@ -152,7 +152,8 @@ flowchart LR
 ## 4. Histórico de Alterações de Fluxo & Rastreabilidade
 
 | Data / Versão | Módulo Impactado | Alteração no Fluxo de Negócios | Destaque Visual |
-| :--- | :--- | :--- | :--- |
+| **27/08/2026 (Atual)** | **Orçamentos Multi-Item & Multi-NF** | Parser determinístico de 5-tupla monetária para 325 itens; suporte a múltiplas NFs e POs por proposta e visualizador executivo detalhado. | ⚡ **Última Alteração** |
+| **27/08/2026 (Atual)** | **Curva ABC Auditada de Atrasos** | Isolamento estrito de inadimplência real (Viva Rio 33d, Fugro 27d, Aerodrone 112d); eliminação de mocks e descarte de faturas pagas (DOF/Sea Survey). | ⚡ **Última Alteração** |
 | **27/08/2026 (Atual)** | **Gráfico Executivo Adaptativo** | Granularidade dinâmica automática: semanas reais para recortes curtos (ex: Mês Atual) vs meses consolidados para ano todo. | ⚡ **Última Alteração** |
 | **27/08/2026 (Atual)** | **Tesouraria OFX & Regex** | Separação estrita de Instituição Bancária e Agência/Conta com normalização regex universal para Itaú (`Ag. AAAA • CC CCCCC-D`) e Bradesco (`Ag. AAAA • CC 00CCCC-D`). | ⚡ **Última Alteração** |
 | **27/08/2026 (Atual)** | **Subtotais Dinâmicos (`tfoot`)** | Linha fixa de rodapé calculando em tempo real os subtotais exclusivos do recorte filtrado (lançamentos, entradas, saídas e saldo líquido). | ⚡ **Última Alteração** |

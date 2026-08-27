@@ -331,6 +331,53 @@ flowchart TD
 
 ---
 
+### 2.12 Arquitetura do Ciclo de Vida de Orçamentos, Pedidos de Compra (PO), Multi-NF e Curva ABC
+
+Para resolver o desafio de orçamentos multi-item, faturamento parcial, split de POs e eliminar falsos atrasos na Curva ABC, o ERP implementa um pipeline determinístico:
+
+```mermaid
+flowchart TD
+    SPREADSHEET[Planilha de Orçamentos Oficial - 325 Itens / 220 Propostas] --> PARSER_TUPLE[Parser Determinístico de 5-Tupla Monetária:<br/>Unitário | Total Qtd | Desconto | Frete | Total Item]
+    
+    PARSER_TUPLE --> EXTRACT_PO_NF[Extração de POs, Datas de Aprovação, Tipo NF e Nº NFe/NFSe]
+    PARSER_TUPLE --> EXTRACT_TERMS[Extração de Prazo, Vencimento e Método de Pagamento]
+    PARSER_TUPLE --> EXTRACT_OBS[Auditoria da Coluna Observação:<br/>PIX, doações, remanufatura pendente, CPF de pesquisador CNPq]
+
+    EXTRACT_PO_NF --> MULTI_ITEM_ENGINE[Motor Multi-Item & Multi-NF por Cotação:<br/>Suporte a múltiplas NFs por proposta e faturamento fracionado]
+    
+    MULTI_ITEM_ENGINE --> DB_ORCS[Tabela orcamentos_historico + itens_json estruturado]
+    MULTI_ITEM_ENGINE --> MIRROR_ORCS[Local Mirror em Disco orcamentos_historico.json]
+
+    DB_ORCS --> ABC_ENGINE[Motor Executivo de Inadimplência Auditada]
+    XML_NFS[172 Notas Fiscais XML] --> ABC_ENGINE
+
+    ABC_ENGINE --> ISOLATE_DELAY[Isolamento Estrito de Atrasos Reais:<br/>Status == Em Atraso OU Vencimento < Hoje e Não Quitado]
+    ABC_ENGINE --> ISOLATE_FUTURE[Segregação de Títulos Futuros em Dia:<br/>Status == À Vencer OU Vencimento > Hoje]
+
+    ISOLATE_DELAY --> TOP_ABC[Curva ABC de Inadimplência:<br/>1. Viva Rio: R$ 10.499,20 - 33d atraso<br/>2. Fugro: R$ 8.338,00 - 27d atraso<br/>3. Aerodrone: R$ 4.000,00 - 112d atraso]
+    ISOLATE_FUTURE --> RECEIVABLES[À Receber em Dia: R$ 474.183,70<br/>WAMS, Fugro, CLS, UFPA/CNPq]
+
+    DB_ORCS --> MODAL_VIEW[Visualizador Executivo Multi-Item:<br/>Header com POs/NFs | Tabela Item a Item | Subtotais]
+```
+
+1. **Parser Determinístico Ancorado por 5-Tupla Monetária**:
+   - Resolve o problema de deslocamento de colunas (*column shift*) decorrente de células vazias ou traços (`-`) em extrações de PDF/Excel.
+   - Todo item possui uma assinatura financeira de 5 elementos contínuos: `[Valor Unitário, Valor Total Qtd, Desconto %, Frete, Valor Final do Item]`. A partir dessa âncora, os elementos anteriores (Método de Pagamento, Status Financeiro, Vencimento, Prazo, Nº NFe, Tipo NFe, PO e Aprovação) e posteriores (Status de Pagamento, Situação do Pedido, Observação e Sequencial `N°`) são indexados com 100% de exatidão matemática.
+2. **Engenharia de Propostas Multi-Item & Multi-NF**:
+   - Um mesmo orçamento (ex: `#161225` com 3 itens ou `#010526` com itens de pilhas e packs submarinos) é preservado integralmente como proposta unificada, mantendo a individualidade de cada produto.
+   - Cada linha suporta números de NF-e diferentes (ex: vendas fracionadas ou entrega em lotes distintos), prazos distintos e status de entrega independentes.
+3. **Curva ABC Auditada de Atrasos**:
+   - **Fim dos Falsos Devedores**: Anteriormente, notas emitidas para clientes pontuais (como DOF Subsea R$ 258k e Sea Survey R$ 193k) eram contabilizadas como atraso. Agora, faturas liquidadas são descartadas do cálculo de inadimplência.
+   - **Atrasos Reais com Dias Exatos**: Apenas orçamentos/faturas com status `Em Atraso` ou vencidos sem quitação compõem a Curva ABC:
+     * **Viva Rio**: R$ 10.499,20 (Orçamentos `#130226` e `#090426`, 33 e 28 dias de atraso).
+     * **Fugro**: R$ 8.338,00 (Orçamentos `#030526` e `#070526`, 27 e 13 dias de atraso).
+     * **Aerodrone**: R$ 4.000,00 (112 dias de atraso).
+   - **Títulos a Vencer em Dia**: Faturas legítimas com vencimento em setembro (WAMS R$ 275k, Fugro R$ 190k, CLS R$ 4.1k, UFPA/CNPq R$ 2.3k) compõem o saldo `À Receber (Em Dia)`, alimentando com precisão o Runway de curto prazo.
+4. **Visualizador Executivo Multi-Item (`window.abrirModalDetalhesOrcamento`)**:
+   - Modal em glassmorphism Deep Sea com cabeçalho de metadados, links diretos para o Dossiê 360° do cliente, lista de todas as POs e NFs, tabela item a item com observações de pagamento em destaque (PIX, parcelamentos, CPF de pesquisador) e rodapé com totais consolidados de itens, frete e valor da proposta.
+
+---
+
 ## 3. Comandos Úteis de Manutenção e Sincronização
 
 ```bash

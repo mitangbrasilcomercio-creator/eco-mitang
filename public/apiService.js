@@ -71,6 +71,10 @@ class ApiService {
     return this.request(`/orcamentos/${numero}`);
   }
 
+  async getOrcamento(numero) {
+    return this.getOrcamentoDetalhe(numero);
+  }
+
   // 5. Transações Bancárias Conciliadas (OFX Itaú e Bradesco)
   async getTransacoesFinanceiras(params = {}) {
     const query = new URLSearchParams(params).toString();

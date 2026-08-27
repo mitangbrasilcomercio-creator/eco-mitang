@@ -14,7 +14,7 @@ export class OrcamentosController {
         SELECT 
           id, numero_orcamento, vendido_por, data_emissao, mes_emissao, ano_emissao,
           cliente_nome, cliente_cnpj_cpf, cliente_contato, status_aprovacao,
-          situacao_geral, valor_total, jsonb_array_length(itens_json) as total_itens,
+          situacao_geral, valor_total, itens_json, jsonb_array_length(itens_json) as total_itens,
           created_at
         FROM orcamentos_historico
         WHERE 1=1
@@ -45,7 +45,9 @@ export class OrcamentosController {
       const countRes = await client.query(`SELECT COUNT(*) as total FROM orcamentos_historico;`);
 
       const total = parseInt(countRes.rows[0].total);
-      setImmediate(() => localMirror.saveMirror('orcamentos_historico', result.rows));
+      if (!status && !busca && !vendido_por && Number(limit) >= 200) {
+        setImmediate(() => localMirror.saveMirror('orcamentos_historico', result.rows));
+      }
 
       res.status(200).json({
         success: true,

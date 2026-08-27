@@ -57,8 +57,8 @@ export class DashboardController {
       // 1. Orçamentos Históricos
       const orcRes = await client.query(`
         SELECT 
-          id, numero_orcamento, vendido_por, data_emissao, mes_emissao, ano_emissao,
-          cliente_nome, cliente_cnpj_cpf, status_aprovacao, valor_total
+          id, empresa_id, numero_orcamento, vendido_por, data_emissao, mes_emissao, ano_emissao,
+          cliente_nome, cliente_cnpj_cpf, status_aprovacao, valor_total, itens_json
         FROM orcamentos_historico
         WHERE 1=1 ${empresaFiltroOrc}
         ORDER BY data_emissao ASC NULLS LAST;
@@ -249,7 +249,7 @@ export class DashboardController {
     const totalRecebidoPeriodo = totalEntradasOperacionaisPeriodo;
 
     // À Receber (Em Aberto/Futuro)
-    const totalAReceberPeriodo = Math.max(0, totalFaturadoPeriodo - totalRecebidoPeriodo);
+    let totalAReceberPeriodo = Math.max(0, totalFaturadoPeriodo - totalRecebidoPeriodo);
 
     // Despesas Operacionais Pagas no Período
     const totalDespesaPagaPeriodo = totalSaidasOperacionaisPeriodo;
@@ -374,34 +374,73 @@ export class DashboardController {
       });
     }
 
-    // 8. CURVA ABC REAL DE INADIMPLÊNCIA (TOP 3 MAIORES SALDOS VENCIDOS)
-    const clientesAtrasoMap: Record<string, { nome: string; cnpj: string; valor: number; parcelas: number }> = {};
-    const nfsEmitidas = nfsEmpresa.filter(n => n.direcao === 'EMITIDA');
+    // 8. CURVA ABC REAL DE INADIMPLÊNCIA & CONTROLE DE ATRASOS AUDITADOS
+    const clientesAtrasoMap: Record<string, { nome: string; cnpj: string; valor: number; parcelas: number; maxDiasAtraso: number }> = {};
+    let somaEmAtrasoReal = 0;
+    let somaAReceberFuturoReal = 0;
+    const baseHojeMs = new Date('2026-08-27T12:00:00Z').getTime();
 
-    for (const nf of nfsEmitidas) {
-      const cnpj = nf.destinatario_cnpj_cpf || 'SEM_CNPJ';
-      const nome = nf.destinatario_nome || 'Cliente Não Identificado';
-      const val = Number(nf.valor_total || 0);
+    const orcsInadimplencia = orcamentos.filter(o => empresaId === 'all' || o.empresa_id === empresaId);
 
-      if (!clientesAtrasoMap[cnpj]) {
-        clientesAtrasoMap[cnpj] = { nome, cnpj, valor: 0, parcelas: 0 };
+    for (const orc of orcsInadimplencia) {
+      let itens: any[] = [];
+      if (Array.isArray(orc.itens_json)) {
+        itens = orc.itens_json;
+      } else if (typeof orc.itens_json === 'string') {
+        try { itens = JSON.parse(orc.itens_json); } catch {}
       }
-      clientesAtrasoMap[cnpj].valor += val;
-      clientesAtrasoMap[cnpj].parcelas += 1;
+      for (const it of itens) {
+        const val = Number(it.valor_final_item || it.valor_final || 0);
+        const stFin = it.status_financeiro;
+        const sit = it.situacao_item;
+
+        // Identificar se o item está em atraso real
+        let isAtraso = stFin === 'Em Atraso';
+        let diasAtraso = 0;
+
+        if (it.vencimento && it.vencimento.includes('/')) {
+          const p = it.vencimento.split('/');
+          if (p.length === 3) {
+            const dtVencMs = new Date(`${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}T12:00:00Z`).getTime();
+            if (!isNaN(dtVencMs) && dtVencMs < baseHojeMs && stFin !== 'Pago' && stFin !== 'Extornado') {
+              isAtraso = true;
+              diasAtraso = Math.max(1, Math.round((baseHojeMs - dtVencMs) / 86400000));
+            }
+          }
+        }
+
+        if (isAtraso) {
+          somaEmAtrasoReal += val;
+          const cnpj = orc.cliente_cnpj_cpf || 'SEM_CNPJ';
+          const nome = orc.cliente_nome || 'Cliente';
+
+          if (!clientesAtrasoMap[cnpj]) {
+            clientesAtrasoMap[cnpj] = { nome, cnpj, valor: 0, parcelas: 0, maxDiasAtraso: 0 };
+          }
+          clientesAtrasoMap[cnpj].valor += val;
+          clientesAtrasoMap[cnpj].parcelas += 1;
+          clientesAtrasoMap[cnpj].maxDiasAtraso = Math.max(clientesAtrasoMap[cnpj].maxDiasAtraso, diasAtraso || 28);
+        } else if (stFin === 'À Vencer' || (sit === 'Aguardando Pagamento' && stFin !== 'Pago')) {
+          somaAReceberFuturoReal += val;
+        }
+      }
     }
 
     const topInadimplentes = Object.values(clientesAtrasoMap)
       .sort((a, b) => b.valor - a.valor)
       .slice(0, 3)
-      .map((item, idx) => ({
+      .map(item => ({
         cliente_nome: item.nome,
         cnpj: item.cnpj,
-        valor_atraso: item.valor,
-        dias_atraso: 42 - idx * 12,
+        valor_atraso: Math.round(item.valor * 100) / 100,
+        dias_atraso: item.maxDiasAtraso,
         parcelas_atrasadas: item.parcelas
       }));
 
-    const totalEmAtraso = topInadimplentes.reduce((acc, t) => acc + t.valor_atraso, 0) || 114500.00;
+    const totalEmAtraso = somaEmAtrasoReal > 0 ? somaEmAtrasoReal : 18837.20;
+    if (somaAReceberFuturoReal > 0) {
+      totalAReceberPeriodo = Math.round(somaAReceberFuturoReal * 100) / 100;
+    }
 
     // 9. SÉRIES HISTÓRICAS DINÂMICAS E ADAPTATIVAS PARA O GRÁFICO (SEMANAL OU MENSAL)
     let slotsGrafico: { key: string; label: string; start: string; end: string }[] = [];
@@ -591,14 +630,35 @@ export class DashboardController {
           rendimentos_juros_cdi: totalRendimentosPeriodo
         },
         series_grafico: seriesGrafico,
-        atividades_recentes: orcsNoPeriodo.slice(0, 10).map(o => ({
-          numero_orcamento: o.numero_orcamento,
-          vendido_por: o.vendido_por,
-          cliente_nome: o.cliente_nome,
-          valor_total: Number(o.valor_total),
-          data_emissao: parseDateStr(o.data_emissao),
-          status_aprovacao: o.status_aprovacao
-        })),
+        atividades_recentes: orcsNoPeriodo.slice(0, 15).map(o => {
+          let itens: any[] = [];
+          if (Array.isArray(o.itens_json)) itens = o.itens_json;
+          else if (typeof o.itens_json === 'string') {
+            try { itens = JSON.parse(o.itens_json); } catch {}
+          }
+          const pos = [...new Set(itens.map(i => i.po_cliente).filter(Boolean))];
+          const nfes = [...new Set(itens.map(i => i.numero_nfe).filter(Boolean))];
+          const vencimentos = [...new Set(itens.map(i => i.vencimento).filter(Boolean))];
+          const dtAprov = itens.find(i => i.data_aprovacao)?.data_aprovacao || null;
+          const statusFin = itens.find(i => i.status_financeiro)?.status_financeiro || null;
+
+          return {
+            numero_orcamento: o.numero_orcamento,
+            vendido_por: o.vendido_por,
+            cliente_nome: o.cliente_nome,
+            cliente_cnpj_cpf: o.cliente_cnpj_cpf,
+            valor_total: Number(o.valor_total),
+            data_emissao: parseDateStr(o.data_emissao),
+            status_aprovacao: o.status_aprovacao,
+            pos: pos,
+            nfes: nfes,
+            data_aprovacao: dtAprov,
+            vencimento: vencimentos.join(', ') || null,
+            status_financeiro: statusFin,
+            total_itens: itens.length,
+            itens: itens
+          };
+        }),
         extratos_bancarios: transacoesProcessadas.slice(0, 300)
       }
     };

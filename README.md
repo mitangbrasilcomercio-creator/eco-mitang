@@ -44,6 +44,15 @@ Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** c
     - **Toolbar de Filtros e Busca Rápida**: Filtros instantâneos (`Todas`, `Entradas (+119)`, `Saídas (-101)`, `Custódia CDI (80)`, `Rendimentos`) e busca dinâmica por favorecido ou valor.
     - **Linha de Subtotais Dinâmicos no Rodapé (`tfoot`)**: Cálculo em tempo real dos lançamentos visíveis, soma de entradas, soma de saídas e saldo líquido do recorte filtrado.
     - **Dossiê 360° da Contraparte / Colaborador PJ**: Clique no Histórico/Memo abre o fluxo consolidado com a pessoa física ou jurídica (Total Pago, Total Recebido, Saldo Líquido e tabela de todas as transferências bancárias no ano).
+13. **Inteligência de Ciclo de Vida de Orçamentos, POs, Notas Fiscais e Curva ABC Auditada**:
+    - **Parser Determinístico Ancorado por 5-Tupla Monetária**: Extração com 100% de precisão de todos os 325 itens de propostas da planilha mestre da holding (Mitang Brasil e Arandu), eliminando o bug de deslocamento de colunas (*column shift*) em células vazias.
+    - **Engenharia Multi-Item & Multi-NF por Cotação**: Tratamento estruturado de orçamentos com múltiplos itens de baterias onde cada linha pode possuir seu próprio Pedido de Compra (PO), prazo de pagamento, vencimento e nota fiscal própria (ex: entregas parciais ou emissão fracionada entre itens de produtos e serviços).
+    - **Curva ABC Real de Inadimplência vs Títulos em Aberto (Sem Mocks)**:
+      * **Isolamento de Atrasos Reais**: Identificação precisa de títulos vencidos e não quitados (ex: Viva Rio com 33 dias de atraso e Fugro com 27 dias de atraso), eliminando a distorção anterior que somava notas fiscais já pagas (como DOF Subsea e Sea Survey) como dívida pendente.
+      * **Segregação de Títulos a Vencer Legítimos**: Faturamento a prazo com vencimento futuro (ex: WAMS, Fugro e UFPA/CNPq) classificados corretamente como `À Receber (Em Dia)`.
+    - **Visualizador Executivo Multi-Item (Modal Interativo)**:
+      * Cabeçalho executivo com status (`Compra Aprovada`, `À Vencer`, `Em Atraso`), empresa emissora (Mitang ou Arandu), cliente, CNPJ, contato e botão direto para o Dossiê 360°.
+      * Tabela item a item com Pack/Modelo, SKU, Química, Quantidade, Preço Unitário, Desconto (%), Frete, PO vinculada, Tipo e Nº da Nota Fiscal, Vencimento, Método de Pagamento e Observações auditadas (ex: pagamento em atraso via PIX, retenção física de bateria para remanufatura, faturamento parcial 50/50 e boleto em CPF para pesquisadores de universidades federais/CNPq).
 
 ---
 

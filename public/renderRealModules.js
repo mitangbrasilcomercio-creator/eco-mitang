@@ -1296,16 +1296,18 @@ window.renderDashboardRealData = async function() {
             <table class="w-full text-left text-xs border-collapse">
               <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
                 <tr>
-                  <th class="p-3">Nº Cotação</th>
-                  <th class="p-3">Empresa</th>
-                  <th class="p-3">Cliente</th>
+                  <th class="p-3">Cotação & Vendedor</th>
+                  <th class="p-3">Cliente / CNPJ</th>
+                  <th class="p-3">Pedido de Compra (PO)</th>
+                  <th class="p-3">Nota Fiscal</th>
+                  <th class="p-3">Vencimento</th>
                   <th class="p-3 text-right">Valor Total</th>
-                  <th class="p-3">Data Emissão</th>
                   <th class="p-3 text-center">Status</th>
+                  <th class="p-3 text-center">Ação</th>
                 </tr>
               </thead>
               <tbody id="tabela-recentes-dash" class="divide-y divide-white/5 text-slate-300">
-                <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando negociações...</td></tr>
+                <tr><td colspan="8" class="p-6 text-center text-slate-500">Carregando negociações...</td></tr>
               </tbody>
             </table>
           </div>
@@ -1417,24 +1419,59 @@ window.renderDashboardRealData = async function() {
     const recentes = res.data.atividades_recentes || [];
     const recBody = document.getElementById('tabela-recentes-dash');
     if (recBody) {
-      recBody.innerHTML = recentes.map(r => `
-        <tr class="hover:bg-white/5 transition-colors">
-          <td class="p-3 font-mono font-bold text-cyan-400">#${r.numero_orcamento}</td>
+      recBody.innerHTML = recentes.map(r => {
+        const isAprovado = r.status_aprovacao === 'Compra Aprovada';
+        const posText = (r.pos && r.pos.length > 0) 
+          ? r.pos.map(p => `<span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono text-[10px] border border-purple-500/30">${p}</span>`).join(' ')
+          : `<span class="text-slate-500 text-[11px]">-</span>`;
+        const nfesText = (r.nfes && r.nfes.length > 0)
+          ? r.nfes.map(n => `<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">NF ${n}</span>`).join(' ')
+          : `<span class="text-slate-500 text-[11px]">Sem NF</span>`;
+        const vencText = r.vencimento ? `<span class="font-mono text-slate-300 text-xs">${r.vencimento}</span>` : `<span class="text-slate-500 text-xs">-</span>`;
+        
+        let badgeStatusFin = '';
+        if (r.status_financeiro === 'Pago') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Pago</span>';
+        } else if (r.status_financeiro === 'Em Atraso') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-500/30 animate-pulse">Em Atraso</span>';
+        } else if (r.status_financeiro === 'À Vencer') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">À Vencer</span>';
+        } else {
+          badgeStatusFin = `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${isAprovado ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'}">${r.status_aprovacao}</span>`;
+        }
+
+        return `
+        <tr class="hover:bg-white/5 transition-colors group cursor-pointer" onclick="window.abrirModalDetalhesOrcamento('${r.numero_orcamento}')">
           <td class="p-3">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
-              ${r.vendido_por}
-            </span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-mono font-bold text-cyan-400">#${r.numero_orcamento}</span>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${r.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+                ${r.vendido_por}
+              </span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">Emissão: ${window.formatDateBR(r.data_emissao)}</span>
           </td>
-          <td class="p-3 font-medium text-slate-200">${r.cliente_nome}</td>
-          <td class="p-3 text-right font-bold text-slate-100 font-mono">${window.formatCurrencyBR(r.valor_total)}</td>
-          <td class="p-3 text-slate-400 font-mono">${window.formatDateBR(r.data_emissao)}</td>
+          <td class="p-3">
+            <p class="font-medium text-slate-200 group-hover:text-cyan-300 transition-colors">${r.cliente_nome}</p>
+            <p class="text-[10px] text-slate-400 font-mono">${window.formatCnpjBR(r.cliente_cnpj_cpf || '')}</p>
+          </td>
+          <td class="p-3">${posText}</td>
+          <td class="p-3">${nfesText}</td>
+          <td class="p-3">${vencText}</td>
+          <td class="p-3 text-right">
+            <span class="font-bold text-slate-100 font-mono">${window.formatCurrencyBR(r.valor_total)}</span>
+            <span class="text-[10px] text-slate-400 block">${r.total_itens || 1} item(ns)</span>
+          </td>
+          <td class="p-3 text-center">${badgeStatusFin}</td>
           <td class="p-3 text-center">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.status_aprovacao === 'Compra Aprovada' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'}">
-              ${r.status_aprovacao}
-            </span>
+            <button onclick="event.stopPropagation(); window.abrirModalDetalhesOrcamento('${r.numero_orcamento}')" 
+                    class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 transition-all flex items-center gap-1 mx-auto">
+              <i class="ph ph-magnifying-glass-plus text-xs"></i> Detalhar
+            </button>
           </td>
         </tr>
-      `).join('');
+      `;
+      }).join('');
     }
 
     // Suporte a abertura direta de aba via query param ?tab=tesouraria
@@ -2994,16 +3031,18 @@ window.renderOrcamentosRealData = async function() {
           <table class="w-full text-left text-xs border-collapse">
             <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
               <tr>
-                <th class="p-3.5">Nº Orçamento</th>
-                <th class="p-3.5">Vendido Por</th>
-                <th class="p-3.5">Data Emissão</th>
-                <th class="p-3.5">Cliente</th>
+                <th class="p-3.5">Cotação & Vendedor</th>
+                <th class="p-3.5">Cliente / CNPJ</th>
+                <th class="p-3.5">Pedido de Compra (PO)</th>
+                <th class="p-3.5">Nota Fiscal</th>
+                <th class="p-3.5">Vencimento</th>
                 <th class="p-3.5 text-right">Valor Total</th>
                 <th class="p-3.5 text-center">Status</th>
+                <th class="p-3.5 text-center">Ações</th>
               </tr>
             </thead>
             <tbody id="tabela-orcamentos-corpo" class="divide-y divide-white/5 text-slate-300">
-              <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando cotações...</td></tr>
+              <tr><td colspan="8" class="p-6 text-center text-slate-500">Carregando cotações...</td></tr>
             </tbody>
           </table>
         </div>
@@ -3036,24 +3075,66 @@ window.renderOrcamentosRealData = async function() {
       if (!tbody) return;
 
       tbody.innerHTML = filtrados.map(o => {
+        let itens = [];
+        if (Array.isArray(o.itens_json)) itens = o.itens_json;
+        else if (typeof o.itens_json === 'string') {
+          try { itens = JSON.parse(o.itens_json); } catch {}
+        }
+        const pos = [...new Set(itens.map(i => i.po_cliente).filter(Boolean))];
+        const nfes = [...new Set(itens.map(i => i.numero_nfe).filter(Boolean))];
+        const vencimentos = [...new Set(itens.map(i => i.vencimento).filter(Boolean))];
+        const statusFin = itens.find(i => i.status_financeiro)?.status_financeiro || null;
+
         const isAprovado = o.status_aprovacao === 'Compra Aprovada';
+        const posText = pos.length > 0 
+          ? pos.map(p => `<span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono text-[10px] border border-purple-500/30">${p}</span>`).join(' ')
+          : `<span class="text-slate-500 text-[11px]">-</span>`;
+        const nfesText = nfes.length > 0
+          ? nfes.map(n => `<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">NF ${n}</span>`).join(' ')
+          : `<span class="text-slate-500 text-[11px]">Sem NF</span>`;
+        const vencText = vencimentos.length > 0 
+          ? `<span class="font-mono text-slate-300 text-xs">${vencimentos.join(', ')}</span>` 
+          : `<span class="text-slate-500 text-xs">-</span>`;
+
+        let badgeStatusFin = '';
+        if (statusFin === 'Pago') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Pago</span>';
+        } else if (statusFin === 'Em Atraso') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-500/30 animate-pulse">Em Atraso</span>';
+        } else if (statusFin === 'À Vencer') {
+          badgeStatusFin = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">À Vencer</span>';
+        } else {
+          badgeStatusFin = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold ${isAprovado ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-slate-400'}">${o.status_aprovacao}</span>`;
+        }
+
         return `
-          <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-3.5 font-mono font-bold text-cyan-400">#${o.numero_orcamento}</td>
+          <tr class="hover:bg-white/5 transition-colors group cursor-pointer" onclick="window.abrirModalDetalhesOrcamento('${o.numero_orcamento}')">
             <td class="p-3.5">
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${o.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300' : 'bg-blue-500/20 text-blue-300'}">
-                ${o.vendido_por}
-              </span>
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono font-bold text-cyan-400">#${o.numero_orcamento}</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${o.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+                  ${o.vendido_por}
+                </span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono block mt-0.5">Emissão: ${window.formatDateBR(o.data_emissao)}</span>
             </td>
-            <td class="p-3.5 text-slate-400 font-mono">${window.formatDateBR(o.data_emissao || (o.mes_emissao + '/' + o.ano_emissao))}</td>
-            <td class="p-3.5 font-medium text-slate-100">${o.cliente_nome}</td>
+            <td class="p-3.5">
+              <p class="font-medium text-slate-100 group-hover:text-cyan-300 transition-colors">${o.cliente_nome}</p>
+              <p class="text-[10px] text-slate-400 font-mono">${window.formatCnpjBR(o.cliente_cnpj_cpf || '')}</p>
+            </td>
+            <td class="p-3.5">${posText}</td>
+            <td class="p-3.5">${nfesText}</td>
+            <td class="p-3.5">${vencText}</td>
             <td class="p-3.5 text-right font-mono font-bold text-slate-100">
-              R$ ${Number(o.valor_total).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              ${window.formatCurrencyBR(o.valor_total)}
+              <span class="text-[10px] text-slate-400 block">${itens.length || 1} item(ns)</span>
             </td>
+            <td class="p-3.5 text-center">${badgeStatusFin}</td>
             <td class="p-3.5 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${isAprovado ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-slate-400'}">
-                ${o.status_aprovacao}
-              </span>
+              <button onclick="event.stopPropagation(); window.abrirModalDetalhesOrcamento('${o.numero_orcamento}')" 
+                      class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 transition-all flex items-center gap-1 mx-auto">
+                <i class="ph ph-magnifying-glass-plus text-xs"></i> Detalhar
+              </button>
             </td>
           </tr>
         `;
@@ -3086,6 +3167,217 @@ window.renderOrcamentosRealData = async function() {
 
   } catch (err) {
     console.error('Erro renderOrcamentosRealData:', err);
+  }
+};
+
+// ============================================================================
+// MODAL EXECUTIVO DE DETALHAMENTO DE ORÇAMENTO (MULTI-ITEM, PO, NF & VENCIMENTO)
+// ============================================================================
+window.abrirModalDetalhesOrcamento = async function(numeroOrcamento) {
+  const oldModal = document.getElementById('orcamento-modal-overlay');
+  if (oldModal) oldModal.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'orcamento-modal-overlay';
+  overlay.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in';
+  overlay.innerHTML = `
+    <div class="glass-panel w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-slate-950/95 text-slate-200">
+      <div id="orcamento-modal-loader" class="p-16 flex flex-col items-center justify-center gap-4">
+        <i class="ph ph-spinner animate-spin text-4xl text-cyan-400"></i>
+        <p class="text-sm font-semibold text-slate-300">Carregando detalhes do orçamento #${numeroOrcamento} com itens, POs e notas fiscais...</p>
+      </div>
+      <div id="orcamento-modal-content" class="hidden flex-1 flex flex-col overflow-hidden"></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  try {
+    const res = await window.apiService.getOrcamento(numeroOrcamento);
+    if (!res.success || !res.data) {
+      document.getElementById('orcamento-modal-loader').innerHTML = `
+        <i class="ph ph-warning-circle text-4xl text-amber-400"></i>
+        <p class="text-sm text-slate-300">Orçamento #${numeroOrcamento} não encontrado.</p>
+        <button onclick="document.getElementById('orcamento-modal-overlay').remove()" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-semibold hover:bg-white/20 mt-2">Fechar</button>
+      `;
+      return;
+    }
+
+    const o = res.data;
+    const loader = document.getElementById('orcamento-modal-loader');
+    const content = document.getElementById('orcamento-modal-content');
+    if (loader) loader.remove();
+    if (!content) return;
+    content.classList.remove('hidden');
+
+    let itens = [];
+    if (Array.isArray(o.itens_json)) itens = o.itens_json;
+    else if (typeof o.itens_json === 'string') {
+      try { itens = JSON.parse(o.itens_json); } catch {}
+    }
+
+    const pos = [...new Set(itens.map(i => i.po_cliente).filter(Boolean))];
+    const nfes = [...new Set(itens.map(i => i.numero_nfe).filter(Boolean))];
+    const isAprovado = o.status_aprovacao === 'Compra Aprovada';
+    const totalQtd = itens.reduce((acc, i) => acc + (Number(i.quantidade) || 1), 0);
+    const totalFrete = itens.reduce((acc, i) => acc + (Number(i.valor_frete) || 0), 0);
+    const valorFinal = Number(o.valor_total || 0);
+
+    content.innerHTML = `
+      <!-- Cabeçalho do Modal -->
+      <div class="p-6 border-b border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/60">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-bold font-mono text-cyan-400">Orçamento #${o.numero_orcamento}</span>
+            <span class="px-2 py-0.5 rounded text-xs font-bold ${o.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+              ${o.vendido_por}
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${isAprovado ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30'}">
+              ${o.status_aprovacao}
+            </span>
+          </div>
+          <p class="text-sm font-semibold text-slate-200 flex items-center gap-2">
+            <i class="ph ph-buildings text-cyan-400"></i> ${o.cliente_nome}
+            <span class="text-xs text-slate-400 font-mono font-normal">(${window.formatCnpjBR(o.cliente_cnpj_cpf || '')})</span>
+            ${o.cliente_contato ? `<span class="text-xs text-slate-400 font-normal">• Contato: ${o.cliente_contato}</span>` : ''}
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="window.buscarEAbrirDossiePorNome('${o.cliente_nome}')" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition-all flex items-center gap-1.5">
+            <i class="ph ph-identification-card text-sm"></i> Dossiê 360°
+          </button>
+          <button onclick="document.getElementById('orcamento-modal-overlay').remove()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+            <i class="ph ph-x text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumo Executivo da Operação -->
+      <div class="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900/30 border-b border-white/5 text-xs">
+        <div class="p-2.5 rounded-xl bg-black/20 border border-white/5 space-y-0.5">
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Data Emissão</span>
+          <p class="font-bold text-slate-200 font-mono">${window.formatDateBR(o.data_emissao)}</p>
+        </div>
+        <div class="p-2.5 rounded-xl bg-black/20 border border-white/5 space-y-0.5">
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Pedidos de Compra (PO)</span>
+          <div class="flex flex-wrap gap-1">
+            ${pos.length > 0 ? pos.map(p => `<span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono text-[10px] border border-purple-500/30">${p}</span>`).join('') : '<span class="text-slate-500 font-mono">Sem PO</span>'}
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-black/20 border border-white/5 space-y-0.5">
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Notas Fiscais Emitidas</span>
+          <div class="flex flex-wrap gap-1">
+            ${nfes.length > 0 ? nfes.map(n => `<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">NF ${n}</span>`).join('') : '<span class="text-slate-500 font-mono">Sem NF</span>'}
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-black/20 border border-white/5 space-y-0.5">
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Valor Total Proposta</span>
+          <p class="font-bold text-cyan-300 font-mono text-sm">${window.formatCurrencyBR(valorFinal)}</p>
+        </div>
+      </div>
+
+      <!-- Tabela Multi-Item Linha a Linha -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <i class="ph ph-stack text-cyan-400"></i> Composição Detalhada dos Itens (${itens.length} itens cotados • ${totalQtd} unidades)
+          </h4>
+          <span class="text-[11px] text-slate-500 font-mono">Linha a linha auditada da planilha oficial</span>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 overflow-hidden bg-black/20">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-black/30 text-slate-400 uppercase font-semibold border-b border-white/5 text-[11px]">
+                <tr>
+                  <th class="p-3 text-center">#</th>
+                  <th class="p-3">Pack / Bateria</th>
+                  <th class="p-3">SKU & Química</th>
+                  <th class="p-3 text-center">Qtd</th>
+                  <th class="p-3 text-right">Unitário</th>
+                  <th class="p-3 text-center">Desc.</th>
+                  <th class="p-3 text-right">Frete</th>
+                  <th class="p-3 text-right">Total Item</th>
+                  <th class="p-3 text-center">PO / NF</th>
+                  <th class="p-3 text-center">Vencimento</th>
+                  <th class="p-3 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-slate-300">
+                ${itens.map((it, idx) => {
+                  const itAprov = it.status_item === 'Compra Aprovada';
+                  const stFin = it.status_financeiro || (itAprov ? 'Pendente' : '-');
+                  let badgeSt = '';
+                  if (stFin === 'Pago') badgeSt = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Pago</span>';
+                  else if (stFin === 'Em Atraso') badgeSt = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-500/30 animate-pulse">Em Atraso</span>';
+                  else if (stFin === 'À Vencer') badgeSt = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">À Vencer</span>';
+                  else badgeSt = `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-500/20 text-slate-400">${stFin}</span>`;
+
+                  return `
+                    <tr class="hover:bg-white/5 transition-colors">
+                      <td class="p-3 text-center font-mono font-bold text-slate-400">${it.sequencial || (idx + 1)}</td>
+                      <td class="p-3 font-semibold text-slate-100">
+                        ${it.pack_produto}
+                        ${it.observacao ? `<div class="mt-1 p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-300 leading-tight"><strong>Obs:</strong> ${it.observacao}</div>` : ''}
+                      </td>
+                      <td class="p-3 font-mono text-slate-400">
+                        <span class="text-cyan-300">${it.codigo_sku || '-'}</span>
+                        <span class="block text-[10px] text-slate-500">${it.quimica || '-'}</span>
+                      </td>
+                      <td class="p-3 text-center font-bold font-mono text-slate-100">${it.quantidade}</td>
+                      <td class="p-3 text-right font-mono">${window.formatCurrencyBR(it.valor_unitario)}</td>
+                      <td class="p-3 text-center font-mono text-slate-400">${it.desconto_percentual ? it.desconto_percentual + '%' : '0%'}</td>
+                      <td class="p-3 text-right font-mono text-slate-400">${it.valor_frete > 0 ? window.formatCurrencyBR(it.valor_frete) : '-'}</td>
+                      <td class="p-3 text-right font-mono font-bold text-cyan-300">${window.formatCurrencyBR(it.valor_final_item)}</td>
+                      <td class="p-3 text-center">
+                        <div class="space-y-0.5">
+                          ${it.po_cliente ? `<span class="px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono text-[10px] block border border-purple-500/30">${it.po_cliente}</span>` : ''}
+                          ${it.numero_nfe ? `<span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] block border border-emerald-500/30">NF ${it.numero_nfe}</span>` : '<span class="text-slate-500 text-[10px] block">Sem NF</span>'}
+                        </div>
+                      </td>
+                      <td class="p-3 text-center font-mono text-xs">
+                        ${it.vencimento ? `<span class="text-slate-200 block">${it.vencimento}</span>` : '<span class="text-slate-500">-</span>'}
+                        ${it.prazo ? `<span class="text-[10px] text-slate-400 block">${it.prazo}d</span>` : ''}
+                      </td>
+                      <td class="p-3 text-center">${badgeSt}</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+              <tfoot class="bg-black/40 border-t border-white/10 font-mono text-xs">
+                <tr>
+                  <td colspan="3" class="p-3 font-bold text-slate-300 uppercase">Totais Consolidados da Proposta</td>
+                  <td class="p-3 text-center font-bold text-slate-100">${totalQtd} un.</td>
+                  <td class="p-3 text-right text-slate-400">-</td>
+                  <td class="p-3 text-center text-slate-400">-</td>
+                  <td class="p-3 text-right font-bold text-slate-300">${window.formatCurrencyBR(totalFrete)}</td>
+                  <td class="p-3 text-right font-bold text-cyan-300 text-sm">${window.formatCurrencyBR(valorFinal)}</td>
+                  <td colspan="3"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé com Fechamento -->
+      <div class="p-4 border-t border-white/5 bg-slate-900/40 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">
+          Identificador no Banco: <span class="font-mono text-slate-500">${o.id}</span>
+        </span>
+        <button onclick="document.getElementById('orcamento-modal-overlay').remove()" class="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-semibold transition-all">
+          Fechar Visualizador
+        </button>
+      </div>
+    `;
+
+  } catch (err) {
+    console.error('Erro ao abrir modal de orçamento:', err);
+    alert('Erro ao carregar detalhes do orçamento. Verifique o console.');
   }
 };
 

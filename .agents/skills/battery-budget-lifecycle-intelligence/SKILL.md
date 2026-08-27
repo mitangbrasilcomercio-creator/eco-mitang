@@ -110,3 +110,20 @@ Ao processar relatórios, gráficos de conversão ou análises executivas:
    * (A) Houve cancelamento parcial de itens; OU
    * (B) Houve entrega/faturamento fracionado em lote pendente; OU
    * (C) Trata-se de serviço de bancada aguardando recebimento físico do equipamento.
+
+---
+
+## 5. Parser Determinístico por 5-Tupla Monetária & Curva ABC Auditada
+
+### 5.1 O Problema do Deslocamento de Colunas (*Column Shift*) em Células Vazias
+Ao extrair textos brutos de PDFs de orçamentos, células vazias ou com traço (`-`) costumam fundir linhas adjacentes. Para garantir 100% de integridade em todas as 325 linhas de itens (220 cotações únicas), a IA deve utilizar a âncora determinística de 5 valores financeiros:
+`[Valor Unitário R$, Valor Total Qtd R$, Desconto %, Frete R$, Valor Final do Item R$]`
+
+* **Antes da Âncora:** Vencimento (`DD/MM/AAAA`), Prazo (`30d`), Tipo e Número de NF-e (`00.000.xxx`), Pedido de Compra (`PO`) e Data de Aprovação.
+* **Depois da Âncora:** Pagamento (`Ok`, `Pendente`, `Extornado`), Situação (`Compra Finalizada`, `Aguardando Pagamento`, `Pedido Cancelado`), Observação da Linha e Sequencial (`N°`).
+
+### 5.2 Curva ABC Real de Atrasos vs Faturamento a Vencer
+A IA nunca deve tratar notas fiscais emitidas como atraso se elas já foram liquidadas no banco.
+* **Atraso Real:** Somente itens/propostas com `status_financeiro == 'Em Atraso'` OU `vencimento < hoje` com status pendente (ex: Viva Rio com 33 dias e Fugro com 27 dias).
+* **À Receber em Dia:** Itens com faturamento formalizado cujo vencimento é futuro (ex: WAMS, Fugro e UFPA/CNPq).
+* **Observações Críticas:** Informações da coluna de observação (como pagamentos via PIX em atraso, 50% após coleta ou boletos em CPF de pesquisadores) devem ser sempre exibidas no detalhamento da proposta.
