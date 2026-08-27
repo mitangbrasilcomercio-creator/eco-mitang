@@ -83,15 +83,15 @@ export class CatalogoRepository {
       paramIndex++;
     }
 
-    const whereClause = conditions.join(' AND ');
-    const countQuery = `SELECT COUNT(*)::int as total FROM catalogo_universal WHERE ${whereClause};`;
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+    const countQuery = `SELECT COUNT(*)::int as total FROM catalogo_universal ${whereClause};`;
     const countParams = [...params];
     
     const offset = (filters.page - 1) * filters.limit;
     const dataQuery = `
       SELECT id, empresa_id, tipo_item, nome, descricao_tecnica, detalhes, quantidade_estoque_atual, ativo, created_at, updated_at
       FROM catalogo_universal
-      WHERE ${whereClause}
+      ${whereClause}
       ORDER BY created_at DESC
       LIMIT $${paramIndex++} OFFSET $${paramIndex++};
     `;

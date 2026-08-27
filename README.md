@@ -46,6 +46,7 @@ Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** c
 │       ├── cnpj-client-intelligence/      # Inteligência cadastral, QSA, verticais e Dossiê 360°
 │       ├── database-resilience-mirror/    # Alta disponibilidade com mirror local (< 2ms)
 │       ├── eco-mitang-architecture/       # Padrões multi-tenant e event-driven
+│       ├── executive-dashboard-intelligence/# Métricas MoM, Runway 15d, Curva ABC e Custódia OFX
 │       ├── financial-controladoria-dre/   # DRE, fluxo de caixa e modelo DuPont
 │       ├── nfe-nfse-xml-processor/        # Processador sem perdas de NF-e e NFS-e
 │       └── unified-financial-ecosystem/   # Ciclo integrado CNPJ + XML + OFX + Caixa

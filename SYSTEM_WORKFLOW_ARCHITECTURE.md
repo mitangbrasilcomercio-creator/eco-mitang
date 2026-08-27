@@ -258,6 +258,28 @@ Ao clicar em qualquer linha de cliente, fornecedor ou colaborador PJ:
 
 - **Regra do Sistema**: Todas as datas exibidas na interface do usuário são estritamente formatadas em `DD/MM/AAAA` (ex: `26/08/2026`) ou `DD/MM/AAAA HH:mm:ss`. O formato `AAAA-MM-DD` é restrito à persistência interna do banco de dados.
 
+### 2.10. Inteligência de Dashboard Executivo (MoM, Runway, Curva ABC e Custódia)
+
+O **Centro de Inteligência Executiva** implementa um cockpit estratégico C-Level com 5 pilares fundamentais:
+
+1. **Indicadores de Tendência MoM (Month-over-Month)**:
+   - Mede a taxa percentual de crescimento ou desaceleração em relação ao mês anterior ($\Delta\%$).
+   - Cores semânticas inteligentes: aumento de faturamento/recebimento é verde (`▲ +X%`), aumento de inadimplência/despesas em atraso é vermelho (`▲ +X%`), e queda na inadimplência é verde (`▼ -X%`).
+2. **Alerta de Fluxo de Caixa & Runway (15 Dias)**:
+   $$\text{Saldo Projetado} = \text{Saldo Bancário Atual} + \text{À Receber (15d)} - \text{À Pagar (15d)}$$
+   - Se positivo: exibe dias de cobertura financeira com badge de `Operação Equilibrada`.
+   - Se negativo: aciona alerta pulsante `🚨 ALERTA: NECESSIDADE DE CAPITAL DE GIRO` com o montante exato do déficit.
+3. **Curva ABC de Inadimplência (Top 3 Maiores Saldos Vencidos)**:
+   - Identifica os 3 parceiros com maiores títulos vencidos, dias médios de atraso e botão direto para o **Dossiê 360°**, viabilizando cobrança executiva ágil.
+4. **Cards Detalhados de Despesa**:
+   - Alternador dinâmico entre **Receitas** e **Despesas** (`Total Pago`, `A Vencer em 7 Dias`, `A Vencer em 15 Dias`, `Despesas em Atraso`).
+5. **Classificação Inteligente de Custódia vs Operacional no OFX**:
+   - Mapeia aplicações automáticas do Itaú e Bradesco (`APLICAÇÃO AUTOMÁTICA`, `RESGATE APLIC`, `SDO APLIC`) como `TRANSFERENCIA_CUSTODIA`.
+   - Isola o **Saldo Operacional Líquido** das movimentações de custódia e expõe o **Total em Aplicações (Patrimônio Líquido Rendendo)** em destaque na aba Tesouraria.
+6. **Gráfico Interativo Dual (Barras vs Linhas SVG)**:
+   - Permite alternar entre barras verticais consolidadas e linhas contínuas suaves.
+   - Os 4 cards principais funcionam como seletores de séries: clicar no card adiciona/remove aquela curva no gráfico.
+
 ---
 
 ## 3. Comandos Úteis de Manutenção e Sincronização

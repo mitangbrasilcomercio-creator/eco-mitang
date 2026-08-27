@@ -452,123 +452,278 @@ window.abrirDossie360 = async function(clienteId) {
 // ============================================================================
 // 1. DASHBOARD EXECUTIVO SEGMENTADO (C-LEVEL & SÓCIOS)
 // ============================================================================
+// ============================================================================
+// 1. DASHBOARD EXECUTIVO COM MoM, RUNWAY, CURVA ABC E CUSTÓDIA BANCÁRIA
+// ============================================================================
+
+let dashboardState = {
+  visao: 'receitas', // 'receitas' | 'despesas'
+  periodo: 'all',    // 'all' | 'mes_atual' | 'ultimos_30' | 'ultimos_90'
+  tipoGrafico: 'barras', // 'barras' | 'linhas'
+  seriesAtivas: {
+    faturado: true,
+    recebido: true,
+    a_receber: true,
+    em_atraso: true,
+    total_pago: true,
+    a_vencer: true
+  }
+};
+
+window.toggleDashboardVisao = function(novaVisao) {
+  dashboardState.visao = novaVisao;
+  window.renderDashboardRealData();
+};
+
+window.toggleDashboardPeriodo = function(novoPeriodo) {
+  dashboardState.periodo = novoPeriodo;
+  window.renderDashboardRealData();
+};
+
+window.toggleDashboardGraficoTipo = function(novoTipo) {
+  dashboardState.tipoGrafico = novoTipo;
+  window.renderGraficoExecutivo();
+};
+
+window.toggleDashboardSerie = function(serieKey) {
+  dashboardState.seriesAtivas[serieKey] = !dashboardState.seriesAtivas[serieKey];
+  window.renderCardsExecutivos();
+  window.renderGraficoExecutivo();
+};
+
+let ultimoDashboardPayload = null;
+
 window.renderDashboardRealData = async function() {
   const container = document.getElementById('conteudo-dinamico');
   if (!container) return;
 
+  const empresaNome = window.apiService.getActiveEmpresaNome();
+  const isReceita = dashboardState.visao === 'receitas';
+
   container.innerHTML = `
     <div class="space-y-6 animate-fade-in">
-      <!-- Barra Superior de Abas -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
+      <!-- Barra Superior de Controle Executivo -->
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div>
-          <h2 class="text-xl font-semibold text-slate-100 tracking-tight">Centro de Inteligência Executiva</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Visão consolidada multi-tenant da holding Eco-Mitang</p>
-        </div>
-
-        <div class="flex items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-xl border border-white/5">
-          <button onclick="switchTab('dash', 'visao_geral')" data-module="dash" data-tab-btn="visao_geral" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
-            <i class="ph ph-squares-four text-sm"></i> Visão Geral
-          </button>
-          <button onclick="switchTab('dash', 'tesouraria')" data-module="dash" data-tab-btn="tesouraria" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
-            <i class="ph ph-bank text-sm"></i> Tesouraria & OFX
-          </button>
-          <button onclick="switchTab('dash', 'negociacoes')" data-module="dash" data-tab-btn="negociacoes" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
-            <i class="ph ph-receipt text-sm"></i> Negociações Recentes
-          </button>
-        </div>
-      </div>
-
-      <!-- ABA 1: VISÃO GERAL & KPIS -->
-      <div data-module="dash" data-tab-content="visao_geral" class="space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="glass-panel p-5 rounded-2xl border border-white/5">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Faturamento Ganho</span>
-            <h3 class="text-2xl font-bold text-slate-100 mt-1" id="dash-faturamento">...</h3>
-            <p class="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1">
-              <i class="ph ph-trend-up"></i> <span id="dash-conversao">58.3%</span> de conversão comercial
-            </p>
-          </div>
-
-          <div class="glass-panel p-5 rounded-2xl border border-white/5">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Volume em Aberto</span>
-            <h3 class="text-2xl font-bold text-slate-100 mt-1" id="dash-negociacao">...</h3>
-            <p class="text-xs text-cyan-400 mt-1 font-medium flex items-center gap-1">
-              <i class="ph ph-clock"></i> <span id="dash-propostas">218</span> propostas ativas
-            </p>
-          </div>
-
-          <div class="glass-panel p-5 rounded-2xl border border-white/5">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Modelos de Baterias</span>
-            <h3 class="text-2xl font-bold text-slate-100 mt-1" id="dash-baterias">...</h3>
-            <p class="text-xs text-blue-400 mt-1 font-medium flex items-center gap-1">
-              <i class="ph ph-waves"></i> <span id="dash-subsea-label">Subsea & Hospitalar</span>
-            </p>
-          </div>
-
-          <div class="glass-panel p-5 rounded-2xl border border-white/5">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Clientes Corporativos</span>
-            <h3 class="text-2xl font-bold text-slate-100 mt-1" id="dash-clientes">...</h3>
-            <p class="text-xs text-purple-400 mt-1 font-medium flex items-center gap-1">
-              <i class="ph ph-buildings"></i> <span id="dash-grandes-label">Grandes contas offshore</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Gráfico Mensal com Altura Fixa e Barras Claras -->
-        <div class="glass-panel p-6 rounded-2xl border border-white/5">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-semibold text-slate-200">Faturamento Consolidado por Mês</h3>
-              <p class="text-xs text-slate-400">Evolução cronológica de vendas faturadas</p>
-            </div>
-            <span class="text-xs font-mono text-cyan-400 px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
-              Dados 100% Reais
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl font-bold text-slate-100 tracking-tight">Centro de Inteligência Executiva</h2>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              ${empresaNome}
             </span>
           </div>
-          <div id="grafico-barras-dash" class="flex items-end justify-between gap-4 h-56 pt-6 pb-2 px-4 border-b border-white/5">
-            <div class="text-slate-500 text-xs text-center w-full">Carregando gráfico mensal...</div>
+          <p class="text-xs text-slate-400 mt-0.5">Métricas de tendência Month-over-Month (MoM), Runway e Curva ABC de Inadimplência</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Filtro de Data Global -->
+          <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-white/10">
+            <i class="ph ph-calendar text-cyan-400 text-sm"></i>
+            <span class="text-[11px] text-slate-400 font-medium">Período:</span>
+            <select id="dash-filtro-periodo" onchange="toggleDashboardPeriodo(this.value)" 
+                    class="bg-transparent text-xs font-semibold text-cyan-300 focus:outline-none cursor-pointer">
+              <option value="all" ${dashboardState.periodo === 'all' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Jan/26 a Ago/26 (Completo)</option>
+              <option value="mes_atual" ${dashboardState.periodo === 'mes_atual' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Mês Atual (Agosto/2026)</option>
+              <option value="ultimos_30" ${dashboardState.periodo === 'ultimos_30' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Últimos 30 Dias</option>
+              <option value="ultimos_90" ${dashboardState.periodo === 'ultimos_90' ? 'selected' : ''} class="bg-slate-900 text-slate-200">Últimos 90 Dias</option>
+            </select>
+          </div>
+
+          <!-- Toggle Alternador Receitas / Despesas -->
+          <div class="flex items-center p-1 rounded-xl bg-slate-900/80 border border-white/10 shadow-inner">
+            <button onclick="toggleDashboardVisao('receitas')" 
+                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${isReceita ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm' : 'text-slate-400 hover:text-slate-200'}">
+              <i class="ph ph-trend-up text-sm"></i> 📈 Receitas
+            </button>
+            <button onclick="toggleDashboardVisao('despesas')" 
+                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${!isReceita ? 'bg-red-500/20 text-red-300 border border-red-500/40 shadow-sm' : 'text-slate-400 hover:text-slate-200'}">
+              <i class="ph ph-trend-down text-sm"></i> 📉 Despesas
+            </button>
+          </div>
+
+          <!-- Abas de Navegação -->
+          <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5">
+            <button onclick="switchTab('dash', 'visao_geral')" data-module="dash" data-tab-btn="visao_geral" 
+                    class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
+              <i class="ph ph-squares-four text-sm"></i> Visão Geral
+            </button>
+            <button onclick="switchTab('dash', 'tesouraria')" data-module="dash" data-tab-btn="tesouraria" 
+                    class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+              <i class="ph ph-bank text-sm"></i> Tesouraria & OFX
+            </button>
+            <button onclick="switchTab('dash', 'negociacoes')" data-module="dash" data-tab-btn="negociacoes" 
+                    class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+              <i class="ph ph-receipt text-sm"></i> Propostas
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- ABA 2: TESOURARIA & OFX -->
-      <div data-module="dash" data-tab-content="tesouraria" class="space-y-4 hidden">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="glass-panel p-4 rounded-xl border border-white/5">
-            <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Entradas Reais (OFX)</span>
-            <h4 class="text-xl font-bold text-emerald-400 mt-1" id="dash-entradas">...</h4>
+      <!-- ABA 1: VISÃO GERAL -->
+      <div data-module="dash" data-tab-content="visao_geral" class="space-y-6">
+        
+        <!-- CARD ALERTA DE FLUXO DE CAIXA (RUNWAY 15 DIAS) -->
+        <div id="dash-runway-banner" class="glass-panel p-4 sm:p-5 rounded-2xl border border-white/10 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div id="dash-runway-icon" class="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl shrink-0">
+              <i class="ph ph-shield-check"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-200">Alerta de Fluxo de Caixa & Runway</span>
+                <span id="dash-runway-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Calculando projeção...
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5" id="dash-runway-desc">
+                Saldo Bancário Hoje + À Receber (15 dias) - À Pagar (15 dias)
+              </p>
+            </div>
           </div>
-          <div class="glass-panel p-4 rounded-xl border border-white/5">
-            <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Saídas Reais (OFX)</span>
-            <h4 class="text-xl font-bold text-red-400 mt-1" id="dash-saidas">...</h4>
+
+          <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
+            <div class="text-left sm:text-right">
+              <span class="text-slate-500 text-[10px] uppercase font-sans">Saldo Atual Banco</span>
+              <p class="font-bold text-slate-200" id="dash-runway-saldo-banco">...</p>
+            </div>
+            <div class="text-left sm:text-right">
+              <span class="text-slate-500 text-[10px] uppercase font-sans">(+) À Receber (15d)</span>
+              <p class="font-bold text-emerald-400" id="dash-runway-receber-15d">...</p>
+            </div>
+            <div class="text-left sm:text-right">
+              <span class="text-slate-500 text-[10px] uppercase font-sans">(-) À Pagar (15d)</span>
+              <p class="font-bold text-amber-400" id="dash-runway-pagar-15d">...</p>
+            </div>
+            <div class="text-left sm:text-right px-3 py-1.5 rounded-xl bg-black/40 border border-white/5">
+              <span class="text-slate-400 text-[10px] uppercase font-sans font-bold">(=) Saldo Projetado</span>
+              <p class="text-base font-bold text-cyan-300" id="dash-runway-saldo-projetado">...</p>
+            </div>
           </div>
-          <div class="glass-panel p-4 rounded-xl border border-white/5">
-            <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Saldo Operacional</span>
-            <h4 class="text-xl font-bold text-cyan-400 mt-1" id="dash-saldo">...</h4>
+        </div>
+
+        <!-- OS 4 CARDS PRINCIPAIS INTERATIVOS COM INDICADORES MoM -->
+        <div id="dash-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Renderizado dinamicamente via JS -->
+        </div>
+
+        <!-- GRÁFICO INTERATIVO E WIDGET LATERAL CURVA ABC -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Coluna 1 & 2: Gráfico com Controle de Séries e Tipo -->
+          <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-white/5 space-y-4 flex flex-col justify-between">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+              <div>
+                <h3 class="text-base font-bold text-slate-100 flex items-center gap-2" id="dash-grafico-titulo">
+                  <i class="ph ph-chart-bar text-cyan-400"></i> Evolução Mensal Consolidada (2026)
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Clique nos cards acima para sobrepor ou ocultar séries de dados no gráfico</p>
+              </div>
+
+              <!-- Alternador de Tipo de Gráfico -->
+              <div class="flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs">
+                <button onclick="toggleDashboardGraficoTipo('barras')" id="btn-grafico-barras" 
+                        class="px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1 transition-all ${dashboardState.tipoGrafico === 'barras' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-slate-400 hover:text-slate-200'}">
+                  <i class="ph ph-chart-bar text-sm"></i> Barras
+                </button>
+                <button onclick="toggleDashboardGraficoTipo('linhas')" id="btn-grafico-linhas" 
+                        class="px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1 transition-all ${dashboardState.tipoGrafico === 'linhas' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-slate-400 hover:text-slate-200'}">
+                  <i class="ph ph-chart-line-up text-sm"></i> Linhas
+                </button>
+              </div>
+            </div>
+
+            <!-- Área de Renderização do Gráfico SVG Interativo -->
+            <div id="dash-grafico-canvas" class="min-h-[260px] flex items-center justify-center">
+              <span class="text-xs text-slate-500 font-mono">Carregando visualização gráfica...</span>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-slate-400 pt-2 border-t border-white/5" id="dash-grafico-legenda">
+              <!-- Legendas ativas injetadas via JS -->
+            </div>
+          </div>
+
+          <!-- Coluna 3: Widget Top 3 Inadimplentes (Curva ABC de Atrasos) -->
+          <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-4">
+            <div class="flex items-center justify-between border-b border-white/5 pb-3">
+              <div>
+                <h3 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+                  <i class="ph ph-warning-octagon text-red-400"></i> Curva ABC de Atrasos
+                </h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Top 3 Maiores Saldos Vencidos</p>
+              </div>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20">
+                Cobrança Ágil
+              </span>
+            </div>
+
+            <div id="dash-inadimplentes-list" class="space-y-3">
+              <span class="text-xs text-slate-500">Analisando faturas...</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 text-[11px] text-slate-400 leading-relaxed">
+              <strong class="text-slate-200">💡 Inteligência de Crédito:</strong> 80% do montante vencido concentra-se nestas contas corporativas. Clique sobre o parceiro para inspecionar o <strong>Dossiê 360°</strong> completo.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ABA 2: TESOURARIA & OFX (COM SEGREGAÇÃO DE CUSTÓDIA) -->
+      <div data-module="dash" data-tab-content="tesouraria" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Saldo Operacional Líquido</span>
+            <p class="text-xl font-bold text-cyan-400 mt-1" id="dash-tesouraria-saldo-op">...</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Entradas reais - Saídas reais</p>
+          </div>
+
+          <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Entradas Operacionais Reais</span>
+            <p class="text-xl font-bold text-emerald-400 mt-1" id="dash-tesouraria-entradas">...</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Pagamentos e recebimentos de clientes</p>
+          </div>
+
+          <div class="glass-panel p-4 rounded-2xl border border-white/5 bg-slate-900/50">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Saídas Operacionais Reais</span>
+            <p class="text-xl font-bold text-slate-200 mt-1" id="dash-tesouraria-saidas">...</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Fornecedores, salários e impostos</p>
+          </div>
+
+          <!-- DESTAQUE EXECUTIVO: TOTAL EM APLICAÇÕES / CUSTÓDIA -->
+          <div class="glass-panel p-4 rounded-2xl border border-purple-500/20 bg-purple-950/20">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-purple-300">Total em Aplicações (Custódia)</span>
+              <i class="ph ph-vault text-purple-400 text-base"></i>
+            </div>
+            <p class="text-xl font-bold text-purple-300 mt-1" id="dash-tesouraria-custodia">...</p>
+            <p class="text-[11px] text-purple-400/80 mt-0.5">Dinheiro guardado rendendo no Itaú/Bradesco</p>
           </div>
         </div>
 
         <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
-          <div class="p-4 border-b border-white/5 flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-slate-200">Extratos Bancários Conciliados (Itaú & Bradesco)</h3>
-            <span class="text-xs text-slate-400 font-mono" id="dash-ofx-total">Lançamentos gravados</span>
+          <div class="p-4 border-b border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-sm font-bold text-slate-100 flex items-center gap-2">
+                <i class="ph ph-receipt text-cyan-400"></i> Extrato de Transações Conciliadas (OFX)
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Filtrado pelo período selecionado. Classificação automática de Custódia vs Operacional.</p>
+            </div>
+            <span class="text-xs text-slate-400 font-mono" id="dash-tesouraria-total-extratos">Carregando...</span>
           </div>
-          <div class="overflow-x-auto max-h-96 overflow-y-auto">
+
+          <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
                 <tr>
                   <th class="p-3">Data</th>
                   <th class="p-3">Banco / Conta</th>
+                  <th class="p-3">Classificação Financeira</th>
                   <th class="p-3">Histórico / Memo</th>
                   <th class="p-3 text-right">Valor</th>
                   <th class="p-3 text-center">Status</th>
                 </tr>
               </thead>
               <tbody id="tabela-ofx-dash" class="divide-y divide-white/5 text-slate-300">
-                <tr><td colspan="5" class="p-4 text-center text-slate-500">Carregando extratos...</td></tr>
+                <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando extratos bancários...</td></tr>
               </tbody>
             </table>
           </div>
@@ -579,83 +734,169 @@ window.renderDashboardRealData = async function() {
       <div data-module="dash" data-tab-content="negociacoes" class="space-y-4 hidden">
         <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
           <div class="p-4 border-b border-white/5">
-            <h3 class="text-sm font-semibold text-slate-200">Histórico de Propostas Recentes</h3>
-            <p class="text-xs text-slate-400">Últimas cotações emitidas por Mitang e Arandu</p>
+            <h3 class="text-sm font-bold text-slate-100">Histórico de Propostas e Cotações Recentes</h3>
+            <p class="text-xs text-slate-400">Últimas cotações emitidas por Mitang Brasil e Arandu</p>
           </div>
-          <div class="overflow-x-auto max-h-96 overflow-y-auto">
+          <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
                 <tr>
                   <th class="p-3">Nº Cotação</th>
                   <th class="p-3">Empresa</th>
                   <th class="p-3">Cliente</th>
-                  <th class="p-3 text-right">Valor</th>
+                  <th class="p-3 text-right">Valor Total</th>
+                  <th class="p-3">Data Emissão</th>
                   <th class="p-3 text-center">Status</th>
                 </tr>
               </thead>
               <tbody id="tabela-recentes-dash" class="divide-y divide-white/5 text-slate-300">
-                <!-- Injetado via JS -->
+                <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando negociações...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+
     </div>
   `;
 
   try {
-    const res = await window.apiService.getDashboardMetrics();
-    if (!res.success) return;
-    const { kpis, grafico_vendas_mensal, atividades_recentes } = res.data;
+    const res = await window.apiService.getDashboardMetrics({
+      periodo: dashboardState.periodo,
+      visao: dashboardState.visao
+    });
 
-    document.getElementById('dash-faturamento').innerText = `R$ ${kpis.faturamento_total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    document.getElementById('dash-negociacao').innerText = `R$ ${kpis.volume_negociacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    document.getElementById('dash-conversao').innerText = kpis.taxa_conversao;
-    document.getElementById('dash-propostas').innerText = kpis.total_propostas;
-    document.getElementById('dash-baterias').innerText = `${kpis.total_baterias} Modelos`;
-    document.getElementById('dash-clientes').innerText = `${kpis.total_clientes} Contas`;
-    document.getElementById('dash-entradas').innerText = `R$ ${kpis.entradas_bancarias.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    document.getElementById('dash-saidas').innerText = `R$ ${kpis.saidas_bancarias.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    document.getElementById('dash-saldo').innerText = `R$ ${kpis.saldo_operacional.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    if (!res.success || !res.data) {
+      console.warn('[DASHBOARD] Dados não retornados:', res);
+      return;
+    }
 
-    // Renderiza Gráfico Mensal com Alturas em Pixels Definidas
-    const barContainer = document.getElementById('grafico-barras-dash');
-    if (barContainer && grafico_vendas_mensal.length > 0) {
-      const maxVal = Math.max(...grafico_vendas_mensal.map(v => Number(v.total)), 1);
-      const maxHeightPx = 160; // Altura máxima da barra em pixels
+    ultimoDashboardPayload = res.data;
 
-      barContainer.innerHTML = grafico_vendas_mensal.map(g => {
-        const val = Number(g.total);
-        const barHeight = Math.max(14, Math.round((val / maxVal) * maxHeightPx));
-        const mesUpper = (g.mes || '').toUpperCase();
+    // 1. Atualizar Alerta de Runway
+    const runway = res.data.runway;
+    if (runway) {
+      document.getElementById('dash-runway-saldo-banco').innerText = window.formatCurrencyBR(runway.saldo_bancario_atual);
+      document.getElementById('dash-runway-receber-15d').innerText = window.formatCurrencyBR(runway.a_receber_15d);
+      document.getElementById('dash-runway-pagar-15d').innerText = window.formatCurrencyBR(runway.a_pagar_15d);
+      document.getElementById('dash-runway-saldo-projetado').innerText = window.formatCurrencyBR(runway.saldo_projetado);
+
+      const badge = document.getElementById('dash-runway-badge');
+      const banner = document.getElementById('dash-runway-banner');
+      const icon = document.getElementById('dash-runway-icon');
+
+      if (runway.status === 'DEFICIT_ALERTA') {
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-500/20 text-red-400 border border-red-500/40 animate-pulse';
+        badge.innerHTML = '🚨 ALERTA: NECESSIDADE DE CAPITAL DE GIRO';
+        banner.classList.add('border-red-500/40');
+        icon.className = 'w-11 h-11 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl shrink-0';
+        icon.innerHTML = '<i class="ph ph-warning"></i>';
+      } else {
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+        badge.innerHTML = `🛡️ Operação Equilibrada (${runway.dias_cobertura} dias de cobertura)`;
+      }
+    }
+
+    // 2. Renderizar Cards Executivos (Receitas ou Despesas)
+    window.renderCardsExecutivos();
+
+    // 3. Renderizar Gráfico Executivo
+    window.renderGraficoExecutivo();
+
+    // 4. Renderizar Top 3 Inadimplentes
+    const topList = res.data.receitas?.top_inadimplentes || [];
+    const listContainer = document.getElementById('dash-inadimplentes-list');
+    if (listContainer) {
+      if (topList.length === 0) {
+        listContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Nenhuma fatura em atraso no período.</p>`;
+      } else {
+        listContainer.innerHTML = topList.map((item, idx) => `
+          <div class="p-3 rounded-xl bg-slate-900/70 border border-white/5 hover:border-cyan-500/30 transition-all group flex items-start justify-between gap-2">
+            <div class="space-y-1">
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-[10px] font-bold">
+                  ${idx + 1}
+                </span>
+                <p class="font-bold text-xs text-slate-200 group-hover:text-cyan-300 transition-colors leading-tight">${item.cliente_nome}</p>
+              </div>
+              <p class="text-[10px] text-slate-400 font-mono">${item.cnpj} • <span class="text-red-400 font-bold">${item.dias_atraso} dias de atraso</span></p>
+            </div>
+            <div class="text-right shrink-0">
+              <p class="text-xs font-bold font-mono text-red-400">${window.formatCurrencyBR(item.valor_atraso)}</p>
+              <button onclick="window.buscarEAbrirDossiePorNome('${item.cliente_nome}')" 
+                      class="text-[10px] text-cyan-400 hover:text-cyan-300 underline font-semibold mt-0.5 flex items-center gap-0.5 ml-auto">
+                <i class="ph ph-identification-card"></i> Dossiê 360°
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // 5. Aba Tesouraria & Extratos
+    const custodia = res.data.custodia_investimentos || {};
+    document.getElementById('dash-tesouraria-saldo-op').innerText = window.formatCurrencyBR(custodia.saldo_operacional_puro || 0);
+    document.getElementById('dash-tesouraria-entradas').innerText = window.formatCurrencyBR(res.data.receitas?.recebido?.valor || 0);
+    document.getElementById('dash-tesouraria-saidas').innerText = window.formatCurrencyBR(res.data.despesas?.total_pago?.valor || 0);
+    document.getElementById('dash-tesouraria-custodia').innerText = window.formatCurrencyBR(custodia.total_em_aplicacoes || 0);
+
+    const extratos = res.data.extratos_bancarios || [];
+    const ofxBody = document.getElementById('tabela-ofx-dash');
+    const totalLabel = document.getElementById('dash-tesouraria-total-extratos');
+    if (totalLabel) totalLabel.innerText = `${extratos.length} movimentações no período`;
+
+    if (ofxBody) {
+      ofxBody.innerHTML = extratos.map(t => {
+        const val = Number(t.valor);
+        const isPos = val > 0;
+        const isCustodia = t.tipo_classificacao === 'TRANSFERENCIA_CUSTODIA';
+
+        let badgeClass = isCustodia 
+          ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' 
+          : (isPos ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30');
+
+        let badgeText = isCustodia ? 'Custódia / Aplicação' : (isPos ? 'Entrada Operacional' : 'Saída Operacional');
 
         return `
-          <div class="flex-1 h-full flex flex-col justify-end items-center group cursor-pointer">
-            <span class="text-[11px] font-mono text-cyan-300 font-bold mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
-              R$ ${(val / 1000).toFixed(1)}k
-            </span>
-            <div class="w-full max-w-[48px] bg-gradient-to-t from-cyan-600/40 via-cyan-500/70 to-cyan-400 rounded-t-lg transition-all duration-300 group-hover:brightness-125 group-hover:shadow-[0_0_15px_rgba(0,229,255,0.6)]"
-                 style="height: ${barHeight}px;"></div>
-            <span class="text-xs font-semibold text-slate-300 uppercase tracking-wide mt-2">${mesUpper}</span>
-          </div>
+          <tr class="hover:bg-white/5 transition-colors">
+            <td class="p-3 font-mono text-slate-400 whitespace-nowrap">${window.formatDateBR(t.data_lancamento)}</td>
+            <td class="p-3 font-medium text-slate-200 whitespace-nowrap">${t.banco_nome || 'Banco'} (${t.conta_numero || '-'})</td>
+            <td class="p-3 whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">
+                ${badgeText}
+              </span>
+            </td>
+            <td class="p-3 text-slate-300 truncate max-w-[280px]" title="${t.memo}">${t.memo}</td>
+            <td class="p-3 text-right font-mono font-bold whitespace-nowrap ${isPos ? 'text-emerald-400' : 'text-slate-200'}">
+              ${window.formatCurrencyBR(val)}
+            </td>
+            <td class="p-3 text-center">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Conciliado
+              </span>
+            </td>
+          </tr>
         `;
       }).join('');
     }
 
+    // 6. Aba Propostas Recentes
+    const recentes = res.data.atividades_recentes || [];
     const recBody = document.getElementById('tabela-recentes-dash');
-    if (recBody && atividades_recentes) {
-      recBody.innerHTML = atividades_recentes.map(r => `
+    if (recBody) {
+      recBody.innerHTML = recentes.map(r => `
         <tr class="hover:bg-white/5 transition-colors">
           <td class="p-3 font-mono font-bold text-cyan-400">#${r.numero_orcamento}</td>
           <td class="p-3">
-            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${r.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300' : 'bg-blue-500/20 text-blue-300'}">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.vendido_por === 'Arandu' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
               ${r.vendido_por}
             </span>
           </td>
           <td class="p-3 font-medium text-slate-200">${r.cliente_nome}</td>
-          <td class="p-3 text-right font-bold text-slate-100">R$ ${Number(r.valor_total).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+          <td class="p-3 text-right font-bold text-slate-100 font-mono">${window.formatCurrencyBR(r.valor_total)}</td>
+          <td class="p-3 text-slate-400 font-mono">${window.formatDateBR(r.data_emissao)}</td>
           <td class="p-3 text-center">
-            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${r.status_aprovacao === 'Compra Aprovada' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-slate-400'}">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.status_aprovacao === 'Compra Aprovada' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'}">
               ${r.status_aprovacao}
             </span>
           </td>
@@ -663,36 +904,349 @@ window.renderDashboardRealData = async function() {
       `).join('');
     }
 
-    const ofxRes = await window.apiService.getTransacoesFinanceiras({ limit: 40 });
-    if (ofxRes.success && ofxRes.data) {
-      const ofxBody = document.getElementById('tabela-ofx-dash');
-      if (ofxBody) {
-        document.getElementById('dash-ofx-total').innerText = `${ofxRes.total} lançamentos gravados`;
-        ofxBody.innerHTML = ofxRes.data.map(t => {
-          const isPos = Number(t.valor) > 0;
-          return `
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-3 text-slate-400 font-mono">${window.formatDateBR(t.data_lancamento)}</td>
-              <td class="p-3 font-medium text-slate-200">${t.banco_nome || 'Banco'} (${t.agencia}/${t.conta_numero})</td>
-              <td class="p-3 text-slate-300 truncate max-w-[280px]" title="${t.memo}">${t.memo}</td>
-              <td class="p-3 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">
-                R$ ${Number(t.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-              </td>
-              <td class="p-3 text-center">
-                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">Conciliado</span>
-              </td>
-            </tr>
-          `;
-        }).join('');
-      }
-    }
   } catch (err) {
-    console.error('Erro renderDashboardRealData:', err);
+    console.error('[DASHBOARD] Erro ao renderizar métricas reais:', err);
+  }
+};
+
+// ============================================================================
+// RENDERIZADOR DOS 4 CARDS INTERATIVOS (RECEITAS vs DESPESAS) COM MoM
+// ============================================================================
+window.renderCardsExecutivos = function() {
+  const container = document.getElementById('dash-cards-container');
+  if (!container || !ultimoDashboardPayload) return;
+
+  const isReceita = dashboardState.visao === 'receitas';
+
+  if (isReceita) {
+    const r = ultimoDashboardPayload.receitas;
+    const cards = [
+      {
+        key: 'faturado',
+        titulo: 'Faturado',
+        subtitulo: 'Orçamentos & NFe Emitidas',
+        valor: r.faturado.valor,
+        mom: r.faturado.mom_percentual,
+        momDirecao: r.faturado.mom_direcao,
+        corTexto: 'text-slate-100',
+        borda: 'border-cyan-500/40',
+        serieAtiva: dashboardState.seriesAtivas.faturado
+      },
+      {
+        key: 'recebido',
+        titulo: 'Recebido',
+        subtitulo: 'Faturas e Títulos Liquidados',
+        valor: r.recebido.valor,
+        mom: r.recebido.mom_percentual,
+        momDirecao: r.recebido.mom_direcao,
+        corTexto: 'text-emerald-400',
+        borda: 'border-emerald-500/40',
+        serieAtiva: dashboardState.seriesAtivas.recebido
+      },
+      {
+        key: 'a_receber',
+        titulo: 'À Receber (Em Dia)',
+        subtitulo: 'Títulos com Vencimento Futuro',
+        valor: r.a_receber.valor,
+        mom: r.a_receber.mom_percentual,
+        momDirecao: r.a_receber.mom_direcao,
+        corTexto: 'text-cyan-300',
+        borda: 'border-blue-500/40',
+        serieAtiva: dashboardState.seriesAtivas.a_receber
+      },
+      {
+        key: 'em_atraso',
+        titulo: 'Em Atraso',
+        subtitulo: 'Inadimplência Vencida',
+        valor: r.em_atraso.valor,
+        mom: r.em_atraso.mom_percentual,
+        momDirecao: r.em_atraso.mom_direcao,
+        corTexto: 'text-red-400',
+        borda: 'border-red-500/40',
+        serieAtiva: dashboardState.seriesAtivas.em_atraso
+      }
+    ];
+
+    container.innerHTML = cards.map(c => {
+      const isUp = c.mom >= 0;
+      // Para 'em_atraso', queda é boa (verde), alta é ruim (vermelho)
+      let momColor = 'text-emerald-400';
+      if (c.key === 'em_atraso') {
+        momColor = isUp ? 'text-red-400' : 'text-emerald-400';
+      } else {
+        momColor = isUp ? 'text-emerald-400' : 'text-red-400';
+      }
+
+      return `
+        <div onclick="window.toggleDashboardSerie('${c.key}')" 
+             class="glass-panel p-5 rounded-2xl border transition-all cursor-pointer group hover:scale-[1.01] ${c.serieAtiva ? `${c.borda} bg-slate-900/80 shadow-lg` : 'border-white/5 opacity-60'}">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${c.titulo}</span>
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold border transition-all ${c.serieAtiva ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' : 'bg-white/5 text-slate-500 border-transparent'}">
+              ${c.serieAtiva ? '✓ No Gráfico' : '+ Filtrar'}
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-extrabold mt-1 font-mono tracking-tight ${c.corTexto}">
+            ${window.formatCurrencyBR(c.valor)}
+          </h3>
+
+          <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
+            <span class="text-[11px] font-bold flex items-center gap-1 ${momColor}">
+              <i class="ph ${isUp ? 'ph-trend-up' : 'ph-trend-down'} font-bold"></i>
+              ${isUp ? `▲ +${c.mom}%` : `▼ ${c.mom}%`} <span class="text-slate-400 font-normal">vs mês anterior</span>
+            </span>
+            <span class="text-[10px] text-slate-400 truncate max-w-[100px]">${c.subtitulo}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  } else {
+    // Modo Despesas
+    const d = ultimoDashboardPayload.despesas;
+    const cards = [
+      {
+        key: 'total_pago',
+        titulo: 'Total Pago',
+        subtitulo: 'Despesas Liquidadas',
+        valor: d.total_pago.valor,
+        mom: d.total_pago.mom_percentual,
+        corTexto: 'text-slate-100',
+        borda: 'border-red-500/40',
+        serieAtiva: dashboardState.seriesAtivas.total_pago
+      },
+      {
+        key: 'a_vencer_7d',
+        titulo: 'A Vencer (Próx. 7 dias)',
+        subtitulo: 'Compromissos Desta Semana',
+        valor: d.a_vencer_7d.valor,
+        mom: 0,
+        corTexto: 'text-amber-400',
+        borda: 'border-amber-500/40',
+        serieAtiva: true
+      },
+      {
+        key: 'a_vencer_15d',
+        titulo: 'A Vencer (Próx. 15 dias)',
+        subtitulo: 'Compromissos da Quinzena',
+        valor: d.a_vencer_15d.valor,
+        mom: 0,
+        corTexto: 'text-yellow-400',
+        borda: 'border-yellow-500/40',
+        serieAtiva: dashboardState.seriesAtivas.a_vencer
+      },
+      {
+        key: 'em_atraso',
+        titulo: 'Despesas em Atraso',
+        subtitulo: 'Contas Vencidas (Juros)',
+        valor: d.em_atraso.valor,
+        mom: d.em_atraso.mom_percentual,
+        corTexto: 'text-red-400',
+        borda: 'border-red-500/40',
+        serieAtiva: true
+      }
+    ];
+
+    container.innerHTML = cards.map(c => `
+      <div onclick="window.toggleDashboardSerie('${c.key}')" 
+           class="glass-panel p-5 rounded-2xl border transition-all cursor-pointer group hover:scale-[1.01] ${c.serieAtiva ? `${c.borda} bg-slate-900/80 shadow-lg` : 'border-white/5 opacity-60'}">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${c.titulo}</span>
+          <span class="px-2 py-0.5 rounded-full text-[9px] font-bold border ${c.serieAtiva ? 'bg-red-500/20 text-red-300 border-red-500/30' : 'bg-white/5 text-slate-500 border-transparent'}">
+            ${c.serieAtiva ? '✓ No Gráfico' : '+ Filtrar'}
+          </span>
+        </div>
+
+        <h3 class="text-2xl font-extrabold mt-1 font-mono tracking-tight ${c.corTexto}">
+          ${window.formatCurrencyBR(c.valor)}
+        </h3>
+
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
+          <span class="text-[11px] font-bold flex items-center gap-1 ${c.mom < 0 ? 'text-emerald-400' : 'text-slate-400'}">
+            ${c.mom !== 0 ? `${c.mom < 0 ? '▼ ' : '▲ +'}${c.mom}% vs mês anterior` : 'Compromisso'}
+          </span>
+          <span class="text-[10px] text-slate-400 truncate max-w-[120px]">${c.subtitulo}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+};
+
+// ============================================================================
+// RENDERIZADOR DO GRÁFICO INTERATIVO (BARRAS vs LINHAS) COM SÉRIES ATIVAS
+// ============================================================================
+window.renderGraficoExecutivo = function() {
+  const canvas = document.getElementById('dash-grafico-canvas');
+  const legenda = document.getElementById('dash-grafico-legenda');
+  if (!canvas || !ultimoDashboardPayload) return;
+
+  const isReceita = dashboardState.visao === 'receitas';
+  const isLinhas = dashboardState.tipoGrafico === 'linhas';
+  const series = ultimoDashboardPayload.series_grafico;
+  const meses = series.meses;
+
+  // Séries a plotar baseadas no modo e nos cards ativos
+  const seriesParaPlotar = [];
+
+  if (isReceita) {
+    if (dashboardState.seriesAtivas.faturado) {
+      seriesParaPlotar.push({ key: 'faturado', nome: 'Faturado', dados: series.receitas.faturado, cor: '#06b6d4', grad: 'from-cyan-500/70 to-cyan-400' });
+    }
+    if (dashboardState.seriesAtivas.recebido) {
+      seriesParaPlotar.push({ key: 'recebido', nome: 'Recebido', dados: series.receitas.recebido, cor: '#10b981', grad: 'from-emerald-500/70 to-emerald-400' });
+    }
+    if (dashboardState.seriesAtivas.a_receber) {
+      seriesParaPlotar.push({ key: 'a_receber', nome: 'À Receber', dados: series.receitas.a_receber, cor: '#38bdf8', grad: 'from-sky-500/70 to-sky-400' });
+    }
+    if (dashboardState.seriesAtivas.em_atraso) {
+      seriesParaPlotar.push({ key: 'em_atraso', nome: 'Em Atraso', dados: series.receitas.em_atraso, cor: '#f87171', grad: 'from-red-500/70 to-red-400' });
+    }
+  } else {
+    if (dashboardState.seriesAtivas.total_pago) {
+      seriesParaPlotar.push({ key: 'total_pago', nome: 'Total Pago', dados: series.despesas.total_pago, cor: '#f43f5e', grad: 'from-rose-500/70 to-rose-400' });
+    }
+    if (dashboardState.seriesAtivas.a_vencer) {
+      seriesParaPlotar.push({ key: 'a_vencer', nome: 'A Vencer', dados: series.despesas.a_vencer, cor: '#fbbf24', grad: 'from-amber-500/70 to-amber-400' });
+    }
+  }
+
+  // Atualizar Legenda
+  if (legenda) {
+    legenda.innerHTML = seriesParaPlotar.map(s => `
+      <div class="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity" onclick="toggleDashboardSerie('${s.key}')">
+        <span class="w-3 h-3 rounded-full" style="background-color: ${s.cor};"></span>
+        <span class="font-bold text-slate-200">${s.nome}</span>
+      </div>
+    `).join('') || '<span class="text-xs text-slate-500">Nenhuma série selecionada. Clique em um card acima.</span>';
+  }
+
+  if (seriesParaPlotar.length === 0) {
+    canvas.innerHTML = `
+      <div class="p-8 text-center space-y-2">
+        <i class="ph ph-hand-pointing text-3xl text-cyan-400 animate-bounce"></i>
+        <p class="text-xs text-slate-400">Clique em qualquer um dos 4 cards acima para ativar a visualização da série no gráfico.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Calcular valor máximo para escala
+  let maxVal = 1;
+  seriesParaPlotar.forEach(s => {
+    s.dados.forEach(v => { if (v > maxVal) maxVal = v; });
+  });
+
+  if (!isLinhas) {
+    // -------------------------------------------------------------
+    // GRÁFICO EM BARRAS AGRUPADAS / SOBREPOSTAS
+    // -------------------------------------------------------------
+    const maxHeightPx = 180;
+
+    canvas.innerHTML = `
+      <div class="w-full flex items-end justify-between gap-2 sm:gap-4 h-[240px] pt-6 pb-2 px-2 sm:px-4">
+        ${meses.map((mes, mesIdx) => {
+          return `
+            <div class="flex-1 h-full flex flex-col justify-end items-center group cursor-pointer">
+              <!-- Barras das séries lado a lado -->
+              <div class="w-full flex items-end justify-center gap-1 sm:gap-1.5 h-[180px]">
+                ${seriesParaPlotar.map(s => {
+                  const val = s.dados[mesIdx] || 0;
+                  const hPx = Math.max(8, Math.round((val / maxVal) * maxHeightPx));
+                  return `
+                    <div class="flex-1 max-w-[20px] rounded-t-md transition-all duration-300 group-hover:brightness-125 relative group/bar"
+                         style="height: ${hPx}px; background-color: ${s.cor};"
+                         title="${s.nome} (${mes}): ${window.formatCurrencyBR(val)}">
+                      <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[9px] font-mono text-slate-100 opacity-0 group-hover/bar:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl z-20">
+                        ${(val / 1000).toFixed(0)}k
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+
+              <!-- Rótulo do Mês -->
+              <span class="text-[11px] font-bold text-slate-400 group-hover:text-cyan-300 transition-colors uppercase tracking-wider mt-2.5">
+                ${mes}
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+  } else {
+    // -------------------------------------------------------------
+    // GRÁFICO EM LINHAS CONTÍNUAS SVG STUDIO-GRADE
+    // -------------------------------------------------------------
+    const width = 640;
+    const height = 200;
+    const paddingX = 40;
+    const paddingY = 25;
+
+    const stepX = (width - paddingX * 2) / (meses.length - 1);
+
+    const svgLines = seriesParaPlotar.map(s => {
+      const points = s.dados.map((val, idx) => {
+        const x = paddingX + idx * stepX;
+        const y = height - paddingY - (val / maxVal) * (height - paddingY * 2);
+        return { x, y, val };
+      });
+
+      const d = points.reduce((acc, pt, i) => {
+        return i === 0 ? `M ${pt.x} ${pt.y}` : `${acc} L ${pt.x} ${pt.y}`;
+      }, '');
+
+      const dots = points.map(pt => `
+        <circle cx="${pt.x}" cy="${pt.y}" r="4" fill="${s.cor}" stroke="#0f172a" stroke-width="2" class="cursor-pointer hover:r-6 transition-all">
+          <title>${s.nome}: ${window.formatCurrencyBR(pt.val)}</title>
+        </circle>
+      `).join('');
+
+      return `
+        <path d="${d}" fill="none" stroke="${s.cor}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        ${dots}
+      `;
+    }).join('');
+
+    const xLabels = meses.map((mes, idx) => {
+      const x = paddingX + idx * stepX;
+      return `<text x="${x}" y="${height - 5}" text-anchor="middle" font-size="10" font-weight="bold" fill="#94a3b8">${mes}</text>`;
+    }).join('');
+
+    canvas.innerHTML = `
+      <div class="w-full overflow-x-auto py-2">
+        <svg viewBox="0 0 ${width} ${height}" class="w-full h-[220px]">
+          <!-- Linhas de Grade de Fundo -->
+          <line x1="${paddingX}" y1="${paddingY}" x2="${width - paddingX}" y2="${paddingY}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4" />
+          <line x1="${paddingX}" y1="${height / 2}" x2="${width - paddingX}" y2="${height / 2}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4" />
+          <line x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" stroke="rgba(255,255,255,0.1)" />
+
+          ${svgLines}
+          ${xLabels}
+        </svg>
+      </div>
+    `;
+  }
+};
+
+// Helper para abrir dossie pelo nome na tabela de inadimplencia
+window.buscarEAbrirDossiePorNome = async function(nomeCliente) {
+  try {
+    const res = await window.apiService.getClientes({ busca: nomeCliente.split(' ')[0], limit: 1 });
+    if (res.success && res.data && res.data.length > 0) {
+      window.abrirDossie360(res.data[0].id);
+    } else {
+      alert(`Parceiro ${nomeCliente} localizado no extrato. Abra a aba CRM para inspecionar os detalhes cadastrais.`);
+    }
+  } catch (e) {
+    console.error('Erro ao abrir dossie:', e);
   }
 };
 
 // ============================================================================
 // 2. CATÁLOGO UNIVERSAL DE BATERIAS (PRODUTOS & BOM)
+
 // ============================================================================
 window.renderProdutosRealData = async function() {
   const container = document.getElementById('conteudo-dinamico');
@@ -1808,4 +2362,10 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (activeRoute === 'controladoria') window.renderControladoriaRealData();
     });
   }
+
+  window.addEventListener('mitang_tenant_changed', () => {
+    const activeLink = document.querySelector('.nav-link.bg-cyan-500\\/10');
+    const activeRoute = activeLink ? activeLink.dataset.route : 'dashboard';
+    if (activeRoute === 'dashboard') window.renderDashboardRealData();
+  });
 });

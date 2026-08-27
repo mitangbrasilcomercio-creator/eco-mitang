@@ -44,8 +44,9 @@ class ApiService {
   }
 
   // 1. Métricas do Dashboard Executivo
-  async getDashboardMetrics() {
-    return this.request('/dashboard/metrics');
+  async getDashboardMetrics(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/dashboard/metrics?${query}`);
   }
 
   // 2. Catálogo de Baterias e Produtos
