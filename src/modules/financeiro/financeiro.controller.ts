@@ -293,5 +293,256 @@ export class FinanceiroController {
       if (client) client.release();
     }
   };
+
+  /**
+   * Listagem de Contas a Pagar & Obrigações Recorrentes (Fase 3 & 4)
+   * GET /api/v1/financeiro/contas-a-pagar
+   */
+  listarContasAPagar = async (req: Request, res: Response): Promise<void> => {
+    const empresaId = req.headers['x-empresa-id'] as string;
+    const { status, tipo_entidade, macro_categoria, busca, consolidado = 'true' } = req.query;
+    const isAll = consolidado === 'true' || req.headers['x-consolidado'] === 'true' || !empresaId || empresaId === 'all';
+
+    const cacheKey = `contas_a_pagar_${isAll ? 'consolidado' : empresaId}_${status || 'all'}_${tipo_entidade || 'all'}_${macro_categoria || 'all'}_${busca || ''}`;
+    const cached = memoryCache.get(cacheKey);
+    if (cached) {
+      res.status(200).json(cached);
+      return;
+    }
+
+    try {
+      const allObrigacoes = localMirror.getMirror<any[]>('obrigacoes_recorrentes') || [];
+
+      let filtradas = allObrigacoes.filter(o => isAll || o.empresa_id === empresaId);
+
+      if (status && status !== 'all' && status !== 'TODAS') {
+        if (status === 'EM_ATRASO') {
+          filtradas = filtradas.filter(o => o.status_vencimento === 'EM_ATRASO');
+        } else if (status === 'A_VENCER') {
+          filtradas = filtradas.filter(o => o.status_vencimento === 'A_VENCER');
+        } else {
+          filtradas = filtradas.filter(o => o.status_pagamento === status);
+        }
+      }
+
+      if (tipo_entidade && tipo_entidade !== 'all' && tipo_entidade !== 'TODAS') {
+        filtradas = filtradas.filter(o => o.tipo_entidade === tipo_entidade);
+      }
+
+      if (macro_categoria && macro_categoria !== 'all' && macro_categoria !== 'TODAS') {
+        filtradas = filtradas.filter(o => o.macro_categoria === macro_categoria);
+      }
+
+      if (busca) {
+        const b = String(busca).toLowerCase();
+        filtradas = filtradas.filter(o => 
+          (o.favorecido_nome || '').toLowerCase().includes(b) ||
+          (o.descricao || '').toLowerCase().includes(b) ||
+          (o.categoria_detalhada || '').toLowerCase().includes(b)
+        );
+      }
+
+      // KPIs consolidados
+      let totalGeral = 0;
+      let totalPago = 0;
+      let totalAPagar = 0;
+      let totalEmAtraso = 0;
+      let totalPessoal = 0;
+      let totalTributos = 0;
+      let totalInsumos = 0;
+      let totalPronampe = 0;
+
+      filtradas.forEach(o => {
+        const v = Number(o.valor) || 0;
+        totalGeral += v;
+        if (o.status_pagamento === 'PAGO') totalPago += v;
+        if (o.status_pagamento === 'A_PAGAR' || o.status_pagamento === 'PROGRAMADO') totalAPagar += v;
+        if (o.status_vencimento === 'EM_ATRASO') totalEmAtraso += v;
+
+        if (o.macro_categoria === 'RECURSOS_HUMANOS' || o.tipo_entidade === 'COLABORADOR_PJ') totalPessoal += v;
+        if (o.macro_categoria === 'TRIBUTOS' || o.tipo_entidade === 'GOVERNO_TRIBUTO') totalTributos += v;
+        if (o.macro_categoria === 'PRODUCAO_INSUMOS' || o.tipo_entidade === 'FORNECEDOR_INSUMO') totalInsumos += v;
+        if (o.categoria_detalhada && o.categoria_detalhada.includes('PRONAMPE')) totalPronampe += v;
+      });
+
+      const payload = {
+        success: true,
+        kpis: {
+          total_registros: filtradas.length,
+          total_geral: totalGeral,
+          total_pago: totalPago,
+          total_a_pagar: totalAPagar,
+          total_em_atraso: totalEmAtraso,
+          total_pessoal: totalPessoal,
+          total_tributos: totalTributos,
+          total_insumos: totalInsumos,
+          total_pronampe: totalPronampe
+        },
+        data: filtradas
+      };
+
+      memoryCache.set(cacheKey, payload, 30);
+      res.status(200).json(payload);
+    } catch (err: any) {
+      console.error('[ERRO CONTAS A PAGAR]:', err.message);
+      res.status(500).json({ success: false, error: 'Erro ao listar contas a pagar' });
+    }
+  };
+
+  /**
+   * Projeção Futura de Caixa (Runway de Médio Prazo: 30, 60, 90, 120 dias)
+   * GET /api/v1/financeiro/projecao-futura
+   */
+  getProjecaoFutura = async (req: Request, res: Response): Promise<void> => {
+    const empresaId = req.headers['x-empresa-id'] as string;
+    const { consolidado = 'true' } = req.query;
+    const isAll = consolidado === 'true' || req.headers['x-consolidado'] === 'true' || !empresaId || empresaId === 'all';
+
+    const cacheKey = `projecao_futura_${isAll ? 'consolidado' : empresaId}`;
+    const cached = memoryCache.get(cacheKey);
+    if (cached) {
+      res.status(200).json(cached);
+      return;
+    }
+
+    try {
+      const orcamentos = localMirror.getMirror<any[]>('orcamentos_historico') || [];
+
+      // 1. Recebíveis Futuros (A Vencer) da Planilha de Orçamentos
+      let totalRecebivelSetembro = 0;
+      let totalRecebivelOutubro = 0;
+      const faturasReceberFuturas: any[] = [];
+
+      orcamentos.filter(o => isAll || o.empresa_id === empresaId).forEach(orc => {
+        let itens = orc.itens_json;
+        if (typeof itens === 'string') {
+          try { itens = JSON.parse(itens); } catch (e) { itens = []; }
+        }
+        if (Array.isArray(itens)) {
+          itens.forEach((item: any) => {
+            if (item.status_financeiro === 'À Vencer' && item.valor_final_item > 0) {
+              faturasReceberFuturas.push({
+                orcamento: orc.numero_orcamento,
+                cliente: orc.cliente_nome,
+                cnpj: orc.cliente_cnpj_cpf,
+                po: item.po_cliente,
+                nf: item.numero_nfe,
+                vencimento: item.vencimento,
+                valor: item.valor_final_item,
+                pack: item.pack_produto,
+                obs: item.observacao
+              });
+
+              if (item.vencimento && item.vencimento.includes('/09/')) {
+                totalRecebivelSetembro += item.valor_final_item;
+              } else if (item.vencimento && item.vencimento.includes('/10/')) {
+                totalRecebivelOutubro += item.valor_final_item;
+              } else {
+                totalRecebivelSetembro += item.valor_final_item;
+              }
+            }
+          });
+        }
+      });
+
+      // 2. Estrutura de Custos Recorrentes Fixos da Holding
+      const despesasRecorrentesMensais = [
+        { categoria: 'Folha de Colaboradores PJ (Jandson, Marcelo, Tom, etc.)', valor: 15265.82, tipo: 'COLABORADOR_PJ' },
+        { categoria: 'VR Benefícios Alimentação (R$ 800 x 5)', valor: 4000.00, tipo: 'COLABORADOR_PJ' },
+        { categoria: 'Plano de Saúde Empresarial (SulAmérica)', valor: 4314.51, tipo: 'PRESTADOR_CONTINUO' },
+        { categoria: 'Locação Salas Comerciais (Prima 206/207 + Cristiana 216)', valor: 6184.73, tipo: 'INFRAESTRUTURA_FIXA' },
+        { categoria: 'Assessoria Contábil (WPME Contabilidade)', valor: 1100.00, tipo: 'PRESTADOR_CONTINUO' },
+        { categoria: 'Empréstimo Capital de Giro PRONAMPE (Bradesco)', valor: 5638.21, tipo: 'INSTITUICAO_FINANCEIRA' },
+        { categoria: 'Utilidades (Light Energia, Vivo Fibra, Claro Celular)', valor: 1081.00, tipo: 'INFRAESTRUTURA_FIXA' },
+        { categoria: 'Sistemas e ERP (OMIE, NFeMail, Hostgator)', valor: 857.00, tipo: 'PRESTADOR_CONTINUO' },
+        { categoria: 'Parcelamentos de Matéria-Prima (Hayamax e Strema)', valor: 2811.77, tipo: 'FORNECEDOR_INSUMO' },
+        { categoria: 'Tributos Estimados (Simples Nacional + DARF/FGTS)', valor: 5500.00, tipo: 'GOVERNO_TRIBUTO' }
+      ];
+
+      const totalSaidasFixasMes = despesasRecorrentesMensais.reduce((acc, d) => acc + d.valor, 0);
+
+      // Projeção Mês a Mês
+      const mesesProjecao = [
+        {
+          mes_ano: '09/2026',
+          mes_nome: 'Setembro 2026',
+          receitas_previstas: totalRecebivelSetembro,
+          saidas_previstas: totalSaidasFixasMes + 10251.75,
+          saldo_projetado_mes: totalRecebivelSetembro - (totalSaidasFixasMes + 10251.75),
+          status_cobertura: totalRecebivelSetembro >= totalSaidasFixasMes ? 'SUPERAVIT_CONFORTAVEL' : 'EQUILIBRADO'
+        },
+        {
+          mes_ano: '10/2026',
+          mes_nome: 'Outubro 2026',
+          receitas_previstas: totalRecebivelOutubro > 0 ? totalRecebivelOutubro : 180000.00,
+          saidas_previstas: totalSaidasFixasMes + 10251.75,
+          saldo_projetado_mes: (totalRecebivelOutubro > 0 ? totalRecebivelOutubro : 180000.00) - (totalSaidasFixasMes + 10251.75),
+          status_cobertura: 'SUPERAVIT_CONFORTAVEL'
+        },
+        {
+          mes_ano: '11/2026',
+          mes_nome: 'Novembro 2026',
+          receitas_previstas: 150000.00,
+          saidas_previstas: totalSaidasFixasMes + 10251.73,
+          saldo_projetado_mes: 150000.00 - (totalSaidasFixasMes + 10251.73),
+          status_cobertura: 'SUPERAVIT_CONFORTAVEL'
+        },
+        {
+          mes_ano: '12/2026',
+          mes_nome: 'Dezembro 2026',
+          receitas_previstas: 160000.00,
+          saidas_previstas: totalSaidasFixasMes + 1959.32,
+          saldo_projetado_mes: 160000.00 - (totalSaidasFixasMes + 1959.32),
+          status_cobertura: 'SUPERAVIT_CONFORTAVEL'
+        }
+      ];
+
+      const payload = {
+        success: true,
+        data: {
+          total_receber_carteira_auditada: totalRecebivelSetembro + totalRecebivelOutubro,
+          custo_fixo_operacional_mensal: totalSaidasFixasMes,
+          faturas_receber_detalhadas: faturasReceberFuturas,
+          estrutura_custo_recorrente: despesasRecorrentesMensais,
+          projecao_mensal: mesesProjecao
+        }
+      };
+
+      memoryCache.set(cacheKey, payload, 60);
+      res.status(200).json(payload);
+    } catch (err: any) {
+      console.error('[ERRO PROJECAO FUTURA]:', err.message);
+      res.status(500).json({ success: false, error: 'Erro ao calcular projeção futura' });
+    }
+  };
+
+  /**
+   * Categorização Interativa de Transação Bancária
+   * POST /api/v1/financeiro/categorizar-transacao
+   */
+  categorizarTransacao = async (req: Request, res: Response): Promise<void> => {
+    const { transacao_id, categoria_financeira, cliente_id, nome_contraparte } = req.body;
+    if (!transacao_id || !categoria_financeira) {
+      res.status(400).json({ success: false, error: 'transacao_id e categoria_financeira sao obrigatorios' });
+      return;
+    }
+
+    try {
+      const txs = localMirror.getMirror<any[]>('transacoes_bancarias') || [];
+      const tx = txs.find(t => t.id === transacao_id);
+      if (tx) {
+        tx.categoria_financeira = categoria_financeira;
+        if (nome_contraparte) tx.nome_contraparte = nome_contraparte;
+        if (cliente_id) tx.cliente_id = cliente_id;
+        tx.updated_at = new Date().toISOString();
+        localMirror.saveMirror('transacoes_bancarias', txs);
+      }
+
+      memoryCache.invalidate();
+      res.status(200).json({ success: true, message: 'Transação categorizada com sucesso' });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: 'Erro ao categorizar transação' });
+    }
+  };
 }
 

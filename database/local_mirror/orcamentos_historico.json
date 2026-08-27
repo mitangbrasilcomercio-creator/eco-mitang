@@ -1,6 +1,7 @@
 [
   {
     "id": "30a4ee21-8c79-465b-9054-d308a87c1dbd",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080826",
     "vendido_por": "Mitang",
     "data_emissao": "2026-08-21T03:00:00.000Z",
@@ -10,6 +11,7 @@
     "cliente_cnpj_cpf": "34621748000123",
     "cliente_contato": "Luci Cajueiro Carneiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "2372.70",
     "itens_json": [
@@ -64,11 +66,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b2209398-5768-4ae5-a0bd-d5ac383d8eec",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "070826",
     "vendido_por": "Arandu",
     "data_emissao": "2026-08-20T03:00:00.000Z",
@@ -78,6 +81,7 @@
     "cliente_cnpj_cpf": "51952954000135",
     "cliente_contato": "Waldeney dos Santos",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "275984.00",
     "itens_json": [
@@ -107,11 +111,12 @@
         "valor_total_produtos": 293600
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b515a014-b515-46ce-ac5c-b55302f26404",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060826",
     "vendido_por": "Arandu",
     "data_emissao": "2026-08-17T03:00:00.000Z",
@@ -121,6 +126,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "798.00",
     "itens_json": [
@@ -150,11 +156,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "67aaeeb8-726d-4905-bc16-0a88678a3aaa",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050826",
     "vendido_por": "Arandu",
     "data_emissao": "2026-08-14T03:00:00.000Z",
@@ -164,6 +171,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "4125.00",
     "itens_json": [
@@ -193,11 +201,12 @@
         "valor_total_produtos": 4125
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5660ceca-d8ae-495c-ae45-9120b3b912b1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040826",
     "vendido_por": "Mitang",
     "data_emissao": "2026-08-12T03:00:00.000Z",
@@ -207,6 +216,7 @@
     "cliente_cnpj_cpf": "34621748000123",
     "cliente_contato": "Luci Cajueiro Carneiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1784.70",
     "itens_json": [
@@ -236,11 +246,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6f48b2be-cdd3-4936-9092-c1d37fa49e9e",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030826",
     "vendido_por": "Arandu",
     "data_emissao": "2026-08-07T03:00:00.000Z",
@@ -250,6 +261,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2750.00",
     "itens_json": [
@@ -279,11 +291,12 @@
         "valor_total_produtos": 2750
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7a43280c-22d2-475a-8c1c-acb9d5e1ee41",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "01.S.26.042.038",
     "vendido_por": "Mitang",
     "data_emissao": "2026-08-07T03:00:00.000Z",
@@ -293,6 +306,7 @@
     "cliente_cnpj_cpf": "04336088000178",
     "cliente_contato": "Mitang Soluções",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "102018.00",
     "itens_json": [
@@ -322,11 +336,12 @@
         "valor_total_produtos": 102018
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "15f644aa-d4c2-4ebf-a7ad-56b87f89beed",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020826",
     "vendido_por": "Mitang",
     "data_emissao": "2026-08-07T03:00:00.000Z",
@@ -336,6 +351,7 @@
     "cliente_cnpj_cpf": "34621748000123",
     "cliente_contato": "Vando Gomes (CPF)",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3369.40",
     "itens_json": [
@@ -365,11 +381,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7ee6d12e-814d-4eff-a247-f1bd04b5f960",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "010826",
     "vendido_por": "Arandu",
     "data_emissao": "2026-08-03T03:00:00.000Z",
@@ -379,6 +396,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "106980.04",
     "itens_json": [
@@ -483,11 +501,12 @@
         "valor_total_produtos": 4788
       }
     ],
-    "total_itens": 4,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a643b915-2c61-4299-88d3-c80ba7791242",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "100726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-27T03:00:00.000Z",
@@ -497,6 +516,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2394.00",
     "itens_json": [
@@ -526,11 +546,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "630cc714-9742-4fe5-a7b3-28042f35935a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "080726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-13T03:00:00.000Z",
@@ -540,6 +561,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4125.00",
     "itens_json": [
@@ -569,11 +591,12 @@
         "valor_total_produtos": 4125
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "72648f2a-6a00-41d6-a6e2-24294ebc9287",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "090726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-13T03:00:00.000Z",
@@ -583,6 +606,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "750.00",
     "itens_json": [
@@ -612,11 +636,12 @@
         "valor_total_produtos": 750
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "709f2176-428b-4206-9249-713f8d46a771",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "070726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-13T03:00:00.000Z",
@@ -626,6 +651,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3990.00",
     "itens_json": [
@@ -655,11 +681,12 @@
         "valor_total_produtos": 3990
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6150bcef-18af-42ca-a344-421b720c9d2f",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "040726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-08T03:00:00.000Z",
@@ -669,6 +696,7 @@
     "cliente_cnpj_cpf": "33373325000179",
     "cliente_contato": "Pâmela Braz Lima",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -698,11 +726,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "53fa9cb6-4a1c-4d9c-a21f-e1b05256679a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-08T03:00:00.000Z",
@@ -712,6 +741,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3192.00",
     "itens_json": [
@@ -741,11 +771,12 @@
         "valor_total_produtos": 3192
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "9a45bf45-65cd-4e92-93b9-55c3cde90a88",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-08T03:00:00.000Z",
@@ -755,6 +786,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1596.00",
     "itens_json": [
@@ -784,11 +816,12 @@
         "valor_total_produtos": 1596
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6fd2b947-995c-48ce-9c82-1ba39c815a55",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-08T03:00:00.000Z",
@@ -798,6 +831,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "190904.00",
     "itens_json": [
@@ -927,11 +961,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 5,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a54c076c-9a99-4e8f-b7a6-d629704c50d1",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "020726",
     "vendido_por": "Arandu",
     "data_emissao": "2026-07-06T03:00:00.000Z",
@@ -941,6 +976,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1596.00",
     "itens_json": [
@@ -970,11 +1006,12 @@
         "valor_total_produtos": 1596
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8e955040-4700-4c39-911b-95a4ead9a7b9",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010726",
     "vendido_por": "Mitang",
     "data_emissao": "2026-07-03T03:00:00.000Z",
@@ -984,6 +1021,7 @@
     "cliente_cnpj_cpf": "72060999000175",
     "cliente_contato": "Thiago Leão",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1899.80",
     "itens_json": [
@@ -1013,11 +1051,12 @@
         "valor_total_produtos": 1899.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bebeed16-b9dd-4a27-b32b-73332eb50b4a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "100626",
     "vendido_por": "Arandu",
     "data_emissao": "2026-06-30T03:00:00.000Z",
@@ -1027,6 +1066,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3144.00",
     "itens_json": [
@@ -1081,11 +1121,12 @@
         "valor_total_produtos": 750
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ec29062b-5eac-4dc3-bf76-d757353ce115",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "090626",
     "vendido_por": "Arandu",
     "data_emissao": "2026-06-22T03:00:00.000Z",
@@ -1095,6 +1136,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2530.00",
     "itens_json": [
@@ -1149,11 +1191,12 @@
         "valor_total_produtos": 1780
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5840ba6a-7fd9-49fc-8158-b17dabd5bf9a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-19T03:00:00.000Z",
@@ -1163,6 +1206,7 @@
     "cliente_cnpj_cpf": "15349654000100",
     "cliente_contato": "Weslei Silva",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "10819.00",
     "itens_json": [
@@ -1217,11 +1261,12 @@
         "valor_total_produtos": 2398
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "91f7cae6-5d24-4474-9acd-4d8c8e4fc945",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-16T03:00:00.000Z",
@@ -1231,6 +1276,7 @@
     "cliente_cnpj_cpf": "56088990000469",
     "cliente_contato": "Ricardo Busoli",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5604.00",
     "itens_json": [
@@ -1260,11 +1306,12 @@
         "valor_total_produtos": 5454
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "55431d17-c2e0-417c-ba09-808b3f83a8f9",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-16T03:00:00.000Z",
@@ -1274,6 +1321,7 @@
     "cliente_cnpj_cpf": "39413837000106",
     "cliente_contato": "Gustavo Spindola",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3484.80",
     "itens_json": [
@@ -1303,11 +1351,12 @@
         "valor_total_produtos": 3484.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "000b2135-9143-4d34-b703-e9fd5163f42b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-11T03:00:00.000Z",
@@ -1317,6 +1366,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Pedro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1987.00",
     "itens_json": [
@@ -1346,11 +1396,12 @@
         "valor_total_produtos": 1987
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "67371a7e-24a6-48ed-a35f-ffcea4426195",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-11T03:00:00.000Z",
@@ -1360,6 +1411,7 @@
     "cliente_cnpj_cpf": "36941795000180",
     "cliente_contato": "Gustavo Cerqueira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3169.40",
     "itens_json": [
@@ -1389,11 +1441,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "9f35b9d1-ae28-49ae-a045-87cfc8cdd9cb",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030626",
     "vendido_por": "Arandu",
     "data_emissao": "2026-06-09T03:00:00.000Z",
@@ -1403,6 +1456,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "16556.93",
     "itens_json": [
@@ -1457,11 +1511,12 @@
         "valor_total_produtos": 6338.8
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6b1d74d3-e362-4c77-9e92-ff80680c1e4d",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-09T03:00:00.000Z",
@@ -1471,6 +1526,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Flavia Parvan",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "19890.00",
     "itens_json": [
@@ -1500,11 +1556,12 @@
         "valor_total_produtos": 19890
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6d9f683f-a926-4604-81a9-52b8840daac5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010626",
     "vendido_por": "Mitang",
     "data_emissao": "2026-06-02T03:00:00.000Z",
@@ -1514,6 +1571,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Regina Cezario",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "33640.00",
     "itens_json": [
@@ -1543,11 +1601,12 @@
         "valor_total_produtos": 33640
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "56396f30-ff49-4c25-b99f-1a59f0a15c56",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090526",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-29T03:00:00.000Z",
@@ -1557,6 +1616,7 @@
     "cliente_cnpj_cpf": "28700530002539",
     "cliente_contato": "Diego Lutz",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1254.00",
     "itens_json": [
@@ -1586,11 +1646,12 @@
         "valor_total_produtos": 1189
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3d47b550-fe9f-455f-a5ea-a83c0e6b6536",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "070526",
     "vendido_por": "Arandu",
     "data_emissao": "2026-05-26T03:00:00.000Z",
@@ -1600,6 +1661,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Aline Santos",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "4756.00",
     "itens_json": [
@@ -1629,11 +1691,12 @@
         "valor_total_produtos": 4756
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ce03a0b0-ff53-47cb-a676-68011ca5362d",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080526",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-26T03:00:00.000Z",
@@ -1643,6 +1706,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Nadjane Araujo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "33640.00",
     "itens_json": [
@@ -1672,11 +1736,12 @@
         "valor_total_produtos": 33640
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "428a3d2a-4a0c-4efc-aaf1-0b75b7a54986",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060526",
     "vendido_por": "Arandu",
     "data_emissao": "2026-05-21T03:00:00.000Z",
@@ -1686,6 +1751,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4174.00",
     "itens_json": [
@@ -1765,11 +1831,12 @@
         "valor_total_produtos": 1780
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "c7650326-2343-42d1-830f-be6a0138a203",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050526",
     "vendido_por": "Arandu",
     "data_emissao": "2026-05-18T03:00:00.000Z",
@@ -1779,6 +1846,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "16602.00",
     "itens_json": [
@@ -1883,11 +1951,12 @@
         "valor_total_produtos": 180
       }
     ],
-    "total_itens": 4,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "c663cda3-d327-4eab-8e55-c51ebb3bfc09",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040526",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-11T03:00:00.000Z",
@@ -1897,6 +1966,7 @@
     "cliente_cnpj_cpf": "31250137000128",
     "cliente_contato": "Ana Beatriz",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "5903.50",
     "itens_json": [
@@ -1951,11 +2021,12 @@
         "valor_total_produtos": 49.5
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "e69809a2-0d0c-4337-86fe-cb8498e430a7",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030526",
     "vendido_por": "Arandu",
     "data_emissao": "2026-05-11T03:00:00.000Z",
@@ -1965,6 +2036,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Aline Santos",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "3582.00",
     "itens_json": [
@@ -2019,11 +2091,12 @@
         "valor_total_produtos": 1434
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "4ef71ac3-bac6-4cca-80e4-1fc64914a65f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010526-2",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-08T03:00:00.000Z",
@@ -2033,6 +2106,7 @@
     "cliente_cnpj_cpf": "02980103000190",
     "cliente_contato": "Júlia Salviato",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "39715.60",
     "itens_json": [
@@ -2087,11 +2161,12 @@
         "valor_total_produtos": 32724
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "84f3af9b-fcfb-40b7-a57f-23d7e62ac73d",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020526",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-08T03:00:00.000Z",
@@ -2101,6 +2176,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "William Stelling",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "97777.37",
     "itens_json": [
@@ -2130,11 +2206,12 @@
         "valor_total_produtos": 124020
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "af9d77bf-a778-407e-aa36-66606fd2c92c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010526",
     "vendido_por": "Mitang",
     "data_emissao": "2026-05-08T03:00:00.000Z",
@@ -2144,6 +2221,7 @@
     "cliente_cnpj_cpf": "02980103000190",
     "cliente_contato": "Júlia Salviato",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5839.80",
     "itens_json": [
@@ -2173,11 +2251,12 @@
         "valor_total_produtos": 5129.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "63848b34-de38-45bc-ad85-32a26960a2f1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-29T03:00:00.000Z",
@@ -2187,6 +2266,7 @@
     "cliente_cnpj_cpf": "09477772000193",
     "cliente_contato": "Bruno Fucelini",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1389.00",
     "itens_json": [
@@ -2216,11 +2296,12 @@
         "valor_total_produtos": 1389
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b70ea43f-3727-4093-98a7-c8098f09fc05",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-28T03:00:00.000Z",
@@ -2230,6 +2311,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "3484.80",
     "itens_json": [
@@ -2259,11 +2341,12 @@
         "valor_total_produtos": 3484.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1b894f2f-7870-40e7-8675-80e92413071a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-27T03:00:00.000Z",
@@ -2273,6 +2356,7 @@
     "cliente_cnpj_cpf": "44209460000108",
     "cliente_contato": "Guilherme",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Não",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "4000.00",
     "itens_json": [
@@ -2302,11 +2386,12 @@
         "valor_total_produtos": 4000
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "fa48a2f2-a47f-4bf5-8744-4789b0261e92",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-24T03:00:00.000Z",
@@ -2316,6 +2401,7 @@
     "cliente_cnpj_cpf": "34621748000123",
     "cliente_contato": "Luci Cajueiro Carneiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1844.70",
     "itens_json": [
@@ -2345,11 +2431,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a3b07a06-b5a1-477f-8376-2a495a0e3c58",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-24T03:00:00.000Z",
@@ -2359,6 +2446,7 @@
     "cliente_cnpj_cpf": "50276237000178",
     "cliente_contato": "Andrea Pontes",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "890.00",
     "itens_json": [
@@ -2388,11 +2476,12 @@
         "valor_total_produtos": 890
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ca25d492-9fc1-4fe8-9822-9261a8aebd25",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060426",
     "vendido_por": "Arandu",
     "data_emissao": "2026-04-24T03:00:00.000Z",
@@ -2402,6 +2491,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Rafael Lapagesse",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1598.00",
     "itens_json": [
@@ -2431,11 +2521,12 @@
         "valor_total_produtos": 1598
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8597785e-7cf4-4d91-94ba-5c7528a68990",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050426",
     "vendido_por": "Arandu",
     "data_emissao": "2026-04-17T03:00:00.000Z",
@@ -2445,6 +2536,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Rafael Lapagesse",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "9576.00",
     "itens_json": [
@@ -2474,11 +2566,12 @@
         "valor_total_produtos": 9576
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "4e5710e7-df5e-41b4-af11-cda3b914aede",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-15T03:00:00.000Z",
@@ -2488,6 +2581,7 @@
     "cliente_cnpj_cpf": "12285662000134",
     "cliente_contato": "Ivan Mizutori",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "850.00",
     "itens_json": [
@@ -2517,11 +2611,12 @@
         "valor_total_produtos": 850
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5af6666b-7c2f-4b0d-84fa-68abb017b8d2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-09T03:00:00.000Z",
@@ -2531,6 +2626,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -2560,11 +2656,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "994a855a-6f2b-41e2-9b3b-210c1afed9ff",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030426",
     "vendido_por": "Mitang",
     "data_emissao": "2026-04-09T03:00:00.000Z",
@@ -2574,6 +2671,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "Christian Silva",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "327455.23",
     "itens_json": [
@@ -2678,11 +2776,12 @@
         "valor_total_produtos": 28524.6
       }
     ],
-    "total_itens": 4,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "4ab82d2b-f8f0-4f00-83eb-dd6b2a00ed43",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "010426",
     "vendido_por": "Arandu",
     "data_emissao": "2026-04-06T03:00:00.000Z",
@@ -2692,6 +2791,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2578.00",
     "itens_json": [
@@ -2746,11 +2846,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6182c65c-dd34-4542-88ed-45d27d89eca8",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-27T03:00:00.000Z",
@@ -2760,6 +2861,7 @@
     "cliente_cnpj_cpf": "06033405000102",
     "cliente_contato": "Nivaldo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "850.00",
     "itens_json": [
@@ -2789,11 +2891,12 @@
         "valor_total_produtos": 850
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b34e09d1-fbd4-44cb-ad33-5d93b9c11624",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-27T03:00:00.000Z",
@@ -2803,6 +2906,7 @@
     "cliente_cnpj_cpf": "31250137000128",
     "cliente_contato": "Ana Beatriz",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "13688.00",
     "itens_json": [
@@ -2857,11 +2961,12 @@
         "valor_total_produtos": 2727
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "35ca9a3e-b214-4f29-99a9-0b3518bbf9ea",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-26T03:00:00.000Z",
@@ -2871,6 +2976,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "Nelson Carvalho",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "22047.00",
     "itens_json": [
@@ -2900,11 +3006,12 @@
         "valor_total_produtos": 21922
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ef5a64d2-52b0-491b-91d2-773d9309053a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "080326",
     "vendido_por": "Arandu",
     "data_emissao": "2026-03-26T03:00:00.000Z",
@@ -2914,6 +3021,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "247600.44",
     "itens_json": [
@@ -3168,11 +3276,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 10,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ebff6fdf-03dd-4678-9dd1-c00719e33a45",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060326",
     "vendido_por": "Arandu",
     "data_emissao": "2026-03-26T03:00:00.000Z",
@@ -3182,6 +3291,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "291806.00",
     "itens_json": [
@@ -3311,11 +3421,12 @@
         "valor_total_produtos": 732
       }
     ],
-    "total_itens": 5,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a3bf5ca8-c5f5-4836-ab97-cb5277b2132b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-19T03:00:00.000Z",
@@ -3325,6 +3436,7 @@
     "cliente_cnpj_cpf": "24134488000108",
     "cliente_contato": "Alex Costa",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4561.70",
     "itens_json": [
@@ -3379,11 +3491,12 @@
         "valor_total_produtos": 2727
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "c58fd7e3-7874-48e7-919f-85678e7f38b2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-10T03:00:00.000Z",
@@ -3393,6 +3506,7 @@
     "cliente_cnpj_cpf": "02745280000192",
     "cliente_contato": "Dione Amorim",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2047.00",
     "itens_json": [
@@ -3422,11 +3536,12 @@
         "valor_total_produtos": 1987
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "46df972c-cc0e-449f-a354-00fd7a6b50bc",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030326",
     "vendido_por": "Arandu",
     "data_emissao": "2026-03-03T03:00:00.000Z",
@@ -3436,6 +3551,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3192.00",
     "itens_json": [
@@ -3490,11 +3606,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "380f33fa-5db4-437e-90d5-9ed690a94452",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-02T03:00:00.000Z",
@@ -3504,6 +3621,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jorge Selim",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "0.00",
     "itens_json": [
@@ -3533,11 +3651,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "63df0539-c2e9-4f85-b5d6-0d76a5f55a64",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020326",
     "vendido_por": "Mitang",
     "data_emissao": "2026-03-02T03:00:00.000Z",
@@ -3547,6 +3666,7 @@
     "cliente_cnpj_cpf": "00394544017150",
     "cliente_contato": "Sandro De Lucena Barboza",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "858.00",
     "itens_json": [
@@ -3576,11 +3696,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b0972d70-3eed-4fb8-8b4f-6b56e0a69a9d",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "140226",
     "vendido_por": "Arandu",
     "data_emissao": "2026-02-26T03:00:00.000Z",
@@ -3590,6 +3711,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -3619,11 +3741,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1f95fd00-c384-46a1-9a91-b19be762230c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "150226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-26T03:00:00.000Z",
@@ -3633,6 +3756,7 @@
     "cliente_cnpj_cpf": "04336088000178",
     "cliente_contato": "Tom Azevedo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Não",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "97160.00",
     "itens_json": [
@@ -3662,11 +3786,12 @@
         "valor_total_produtos": 97160
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "25a26ea5-b452-4f8c-bb12-4cc7c315deb9",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "130226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-26T03:00:00.000Z",
@@ -3676,6 +3801,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jorge Selim",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Aguardando Pagamento",
     "valor_total": "7014.40",
     "itens_json": [
@@ -3705,11 +3831,12 @@
         "valor_total_produtos": 7014.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "13e6583c-5fd6-456a-bc51-414f4b9fcf5a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "120226",
     "vendido_por": "Arandu",
     "data_emissao": "2026-02-25T03:00:00.000Z",
@@ -3719,6 +3846,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2394.00",
     "itens_json": [
@@ -3748,11 +3876,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6b166bc9-e7ad-45cd-83d2-e514da701000",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-24T03:00:00.000Z",
@@ -3762,6 +3891,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Flavia Parvan",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "16820.00",
     "itens_json": [
@@ -3791,11 +3921,12 @@
         "valor_total_produtos": 16820
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "90c56d14-e532-4fd7-9300-4163c9802d5c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "100226",
     "vendido_por": "Arandu",
     "data_emissao": "2026-02-23T03:00:00.000Z",
@@ -3805,6 +3936,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "798.00",
     "itens_json": [
@@ -3834,11 +3966,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3632a40b-91ef-4484-a6fb-e7157e56be94",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-12T03:00:00.000Z",
@@ -3848,6 +3981,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3507.20",
     "itens_json": [
@@ -3877,11 +4011,12 @@
         "valor_total_produtos": 3507.2
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "efc967e0-d49e-4ae4-95a4-304ea0264519",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "080226",
     "vendido_por": "Arandu",
     "data_emissao": "2026-02-11T03:00:00.000Z",
@@ -3891,6 +4026,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "12636.00",
     "itens_json": [
@@ -3945,11 +4081,12 @@
         "valor_total_produtos": 5670
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "cca1633b-c842-4005-905b-267d1e63efef",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-10T03:00:00.000Z",
@@ -3959,6 +4096,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Wagner Cotrim",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "19890.00",
     "itens_json": [
@@ -3988,11 +4126,12 @@
         "valor_total_produtos": 19890
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5ffb1ad9-af5e-4b59-9151-c66dd8bac360",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-10T03:00:00.000Z",
@@ -4002,6 +4141,7 @@
     "cliente_cnpj_cpf": "72060999000175",
     "cliente_contato": "Prf. Marcos Nicolas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "10961.00",
     "itens_json": [
@@ -4031,11 +4171,12 @@
         "valor_total_produtos": 10961
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f3c85455-d9fd-4553-8450-a24aa92c181b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-10T03:00:00.000Z",
@@ -4045,6 +4186,7 @@
     "cliente_cnpj_cpf": "72060999000175",
     "cliente_contato": "Prf. Marcos Nicolas",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2727.00",
     "itens_json": [
@@ -4074,11 +4216,12 @@
         "valor_total_produtos": 2727
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "60957159-188d-43e8-b4ee-0478f20951b8",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "040226",
     "vendido_por": "Arandu",
     "data_emissao": "2026-02-04T03:00:00.000Z",
@@ -4088,6 +4231,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2394.00",
     "itens_json": [
@@ -4117,11 +4261,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "2d523b5a-6976-48c6-bb78-fd5eccfd56d2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-03T03:00:00.000Z",
@@ -4131,6 +4276,7 @@
     "cliente_cnpj_cpf": "02385674000187",
     "cliente_contato": "Guilherme",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "28076.00",
     "itens_json": [
@@ -4185,11 +4331,12 @@
         "valor_total_produtos": 21922
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "97d88d7e-6a04-49bb-ad25-05daffe69524",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-02T03:00:00.000Z",
@@ -4199,6 +4346,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -4228,11 +4376,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "038a6c4e-9119-4a78-9294-6fbfe21acc93",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020226",
     "vendido_por": "Mitang",
     "data_emissao": "2026-02-02T03:00:00.000Z",
@@ -4242,6 +4391,7 @@
     "cliente_cnpj_cpf": "64558533934",
     "cliente_contato": "Maurício  Almeida",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1939.00",
     "itens_json": [
@@ -4271,11 +4421,12 @@
         "valor_total_produtos": 1789
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3fdff3c6-e851-4643-8c86-516134250b1e",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050126",
     "vendido_por": "Arandu",
     "data_emissao": "2026-01-23T03:00:00.000Z",
@@ -4285,6 +4436,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -4314,11 +4466,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "c9129bb3-78c4-4dee-a3c0-77aa8150e306",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "040126",
     "vendido_por": "Arandu",
     "data_emissao": "2026-01-21T03:00:00.000Z",
@@ -4328,6 +4481,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "102786.12",
     "itens_json": [
@@ -4382,11 +4536,12 @@
         "valor_total_produtos": 97474
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8e7b97fc-989d-4ae7-999f-0d8856745b8b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030126",
     "vendido_por": "Mitang",
     "data_emissao": "2026-01-14T03:00:00.000Z",
@@ -4396,6 +4551,7 @@
     "cliente_cnpj_cpf": "36941795000180",
     "cliente_contato": "Matheus Rezende",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1584.70",
     "itens_json": [
@@ -4425,11 +4581,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "e9c16e6d-2fa2-44cd-9f1a-f660950ab8a9",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "020126",
     "vendido_por": "Arandu",
     "data_emissao": "2026-01-06T03:00:00.000Z",
@@ -4439,6 +4596,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4788.00",
     "itens_json": [
@@ -4493,11 +4651,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1e4ba7ea-12d6-4958-8d24-a833f4017d0d",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010126",
     "vendido_por": "Mitang",
     "data_emissao": "2026-01-06T03:00:00.000Z",
@@ -4507,6 +4666,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Wagner Cotrim",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "33640.00",
     "itens_json": [
@@ -4536,11 +4696,12 @@
         "valor_total_produtos": 33640
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0038f63b-744f-405c-b145-f739160c7da7",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "211225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-30T03:00:00.000Z",
@@ -4550,6 +4711,7 @@
     "cliente_cnpj_cpf": "66790441387",
     "cliente_contato": "Pedro Paulo de Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3037.20",
     "itens_json": [
@@ -4579,11 +4741,12 @@
         "valor_total_produtos": 2727
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "132ebc08-ae12-403e-8c7f-55de10df17fe",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "221225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-30T03:00:00.000Z",
@@ -4593,6 +4756,7 @@
     "cliente_cnpj_cpf": "66790441387",
     "cliente_contato": "Pedro Paulo de Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1810.50",
     "itens_json": [
@@ -4622,11 +4786,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "49091bc3-a8be-4c90-843e-aa0f6768307b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "201225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-30T03:00:00.000Z",
@@ -4636,6 +4801,7 @@
     "cliente_cnpj_cpf": "09114805000807",
     "cliente_contato": "Douglas Leal Azevedo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "99450.00",
     "itens_json": [
@@ -4690,11 +4856,12 @@
         "valor_total_produtos": 99450
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0763f5fb-e555-460d-9600-5298f2402d5b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "191225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-23T03:00:00.000Z",
@@ -4704,6 +4871,7 @@
     "cliente_cnpj_cpf": "29980141000442",
     "cliente_contato": "Jamille Costa",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3219.40",
     "itens_json": [
@@ -4733,11 +4901,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "2f0d74a7-d7ba-4af3-88d0-e4bc2d3bd694",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "181225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-19T03:00:00.000Z",
@@ -4747,6 +4916,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Rodrigo Kirk",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "33054.00",
     "itens_json": [
@@ -4776,11 +4946,12 @@
         "valor_total_produtos": 33054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "91fe7650-b0d6-489c-8fac-bd6fb457ab23",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "171225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-16T03:00:00.000Z",
@@ -4790,6 +4961,7 @@
     "cliente_cnpj_cpf": "05303513000195",
     "cliente_contato": "Edmar Miranda",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4788.00",
     "itens_json": [
@@ -4844,11 +5016,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f08b94bb-485a-45b8-9fb8-15e57cc21f68",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "161225",
     "vendido_por": "Arandu",
     "data_emissao": "2025-12-15T03:00:00.000Z",
@@ -4858,6 +5031,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "108868.00",
     "itens_json": [
@@ -4937,11 +5111,12 @@
         "valor_total_produtos": 6588
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bc738bbd-c805-45cd-a046-ba708be15fe4",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "151225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-09T03:00:00.000Z",
@@ -4951,6 +5126,7 @@
     "cliente_cnpj_cpf": "66790441387",
     "cliente_contato": "Pedro Paulo de Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2887.00",
     "itens_json": [
@@ -4980,11 +5156,12 @@
         "valor_total_produtos": 2727
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "93a4b7f8-748c-4352-9b13-214ac7de6193",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "141225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-03T03:00:00.000Z",
@@ -4994,6 +5171,7 @@
     "cliente_cnpj_cpf": "02475386000113",
     "cliente_contato": "José Carlos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2547.00",
     "itens_json": [
@@ -5048,11 +5226,12 @@
         "valor_total_produtos": 989
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "13766ff8-11a8-47f5-9ce2-522da54848db",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "131225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-12-02T03:00:00.000Z",
@@ -5062,6 +5241,7 @@
     "cliente_cnpj_cpf": "02475386000113",
     "cliente_contato": "José Carlos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4934.00",
     "itens_json": [
@@ -5116,11 +5296,12 @@
         "valor_total_produtos": 1978
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "9901f093-04f7-47e9-abf7-40d17939320f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "121125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-11-27T03:00:00.000Z",
@@ -5130,6 +5311,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Rodrigo Kirk",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "16527.00",
     "itens_json": [
@@ -5159,11 +5341,12 @@
         "valor_total_produtos": 16527
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8197e526-5f16-4717-84a2-64c67aa0efd6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "111125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-24T03:00:00.000Z",
@@ -5173,6 +5356,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "36352.00",
     "itens_json": [
@@ -5202,11 +5386,12 @@
         "valor_total_produtos": 45440
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a080578d-8b4a-4f5f-8239-f0c932a552e4",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "101125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-17T03:00:00.000Z",
@@ -5216,6 +5401,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "8514.00",
     "itens_json": [
@@ -5245,11 +5431,12 @@
         "valor_total_produtos": 8514
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "baf611aa-3359-4a5a-9ee7-dd5caab7ac41",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "091125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-11-13T03:00:00.000Z",
@@ -5259,6 +5446,7 @@
     "cliente_cnpj_cpf": "05572870000159",
     "cliente_contato": "Marcelo Rollnic",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "47125.00",
     "itens_json": [
@@ -5288,11 +5476,12 @@
         "valor_total_produtos": 43632
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8307b398-5302-4979-b9d2-97056f55d5c5",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "081125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-13T03:00:00.000Z",
@@ -5302,6 +5491,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -5331,11 +5521,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "59544828-9bb9-4658-99f9-23bdf85477df",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "071125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-11-12T03:00:00.000Z",
@@ -5345,6 +5536,7 @@
     "cliente_cnpj_cpf": "50273789000122",
     "cliente_contato": "Camila de Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1676.10",
     "itens_json": [
@@ -5374,11 +5566,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6c2aa8a7-6911-4063-b087-7f9044c72a40",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "061125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-10T03:00:00.000Z",
@@ -5388,6 +5581,7 @@
     "cliente_cnpj_cpf": "44498314000131",
     "cliente_contato": "Diogo Fernandes",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2507.74",
     "itens_json": [
@@ -5417,11 +5611,12 @@
         "valor_total_produtos": 2849.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "97266ecc-ada6-44d2-8f48-37f85df4630a",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "051125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-07T03:00:00.000Z",
@@ -5431,6 +5626,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "23077.20",
     "itens_json": [
@@ -5510,11 +5706,12 @@
         "valor_total_produtos": 20210.4
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5a0c814f-23f6-46c6-b521-6864472f0f2c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "041125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-06T03:00:00.000Z",
@@ -5524,6 +5721,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5680.00",
     "itens_json": [
@@ -5553,11 +5751,12 @@
         "valor_total_produtos": 5680
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0eb7e40a-78ca-444b-990c-52f763877d28",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "021125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-11-04T03:00:00.000Z",
@@ -5567,6 +5766,7 @@
     "cliente_cnpj_cpf": "63025530000295",
     "cliente_contato": "Áurea Maria Ciotti",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "8740.80",
     "itens_json": [
@@ -5596,11 +5796,12 @@
         "valor_total_produtos": 8290.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "27054da5-cfac-47cc-bea4-c104ec23e864",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "031125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-11-04T03:00:00.000Z",
@@ -5610,6 +5811,7 @@
     "cliente_cnpj_cpf": "63025530000295",
     "cliente_contato": "Áurea Maria Ciotti",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "33333.00",
     "itens_json": [
@@ -5639,11 +5841,12 @@
         "valor_total_produtos": 32883
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "27d27c2d-3be9-4f58-af21-576c121c718c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "011125",
     "vendido_por": "Arandu",
     "data_emissao": "2025-11-03T03:00:00.000Z",
@@ -5653,6 +5856,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3192.00",
     "itens_json": [
@@ -5707,11 +5911,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "32ea10f9-d700-4f5b-b691-98b40b699df1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "091025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-31T03:00:00.000Z",
@@ -5721,6 +5926,7 @@
     "cliente_cnpj_cpf": "24134488000108",
     "cliente_contato": "Alex Costa",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1676.10",
     "itens_json": [
@@ -5750,11 +5956,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d10e35c5-8057-4fd5-b9a8-a8824e133f35",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "081025",
     "vendido_por": "Arandu",
     "data_emissao": "2025-10-28T03:00:00.000Z",
@@ -5764,6 +5971,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "91985.10",
     "itens_json": [
@@ -5893,11 +6101,12 @@
         "valor_total_produtos": 60631.2
       }
     ],
-    "total_itens": 5,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "40a503c9-7f6b-454a-be00-e16a5fb3abab",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "071025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-20T03:00:00.000Z",
@@ -5907,6 +6116,7 @@
     "cliente_cnpj_cpf": "44498314000131",
     "cliente_contato": "Diogo Fernandes",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "10819.00",
     "itens_json": [
@@ -5961,11 +6171,12 @@
         "valor_total_produtos": 8421
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b3fe8ae5-d1c1-4c15-9b77-b8ca28baaf3a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "061025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-16T03:00:00.000Z",
@@ -5975,6 +6186,7 @@
     "cliente_cnpj_cpf": "13389555000119",
     "cliente_contato": "Ariel Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1709.82",
     "itens_json": [
@@ -6004,11 +6216,12 @@
         "valor_total_produtos": 1899.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d939afc2-046b-496e-a81d-2ae16abfd176",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "041025",
     "vendido_por": "Arandu",
     "data_emissao": "2025-10-10T03:00:00.000Z",
@@ -6018,6 +6231,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "478567.60",
     "itens_json": [
@@ -6122,11 +6336,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 4,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d9ea3177-d2cf-4ed7-883a-2027e274714e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "051025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-10T03:00:00.000Z",
@@ -6136,6 +6351,7 @@
     "cliente_cnpj_cpf": "85213907663",
     "cliente_contato": "Valeria da Silva",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3189.30",
     "itens_json": [
@@ -6190,11 +6406,12 @@
         "valor_total_produtos": 427.5
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "21b047aa-48af-4d56-a1f4-4b896827738c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "031025",
     "vendido_por": "Arandu",
     "data_emissao": "2025-10-10T03:00:00.000Z",
@@ -6204,6 +6421,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "262448.26",
     "itens_json": [
@@ -6433,11 +6651,12 @@
         "valor_total_produtos": 58947
       }
     ],
-    "total_itens": 9,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3616a687-83e7-4386-afb8-de5ff0c9b94a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "021025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-07T03:00:00.000Z",
@@ -6447,6 +6666,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Misael",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "770.00",
     "itens_json": [
@@ -6476,11 +6696,12 @@
         "valor_total_produtos": 770
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "02d4c77c-d63b-4c91-9ef1-9c2b42978996",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "011025",
     "vendido_por": "Mitang",
     "data_emissao": "2025-10-03T03:00:00.000Z",
@@ -6490,6 +6711,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Wagner Cotrim",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "33054.00",
     "itens_json": [
@@ -6519,11 +6741,12 @@
         "valor_total_produtos": 33054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f7362e68-470e-4d6c-8c35-b5da6646df81",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "130925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-29T03:00:00.000Z",
@@ -6533,6 +6756,7 @@
     "cliente_cnpj_cpf": "14532052000113",
     "cliente_contato": "Paula Charnaux",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "15212.00",
     "itens_json": [
@@ -6562,11 +6786,12 @@
         "valor_total_produtos": 15162
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f99c6a85-2838-47ba-bc53-06d99e2c5728",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "120925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-26T03:00:00.000Z",
@@ -6576,6 +6801,7 @@
     "cliente_cnpj_cpf": "02475386000113",
     "cliente_contato": "José Carlos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4934.00",
     "itens_json": [
@@ -6630,11 +6856,12 @@
         "valor_total_produtos": 1978
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7c511aa7-5c87-4a6f-897b-e0230d165d81",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-25T03:00:00.000Z",
@@ -6644,6 +6871,7 @@
     "cliente_cnpj_cpf": "16492411000343",
     "cliente_contato": "William Stelling",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "5940.00",
     "itens_json": [
@@ -6673,11 +6901,12 @@
         "valor_total_produtos": 5940
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7f0b5333-feb3-4938-a5b2-bbf9d61ab8b3",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-24T03:00:00.000Z",
@@ -6687,6 +6916,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Gabriela Oliveira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1753.60",
     "itens_json": [
@@ -6716,11 +6946,12 @@
         "valor_total_produtos": 1753.6
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5879800d-fc6c-47dc-8f01-7a78a3ac2a09",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "090925",
     "vendido_por": "Arandu",
     "data_emissao": "2025-09-17T03:00:00.000Z",
@@ -6730,6 +6961,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "113480.00",
     "itens_json": [
@@ -6784,11 +7016,12 @@
         "valor_total_produtos": 25280
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "94cad8e3-0b53-4481-bd57-255e0916bd88",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-15T03:00:00.000Z",
@@ -6798,6 +7031,7 @@
     "cliente_cnpj_cpf": "27136015000138",
     "cliente_contato": "Mayara Passos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2527.00",
     "itens_json": [
@@ -6827,11 +7061,12 @@
         "valor_total_produtos": 2527
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3f1dfae8-5d75-490b-a86e-27e599f4e8a5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-15T03:00:00.000Z",
@@ -6841,6 +7076,7 @@
     "cliente_cnpj_cpf": "39413837000106",
     "cliente_contato": "Lucca Cabaleiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4356.00",
     "itens_json": [
@@ -6870,11 +7106,12 @@
         "valor_total_produtos": 4356
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7dce519e-15aa-40b8-99cd-8c304be739b8",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060925",
     "vendido_por": "Arandu",
     "data_emissao": "2025-09-11T03:00:00.000Z",
@@ -6884,6 +7121,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "25428.00",
     "itens_json": [
@@ -6913,11 +7151,12 @@
         "valor_total_produtos": 25428
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d4c92144-d4a7-4e88-944e-0a423fe897ed",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-10T03:00:00.000Z",
@@ -6927,6 +7166,7 @@
     "cliente_cnpj_cpf": "60453032000174",
     "cliente_contato": "Breylla Campos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "SIm",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "21922.00",
     "itens_json": [
@@ -6956,11 +7196,12 @@
         "valor_total_produtos": 21922
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "595e427c-766e-4c8f-8915-b11e13ee6063",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "040925",
     "vendido_por": "Arandu",
     "data_emissao": "2025-09-08T03:00:00.000Z",
@@ -6970,6 +7211,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1596.00",
     "itens_json": [
@@ -6999,11 +7241,12 @@
         "valor_total_produtos": 1596
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1573b942-76a9-426a-9253-deac2a907371",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "030925",
     "vendido_por": "Arandu",
     "data_emissao": "2025-09-05T03:00:00.000Z",
@@ -7013,6 +7256,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "338163.00",
     "itens_json": [
@@ -7142,11 +7386,12 @@
         "valor_total_produtos": 732
       }
     ],
-    "total_itens": 5,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "fe2fbe77-5eff-4048-b12a-820b8888045e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-04T03:00:00.000Z",
@@ -7156,6 +7401,7 @@
     "cliente_cnpj_cpf": "20368834000161",
     "cliente_contato": "Alexandre Seib",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2479.00",
     "itens_json": [
@@ -7185,11 +7431,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f5e76d3e-b39a-444c-aba8-908b26bf1e92",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010925",
     "vendido_por": "Mitang",
     "data_emissao": "2025-09-03T03:00:00.000Z",
@@ -7199,6 +7446,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "Larissa Santiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "29558.81",
     "itens_json": [
@@ -7253,11 +7501,12 @@
         "valor_total_produtos": 8421
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f7715342-4bee-47b0-bb62-5c8b67f838e6",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "170825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-27T03:00:00.000Z",
@@ -7267,6 +7516,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -7296,11 +7546,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1618b565-ebda-456f-a0e7-196f5dd4c76f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "160825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-26T03:00:00.000Z",
@@ -7310,6 +7561,7 @@
     "cliente_cnpj_cpf": "02980103000190",
     "cliente_contato": "Júlia Salviato",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "26994.00",
     "itens_json": [
@@ -7364,11 +7616,12 @@
         "valor_total_produtos": 5978
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "e18cec1d-17c3-43d2-9678-6308c8e48fc1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "150825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-22T03:00:00.000Z",
@@ -7378,6 +7631,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jorge Selim",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3507.20",
     "itens_json": [
@@ -7407,11 +7661,12 @@
         "valor_total_produtos": 3507.2
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6c719a0b-b0bb-4a9b-96b6-d49045aa8824",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "140825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-22T03:00:00.000Z",
@@ -7421,6 +7676,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "12954.48",
     "itens_json": [
@@ -7450,11 +7706,12 @@
         "valor_total_produtos": 12954.48
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5d2887c2-9356-4e6f-a7f9-533a19aaff86",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "130825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-21T03:00:00.000Z",
@@ -7464,6 +7721,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3178.00",
     "itens_json": [
@@ -7518,11 +7776,12 @@
         "valor_total_produtos": 2380
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "10f4db36-0f8d-460e-b3eb-a19039df6ad9",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "120825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-19T03:00:00.000Z",
@@ -7532,6 +7791,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4384.00",
     "itens_json": [
@@ -7561,11 +7821,12 @@
         "valor_total_produtos": 4384
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "79753ab5-75fb-48e3-b149-d60166e46e11",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-18T03:00:00.000Z",
@@ -7575,6 +7836,7 @@
     "cliente_cnpj_cpf": "06326419000114",
     "cliente_contato": "Isadora Grevenhagen",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5304.00",
     "itens_json": [
@@ -7604,11 +7866,12 @@
         "valor_total_produtos": 5054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "78cec8fc-1c0f-441e-aa83-29dd5417c244",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-18T03:00:00.000Z",
@@ -7618,6 +7881,7 @@
     "cliente_cnpj_cpf": "06326419000114",
     "cliente_contato": "Isadora Grevenhagen",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "22172.00",
     "itens_json": [
@@ -7672,11 +7936,12 @@
         "valor_total_produtos": 10961
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bd9790af-6fad-4e38-8b54-d07f8f3fd559",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-18T03:00:00.000Z",
@@ -7686,6 +7951,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Nadjane Araujo",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "32454.00",
     "itens_json": [
@@ -7715,11 +7981,12 @@
         "valor_total_produtos": 32454
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8dfed962-ef21-43ef-bafe-c6b0a1541d0f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-14T03:00:00.000Z",
@@ -7729,6 +7996,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jorge Veríssimo",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1753.60",
     "itens_json": [
@@ -7758,11 +8026,12 @@
         "valor_total_produtos": 1753.6
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "85b00cc5-7606-42d6-8027-cc9fd6350860",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-14T03:00:00.000Z",
@@ -7772,6 +8041,7 @@
     "cliente_cnpj_cpf": "01016038000115",
     "cliente_contato": "Rômulo Floriano",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "4246.20",
     "itens_json": [
@@ -7801,11 +8071,12 @@
         "valor_total_produtos": 4718
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3d63e072-ffd8-4b48-be85-a19c99c7b28c",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-06T03:00:00.000Z",
@@ -7815,6 +8086,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -7844,11 +8116,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "de456160-e386-4a12-a48e-a3a6541ac1c2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-05T03:00:00.000Z",
@@ -7858,6 +8131,7 @@
     "cliente_cnpj_cpf": "09477772000193",
     "cliente_contato": "Luiz Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1275.00",
     "itens_json": [
@@ -7887,11 +8161,12 @@
         "valor_total_produtos": 1275
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0c7ba376-116c-4756-9b80-47c916690b76",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-08-05T03:00:00.000Z",
@@ -7901,6 +8176,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Nadjane Araujo",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "32454.00",
     "itens_json": [
@@ -7930,11 +8206,12 @@
         "valor_total_produtos": 32454
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "dc2c1d6a-5603-444a-b66a-40c691f56b31",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "020825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-04T03:00:00.000Z",
@@ -7944,6 +8221,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "345696.00",
     "itens_json": [
@@ -8073,11 +8351,12 @@
         "valor_total_produtos": 732
       }
     ],
-    "total_itens": 5,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d316cae8-310f-41bf-ad0b-91f16693fc14",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "010825",
     "vendido_por": "Arandu",
     "data_emissao": "2025-08-01T03:00:00.000Z",
@@ -8087,6 +8366,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -8116,11 +8396,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "2a16c886-fdb0-47eb-92c1-9ee276179429",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030825",
     "vendido_por": "Mitang",
     "data_emissao": "2025-07-29T03:00:00.000Z",
@@ -8130,6 +8411,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -8159,11 +8441,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1582cf33-51d2-4c72-abe0-3c50fe52b265",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060725",
     "vendido_por": "Arandu",
     "data_emissao": "2025-07-28T03:00:00.000Z",
@@ -8173,6 +8456,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "51030.00",
     "itens_json": [
@@ -8227,11 +8511,12 @@
         "valor_total_produtos": 13986
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "97b3d966-9157-45b8-bb26-30d70641464e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050725",
     "vendido_por": "Mitang",
     "data_emissao": "2025-07-22T03:00:00.000Z",
@@ -8241,6 +8526,7 @@
     "cliente_cnpj_cpf": "72502073000192",
     "cliente_contato": "Margareth Bonan",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -8295,11 +8581,12 @@
         "valor_total_produtos": 51030
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1b48ba8e-bc04-412f-b3f7-b10e15cb56be",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040725",
     "vendido_por": "Mitang",
     "data_emissao": "2025-07-17T03:00:00.000Z",
@@ -8309,6 +8596,7 @@
     "cliente_cnpj_cpf": "36941795000180",
     "cliente_contato": "Carla Beatriz",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3042.62",
     "itens_json": [
@@ -8338,11 +8626,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5b65a012-6871-422d-9c71-931bf1a0d501",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030725",
     "vendido_por": "Mitang",
     "data_emissao": "2025-07-09T03:00:00.000Z",
@@ -8352,6 +8641,7 @@
     "cliente_cnpj_cpf": "02745280000192",
     "cliente_contato": "Dione Amorim",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "3507.20",
     "itens_json": [
@@ -8381,11 +8671,12 @@
         "valor_total_produtos": 3507.2
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6afde21e-57ea-4d45-a399-c7b1747e33e8",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "020725",
     "vendido_por": "Arandu",
     "data_emissao": "2025-07-02T03:00:00.000Z",
@@ -8395,6 +8686,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3990.00",
     "itens_json": [
@@ -8424,11 +8716,12 @@
         "valor_total_produtos": 3990
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5bf4f64e-251b-4270-a8c4-1b3ecff2e724",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "010725",
     "vendido_por": "Arandu",
     "data_emissao": "2025-07-01T03:00:00.000Z",
@@ -8438,6 +8731,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "160778.09",
     "itens_json": [
@@ -8517,11 +8811,12 @@
         "valor_total_produtos": 6588
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "17225104-b97e-48f6-8da2-55e1f0fc0f30",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080625",
     "vendido_por": "Mitang",
     "data_emissao": "2025-06-30T03:00:00.000Z",
@@ -8531,6 +8826,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "10597.09",
     "itens_json": [
@@ -8560,11 +8856,12 @@
         "valor_total_produtos": 11398.4
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1607273c-ea41-4813-ab31-a42ee817dc76",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "070625",
     "vendido_por": "Arandu",
     "data_emissao": "2025-06-25T03:00:00.000Z",
@@ -8574,6 +8871,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Bianca Freitas",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1596.00",
     "itens_json": [
@@ -8603,11 +8901,12 @@
         "valor_total_produtos": 1596
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8db38a10-5cb9-4072-ad9f-52a557c83a36",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "060625",
     "vendido_por": "Arandu",
     "data_emissao": "2025-06-23T03:00:00.000Z",
@@ -8617,6 +8916,7 @@
     "cliente_cnpj_cpf": "72502073000192",
     "cliente_contato": "Margareth Bonan",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -8646,11 +8946,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "089025d9-fb1f-43e0-8511-cd93fa82ed32",
+    "empresa_id": "0754c882-d528-4d34-8c96-6d9af7e8d322",
     "numero_orcamento": "050625",
     "vendido_por": "Arandu",
     "data_emissao": "2025-06-18T03:00:00.000Z",
@@ -8660,6 +8961,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "24948.00",
     "itens_json": [
@@ -8689,11 +8991,12 @@
         "valor_total_produtos": 24948
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "4eaa58f1-3e30-4b36-ab7a-c266a9079aa5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040625",
     "vendido_por": "Mitang",
     "data_emissao": "2025-06-17T03:00:00.000Z",
@@ -8703,6 +9006,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5260.80",
     "itens_json": [
@@ -8732,11 +9036,12 @@
         "valor_total_produtos": 5260.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b00fe0cb-d6de-4bb4-8645-06d173f44535",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030625",
     "vendido_por": "Mitang",
     "data_emissao": "2025-06-13T03:00:00.000Z",
@@ -8746,6 +9051,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "Thales",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "35983.00",
     "itens_json": [
@@ -8825,11 +9131,12 @@
         "valor_total_produtos": 8121
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0d207339-68b0-4dba-a1b8-b9ae94ccb22c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020625",
     "vendido_por": "Mitang",
     "data_emissao": "2025-06-12T03:00:00.000Z",
@@ -8839,6 +9146,7 @@
     "cliente_cnpj_cpf": "36941795000180",
     "cliente_contato": "Carla Beatriz",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1644.70",
     "itens_json": [
@@ -8868,11 +9176,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8b700c60-c82c-4b7e-951b-d7611b3a145f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010625",
     "vendido_por": "Mitang",
     "data_emissao": "2025-06-03T03:00:00.000Z",
@@ -8882,6 +9191,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "3990.00",
     "itens_json": [
@@ -8936,11 +9246,12 @@
         "valor_total_produtos": 1596
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "cb19224e-882c-46c0-bd41-f52a3bd78583",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-30T03:00:00.000Z",
@@ -8950,6 +9261,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "8250.00",
     "itens_json": [
@@ -8979,11 +9291,12 @@
         "valor_total_produtos": 8250
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "817951d5-273b-460e-a214-e8dfbb55e488",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-30T03:00:00.000Z",
@@ -8993,6 +9306,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "98324.50",
     "itens_json": [
@@ -9022,11 +9336,12 @@
         "valor_total_produtos": 106874.46
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "58a3d33e-c92a-40ab-8b1c-b2bfdbadb634",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-21T03:00:00.000Z",
@@ -9036,6 +9351,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2394.00",
     "itens_json": [
@@ -9065,11 +9381,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5cf04799-b77c-49a2-bf14-dfee93119933",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-15T03:00:00.000Z",
@@ -9079,6 +9396,7 @@
     "cliente_cnpj_cpf": "43312328000156",
     "cliente_contato": "Leandro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1628.00",
     "itens_json": [
@@ -9108,11 +9426,12 @@
         "valor_total_produtos": 1628
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bf44e440-5126-4846-9217-23c9f7baee5a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-13T03:00:00.000Z",
@@ -9122,6 +9441,7 @@
     "cliente_cnpj_cpf": "04336088000178",
     "cliente_contato": "Tom Azevedo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sem Orçamento",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "166560.00",
     "itens_json": [
@@ -9151,11 +9471,12 @@
         "valor_total_produtos": 166560
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "e9c2f641-45e3-4b95-a60d-584c3e514329",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-08T03:00:00.000Z",
@@ -9165,6 +9486,7 @@
     "cliente_cnpj_cpf": "31533367000102",
     "cliente_contato": "Henrique",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "9536.00",
     "itens_json": [
@@ -9194,11 +9516,12 @@
         "valor_total_produtos": 9436
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d18e1f4e-e106-43f9-8b5a-58cd579926da",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010525",
     "vendido_por": "Mitang",
     "data_emissao": "2025-05-06T03:00:00.000Z",
@@ -9208,6 +9531,7 @@
     "cliente_cnpj_cpf": "14532052000113",
     "cliente_contato": "Paula Charnaux",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "15162.00",
     "itens_json": [
@@ -9237,11 +9561,12 @@
         "valor_total_produtos": 15162
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "16c63a45-af95-4667-85a6-bed2eee55b2e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-29T03:00:00.000Z",
@@ -9251,6 +9576,7 @@
     "cliente_cnpj_cpf": "13389555000119",
     "cliente_contato": "Diego",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "17065.80",
     "itens_json": [
@@ -9305,11 +9631,12 @@
         "valor_total_produtos": 855
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "74991ff9-5046-4dcb-8ab4-ec9ac68b40e2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-25T03:00:00.000Z",
@@ -9319,6 +9646,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Rafaela",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1753.60",
     "itens_json": [
@@ -9348,11 +9676,12 @@
         "valor_total_produtos": 1753.6
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3fdf83a2-07ca-40a4-98cb-0b8c9fb494dd",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-17T03:00:00.000Z",
@@ -9362,6 +9691,7 @@
     "cliente_cnpj_cpf": "04919751000167",
     "cliente_contato": "Alexandre Mendes",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "5454.00",
     "itens_json": [
@@ -9391,11 +9721,12 @@
         "valor_total_produtos": 5054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "e0cf112e-84f2-4bc6-9d5d-87cae54a0cbe",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-14T03:00:00.000Z",
@@ -9405,6 +9736,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "45440.00",
     "itens_json": [
@@ -9434,11 +9766,12 @@
         "valor_total_produtos": 45440
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3f35a5eb-2a1a-4571-b650-e45bd1e57486",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-09T03:00:00.000Z",
@@ -9448,6 +9781,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Nadjane Araujo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sem Orçamento",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "32454.00",
     "itens_json": [
@@ -9477,11 +9811,12 @@
         "valor_total_produtos": 32454
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6ab91220-a341-4096-8fbd-ba3af97b9269",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-07T03:00:00.000Z",
@@ -9491,6 +9826,7 @@
     "cliente_cnpj_cpf": "34621748000123",
     "cliente_contato": "Vando Gomes",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1734.70",
     "itens_json": [
@@ -9520,11 +9856,12 @@
         "valor_total_produtos": 1584.7
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8ae70e23-4b28-490d-a2b9-31e8575b818e",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-04T03:00:00.000Z",
@@ -9534,6 +9871,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Gleison Ferreira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "13532.80",
     "itens_json": [
@@ -9563,11 +9901,12 @@
         "valor_total_produtos": 13132.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3a1354e5-eba2-4333-8c13-40f26e743b2c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010425",
     "vendido_por": "Mitang",
     "data_emissao": "2025-04-04T03:00:00.000Z",
@@ -9577,6 +9916,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2178.00",
     "itens_json": [
@@ -9606,11 +9946,12 @@
         "valor_total_produtos": 2178
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1e93a218-be81-4c75-a79b-9cd5cf52b909",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "130325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-31T03:00:00.000Z",
@@ -9620,6 +9961,7 @@
     "cliente_cnpj_cpf": "07925451000189",
     "cliente_contato": "Nadjane Araujo",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "13536.00",
     "itens_json": [
@@ -9649,11 +9991,12 @@
         "valor_total_produtos": 13536
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "52d4fe64-4b22-4c35-9578-52abd38399f5",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "120325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-28T03:00:00.000Z",
@@ -9663,6 +10006,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "680.00",
     "itens_json": [
@@ -9692,11 +10036,12 @@
         "valor_total_produtos": 680
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1b207b96-d3dd-4bb5-bd99-5162a0c1272f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-26T03:00:00.000Z",
@@ -9706,6 +10051,7 @@
     "cliente_cnpj_cpf": "02980103000190",
     "cliente_contato": "Júlia Salviato",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "18700.00",
     "itens_json": [
@@ -9760,11 +10106,12 @@
         "valor_total_produtos": 3538
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "40b01170-7240-47c1-9021-fc09f62af597",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-26T03:00:00.000Z",
@@ -9774,6 +10121,7 @@
     "cliente_cnpj_cpf": "02980103000190",
     "cliente_contato": "Júlia Salviato",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "29990.50",
     "itens_json": [
@@ -9828,11 +10176,12 @@
         "valor_total_produtos": 3538
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "48100462-a0bd-4f44-9164-cb2c4a0dad45",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-20T03:00:00.000Z",
@@ -9842,6 +10191,7 @@
     "cliente_cnpj_cpf": "49977717000187",
     "cliente_contato": "Wellington (Tom)",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "52225.32",
     "itens_json": [
@@ -9871,11 +10221,12 @@
         "valor_total_produtos": 66108
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "dbc307b6-9aa3-4ee5-b27e-16473607dee6",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-17T03:00:00.000Z",
@@ -9885,6 +10236,7 @@
     "cliente_cnpj_cpf": "34171032000171",
     "cliente_contato": "Marcio Aurelio",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "0.00",
     "itens_json": [
@@ -9914,11 +10266,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "500958a5-60dc-4759-8b74-a63d071d637c",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-17T03:00:00.000Z",
@@ -9928,6 +10281,7 @@
     "cliente_cnpj_cpf": "05330436000162",
     "cliente_contato": "Bárbara Paiva",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "2629.30",
     "itens_json": [
@@ -9982,11 +10336,12 @@
         "valor_total_produtos": 452.5
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b2de77e1-340e-4674-8bb7-279df2fd6dba",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-12T03:00:00.000Z",
@@ -9996,6 +10351,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2394.00",
     "itens_json": [
@@ -10025,11 +10381,12 @@
         "valor_total_produtos": 2394
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7b0e8296-eccd-410d-aea6-64f4ecb9feae",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-10T03:00:00.000Z",
@@ -10039,6 +10396,7 @@
     "cliente_cnpj_cpf": "04919751000167",
     "cliente_contato": "Alexandre Mendes",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "87984.00",
     "itens_json": [
@@ -10068,11 +10426,12 @@
         "valor_total_produtos": 97760
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "9efef29d-8c7d-4d1e-bfad-3d03e67eb4a0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-10T03:00:00.000Z",
@@ -10082,6 +10441,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1464.00",
     "itens_json": [
@@ -10111,11 +10471,12 @@
         "valor_total_produtos": 1464
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "398f0e9c-ad7b-4e7c-8d88-424a34432fb3",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-06T03:00:00.000Z",
@@ -10125,6 +10486,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1760.00",
     "itens_json": [
@@ -10154,11 +10516,12 @@
         "valor_total_produtos": 1760
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "637bf0c5-1d9a-438f-ba30-232db7bcf1be",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020325",
     "vendido_por": "Mitang",
     "data_emissao": "2025-03-06T03:00:00.000Z",
@@ -10168,6 +10531,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "10670.00",
     "itens_json": [
@@ -10222,11 +10586,12 @@
         "valor_total_produtos": 6890
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "9a269852-8126-43b8-95bc-585ff005c4c0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "190225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-28T03:00:00.000Z",
@@ -10236,6 +10601,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1456.00",
     "itens_json": [
@@ -10265,11 +10631,12 @@
         "valor_total_produtos": 1456
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "be9ce276-4e25-48a1-bc8d-d554014328f1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "180225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-27T03:00:00.000Z",
@@ -10279,6 +10646,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "798.00",
     "itens_json": [
@@ -10308,11 +10676,12 @@
         "valor_total_produtos": 798
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b843a870-c467-4101-85be-8e4046c31f80",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "160225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-25T03:00:00.000Z",
@@ -10322,6 +10691,7 @@
     "cliente_cnpj_cpf": "08441389000112",
     "cliente_contato": "Edimilson Felipe",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "0.00",
     "itens_json": [
@@ -10351,11 +10721,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "8311892c-8659-42ce-a7ea-029ee8b95736",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "150225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-24T03:00:00.000Z",
@@ -10365,6 +10736,7 @@
     "cliente_cnpj_cpf": "09477772000193",
     "cliente_contato": "Bruno Fucelini",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "850.00",
     "itens_json": [
@@ -10394,11 +10766,12 @@
         "valor_total_produtos": 850
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f0504de9-0cad-47e1-82e9-e59b4559c4a2",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "140225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-24T03:00:00.000Z",
@@ -10408,6 +10781,7 @@
     "cliente_cnpj_cpf": "06033405000102",
     "cliente_contato": "Lucas Santos",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "425.00",
     "itens_json": [
@@ -10437,11 +10811,12 @@
         "valor_total_produtos": 425
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "1e48c002-6d5f-4498-828f-aaa163fcfe9b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "120225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-20T03:00:00.000Z",
@@ -10451,6 +10826,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2280.00",
     "itens_json": [
@@ -10505,11 +10881,12 @@
         "valor_total_produtos": 340
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f59966f0-89da-44cb-ac21-b1fba95ba4d8",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-20T03:00:00.000Z",
@@ -10519,6 +10896,7 @@
     "cliente_cnpj_cpf": "04919751000167",
     "cliente_contato": "Alexandre Mendes",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4750.76",
     "itens_json": [
@@ -10548,11 +10926,12 @@
         "valor_total_produtos": 5054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bcc3e735-ba95-44e6-96c9-0d95b5b8ed42",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-18T03:00:00.000Z",
@@ -10562,6 +10941,7 @@
     "cliente_cnpj_cpf": "03595293000195",
     "cliente_contato": "Rogério Alves",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "5054.00",
     "itens_json": [
@@ -10591,11 +10971,12 @@
         "valor_total_produtos": 5054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "db4e5188-71a0-4861-8462-d1f5e731002f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-18T03:00:00.000Z",
@@ -10605,6 +10986,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "William Stelling",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "13780.00",
     "itens_json": [
@@ -10634,11 +11016,12 @@
         "valor_total_produtos": 13780
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5e82bb97-467c-47b7-bbcf-14bedbf2c85a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-18T03:00:00.000Z",
@@ -10648,6 +11031,7 @@
     "cliente_cnpj_cpf": "16492411000262",
     "cliente_contato": "William Stelling",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1899.80",
     "itens_json": [
@@ -10677,11 +11061,12 @@
         "valor_total_produtos": 1899.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "5eab9a8f-7b8b-49cd-bbd7-0942742fc406",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-13T03:00:00.000Z",
@@ -10691,6 +11076,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5069.20",
     "itens_json": [
@@ -10745,11 +11131,12 @@
         "valor_total_produtos": 3169.4
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "b77af569-2ce2-43f6-8900-8e41bbb0269a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-12T03:00:00.000Z",
@@ -10759,6 +11146,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan Ribeiro",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1760.00",
     "itens_json": [
@@ -10788,11 +11176,12 @@
         "valor_total_produtos": 1760
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "7c7fa5b6-b3f7-47cf-bfe4-f6e1a258fb12",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-10T03:00:00.000Z",
@@ -10802,6 +11191,7 @@
     "cliente_cnpj_cpf": "17740714798",
     "cliente_contato": "Marco Antônio",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "876.80",
     "itens_json": [
@@ -10831,11 +11221,12 @@
         "valor_total_produtos": 876.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ef4f92a1-7404-4c0f-b85d-8e757a05e4b0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-06T03:00:00.000Z",
@@ -10845,6 +11236,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "-",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "0.00",
     "itens_json": [
@@ -10874,11 +11266,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "98616d4c-6721-4878-aa8e-96b2b66997d4",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-06T03:00:00.000Z",
@@ -10888,6 +11281,7 @@
     "cliente_cnpj_cpf": "12441777769",
     "cliente_contato": "Thiago Leão",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "880.00",
     "itens_json": [
@@ -10917,11 +11311,12 @@
         "valor_total_produtos": 949.9
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "65d2adb4-bd69-477f-8229-83c291006d1b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-06T03:00:00.000Z",
@@ -10931,6 +11326,7 @@
     "cliente_cnpj_cpf": "00343941000128",
     "cliente_contato": "Jonathan",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Não",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "0.00",
     "itens_json": [
@@ -10960,11 +11356,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "26bee7af-ac4c-4e35-921e-4326a36d3389",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010225",
     "vendido_por": "Mitang",
     "data_emissao": "2025-02-04T03:00:00.000Z",
@@ -10974,6 +11371,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1753.60",
     "itens_json": [
@@ -11028,11 +11426,12 @@
         "valor_total_produtos": 1430.4
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "88f90f25-7f06-4db4-bdf6-1b693426444f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "190125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-31T03:00:00.000Z",
@@ -11042,6 +11441,7 @@
     "cliente_cnpj_cpf": "13389555000119",
     "cliente_contato": "Renato Arruk",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1709.82",
     "itens_json": [
@@ -11071,11 +11471,12 @@
         "valor_total_produtos": 1899.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "20dadd33-090a-4192-beab-9dcad49c51f8",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "200125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-31T03:00:00.000Z",
@@ -11085,6 +11486,7 @@
     "cliente_cnpj_cpf": "04919751000167",
     "cliente_contato": "Alexandre Mendes",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "4750.76",
     "itens_json": [
@@ -11114,11 +11516,12 @@
         "valor_total_produtos": 5054
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "93822316-2001-4a39-b442-303fafb5653a",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "180125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-29T03:00:00.000Z",
@@ -11128,6 +11531,7 @@
     "cliente_cnpj_cpf": "16492411000343",
     "cliente_contato": "Thales",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "15011.00",
     "itens_json": [
@@ -11182,11 +11586,12 @@
         "valor_total_produtos": 6890
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "bc1a5e65-3073-4b89-8665-4d5b192824b3",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "160125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-28T03:00:00.000Z",
@@ -11196,6 +11601,7 @@
     "cliente_cnpj_cpf": "16492411000181",
     "cliente_contato": "William Stelling",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "15162.00",
     "itens_json": [
@@ -11225,11 +11631,12 @@
         "valor_total_produtos": 15162
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a4b62040-39e0-4aa6-89f8-df5105bc5454",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "170125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-28T03:00:00.000Z",
@@ -11239,6 +11646,7 @@
     "cliente_cnpj_cpf": "63025530007974",
     "cliente_contato": "Breylla Campos",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "5635.98",
     "itens_json": [
@@ -11268,11 +11676,12 @@
         "valor_total_produtos": 5635.98
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "4469d2fa-39f7-4fb9-b115-5a2f77535bd1",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "150125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-27T03:00:00.000Z",
@@ -11282,6 +11691,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Eng. Clínica",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "790.00",
     "itens_json": [
@@ -11311,11 +11721,12 @@
         "valor_total_produtos": 790
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f4a9a633-9874-4825-8d79-bd17a0e71c23",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "140125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-24T03:00:00.000Z",
@@ -11325,6 +11736,7 @@
     "cliente_cnpj_cpf": "02956455000100",
     "cliente_contato": "Heldecler",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1780.00",
     "itens_json": [
@@ -11354,11 +11766,12 @@
         "valor_total_produtos": 1780
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "eeb813aa-c01a-4667-b510-33579c04fc5f",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "120125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-22T03:00:00.000Z",
@@ -11368,6 +11781,7 @@
     "cliente_cnpj_cpf": "00304373333",
     "cliente_contato": "Marcelo de Oliveira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "2110.00",
     "itens_json": [
@@ -11422,11 +11836,12 @@
         "valor_total_produtos": 340
       }
     ],
-    "total_itens": 2,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "d3f9b142-1a02-4727-ad6e-91a304096d53",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "090125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-21T03:00:00.000Z",
@@ -11436,6 +11851,7 @@
     "cliente_cnpj_cpf": "17040595000101",
     "cliente_contato": "Victor Franklin",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Valor por Whatsapp",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "0.00",
     "itens_json": [
@@ -11465,11 +11881,12 @@
         "valor_total_produtos": 0
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "06e14479-1fb6-480f-a546-784d3939e1cd",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "130125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-21T03:00:00.000Z",
@@ -11479,6 +11896,7 @@
     "cliente_cnpj_cpf": "55584895000140",
     "cliente_contato": "Caio da Silva Pinheiro",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "7762.50",
     "itens_json": [
@@ -11558,11 +11976,12 @@
         "valor_total_produtos": 2187.5
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "10bd6934-40f8-4626-9748-de38656618d0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "110125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-21T03:00:00.000Z",
@@ -11572,6 +11991,7 @@
     "cliente_cnpj_cpf": "72060999000175",
     "cliente_contato": "Thiago Leão",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "949.90",
     "itens_json": [
@@ -11601,11 +12021,12 @@
         "valor_total_produtos": 949.9
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a44b9d64-d6d2-4789-898a-dd4a68e97185",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "100125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-21T03:00:00.000Z",
@@ -11615,6 +12036,7 @@
     "cliente_cnpj_cpf": "02745280000192",
     "cliente_contato": "Dione Amorim",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1987.00",
     "itens_json": [
@@ -11644,11 +12066,12 @@
         "valor_total_produtos": 1987
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "34bde1b8-5b60-4b0f-9c2a-2f7daaf3bfb0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "080125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-21T03:00:00.000Z",
@@ -11658,6 +12081,7 @@
     "cliente_cnpj_cpf": "12285662000134",
     "cliente_contato": "Ivan",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "465.00",
     "itens_json": [
@@ -11687,11 +12111,12 @@
         "valor_total_produtos": 465
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "39c23426-0c40-4385-9d30-6cf0cbd4297b",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "050125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-14T03:00:00.000Z",
@@ -11701,6 +12126,7 @@
     "cliente_cnpj_cpf": "37135254000127",
     "cliente_contato": "Felipe",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "2807.20",
     "itens_json": [
@@ -11730,11 +12156,12 @@
         "valor_total_produtos": 2807.2
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "0576f0c7-dc05-4fa1-a264-70d8f5c407ed",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "070125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-14T03:00:00.000Z",
@@ -11744,6 +12171,7 @@
     "cliente_cnpj_cpf": "04001949000167",
     "cliente_contato": "Pedro São Thiago",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "138096.00",
     "itens_json": [
@@ -11823,11 +12251,12 @@
         "valor_total_produtos": 5124
       }
     ],
-    "total_itens": 3,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "f663c87b-d54f-4ca0-bd8b-ce0233bbd3ac",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "060125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-14T03:00:00.000Z",
@@ -11837,6 +12266,7 @@
     "cliente_cnpj_cpf": "09114805000807",
     "cliente_contato": "Luiza Bastos",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "6534.00",
     "itens_json": [
@@ -11866,11 +12296,12 @@
         "valor_total_produtos": 6534
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "3aacd68e-8a7e-4ffc-99c0-4a10cb4d4e42",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-13T03:00:00.000Z",
@@ -11880,6 +12311,7 @@
     "cliente_cnpj_cpf": "12334122000101",
     "cliente_contato": "Mayara Oliveira",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "1753.60",
     "itens_json": [
@@ -11909,11 +12341,12 @@
         "valor_total_produtos": 1753.6
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "27942f23-7790-4d1e-af70-a6bb93c0ed32",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "030125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-09T03:00:00.000Z",
@@ -11923,6 +12356,7 @@
     "cliente_cnpj_cpf": "45782717000170",
     "cliente_contato": "Rodrigo",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Pedido Cancelado",
     "valor_total": "701.80",
     "itens_json": [
@@ -11952,11 +12386,12 @@
         "valor_total_produtos": 701.8
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "ae367ea0-d1db-41fa-8159-3753e2bcd5c0",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "020125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-08T03:00:00.000Z",
@@ -11966,6 +12401,7 @@
     "cliente_cnpj_cpf": "44875316000100",
     "cliente_contato": "Rafael",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "1403.60",
     "itens_json": [
@@ -11995,11 +12431,12 @@
         "valor_total_produtos": 1403.6
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "6de7d4e5-b7b6-4861-8fa3-efc52a332d77",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "010125",
     "vendido_por": "Mitang",
     "data_emissao": "2025-01-07T03:00:00.000Z",
@@ -12009,6 +12446,7 @@
     "cliente_cnpj_cpf": "37135254000127",
     "cliente_contato": "Felipe",
     "status_aprovacao": "Compra Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Finalizada",
     "valor_total": "10000.65",
     "itens_json": [
@@ -12038,11 +12476,12 @@
         "valor_total_produtos": 10527
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   },
   {
     "id": "a4bffaf2-526c-432b-91c0-e1c816abdd04",
+    "empresa_id": "29ea0857-7cf7-44e1-ba36-a3f323c4670c",
     "numero_orcamento": "040525",
     "vendido_por": "Mitang",
     "data_emissao": "2024-05-14T03:00:00.000Z",
@@ -12052,6 +12491,7 @@
     "cliente_cnpj_cpf": "37135254000127",
     "cliente_contato": "Karyne marinho",
     "status_aprovacao": "Não Aprovada",
+    "orcamento_enviado": "Sim",
     "situacao_geral": "Compra Não Finalizada",
     "valor_total": "21043.20",
     "itens_json": [
@@ -12081,7 +12521,7 @@
         "valor_total_produtos": 21043.2
       }
     ],
-    "total_itens": 1,
-    "created_at": "2026-08-27T18:17:21.163Z"
+    "created_at": "2026-08-27T18:17:21.163Z",
+    "updated_at": "2026-08-27T18:17:21.163Z"
   }
 ]

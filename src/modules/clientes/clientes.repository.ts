@@ -136,8 +136,10 @@ export class ClientesRepository {
           items: dataRes.rows,
           total: countRes.rows[0]?.total || 0
         };
-        // Grava no mirror assincronamente
-        setImmediate(() => localMirror.saveMirror('clientes', dataRes.rows));
+        // Grava no mirror assincronamente apenas se for varredura completa sem filtros restritivos
+        if ((!empresaId || empresaId === 'all') && !filters.tipo_entidade && !filters.busca && dataRes.rows.length >= 100) {
+          setImmediate(() => localMirror.saveMirror('clientes', dataRes.rows));
+        }
         return result;
       } finally {
         client.release();

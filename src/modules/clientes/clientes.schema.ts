@@ -106,7 +106,17 @@ export const UpdateClienteSchema = z.object({
 
 export const FilterClienteQuerySchema = z.object({
   busca: z.string().optional(),
-  tipo_entidade: z.enum(['CLIENTE', 'FORNECEDOR', 'COLABORADOR_PJ']).optional(),
+  tipo_entidade: z.enum([
+    'CLIENTE',
+    'FORNECEDOR',
+    'FORNECEDOR_INSUMO',
+    'COLABORADOR_PJ',
+    'SOCIO_DIRETORIA',
+    'PRESTADOR_CONTINUO',
+    'INFRAESTRUTURA_FIXA',
+    'GOVERNO_TRIBUTO',
+    'INSTITUICAO_FINANCEIRA'
+  ]).optional(),
   situacao_cadastral: z.enum(['ATIVA', 'SUSPENSA', 'INAPTA', 'BAIXADA', 'NULA']).optional(),
   bloqueio_fiscal: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
   ativo: z.enum(['true', 'false']).transform(v => v === 'true').optional(),

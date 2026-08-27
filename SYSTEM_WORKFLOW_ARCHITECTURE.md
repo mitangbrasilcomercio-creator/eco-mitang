@@ -376,6 +376,46 @@ flowchart TD
 4. **Visualizador Executivo Multi-Item (`window.abrirModalDetalhesOrcamento`)**:
    - Modal em glassmorphism Deep Sea com cabeçalho de metadados, links diretos para o Dossiê 360° do cliente, lista de todas as POs e NFs, tabela item a item com observações de pagamento em destaque (PIX, parcelamentos, CPF de pesquisador) e rodapé com totais consolidados de itens, frete e valor da proposta.
 
+### 2.13. Arquitetura de Contas a Pagar, Inteligência de Parceiros e Motor de Projeção Futura (Runway 30 a 120 dias)
+
+```mermaid
+flowchart TD
+    subgraph ENTITY_SEGREGATION [Segmentação Estrita de Parceiros de Negócio]
+        P_RAW[Documentos Fiscais / Extratos / Contratos] --> P_SPLIT{Classificador de Entidade}
+        P_SPLIT -->|Quem Compra Baterias / Serviços| P_CLI[CLIENTE - 103 Parceiros Corporativos]
+        P_SPLIT -->|Equipe Técnica / Recorrente / VR| P_COLAB[COLABORADOR_PJ - Marcelo, Jandson, Tom, Allan, Andrielly]
+        P_SPLIT -->|Sócios Holding 50/50 / Pró-Labore / Lucros| P_SOCIO[SOCIO_DIRETORIA - Diego Ribeiro e Paulo Cesar]
+        P_SPLIT -->|Matéria-Prima Industrial / BOM| P_INSUMO[FORNECEDOR_INSUMO - Strema, Hayamax, SBT]
+        P_SPLIT -->|Serviços Essenciais / Softwares| P_PREST[PRESTADOR_CONTINUO - WPME Contábil, Certibrasil, OMIE]
+        P_SPLIT -->|Salas Comerciais / Energia / Telecom| P_INFRA[INFRAESTRUTURA_FIXA - Prima 206/207, Britto 216, Light, Vivo]
+        P_SPLIT -->|Receita Federal / DAS / DARF / FGTS| P_GOV[GOVERNO_TRIBUTO - Vencimento Unificado Dia 20]
+        P_SPLIT -->|Empréstimo Capital de Giro 42 Parc| P_FIN[INSTITUICAO_FINANCEIRA - Bradesco PRONAMPE]
+    end
+
+    subgraph CONTAS_PAGAR_ENGINE [Motor de Contas a Pagar & Recorrências - 204 Lançamentos]
+        P_COLAB & P_INSUMO & P_PREST & P_INFRA & P_GOV & P_FIN --> AP_MIRROR[database/local_mirror/obrigacoes_recorrentes.json]
+        AP_MIRROR --> AP_API[GET /api/v1/financeiro/contas-a-pagar]
+        AP_API --> AP_UI[Aba Contas a Pagar & Recorrências:<br/>4 Cards de Síntese | Filtros por Status e Tipo | Subtotal Dinâmico tfoot]
+    end
+
+    subgraph PROJECAO_RUNWAY_ENGINE [Motor de Projeção Futura & Runway 30 a 120 Dias]
+        ORC_RECEBER[Recebíveis Confirmados Auditados:<br/>WAMS, Fugro, CLS, Martell, UFPA - R$ 474.183,70] --> PROJ_CALC
+        FIXED_COSTS[Custo Fixo Operacional Mensal:<br/>Folha PJ + VR + SulAmérica + Sedes + WPME + PRONAMPE - R$ 46.753,04/mês] --> PROJ_CALC
+        INSUMO_PARC[Parcelamentos de Insumos:<br/>Hayamax R$ 1.959,32 + Strema lotes programados] --> PROJ_CALC
+
+        PROJ_CALC[Cálculo de Saldo Projetado & Cobertura Quinquenal] --> PROJ_API[GET /api/v1/financeiro/projecao-futura]
+        PROJ_API --> PROJ_UI[Aba Projeção Futura:<br/>Banner de Superávit | Grade Mês a Mês Set/Out/Nov/Dez | Decomposição Dupla]
+    end
+```
+
+1. **Diferenciação Estrita de Parceiros**:
+   - Elimina de forma definitiva a confusão entre colaboradores e fornecedores: colaboradores PJ participam da folha de pagamento técnica e da estimativa de custo fixo mensal de runway.
+   - Sócios possuem fluxos categorizados: aportes de capital entram como injeção de liquidez sem incidência tributária, e retiradas são segregadas entre pró-labore operacional e distribuição de dividendos apurados contabilmente.
+2. **Motor de Contas a Pagar e Recorrências**:
+   - Processa 204 obrigações corporativas reais com taxas de rateio entre sócios (50% Diego Ribeiro / 50% Paulo Cesar), método de pagamento (PIX, Boleto, Débito Automático), controle de parcelamento (PRONAMPE em 42 parcelas) e status de vencimento em tempo real.
+3. **Projeção de Runway de Médio Prazo (30 a 120 Dias)**:
+   - Confronta faturas futuras confirmadas da carteira de clientes com a estrutura de custo fixo operacional da holding, garantindo diagnóstico de solvência e cobertura confortável de caixa de Setembro a Dezembro de 2026.
+
 ---
 
 ## 3. Comandos Úteis de Manutenção e Sincronização

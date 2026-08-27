@@ -53,6 +53,24 @@ Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** c
     - **Visualizador Executivo Multi-Item (Modal Interativo)**:
       * Cabeçalho executivo com status (`Compra Aprovada`, `À Vencer`, `Em Atraso`), empresa emissora (Mitang ou Arandu), cliente, CNPJ, contato e botão direto para o Dossiê 360°.
       * Tabela item a item com Pack/Modelo, SKU, Química, Quantidade, Preço Unitário, Desconto (%), Frete, PO vinculada, Tipo e Nº da Nota Fiscal, Vencimento, Método de Pagamento e Observações auditadas (ex: pagamento em atraso via PIX, retenção física de bateria para remanufatura, faturamento parcial 50/50 e boleto em CPF para pesquisadores de universidades federais/CNPq).
+14. **Inteligência de Parceiros (CNPJ/CPF), Plano de Contas Real e Motor de Contas a Pagar / Projeção Futura (Runway 30 a 120 dias)**:
+    - **Taxonomia Corporativa em 8 Categorias Reais**:
+      * `CLIENTE`: Quem compra baterias e contrata serviços subsea (103 parceiros corporativos).
+      * `COLABORADOR_PJ`: Equipe técnica interna contratada como PJ (Marcelo Ferreira, Jandson Pereira, Tom Alves, Allan Lourenço, Andrielly Britto e VR Benefícios). Recebem mensalmente e integram a folha operacional.
+      * `SOCIO_DIRETORIA`: Diego Ribeiro e Paulo Cesar do Rego (rateio 50%/50% de despesas/receitas). Distinção de retiradas (Pró-Labore vs Dividendos) e entradas (Aporte de Mútuo para liquidez temporária, isento de tributos).
+      * `FORNECEDOR_INSUMO`: Fornecedores industriais de matéria-prima (Strema Indústria, Hayamax Distribuidora, SBT Embalagens).
+      * `PRESTADOR_CONTINUO`: Serviços administrativos contínuos (WPME Contabilidade, Certibrasil, C4 Treinamentos, Karina Faxineira, OMIE ERP, Hostgator).
+      * `INFRAESTRUTURA_FIXA`: Locações das sedes operacionais (Salas 206/207 via Prima Imobiliária e Sala 216 via Cristiana Britto) e concessionárias de consumo (Light Energia, Vivo Fibra, Claro Móvel).
+      * `GOVERNO_TRIBUTO`: Obrigações fiscais da Receita Federal (Simples Nacional DAS, DARF INSS e FGTS) com vencimento unificado no dia 20.
+      * `INSTITUICAO_FINANCEIRA`: Amortização de capital de giro (PRONAMPE Banco Bradesco em 42 parcelas) e tarifas bancárias.
+    - **Módulo de Contas a Pagar & Recorrências (204 Itens Reais)**:
+      * 4 Cards executivos de síntese: Total Programado / A Pagar (R$ 99.962,04), Folha Colaboradores PJ & VR (R$ 89.547,79), Matéria-Prima & Insumos (R$ 122.469,49), PRONAMPE Capital de Giro (R$ 22.167,89).
+      * Filtros instantâneos por Status (`TODAS`, `A_PAGAR`, `PAGO`, `EM_ATRASO`, `PROGRAMADO`) e por Tipo de Entidade, com busca dinâmica e totalizador dinâmico no rodapé (`tfoot`).
+      * Coluna com taxa de rateio de sócios transparente (`50% DR / 50% PC` ou `100% Mitang`).
+    - **Projeção Futura de Caixa & Análise de Runway (30 a 120 Dias)**:
+      * Banner executivo com taxa de cobertura e aviso de superávit confortável.
+      * Evolução mensal comparativa de Setembro a Dezembro de 2026 confrontando recebíveis confirmados (R$ 474.183,70) com custo fixo operacional mensal (R$ 46.753,04) e parcelamentos de insumos.
+      * Painel duplo: Estrutura detalhada de custos fixos recorrentes da holding vs Faturas auditadas a receber da carteira de clientes (WAMS, Fugro, CLS, Martell, UFPA).
 
 ---
 
@@ -62,14 +80,16 @@ Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** c
 ├── .agents/                               # Workspace Customization para IAs (Antigravity)
 │   ├── rules/                             # Regras arquiteturais mandatórias
 │   └── skills/                            # Skills de engenharia e regras de negócio
+│       ├── battery-budget-lifecycle-intelligence/# Ciclo multi-item, POs, NFs e Curva ABC
 │       ├── battery-product-catalog/       # Engenharia de 117 baterias e químicas
 │       ├── battery-quotation-intelligence/# Propostas técnicas de 1 a 7 páginas
-│       ├── business-partner-intelligence/ # Classificação de Clientes vs Fornecedores vs Colaboradores PJ
+│       ├── business-partner-intelligence/ # Classificação de 8 tipos de parceiros reais
 │       ├── cnpj-client-intelligence/      # Inteligência cadastral, QSA, verticais e Dossiê 360°
 │       ├── database-resilience-mirror/    # Alta disponibilidade com mirror local (< 2ms)
 │       ├── eco-mitang-architecture/       # Padrões multi-tenant e event-driven
 │       ├── executive-dashboard-intelligence/# Métricas MoM, Runway 15d, Curva ABC e Custódia OFX
 │       ├── financial-controladoria-dre/   # DRE, fluxo de caixa e modelo DuPont
+│       ├── future-cashflow-and-obligations/# Contas a pagar, custos fixos e projeção de runway
 │       ├── nfe-nfse-xml-processor/        # Processador sem perdas de NF-e e NFS-e
 │       └── unified-financial-ecosystem/   # Ciclo integrado CNPJ + XML + OFX + Caixa
 ├── database/                              # Migrações SQL e Local Mirror Persistente

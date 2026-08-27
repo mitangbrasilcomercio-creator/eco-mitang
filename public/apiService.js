@@ -57,8 +57,10 @@ class ApiService {
 
   // 3. Clientes & Inteligência de CNPJ
   async getClientes(params = {}) {
+    const headers = {};
+    if (params.empresa_id) headers['x-empresa-id'] = params.empresa_id;
     const query = new URLSearchParams(params).toString();
-    return this.request(`/clientes?${query}`);
+    return this.request(`/clientes?${query}`, { headers });
   }
 
   // 4. Base Histórica de Cotações e Orçamentos
@@ -101,6 +103,26 @@ class ApiService {
   // 9. Dossiê 360° Completo do Parceiro (Cadastral, Histórico, NF-e, Cotações, Produtos)
   async getDossieCliente(id) {
     return this.request(`/clientes/${id}/dossie`);
+  }
+
+  // 10. Contas a Pagar & Obrigações Recorrentes
+  async getContasAPagar(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/financeiro/contas-a-pagar?${query}`);
+  }
+
+  // 11. Projeção Futura de Caixa (Runway 30, 60, 90, 120 dias)
+  async getProjecaoFutura(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/financeiro/projecao-futura?${query}`);
+  }
+
+  // 12. Categorização Interativa de Transações
+  async categorizarTransacao(dados = {}) {
+    return this.request('/financeiro/categorizar-transacao', {
+      method: 'POST',
+      body: JSON.stringify(dados)
+    });
   }
 }
 

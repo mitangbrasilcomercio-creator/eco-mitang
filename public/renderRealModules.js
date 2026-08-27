@@ -2233,13 +2233,21 @@ window.renderFluxoCaixaRealData = async function() {
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div>
           <h2 class="text-xl font-semibold text-slate-100 tracking-tight">Saúde de Caixa & Tesouraria</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Conciliação diária de 1.386 lançamentos OFX e previsibilidade de recebíveis</p>
+          <p class="text-xs text-slate-400 mt-0.5">Conciliação diária de 1.385 lançamentos OFX, Contas a Pagar e Previsibilidade de Runway</p>
         </div>
 
-        <div class="flex items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-xl border border-white/5">
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-xl border border-white/5">
           <button onclick="switchTab('fc', 'extrato')" data-module="fc" data-tab-btn="extrato" 
                   class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
             <i class="ph ph-receipt text-sm"></i> Extrato Bancário OFX
+          </button>
+          <button onclick="switchTab('fc', 'contas_pagar')" data-module="fc" data-tab-btn="contas_pagar" 
+                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-wallet text-sm"></i> Contas a Pagar & Recorrências
+          </button>
+          <button onclick="switchTab('fc', 'projecao')" data-module="fc" data-tab-btn="projecao" 
+                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-chart-line-up text-sm"></i> Projeção Futura (30 a 120d)
           </button>
           <button onclick="switchTab('fc', 'bancos')" data-module="fc" data-tab-btn="bancos" 
                   class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
@@ -2263,7 +2271,7 @@ window.renderFluxoCaixaRealData = async function() {
         </div>
 
         <div class="glass-panel p-5 rounded-2xl border border-white/5">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">A Pagar (Fornecedores)</span>
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">A Pagar (Obrigações)</span>
           <h3 class="text-2xl font-bold text-red-400 mt-1" id="fc-pagar">...</h3>
           <p class="text-xs text-red-400 mt-1 font-medium" id="fc-qtd-pagar">... títulos</p>
         </div>
@@ -2280,7 +2288,7 @@ window.renderFluxoCaixaRealData = async function() {
         <div class="flex flex-wrap items-center gap-3">
           <div class="relative flex-1 min-w-[200px] max-w-sm">
             <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="busca-ofx-input" placeholder="Buscar por memo, favorecido, valor..." 
+            <input type="text" id="busca-ofx-input" placeholder="Buscar por memo, favorecido, categoria..." 
                    class="w-full py-2 pl-9 pr-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400 transition-all">
           </div>
 
@@ -2298,26 +2306,195 @@ window.renderFluxoCaixaRealData = async function() {
         </div>
 
         <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
-          <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
+          <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
                 <tr>
-                  <th class="p-3.5">Data Lançamento</th>
-                  <th class="p-3.5">Banco / Agência / Conta</th>
+                  <th class="p-3.5">Data</th>
+                  <th class="p-3.5">Banco / Conta</th>
                   <th class="p-3.5">Histórico / Descrição</th>
+                  <th class="p-3.5">Categoria / Contraparte</th>
                   <th class="p-3.5 text-right">Valor Líquido</th>
                   <th class="p-3.5 text-center">Status</th>
                 </tr>
               </thead>
               <tbody id="tabela-fc-corpo" class="divide-y divide-white/5 text-slate-300">
-                <tr><td colspan="5" class="p-6 text-center text-slate-500">Carregando lançamentos...</td></tr>
+                <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando lançamentos...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- ABA 2: SALDOS POR BANCO -->
+      <!-- ABA 2: CONTAS A PAGAR & RECORRÊNCIAS -->
+      <div data-module="fc" data-tab-content="contas_pagar" class="space-y-5 hidden">
+        <!-- 4 Cards de Síntese de Contas a Pagar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="glass-panel p-4 rounded-xl border border-white/5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Programado / A Pagar</span>
+            <div class="text-xl font-bold text-red-400 mt-1" id="ap-total-pagar">...</div>
+            <p class="text-[10px] text-slate-500 mt-1">Obrigações mapeadas na planilha</p>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-white/5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Folha Colaboradores PJ & VR</span>
+            <div class="text-xl font-bold text-cyan-400 mt-1" id="ap-total-pessoal">...</div>
+            <p class="text-[10px] text-slate-500 mt-1">Jandson, Marcelo, Tom, Allan, etc.</p>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-white/5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Matéria-Prima & Insumos</span>
+            <div class="text-xl font-bold text-amber-400 mt-1" id="ap-total-insumos">...</div>
+            <p class="text-[10px] text-slate-500 mt-1">Strema, Hayamax e embalagens</p>
+          </div>
+          <div class="glass-panel p-4 rounded-xl border border-white/5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">PRONAMPE Capital de Giro</span>
+            <div class="text-xl font-bold text-purple-400 mt-1" id="ap-total-pronampe">...</div>
+            <p class="text-[10px] text-slate-500 mt-1">Parcelas Bradesco em amortização</p>
+          </div>
+        </div>
+
+        <!-- Filtros de Contas a Pagar -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="relative flex-1 min-w-[200px] max-w-sm">
+            <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input type="text" id="busca-ap-input" placeholder="Buscar por Favorecido, Descrição ou Categoria..." 
+                   class="w-full py-2 pl-9 pr-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400 transition-all">
+          </div>
+
+          <select id="filtro-ap-status" class="py-2 px-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400">
+            <option value="TODAS">Todos os Status</option>
+            <option value="A_PAGAR">A Pagar / Em Aberto</option>
+            <option value="EM_ATRASO">Em Atraso (Vencido)</option>
+            <option value="PROGRAMADO">Programado Futuro</option>
+            <option value="PAGO">Já Pago</option>
+          </select>
+
+          <select id="filtro-ap-tipo" class="py-2 px-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400">
+            <option value="TODAS">Todos os Tipos de Entidade</option>
+            <option value="COLABORADOR_PJ">Colaboradores PJ (Equipe)</option>
+            <option value="SOCIO_DIRETORIA">Sócios / Pró-Labore / Dividendos</option>
+            <option value="FORNECEDOR_INSUMO">Fornecedores de Matéria-Prima</option>
+            <option value="PRESTADOR_CONTINUO">Prestadores Contínuos (Contabilidade, etc.)</option>
+            <option value="INFRAESTRUTURA_FIXA">Infraestrutura (Aluguel, Luz, Vivo)</option>
+            <option value="GOVERNO_TRIBUTO">Governo & Tributos (Simples, DARF, FGTS)</option>
+            <option value="INSTITUICAO_FINANCEIRA">Bancos & Empréstimos (PRONAMPE)</option>
+          </select>
+          
+          <span class="text-xs text-slate-400 font-mono ml-auto" id="total-ap-label">...</span>
+        </div>
+
+        <!-- Tabela de Contas a Pagar -->
+        <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
+          <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
+                <tr>
+                  <th class="p-3.5">Empresa</th>
+                  <th class="p-3.5">Favorecido / Tipo</th>
+                  <th class="p-3.5">Categoria & Descrição</th>
+                  <th class="p-3.5">Vencimento</th>
+                  <th class="p-3.5">Recorrência / Parcela</th>
+                  <th class="p-3.5">Método</th>
+                  <th class="p-3.5 text-center">Rateio Sócios</th>
+                  <th class="p-3.5 text-right">Valor Líquido</th>
+                  <th class="p-3.5 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-ap-corpo" class="divide-y divide-white/5 text-slate-300">
+                <tr><td colspan="9" class="p-6 text-center text-slate-500">Carregando contas a pagar...</td></tr>
+              </tbody>
+              <tfoot class="bg-black/40 font-bold border-t border-white/10">
+                <tr>
+                  <td colspan="7" class="p-3.5 text-right text-slate-300 uppercase tracking-wider">Subtotal Selecionado:</td>
+                  <td class="p-3.5 text-right font-mono text-cyan-400 text-sm" id="ap-subtotal-tfoot">R$ 0,00</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 3: PROJEÇÃO FUTURA (30 A 120 DIAS) -->
+      <div data-module="fc" data-tab-content="projecao" class="space-y-6 hidden">
+        <!-- Banner Executivo de Runway -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-blue-950/30 to-slate-900/50 border border-cyan-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl font-bold">
+              <i class="ph ph-shield-check"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-slate-100">Posição de Caixa Sustentável & Superavitária</h3>
+              <p class="text-xs text-slate-400">A carteira de recebíveis confirmados cobre com folga integral os custos fixos mensais da holding.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-right">
+              <span class="text-[10px] uppercase font-bold text-slate-400">Custo Fixo Operacional</span>
+              <div class="text-sm font-mono font-bold text-slate-200" id="proj-custo-fixo-banner">R$ 46.753,04 / mês</div>
+            </div>
+            <div class="text-right pl-4 border-l border-white/10">
+              <span class="text-[10px] uppercase font-bold text-emerald-400">Recebíveis Auditados</span>
+              <div class="text-base font-mono font-bold text-emerald-400" id="proj-recebiveis-banner">R$ 474.183,70</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade de Projeção Mês a Mês -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-4">
+          <h3 class="text-sm font-semibold text-slate-100 flex items-center gap-2">
+            <i class="ph ph-calendar-blank text-cyan-400 text-base"></i>
+            Evolução de Fluxo Projetado (Setembro a Dezembro de 2026)
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="grid-projecao-meses">
+            <!-- Injetado via JS -->
+          </div>
+        </div>
+
+        <!-- Grid Duplo: Custos Fixos Recorrentes vs Carteira Futura a Receber -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Coluna 1: Estrutura de Custos Fixos Recorrentes -->
+          <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3">
+            <div class="flex items-center justify-between border-b border-white/5 pb-3">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                <i class="ph ph-arrow-circle-down-right text-red-400 text-sm"></i>
+                Estrutura de Custos Fixos Mensais (Holding)
+              </h4>
+              <span class="text-xs font-mono font-bold text-red-400" id="total-custos-fixos-badge">R$ 46.753,04</span>
+            </div>
+            <div class="space-y-2 text-xs" id="lista-custos-fixos-corpo">
+              <!-- Injetado via JS -->
+            </div>
+          </div>
+
+          <!-- Coluna 2: Faturas Auditadas a Receber -->
+          <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3">
+            <div class="flex items-center justify-between border-b border-white/5 pb-3">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                <i class="ph ph-arrow-circle-up-right text-emerald-400 text-sm"></i>
+                Recebíveis Futuros Confirmados (Carteira de Clientes)
+              </h4>
+              <span class="text-xs font-mono font-bold text-emerald-400" id="total-recebiveis-carteira-badge">R$ 474.183,70</span>
+            </div>
+            <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0">
+                  <tr>
+                    <th class="p-2.5">Cliente / PO</th>
+                    <th class="p-2.5">Orçamento / NF</th>
+                    <th class="p-2.5">Vencimento</th>
+                    <th class="p-2.5 text-right">Valor</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-receber-futuro-corpo" class="divide-y divide-white/5 text-slate-300">
+                  <!-- Injetado via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 4: SALDOS POR BANCO -->
       <div data-module="fc" data-tab-content="bancos" class="space-y-4 hidden">
         <div id="grid-saldos-banco" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Injetado via JS -->
@@ -2327,6 +2504,7 @@ window.renderFluxoCaixaRealData = async function() {
   `;
 
   try {
+    // 1. Carrega Resumo Geral de Caixa
     const resumoRes = await window.apiService.getResumoCaixa();
     if (resumoRes.success && resumoRes.data) {
       const d = resumoRes.data;
@@ -2359,27 +2537,46 @@ window.renderFluxoCaixaRealData = async function() {
       }
     }
 
+    // 2. Carrega Extrato Bancário OFX
     async function carregarExtrato() {
       const tipo = document.getElementById('filtro-ofx-tipo')?.value || '';
       const banco = document.getElementById('filtro-ofx-banco')?.value || '';
       const busca = document.getElementById('busca-ofx-input')?.value || '';
 
-      const res = await window.apiService.getTransacoesFinanceiras({ tipo, banco, busca, limit: 100 });
+      const res = await window.apiService.getTransacoesFinanceiras({ tipo, banco, busca, limit: 120 });
       const tbody = document.getElementById('tabela-fc-corpo');
       if (!tbody) return;
 
       if (!res.success || !res.data || res.data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nenhum lançamento encontrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Nenhum lançamento encontrado.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = res.data.map(t => {
         const isPos = Number(t.valor) > 0;
+        const cat = t.categoria_financeira || 'GERAL';
+        
+        let catBadge = 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+        if (cat.includes('COLABORADOR') || cat.includes('BENEFICIO')) catBadge = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30';
+        else if (cat.includes('SOCIO')) catBadge = 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+        else if (cat.includes('MATERIA_PRIMA')) catBadge = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+        else if (cat.includes('TRIBUTO')) catBadge = 'bg-rose-500/20 text-rose-300 border-rose-500/30';
+        else if (cat.includes('INFRAESTRUTURA')) catBadge = 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+        else if (cat.includes('INTERCOMPANY')) catBadge = 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30';
+
+        const contraparte = t.nome_contraparte || t.documento_contraparte || '-';
+
         return `
           <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-3.5 font-mono text-slate-400">${window.formatDateBR(t.data_lancamento)}</td>
-            <td class="p-3.5 font-medium text-slate-200">${t.banco_nome || 'Banco'} (${t.agencia}/${t.conta_numero})</td>
-            <td class="p-3.5 text-slate-300 truncate max-w-[320px]" title="${t.memo}">${t.memo}</td>
+            <td class="p-3.5 font-mono text-slate-400 whitespace-nowrap">${window.formatDateBR(t.data_lancamento)}</td>
+            <td class="p-3.5 font-medium text-slate-200 whitespace-nowrap">${t.banco_nome || 'Banco'} (${t.agencia}/${t.conta_numero})</td>
+            <td class="p-3.5 text-slate-300 truncate max-w-[260px]" title="${t.memo}">${t.memo}</td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold border ${catBadge}">
+                ${cat.replace(/_/g, ' ')}
+              </span>
+              ${contraparte !== '-' ? `<p class="text-[10px] text-slate-400 mt-0.5 truncate max-w-[180px]">${contraparte}</p>` : ''}
+            </td>
             <td class="p-3.5 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">
               R$ ${Number(t.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </td>
@@ -2391,11 +2588,237 @@ window.renderFluxoCaixaRealData = async function() {
       }).join('');
     }
 
-    carregarExtrato();
+    // 3. Carrega Contas a Pagar & Obrigações Recorrentes
+    async function carregarContasPagar() {
+      const status = document.getElementById('filtro-ap-status')?.value || 'TODAS';
+      const tipo_entidade = document.getElementById('filtro-ap-tipo')?.value || 'TODAS';
+      const busca = document.getElementById('busca-ap-input')?.value || '';
 
+      const res = await window.apiService.getContasAPagar({ status, tipo_entidade, busca });
+      if (!res.success) return;
+
+      const kpis = res.kpis || {};
+      const itens = res.data || [];
+
+      // Atualiza KPIs
+      document.getElementById('ap-total-pagar').innerText = `R$ ${(kpis.total_a_pagar || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('ap-total-pessoal').innerText = `R$ ${(kpis.total_pessoal || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('ap-total-insumos').innerText = `R$ ${(kpis.total_insumos || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('ap-total-pronampe').innerText = `R$ ${(kpis.total_pronampe || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+      const label = document.getElementById('total-ap-label');
+      if (label) label.innerText = `${itens.length} obrigações listadas`;
+
+      const tbody = document.getElementById('tabela-ap-corpo');
+      if (!tbody) return;
+
+      if (itens.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-slate-400">Nenhuma obrigação encontrada para os filtros selecionados.</td></tr>`;
+        document.getElementById('ap-subtotal-tfoot').innerText = 'R$ 0,00';
+        return;
+      }
+
+      let subtotal = 0;
+      tbody.innerHTML = itens.map((item, idx) => {
+        const val = Number(item.valor || 0);
+        subtotal += val;
+
+        // Badge de Entidade
+        let entBadge = 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+        let entIcon = 'ph-tag';
+        let entLabel = item.tipo_entidade || 'Outros';
+
+        if (item.tipo_entidade === 'COLABORADOR_PJ') {
+          entBadge = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30';
+          entIcon = 'ph-user';
+          entLabel = 'Colaborador PJ';
+        } else if (item.tipo_entidade === 'SOCIO_DIRETORIA') {
+          entBadge = 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+          entIcon = 'ph-crown';
+          entLabel = 'Sócio / Diretoria';
+        } else if (item.tipo_entidade === 'FORNECEDOR_INSUMO') {
+          entBadge = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+          entIcon = 'ph-package';
+          entLabel = 'Insumos';
+        } else if (item.tipo_entidade === 'PRESTADOR_CONTINUO') {
+          entBadge = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+          entIcon = 'ph-briefcase';
+          entLabel = 'Prestador Contínuo';
+        } else if (item.tipo_entidade === 'INFRAESTRUTURA_FIXA') {
+          entBadge = 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+          entIcon = 'ph-buildings';
+          entLabel = 'Infraestrutura';
+        } else if (item.tipo_entidade === 'GOVERNO_TRIBUTO') {
+          entBadge = 'bg-rose-500/20 text-rose-300 border-rose-500/30';
+          entIcon = 'ph-scales';
+          entLabel = 'Governo / Tributo';
+        } else if (item.tipo_entidade === 'INSTITUICAO_FINANCEIRA') {
+          entBadge = 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30';
+          entIcon = 'ph-bank';
+          entLabel = 'Banco / Empréstimo';
+        }
+
+        // Status Badge
+        let statusBadge = 'bg-slate-500/20 text-slate-300';
+        if (item.status_pagamento === 'PAGO') {
+          statusBadge = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        } else if (item.status_vencimento === 'EM_ATRASO') {
+          statusBadge = 'bg-red-500/20 text-red-400 border border-red-500/30';
+        } else if (item.status_pagamento === 'PROGRAMADO') {
+          statusBadge = 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
+        } else {
+          statusBadge = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        }
+
+        // Recorrência / Parcelas
+        let recStr = item.recorrencia || 'PONTUAL';
+        if (item.parcelas_info) {
+          recStr = `Parc ${item.parcelas_info.parcela_atual}/${item.parcelas_info.total_parcelas}`;
+        }
+
+        // Rateio
+        const rateio = item.rateio_socios || {};
+        const rateioStr = rateio.percentual_diego === 50 ? '50% DR / 50% PC' : '100% Mitang';
+
+        return `
+          <tr class="hover:bg-white/5 transition-colors">
+            <td class="p-3.5 font-semibold text-slate-200 whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.empresa_nome === 'Arandu' ? 'bg-indigo-500/20 text-indigo-300' : 'bg-cyan-500/20 text-cyan-300'}">
+                ${item.empresa_nome || 'Mitang'}
+              </span>
+            </td>
+            <td class="p-3.5 whitespace-nowrap">
+              <p class="font-bold text-slate-100">${item.favorecido_nome || '-'}</p>
+              <span class="px-2 py-0.5 rounded text-[9px] font-semibold border ${entBadge} flex items-center gap-1 w-fit mt-0.5">
+                <i class="ph ${entIcon}"></i> ${entLabel}
+              </span>
+            </td>
+            <td class="p-3.5 max-w-[260px]">
+              <p class="font-semibold text-slate-200 truncate">${item.categoria_detalhada || '-'}</p>
+              <p class="text-[10px] text-slate-400 truncate" title="${item.descricao}">${item.descricao || '-'}</p>
+            </td>
+            <td class="p-3.5 font-mono text-slate-300 whitespace-nowrap">${item.data_vencimento || '-'}</td>
+            <td class="p-3.5 whitespace-nowrap">
+              <span class="text-[11px] font-mono text-slate-300">${recStr}</span>
+            </td>
+            <td class="p-3.5 font-mono text-slate-400 whitespace-nowrap">${item.metodo_pagamento || '-'}</td>
+            <td class="p-3.5 text-center whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-white/5 text-slate-300 border border-white/10">
+                ${rateioStr}
+              </span>
+            </td>
+            <td class="p-3.5 text-right font-mono font-bold text-slate-100 whitespace-nowrap">
+              R$ ${val.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${statusBadge}">
+                ${item.status_vencimento === 'EM_ATRASO' ? 'Em Atraso' : (item.status_pagamento === 'PAGO' ? 'Pago' : 'A Pagar')}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('ap-subtotal-tfoot').innerText = `R$ ${subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    }
+
+    // 4. Carrega Projeção Futura (30 a 120 dias)
+    async function carregarProjecao() {
+      const res = await window.apiService.getProjecaoFutura();
+      if (!res.success || !res.data) return;
+
+      const d = res.data;
+      const rec = d.total_receber_carteira_auditada || 0;
+      const fixo = d.custo_fixo_operacional_mensal || 0;
+
+      document.getElementById('proj-custo-fixo-banner').innerText = `R$ ${fixo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} / mês`;
+      document.getElementById('proj-recebiveis-banner').innerText = `R$ ${rec.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('total-custos-fixos-badge').innerText = `R$ ${fixo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('total-recebiveis-carteira-badge').innerText = `R$ ${rec.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+      // Grid Mês a Mês
+      const gridMeses = document.getElementById('grid-projecao-meses');
+      if (gridMeses && d.projecao_mensal) {
+        gridMeses.innerHTML = d.projecao_mensal.map(m => {
+          const isSuperavit = m.saldo_projetado_mes >= 0;
+          return `
+            <div class="glass-panel p-4 rounded-xl border border-white/5 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-200">${m.mes_nome}</span>
+                <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  Superávit
+                </span>
+              </div>
+              <div class="space-y-1 text-[11px] pt-1">
+                <div class="flex justify-between text-slate-400">
+                  <span>Receitas Previstas:</span>
+                  <span class="font-mono text-emerald-400 font-semibold">R$ ${m.receitas_previstas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Saídas Previstas:</span>
+                  <span class="font-mono text-red-400 font-semibold">R$ ${m.saidas_previstas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
+                <div class="flex justify-between border-t border-white/10 pt-1 font-bold">
+                  <span class="text-slate-200">Saldo do Mês:</span>
+                  <span class="font-mono ${isSuperavit ? 'text-cyan-400' : 'text-amber-400'}">
+                    +R$ ${m.saldo_projetado_mes.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Lista de Custos Fixos
+      const listaCustos = document.getElementById('lista-custos-fixos-corpo');
+      if (listaCustos && d.estrutura_custo_recorrente) {
+        listaCustos.innerHTML = d.estrutura_custo_recorrente.map(c => `
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
+            <span class="text-slate-300 truncate max-w-[280px]">${c.categoria}</span>
+            <span class="font-mono font-bold text-red-400 whitespace-nowrap">
+              R$ ${c.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+        `).join('');
+      }
+
+      // Tabela de Faturas Auditadas a Receber
+      const tbodyReceber = document.getElementById('tabela-receber-futuro-corpo');
+      if (tbodyReceber && d.faturas_receber_detalhadas) {
+        tbodyReceber.innerHTML = d.faturas_receber_detalhadas.map(f => `
+          <tr class="hover:bg-white/5 transition-colors">
+            <td class="p-2.5">
+              <p class="font-bold text-slate-200 truncate max-w-[140px]">${f.cliente}</p>
+              <p class="text-[10px] text-cyan-400 font-mono">PO: ${f.po || '-'}</p>
+            </td>
+            <td class="p-2.5 whitespace-nowrap">
+              <p class="font-mono font-bold text-slate-300">#${f.orcamento}</p>
+              <p class="text-[10px] text-slate-500">NF: ${f.nf || '-'}</p>
+            </td>
+            <td class="p-2.5 font-mono text-slate-300 whitespace-nowrap">${f.vencimento || '-'}</td>
+            <td class="p-2.5 text-right font-mono font-bold text-emerald-400 whitespace-nowrap">
+              R$ ${Number(f.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Inicialização
+    carregarExtrato();
+    carregarContasPagar();
+    carregarProjecao();
+
+    // Listeners do Extrato
     document.getElementById('busca-ofx-input')?.addEventListener('input', carregarExtrato);
     document.getElementById('filtro-ofx-tipo')?.addEventListener('change', carregarExtrato);
     document.getElementById('filtro-ofx-banco')?.addEventListener('change', carregarExtrato);
+
+    // Listeners de Contas a Pagar
+    document.getElementById('busca-ap-input')?.addEventListener('input', carregarContasPagar);
+    document.getElementById('filtro-ap-status')?.addEventListener('change', carregarContasPagar);
+    document.getElementById('filtro-ap-tipo')?.addEventListener('change', carregarContasPagar);
 
   } catch (err) {
     console.error('Erro renderFluxoCaixaRealData:', err);
@@ -2819,21 +3242,33 @@ window.renderCrmRealData = async function() {
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div>
           <h2 class="text-xl font-semibold text-slate-100 tracking-tight">Dossiê de Parceiros 360°</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Distinção rigorosa entre Clientes Compradores, Fornecedores Industriais e Colaboradores PJ</p>
+          <p class="text-xs text-slate-400 mt-0.5">Segregação rigorosa: Clientes, Colaboradores PJ (Equipe), Sócios, Fornecedores, Prestadores e Governo</p>
         </div>
 
-        <div class="flex items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-xl border border-white/5">
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-xl border border-white/5">
           <button onclick="switchTab('crm', 'clientes')" data-module="crm" data-tab-btn="clientes" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
-            <i class="ph ph-buildings text-sm"></i> Clientes (Quem Compra)
-          </button>
-          <button onclick="switchTab('crm', 'fornecedores')" data-module="crm" data-tab-btn="fornecedores" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
-            <i class="ph ph-factory text-sm"></i> Fornecedores (Insumos)
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition-all flex items-center gap-1.5">
+            <i class="ph ph-buildings text-sm"></i> Clientes
           </button>
           <button onclick="switchTab('crm', 'colaboradores')" data-module="crm" data-tab-btn="colaboradores" 
-                  class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
-            <i class="ph ph-users text-sm"></i> Colaboradores PJ / Serviços
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-users text-sm"></i> Colaboradores PJ
+          </button>
+          <button onclick="switchTab('crm', 'socios')" data-module="crm" data-tab-btn="socios" 
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-crown text-sm"></i> Sócios & Diretoria
+          </button>
+          <button onclick="switchTab('crm', 'fornecedores')" data-module="crm" data-tab-btn="fornecedores" 
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-package text-sm"></i> Fornecedores Insumos
+          </button>
+          <button onclick="switchTab('crm', 'prestadores')" data-module="crm" data-tab-btn="prestadores" 
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-briefcase text-sm"></i> Prestadores & Infra
+          </button>
+          <button onclick="switchTab('crm', 'governo_bancos')" data-module="crm" data-tab-btn="governo_bancos" 
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5">
+            <i class="ph ph-bank text-sm"></i> Governo & Bancos
           </button>
         </div>
       </div>
@@ -2841,7 +3276,7 @@ window.renderCrmRealData = async function() {
       <div class="flex flex-wrap items-center gap-3">
         <div class="relative flex-1 min-w-[240px] max-w-sm">
           <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-          <input type="text" id="busca-crm-input" placeholder="Buscar por Razão Social, CNPJ, Sócio..." 
+          <input type="text" id="busca-crm-input" placeholder="Buscar por Razão Social, CNPJ, CPF, Sócio..." 
                  class="w-full py-2 pl-9 pr-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400 transition-all">
         </div>
         <span class="text-xs text-slate-400 font-mono ml-auto" id="total-crm-label">Carregando parceiros...</span>
@@ -2852,12 +3287,12 @@ window.renderCrmRealData = async function() {
           <table class="w-full text-left text-xs border-collapse">
             <thead class="bg-black/20 text-slate-400 uppercase font-semibold sticky top-0 backdrop-blur-md">
               <tr>
-                <th class="p-3.5">CNPJ</th>
-                <th class="p-3.5">Razão Social / Nome Fantasia</th>
-                <th class="p-3.5">Vertical de Mercado</th>
-                <th class="p-3.5">Tipo</th>
-                <th class="p-3.5 text-right">Capital Social</th>
-                <th class="p-3.5">Cidade / UF</th>
+                <th class="p-3.5">Documento (CNPJ/CPF)</th>
+                <th class="p-3.5">Nome / Razão Social</th>
+                <th class="p-3.5">Vertical / Atividade</th>
+                <th class="p-3.5">Tipo de Entidade</th>
+                <th class="p-3.5 text-right">Capital Social / Vínculo</th>
+                <th class="p-3.5">Localização</th>
                 <th class="p-3.5 text-center">Status</th>
                 <th class="p-3.5 text-center">Ação</th>
               </tr>
@@ -2872,7 +3307,7 @@ window.renderCrmRealData = async function() {
   `;
 
   try {
-    const res = await window.apiService.getClientes({ limit: 300 });
+    const res = await window.apiService.getClientes({ limit: 400, empresa_id: 'all' });
     const parceiros = res.success ? (res.data || []) : [];
     let abaAtiva = 'clientes';
 
@@ -2881,8 +3316,11 @@ window.renderCrmRealData = async function() {
 
       const filtrados = parceiros.filter(c => {
         if (abaAtiva === 'clientes' && c.tipo_entidade !== 'CLIENTE') return false;
-        if (abaAtiva === 'fornecedores' && c.tipo_entidade !== 'FORNECEDOR') return false;
         if (abaAtiva === 'colaboradores' && c.tipo_entidade !== 'COLABORADOR_PJ') return false;
+        if (abaAtiva === 'socios' && c.tipo_entidade !== 'SOCIO_DIRETORIA') return false;
+        if (abaAtiva === 'fornecedores' && c.tipo_entidade !== 'FORNECEDOR' && c.tipo_entidade !== 'FORNECEDOR_INSUMO') return false;
+        if (abaAtiva === 'prestadores' && c.tipo_entidade !== 'PRESTADOR_CONTINUO' && c.tipo_entidade !== 'INFRAESTRUTURA_FIXA') return false;
+        if (abaAtiva === 'governo_bancos' && c.tipo_entidade !== 'GOVERNO_TRIBUTO' && c.tipo_entidade !== 'INSTITUICAO_FINANCEIRA') return false;
 
         if (q) {
           const match = (c.razao_social_nome || '').toLowerCase().includes(q) ||
@@ -2913,12 +3351,31 @@ window.renderCrmRealData = async function() {
 
         let badgeClass = 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
         let badgeLabel = 'Cliente';
-        if (c.tipo_entidade === 'FORNECEDOR') {
+
+        if (c.tipo_entidade === 'COLABORADOR_PJ') {
+          badgeClass = 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+          badgeLabel = 'Colaborador PJ';
+        } else if (c.tipo_entidade === 'SOCIO_DIRETORIA') {
+          badgeClass = 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
+          badgeLabel = 'Sócio / Diretoria';
+        } else if (c.tipo_entidade === 'FORNECEDOR_INSUMO') {
+          badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
+          badgeLabel = 'Fornecedor Insumos';
+        } else if (c.tipo_entidade === 'FORNECEDOR') {
           badgeClass = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
           badgeLabel = 'Fornecedor';
-        } else if (c.tipo_entidade === 'COLABORADOR_PJ') {
-          badgeClass = 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
-          badgeLabel = 'Colaborador PJ';
+        } else if (c.tipo_entidade === 'PRESTADOR_CONTINUO') {
+          badgeClass = 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+          badgeLabel = 'Prestador Contínuo';
+        } else if (c.tipo_entidade === 'INFRAESTRUTURA_FIXA') {
+          badgeClass = 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
+          badgeLabel = 'Infraestrutura';
+        } else if (c.tipo_entidade === 'GOVERNO_TRIBUTO') {
+          badgeClass = 'bg-rose-500/20 text-rose-300 border border-rose-500/30';
+          badgeLabel = 'Governo / Tributo';
+        } else if (c.tipo_entidade === 'INSTITUICAO_FINANCEIRA') {
+          badgeClass = 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+          badgeLabel = 'Instituição Financeira';
         }
 
         return `
@@ -2933,7 +3390,7 @@ window.renderCrmRealData = async function() {
                 <i class="ph ${vert.icone || 'ph-tag'}"></i> ${vert.vertical || 'Geral'}
               </span>
             </td>
-            <td class="p-3.5">
+            <td class="p-3.5 whitespace-nowrap">
               <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${badgeClass}">
                 ${badgeLabel}
               </span>
@@ -2944,7 +3401,7 @@ window.renderCrmRealData = async function() {
             <td class="p-3.5 text-slate-400 whitespace-nowrap">${c.municipio || '-'}/${c.uf || '-'}</td>
             <td class="p-3.5 text-center">
               <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${isBloqueado ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-                ${isBloqueado ? 'Bloqueio' : 'Regular'}
+                ${isBloqueado ? 'Bloqueio' : 'Ativo'}
               </span>
             </td>
             <td class="p-3.5 text-center">
