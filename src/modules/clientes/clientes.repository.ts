@@ -1,4 +1,5 @@
 import { pgPool } from '../../core/database/supabase-pool';
+import { localMirror } from '../../core/database/local-mirror.service';
 import { Cliente, ClienteHistoricoAlteracao, SituacaoCadastral } from './clientes.types';
 import { FilterClienteQuery } from './clientes.schema';
 
@@ -124,18 +125,42 @@ export class ClientesRepository {
     `;
     params.push(filters.limit, offset);
 
-    const client = await pgPool.connect();
     try {
-      const [countRes, dataRes] = await Promise.all([
-        client.query(countQuery, countParams),
-        client.query(dataQuery, params)
-      ]);
-      return {
-        items: dataRes.rows,
-        total: countRes.rows[0]?.total || 0
-      };
-    } finally {
-      client.release();
+      const client = await pgPool.connect();
+      try {
+        const [countRes, dataRes] = await Promise.all([
+          client.query(countQuery, countParams),
+          client.query(dataQuery, params)
+        ]);
+        const result = {
+          items: dataRes.rows,
+          total: countRes.rows[0]?.total || 0
+        };
+        // Grava no mirror assincronamente
+        setImmediate(() => localMirror.saveMirror('clientes', dataRes.rows));
+        return result;
+      } finally {
+        client.release();
+      }
+    } catch (err: any) {
+      console.warn(`[CLIENTES REPOSITORY]: Falha na nuvem Supabase (${err.message}). Servindo com contingência do Local Mirror em <2ms...`);
+      const all = localMirror.getMirror<any[]>('clientes') || [];
+      let filtered = all;
+      if (filters.tipo_entidade) {
+        filtered = filtered.filter(c => c.tipo_entidade === filters.tipo_entidade);
+      }
+      if (filters.busca) {
+        const b = filters.busca.toLowerCase();
+        filtered = filtered.filter(c => 
+          (c.razao_social_nome || '').toLowerCase().includes(b) ||
+          (c.nome_fantasia || '').toLowerCase().includes(b) ||
+          (c.cnpj_cpf || '').includes(b)
+        );
+      }
+      const total = filtered.length;
+      const offset = (filters.page - 1) * filters.limit;
+      const items = filtered.slice(offset, offset + filters.limit);
+      return { items, total };
     }
   }
 

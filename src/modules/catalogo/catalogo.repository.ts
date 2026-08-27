@@ -1,4 +1,5 @@
 import { pgPool, withTenantTransaction } from '../../core/database/supabase-pool';
+import { localMirror } from '../../core/database/local-mirror.service';
 import { CatalogoUniversalItem, TipoItemCatalogo } from './catalogo.types';
 import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery } from './catalogo.schema';
 
@@ -96,18 +97,43 @@ export class CatalogoRepository {
     `;
     params.push(filters.limit, offset);
 
-    const client = await pgPool.connect();
     try {
-      const [countRes, dataRes] = await Promise.all([
-        client.query(countQuery, countParams),
-        client.query(dataQuery, params)
-      ]);
-      return {
-        items: dataRes.rows,
-        total: countRes.rows[0]?.total || 0
-      };
-    } finally {
-      client.release();
+      const client = await pgPool.connect();
+      try {
+        const [countRes, dataRes] = await Promise.all([
+          client.query(countQuery, countParams),
+          client.query(dataQuery, params)
+        ]);
+        const result = {
+          items: dataRes.rows,
+          total: countRes.rows[0]?.total || 0
+        };
+        setImmediate(() => localMirror.saveMirror('catalogo_universal', dataRes.rows));
+        return result;
+      } finally {
+        client.release();
+      }
+    } catch (err: any) {
+      console.warn(`[CATALOGO REPOSITORY]: Falha na nuvem Supabase (${err.message}). Servindo com contingência do Local Mirror em <2ms...`);
+      const all = localMirror.getMirror<CatalogoUniversalItem[]>('catalogo_universal') || [];
+      let filtered = all;
+      if (empresaId && empresaId !== 'all') {
+        filtered = filtered.filter(item => item.empresa_id === empresaId);
+      }
+      if (filters.tipo_item) {
+        filtered = filtered.filter(item => item.tipo_item === filters.tipo_item);
+      }
+      if (filters.busca) {
+        const b = filters.busca.toLowerCase();
+        filtered = filtered.filter(item => 
+          (item.nome || '').toLowerCase().includes(b) ||
+          (item.descricao_tecnica || '').toLowerCase().includes(b)
+        );
+      }
+      const total = filtered.length;
+      const offset = (filters.page - 1) * filters.limit;
+      const items = filtered.slice(offset, offset + filters.limit);
+      return { items, total };
     }
   }
 

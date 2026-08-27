@@ -315,3 +315,5 @@ export class CnpjEnrichmentService {
     }
   }
 }
+
+export const cnpjEnrichmentService = new CnpjEnrichmentService();

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { PoolClient } from 'pg';
 import { pgPool } from '../../core/database/supabase-pool';
 import { memoryCache } from '../../core/cache/memory-cache';
+import { localMirror } from '../../core/database/local-mirror.service';
 
 export class FinanceiroController {
   listarTransacoes = async (req: Request, res: Response): Promise<void> => {
@@ -86,7 +87,15 @@ export class FinanceiroController {
         res.status(200).json(stale);
         return;
       }
-      res.status(500).json({ success: false, error: 'Erro ao consultar transações bancárias' });
+      const all = (localMirror.getMirror<any[]>('transacoes_bancarias') || []).filter(t => !t.is_saldo_informativo);
+      const numLimit = Number(limit);
+      const numOffset = Number(offset);
+      const items = all.slice(numOffset, numOffset + numLimit);
+      res.status(200).json({
+        success: true,
+        data: items,
+        total: all.length
+      });
     } finally {
       if (client) client.release();
     }

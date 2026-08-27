@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PoolClient } from 'pg';
 import { pgPool } from '../../core/database/supabase-pool';
+import { localMirror } from '../../core/database/local-mirror.service';
 
 export class OrcamentosController {
   listar = async (req: Request, res: Response): Promise<void> => {
@@ -43,14 +44,34 @@ export class OrcamentosController {
       // Total geral
       const countRes = await client.query(`SELECT COUNT(*) as total FROM orcamentos_historico;`);
 
+      const total = parseInt(countRes.rows[0].total);
+      setImmediate(() => localMirror.saveMirror('orcamentos_historico', result.rows));
+
       res.status(200).json({
         success: true,
         data: result.rows,
-        total: parseInt(countRes.rows[0].total)
+        total
       });
     } catch (err: any) {
-      console.error('[ERRO LISTAR ORÇAMENTOS]:', err.message);
-      res.status(500).json({ success: false, error: 'Erro ao listar orçamentos' });
+      console.warn(`[ORCAMENTOS CONTROLLER]: Falha na nuvem Supabase (${err.message}). Servindo com contingência do Local Mirror em <2ms...`);
+      const all = localMirror.getMirror<any[]>('orcamentos_historico') || [];
+      const { busca, limit = 50, offset = 0 } = req.query;
+      let filtered = all;
+      if (busca) {
+        const b = String(busca).toLowerCase();
+        filtered = filtered.filter(o => 
+          (o.cliente_nome || '').toLowerCase().includes(b) ||
+          (o.numero_orcamento || '').toLowerCase().includes(b)
+        );
+      }
+      const numLimit = Number(limit);
+      const numOffset = Number(offset);
+      const items = filtered.slice(numOffset, numOffset + numLimit);
+      res.status(200).json({
+        success: true,
+        data: items,
+        total: filtered.length
+      });
     } finally {
       if (client) client.release();
     }
