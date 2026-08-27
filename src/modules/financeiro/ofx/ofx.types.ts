@@ -7,7 +7,11 @@ export type StatusConciliacao = 'PENDENTE' | 'CONCILIADO_AUTOMATICO' | 'CONCILIA
  * ERRO ANTERIOR: O sistema somava aplicações e resgates automáticos diários (overnight CDI)
  * como se fossem receitas e despesas operacionais, inflando o fluxo em mais de R$ 1,47 Milhão.
  * 
- * CORREÇÃO: Segregação estrita entre movimentação de liquidez bancária interna vs operação comercial real.
+ * CORREÇÃO: Segregação estrita em 4 camadas:
+ * 1. Informativos de saldo (descarte/expurgo)
+ * 2. Movimentações internas de patrimônio / sweep accounts (neutro para DRE)
+ * 3. Receitas financeiras de juros/CDI (segregadas do faturamento comercial)
+ * 4. Operações comerciais reais (clientes, fornecedores, salários, tributos)
  */
 export type CategoriaFinanceiraTransacao = 
   | 'RECEBIMENTO_CLIENTES'
@@ -16,6 +20,7 @@ export type CategoriaFinanceiraTransacao =
   | 'REPASSES_SOCIOS_DIRETORIA'
   | 'INTERCOMPANY_HOLDING'
   | 'TARIFAS_E_DESPESAS_BANCARIAS'
+  | 'RECEITA_FINANCEIRA_JUROS'
   | 'OUTRAS_DESPESAS_OPERACIONAIS'
   | 'APLICACAO_RESGATE_AUTOMATICO'
   | 'INFORMATIVO_SALDO';
@@ -34,7 +39,8 @@ export interface OfxTransaction {
   nomeContraparte?: string | null;
   categoriaSugerida: CategoriaFinanceiraTransacao;
   isSaldoInformativo: boolean;
-  isAplicacaoAutomatica: boolean; // Flag indicando se é varredura de liquidez overnight
+  isAplicacaoAutomatica: boolean; // Flag indicando varredura de liquidez overnight (neutra)
+  isRendimentoFinanceiro: boolean; // Flag indicando juros/rendimentos de aplicação
   idempotencyHash: string;
 }
 
@@ -69,8 +75,10 @@ export interface ParsedOfxDocument {
   totalDebitos: number;
   fluxoLiquido: number;
   // Totais Operacionais Reais (Excluindo Aplicações Automáticas e Saldos Informativos)
+  saldoAnteriorExtrato?: number;
   totalCreditosOperacionais: number;
   totalDebitosOperacionais: number;
+  totalRendimentosFinanceiros: number;
   fluxoOperacionalLiquido: number;
   totalAplicacoesAutomaticas: number;
   totalResgatesAutomaticos: number;
@@ -91,7 +99,7 @@ export interface OfxImportResult {
   transacoesDuplicadasIgnoradas: number;
   transacoesInformativasIgnoradas: number;
   transacoesAplicacoesAutomaticas: number;
+  transacoesRendimentosFinanceiros: number;
   saldoFinalExtrato?: number;
   conciliadoComSucesso: boolean;
 }
-

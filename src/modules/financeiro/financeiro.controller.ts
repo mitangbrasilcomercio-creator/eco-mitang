@@ -153,13 +153,18 @@ export class FinanceiroController {
       client = await pgPool.connect();
       const filterTenant = (empresaId && empresaId !== 'all') ? `AND empresa_id = '${empresaId}'` : '';
 
-      // 1. Apuração Segregada de Fluxo de Caixa Real vs Liquidez Automática
+      // 1. Apuração Segregada de Fluxo de Caixa Real vs Liquidez Automática vs Rendimentos
       const ofxSaldos = await client.query(`
         SELECT 
-          -- Operações Comerciais Reais (Clientes, Fornecedores, Tributos, Salários)
-          COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO' AND is_saldo_informativo = FALSE THEN valor ELSE 0 END), 0) as entradas_operacionais_reais,
+          -- Operações Comerciais Reais de Faturamento de Clientes
+          COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira NOT IN ('APLICACAO_RESGATE_AUTOMATICO', 'RECEITA_FINANCEIRA_RENDIMENTOS') AND is_saldo_informativo = FALSE THEN valor ELSE 0 END), 0) as entradas_operacionais_reais,
+          
+          -- Saídas Operacionais Reais (Fornecedores, Tributos, Salários, Tarifas)
           COALESCE(SUM(CASE WHEN valor < 0 AND categoria_financeira != 'APLICACAO_RESGATE_AUTOMATICO' AND is_saldo_informativo = FALSE THEN ABS(valor) ELSE 0 END), 0) as saidas_operacionais_reais,
           
+          -- Receitas Financeiras de Juros e Rendimentos (CDI / Invest Fácil)
+          COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira = 'RECEITA_FINANCEIRA_RENDIMENTOS' AND is_saldo_informativo = FALSE THEN valor ELSE 0 END), 0) as rendimentos_financeiros_juros,
+
           -- Movimentação de Aplicações Automáticas (Overnight CDI)
           COALESCE(SUM(CASE WHEN valor > 0 AND categoria_financeira = 'APLICACAO_RESGATE_AUTOMATICO' THEN valor ELSE 0 END), 0) as resgates_automaticos,
           COALESCE(SUM(CASE WHEN valor < 0 AND categoria_financeira = 'APLICACAO_RESGATE_AUTOMATICO' THEN ABS(valor) ELSE 0 END), 0) as aplicacoes_automaticas,
@@ -193,6 +198,7 @@ export class FinanceiroController {
 
       const entradasOperacionais = parseFloat(bData.entradas_operacionais_reais);
       const saidasOperacionais = parseFloat(bData.saidas_operacionais_reais);
+      const rendimentosJuros = parseFloat(bData.rendimentos_financeiros_juros);
       const saldoOperacionalReal = entradasOperacionais - saidasOperacionais;
       const saldoBancarioLiquido = parseFloat(bData.saldo_bancario_liquido);
       const resgatesAuto = parseFloat(bData.resgates_automaticos);
@@ -224,6 +230,7 @@ export class FinanceiroController {
           saldo_operacional_real: saldoOperacionalReal,
           total_entradas_operacionais: entradasOperacionais,
           total_saidas_operacionais: saidasOperacionais,
+          rendimentos_financeiros_juros: rendimentosJuros,
           aplicacoes_automaticas_overnight: {
             total_aplicado_saidas: aplicacoesAuto,
             total_resgatado_entradas: resgatesAuto,

@@ -24,19 +24,29 @@ export class OfxIngestionService {
 
     try {
       await client.query('BEGIN');
-      await client.query("SELECT set_config('app.current_empresa_id', $1, true)", [empresaId]);
-
-      // 2. Localiza ou cadastra a Conta Bancária da holding automaticamente
+      // 2. Resolução Multi-Tenant e Identificação Automática da Empresa / Agência
+      let resolvedEmpresaId = empresaId;
       let contaBancariaId: string;
-      const contaQuery = `
-        SELECT id FROM contas_bancarias
-        WHERE empresa_id = $1 AND banco_codigo = $2 AND conta_numero = $3;
-      `;
-      const contaRes = await client.query(contaQuery, [empresaId, account.bankId, account.acctId]);
 
-      if (contaRes.rows.length > 0) {
-        contaBancariaId = contaRes.rows[0].id;
+      const existingAccountRes = await client.query(`
+        SELECT c.id, c.empresa_id, c.agencia, e.razao_social, e.cnpj
+        FROM contas_bancarias c
+        JOIN empresas e ON e.id = c.empresa_id
+        WHERE c.banco_codigo = $1 AND (c.conta_numero = $2 OR c.conta_numero ILIKE '%' || $2 || '%')
+        LIMIT 1;
+      `, [account.bankId, account.acctId]);
+
+      if (existingAccountRes.rows.length > 0) {
+        contaBancariaId = existingAccountRes.rows[0].id;
+        resolvedEmpresaId = existingAccountRes.rows[0].empresa_id;
       } else {
+        // Se a conta for nova, cadastra vinculando ao tenant informado
+        // No Itaú (0341), os primeiros 4 dígitos do ACCTID representam a agência
+        let agenciaNormalizada = account.branchId || '0001';
+        if (account.bankId === '0341' && account.acctId.length >= 8) {
+          agenciaNormalizada = account.acctId.substring(0, 4);
+        }
+
         const insContaQuery = `
           INSERT INTO contas_bancarias (
             empresa_id, banco_codigo, banco_nome, agencia, conta_numero, moeda, saldo_atual, data_ultimo_saldo
@@ -44,10 +54,10 @@ export class OfxIngestionService {
           RETURNING id;
         `;
         const insContaRes = await client.query(insContaQuery, [
-          empresaId,
+          resolvedEmpresaId,
           account.bankId,
           account.bankName,
-          account.branchId || '0001',
+          agenciaNormalizada,
           account.acctId,
           account.currency || 'BRL',
           balance?.ledgerBalance || 0.00,
@@ -55,6 +65,8 @@ export class OfxIngestionService {
         ]);
         contaBancariaId = insContaRes.rows[0].id;
       }
+
+      await client.query("SELECT set_config('app.current_empresa_id', $1, true)", [resolvedEmpresaId]);
 
       // 3. Registra o lote de importação em extratos_ofx_importacoes
       const insImportacaoQuery = `
@@ -236,6 +248,7 @@ export class OfxIngestionService {
         transacoesDuplicadasIgnoradas,
         transacoesInformativasIgnoradas,
         transacoesAplicacoesAutomaticas,
+        transacoesRendimentosFinanceiros: parsedDoc.transactions.filter(t => t.isRendimentoFinanceiro).length,
         saldoFinalExtrato: balance?.ledgerBalance,
         conciliadoComSucesso: true
       };

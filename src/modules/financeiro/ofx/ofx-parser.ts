@@ -98,10 +98,12 @@ export class OfxParser {
     const trnRegex = /<STMTTRN>([\s\S]*?)<\/STMTTRN>/g;
     let match;
 
+    let saldoAnteriorExtrato: number | undefined = undefined;
     let totalCreditos = 0;
     let totalDebitos = 0;
     let totalCreditosOperacionais = 0;
     let totalDebitosOperacionais = 0;
+    let totalRendimentosFinanceiros = 0;
     let totalAplicacoesAutomaticas = 0;
     let totalResgatesAutomaticos = 0;
 
@@ -131,31 +133,39 @@ export class OfxParser {
 
       // 1. Identifica se é linha informativa de saldo (ex: Itaú)
       const isSaldoInformativo = this.verificarSeSaldoInformativo(upperMemo);
+      if (upperMemo.includes('SALDO ANTERIOR') || upperMemo.includes('SDO ANTERIOR')) {
+        saldoAnteriorExtrato = valor;
+      }
 
-      // 2. Identifica se é aplicação/resgate automático (Overnight / Invest Fácil / Aplic Aut Mais)
-      const isAplicacaoAutomatica = this.verificarSeAplicacaoAutomatica(upperMemo);
+      // 2. Identifica se é rendimento financeiro (juros CDI / Invest Fácil)
+      const isRendimento = this.verificarSeRendimentoFinanceiro(upperMemo);
 
-      // 3. Extrai CNPJ ou CPF presente no texto do memo
+      // 3. Identifica se é aplicação/resgate automático de liquidez (sweep)
+      const isAplicacaoAutomatica = !isRendimento && this.verificarSeAplicacaoAutomatica(upperMemo);
+
+      // 4. Extrai CNPJ ou CPF presente no texto do memo
       const cnpjMatch = memo.match(/\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}/);
       const cpfMatch = memo.match(/\d{3}\.\d{3}\.\d{3}-\d{2}/);
       const documentoContraparte = cnpjMatch ? cnpjMatch[0] : (cpfMatch ? cpfMatch[0] : null);
 
-      // 4. Extrai nome da contraparte
+      // 5. Extrai nome da contraparte
       const nomeContraparte = this.extrairNomeContraparte(memo);
 
-      // 5. Sugere categoria financeira precisa
+      // 6. Sugere categoria financeira precisa
       const categoriaSugerida = this.categorizarTransacao(upperMemo, valor, isSaldoInformativo, isAplicacaoAutomatica);
 
-      // 6. Gera Hash de Idempotência Criptográfica Estrita (SHA-256)
+      // 7. Gera Hash de Idempotência Criptográfica Estrita (SHA-256)
       const idempotencyRaw = `${empresaId}|${bankId}|${acctId}|${fitid}|${dataLancamento}|${valor.toFixed(2)}|${memo}`;
       const idempotencyHash = crypto.createHash('sha256').update(idempotencyRaw).digest('hex');
 
-      // 7. Totalizações Contábeis Segregadas
+      // 8. Totalizações Contábeis Segregadas
       if (!isSaldoInformativo) {
         if (valor > 0) totalCreditos += valor;
         else totalDebitos += Math.abs(valor);
 
-        if (isAplicacaoAutomatica) {
+        if (isRendimento) {
+          totalRendimentosFinanceiros += valor;
+        } else if (isAplicacaoAutomatica) {
           if (valor < 0) totalAplicacoesAutomaticas += Math.abs(valor);
           else totalResgatesAutomaticos += valor;
         } else {
@@ -180,6 +190,7 @@ export class OfxParser {
         categoriaSugerida,
         isSaldoInformativo,
         isAplicacaoAutomatica,
+        isRendimentoFinanceiro: isRendimento,
         idempotencyHash
       });
     }
@@ -193,8 +204,10 @@ export class OfxParser {
       totalCreditos,
       totalDebitos,
       fluxoLiquido: totalCreditos - totalDebitos,
+      saldoAnteriorExtrato,
       totalCreditosOperacionais,
       totalDebitosOperacionais,
+      totalRendimentosFinanceiros,
       fluxoOperacionalLiquido: totalCreditosOperacionais - totalDebitosOperacionais,
       totalAplicacoesAutomaticas,
       totalResgatesAutomaticos
@@ -241,6 +254,19 @@ export class OfxParser {
   }
 
   /**
+   * Detecta se a transação é rendimento financeiro (juros CDI overnight / rentabilidade invest fácil)
+   */
+  public static verificarSeRendimentoFinanceiro(memoUpper: string): boolean {
+    return (
+      memoUpper.includes('REND PAGO') ||
+      memoUpper.includes('RENDIMENTO') ||
+      memoUpper.includes('RENTAB.INVEST') ||
+      memoUpper.includes('REMUNERACAO APLIC') ||
+      memoUpper.includes('JUROS APLIC')
+    );
+  }
+
+  /**
    * Detecta se a transação é varredura de aplicação ou resgate automático de liquidez (overnight)
    */
   public static verificarSeAplicacaoAutomatica(memoUpper: string): boolean {
@@ -252,7 +278,6 @@ export class OfxParser {
       memoUpper.includes('RESG.INVEST FACIL') ||
       memoUpper.includes('APL.AUT.') ||
       memoUpper.includes('RESG.AUT.') ||
-      memoUpper.includes('REND PAGO APLIC AUT') ||
       memoUpper.includes('APL INVEST FACIL') ||
       memoUpper.includes('APLICACAO AUTOMATICA') ||
       memoUpper.includes('APLICAÇÃO AUTOMÁTICA') ||
@@ -273,6 +298,10 @@ export class OfxParser {
   ): CategoriaFinanceiraTransacao {
     if (isSaldoInformativo || this.verificarSeSaldoInformativo(memoUpper)) {
       return 'INFORMATIVO_SALDO';
+    }
+
+    if (this.verificarSeRendimentoFinanceiro(memoUpper)) {
+      return 'RECEITA_FINANCEIRA_JUROS';
     }
 
     if (isAplicacaoAutomatica || this.verificarSeAplicacaoAutomatica(memoUpper)) {
