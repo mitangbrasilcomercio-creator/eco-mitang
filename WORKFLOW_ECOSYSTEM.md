@@ -1,7 +1,7 @@
 # 🗺️ ECO-MITANG ERP: FLUXOGRAMA DINÂMICO DO ECOSSISTEMA & WORKFLOWS
 
-> **Última Atualização Automática:** 26/08/2026, 20:39:58  
-> **Último Commit:** `45b822d - feat(catalogo): Item_Catalogo EAV JSONB, Soft Delete e Data Ingestion Pipeline com ACID (26/08/2026 19:50)`  
+> **Última Atualização Automática:** 26/08/2026, 22:46:28  
+> **Último Commit:** `6bed3f2 - docs: implementacao do fluxograma dinamico do ecossistema e gerador automatico (26/08/2026 20:40)`  
 > **Legenda de Destaque:** ⚡ Elementos com borda destacada em **Laranja/Vermelho** indicam as **ÚLTIMAS ALTERAÇÕES IMPLEMENTADAS NO PROJETO**.
 
 ---
@@ -153,7 +153,13 @@ flowchart LR
 
 | Data / Versão | Módulo Impactado | Alteração no Fluxo de Negócios | Destaque Visual |
 | :--- | :--- | :--- | :--- |
-| **26/08/2026** | **Catálogo Universal & EAV** | Implementação de `itens_catalogo` com EAV dinâmico em `atributos_extras` (JSONB) e **Soft Delete** (`status_ativo = false`). | ⚡ **Última Alteração** |
-| **26/08/2026** | **Data Ingestion (ETL)** | Criação da `importacao_staging` e `JsonCatalogParser` com transação **ACID com Rollback Total**. | ⚡ **Última Alteração** |
-| **26/08/2026** | **Webhooks & Travas Operacionais** | Endpoints dedicados para destravamento de OS via Quitação Financeira e Liberação de QSMS. | ⚡ **Última Alteração** |
+| **27/08/2026** | **Repositório Fiscal & XML** | Ingestão integral de 172 XMLs de NF-e e NFS-e gravados em JSONB sem perda de tags e dados relacionais. | ⚡ **Última Alteração** |
+| **27/08/2026** | **Conciliação OFX & Caixa** | 1.386 transações bancárias reais em Itaú e Bradesco com hash SHA-256 anti-duplicação e projeção de caixa. | ⚡ **Última Alteração** |
+| **27/08/2026** | **Classificação de Parceiros** | Separação estrita em Clientes (compradores), Fornecedores (insumos Strema/SBT) e Colaboradores PJ (NFS-e). | ⚡ **Última Alteração** |
+| **27/08/2026** | **DRE & Controladoria DuPont** | Apuração contábil automatizada (Receita Bruta, CMV, EBITDA) e simulador interativo DuPont de ROE com sliders. | ⚡ **Última Alteração** |
+| **27/08/2026** | **Frontend SPA "Menos é Mais"** | Redesign em abas segmentadas e camada de cache em memória com resposta instantânea (< 2ms). | ⚡ **Última Alteração** |
+| **26/08/2026** | **Catálogo Universal & EAV** | Implementação de `itens_catalogo` com EAV dinâmico em `atributos_extras` (JSONB) e **Soft Delete** (`status_ativo = false`). | Base Core |
+| **26/08/2026** | **Data Ingestion (ETL)** | Criação da `importacao_staging` e `JsonCatalogParser` com transação **ACID com Rollback Total**. | Base Core |
+| **26/08/2026** | **Webhooks & Travas Operacionais** | Endpoints dedicados para destravamento de OS via Quitação Financeira e Liberação de QSMS. | Base Core |
 | **26/08/2026** | **Banco Supabase Multi-Tenant** | 16 tabelas DDL provisionadas com Row Level Security (RLS) e Triggers de Imutabilidade. | Base Core |
+
