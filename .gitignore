@@ -2,4 +2,17 @@ node_modules/
 dist/
 *.log
 .env
+.env.local
 .vscode/
+
+# Segredos e credenciais - NUNCA versionar
+password_supabase.txt
+*.pem
+*.key
+secrets/
+
+# Backups e dumps do banco
+database/backups/
+
+# Cache local de consultas CNPJ
+cnpj_data.json
