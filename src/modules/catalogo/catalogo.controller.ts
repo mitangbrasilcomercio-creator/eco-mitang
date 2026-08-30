@@ -12,7 +12,7 @@ export class CatalogoController {
 
   list = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const queryValidation = FilterCatalogoQuerySchema.safeParse(req.query);
 
       if (!queryValidation.success) {
@@ -24,7 +24,7 @@ export class CatalogoController {
         return;
       }
 
-      const result = await this.service.listItems(empresaId, queryValidation.data);
+      const result = await this.service.listItems(ctx, queryValidation.data);
       res.status(200).json({
         success: true,
         data: result.items,
@@ -42,9 +42,9 @@ export class CatalogoController {
 
   getById = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
-      const item = await this.service.getItemById(empresaId, id);
+      const item = await this.service.getItemById(ctx, id);
       res.status(200).json({ success: true, data: item });
     } catch (err: any) {
       this.handleError(res, err);
@@ -53,7 +53,7 @@ export class CatalogoController {
 
   create = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const validation = CreateCatalogoItemSchema.safeParse(req.body);
 
       if (!validation.success) {
@@ -69,7 +69,7 @@ export class CatalogoController {
         return;
       }
 
-      const newItem = await this.service.createItem(empresaId, validation.data);
+      const newItem = await this.service.createItem(ctx, validation.data);
       res.status(201).json({
         success: true,
         message: 'Item criado com sucesso no catalogo.',
@@ -82,7 +82,7 @@ export class CatalogoController {
 
   update = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
       const validation = UpdateCatalogoItemSchema.safeParse(req.body);
 
@@ -95,7 +95,7 @@ export class CatalogoController {
         return;
       }
 
-      const updated = await this.service.updateItem(empresaId, id, validation.data);
+      const updated = await this.service.updateItem(ctx, id, validation.data);
       res.status(200).json({
         success: true,
         message: 'Item atualizado com sucesso.',
@@ -108,9 +108,9 @@ export class CatalogoController {
 
   inactivate = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
-      const itemInativo = await this.service.inactivateItem(empresaId, id);
+      const itemInativo = await this.service.inactivateItem(ctx, id);
       res.status(200).json({
         success: true,
         message: 'Status do item alterado para inativo com sucesso.',
@@ -123,9 +123,9 @@ export class CatalogoController {
 
   delete = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
-      const result = await this.service.deleteItem(empresaId, id);
+      const result = await this.service.deleteItem(ctx, id);
       res.status(200).json(result);
     } catch (err: any) {
       this.handleError(res, err);

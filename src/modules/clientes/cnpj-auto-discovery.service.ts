@@ -1,4 +1,4 @@
-import { pgPool } from '../../core/database/supabase-pool';
+import { withTenantQuery, contextoTodosTenants } from '../../core/database/supabase-pool';
 import { CnpjEnrichmentService } from './cnpj-enrichment.service';
 import { localMirror } from '../../core/database/local-mirror.service';
 
@@ -19,12 +19,15 @@ export class CnpjAutoDiscoveryService {
    */
   public async executarVarreduraEAutoCadastro(empresaIdPadrao: string = '29ea0857-7cf7-44e1-ba36-a3f323c4670c'): Promise<{ novosCadastrados: number; vinculados: number }> {
     console.log('[CNPJ AUTO-DISCOVERY] Iniciando varredura inteligente de CNPJs em transações e orçamentos...');
-    const client = await pgPool.connect();
 
     let novosCadastrados = 0;
     let vinculados = 0;
 
-    try {
+    // [CORRECAO] Rodava com pgPool.connect() sem contexto de tenant. Com a RLS
+    // valendo, toda consulta voltava vazia e a varredura "nao encontrava" nada.
+    // E uma rotina de manutencao: enxerga a holding inteira, de proposito.
+    const ctxManutencao = await contextoTodosTenants();
+    return withTenantQuery(ctxManutencao, async (client) => {
       // 1. Obter todos os CNPJs já conhecidos
       const cliRes = await client.query("SELECT DISTINCT regexp_replace(cnpj_cpf, '[^0-9]', '', 'g') as cnpj FROM clientes WHERE cnpj_cpf IS NOT NULL;");
       const knownCnpjs = new Set<string>(cliRes.rows.map(r => r.cnpj));
@@ -182,10 +185,7 @@ export class CnpjAutoDiscoveryService {
 
       console.log(`[CNPJ AUTO-DISCOVERY FINALIZADO] ${novosCadastrados} novos parceiros cadastrados | ${vinculados} transações re-vinculadas.`);
       return { novosCadastrados, vinculados };
-
-    } finally {
-      client.release();
-    }
+    });
   }
 }
 

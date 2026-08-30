@@ -1,4 +1,4 @@
-import { pgPool } from '../../../core/database/supabase-pool';
+import { withTenantTransaction } from '../../../core/database/supabase-pool';
 import { ItemCatalogo } from '../../catalogo/models/item-catalogo.model';
 import { TipoItemEnum } from '../../catalogo/dtos/item-catalogo.dto';
 import { PoolClient } from 'pg';
@@ -31,11 +31,13 @@ export class JsonCatalogParser {
       throw new Error('O payload deve ser um array nao vazio de objetos JSON.');
     }
 
-    const client: PoolClient = await pgPool.connect();
     const itensCriados: ItemCatalogo[] = [];
 
+    // [CORRECAO] Antes usava pgPool.connect() com BEGIN manual e sem contexto de
+    // tenant. Com a RLS valendo, o INSERT era recusado pelo WITH CHECK.
+    // withTenantTransaction ja cuida de BEGIN/COMMIT/ROLLBACK/release.
     try {
-      await client.query('BEGIN');
+      return await withTenantTransaction({ empresaId, empresaIds: [empresaId] }, async (client: PoolClient) => {
 
       for (let i = 0; i < items.length; i++) {
         const raw = items[i];
@@ -98,19 +100,16 @@ export class JsonCatalogParser {
         });
       }
 
-      await client.query('COMMIT');
-      return {
-        total_processados: itensCriados.length,
-        sucesso: true,
-        itens_criados: itensCriados
-      };
+        return {
+          total_processados: itensCriados.length,
+          sucesso: true,
+          itens_criados: itensCriados
+        };
+      });
     } catch (err: any) {
-      // REGRA 2 (ACID): Rollback imediato se qualquer item falhar
-      await client.query('ROLLBACK');
-      console.error('[ACID TRANSACTION ROLLBACK - Ingestion Catalog]', err.message);
+      // REGRA 2 (ACID): o rollback ja foi aplicado por withTenantTransaction.
+      console.error('[ROLLBACK - Ingestao de Catalogo]', err.message);
       throw new Error(`Falha na ingestao em lote. Rollback executado. Motivo: ${err.message}`);
-    } finally {
-      client.release();
     }
   }
 }

@@ -1,4 +1,5 @@
 import { ClientesRepository } from './clientes.repository';
+import { TenantContext } from '../../core/database/supabase-pool';
 import { CnpjEnrichmentGateway } from './cnpj-enrichment.gateway';
 import { EventBus, globalEventBus } from '../../core/events/event-bus';
 import { Cliente, ClienteHistoricoAlteracao, SituacaoCadastral } from './clientes.types';
@@ -21,11 +22,12 @@ export class ClientesService {
   /**
    * Cadastra um cliente com auto-enriquecimento via Receita Federal / bases públicas.
    */
-  async cadastrarCliente(empresaId: string, input: CreateClienteInput): Promise<Cliente> {
+  async cadastrarCliente(ctx: TenantContext, input: CreateClienteInput): Promise<Cliente> {
+    const empresaId = ctx.empresaId;
     const cleanDoc = input.cnpj_cpf.replace(/[^\d]/g, '');
 
     // Verifica se já existe cliente cadastrado com este documento no tenant
-    const existing = await this.repository.findByCnpj(empresaId, cleanDoc);
+    const existing = await this.repository.findByCnpj(ctx, cleanDoc);
     if (existing) {
       const error: any = new Error(`Ja existe um cliente cadastrado com o documento '${input.cnpj_cpf}' nesta empresa.`);
       error.statusCode = 409;
@@ -86,7 +88,7 @@ export class ClientesService {
       }
     }
 
-    const clienteCriado = await this.repository.create(empresaId, dadosParaSalvar);
+    const clienteCriado = await this.repository.create(ctx, dadosParaSalvar);
 
     // Publica Evento de Domínio
     await this.eventBus.publish<ClienteCriadoPayload>({
@@ -108,8 +110,9 @@ export class ClientesService {
     return clienteCriado;
   }
 
-  async buscarPorId(empresaId: string, id: string): Promise<Cliente> {
-    const cliente = await this.repository.findById(empresaId, id);
+  async buscarPorId(ctx: TenantContext, id: string): Promise<Cliente> {
+    const empresaId = ctx.empresaId;
+    const cliente = await this.repository.findById(ctx, id);
     if (!cliente) {
       const error: any = new Error(`Cliente com ID '${id}' nao encontrado.`);
       error.statusCode = 404;
@@ -119,8 +122,8 @@ export class ClientesService {
     return cliente;
   }
 
-  async listar(empresaId: string, query: FilterClienteQuery): Promise<{ items: Cliente[]; total: number; page: number; limit: number }> {
-    const result = await this.repository.list(empresaId, query);
+  async listar(ctx: TenantContext, query: FilterClienteQuery): Promise<{ items: Cliente[]; total: number; page: number; limit: number }> {
+    const result = await this.repository.list(ctx, query);
     return {
       items: result.items,
       total: result.total,
@@ -129,22 +132,24 @@ export class ClientesService {
     };
   }
 
-  async obterHistorico(empresaId: string, clienteId: string): Promise<ClienteHistoricoAlteracao[]> {
-    await this.buscarPorId(empresaId, clienteId);
-    return this.repository.getHistoricoAlteracoes(empresaId, clienteId);
+  async obterHistorico(ctx: TenantContext, clienteId: string): Promise<ClienteHistoricoAlteracao[]> {
+    const empresaId = ctx.empresaId;
+    await this.buscarPorId(ctx, clienteId);
+    return this.repository.getHistoricoAlteracoes(ctx, clienteId);
   }
 
   /**
    * Atualização com gravação de histórico de auditoria campo a campo.
    */
   async atualizarCliente(
-    empresaId: string,
+    ctx: TenantContext,
     id: string,
     novosDados: UpdateClienteInput,
     origem: 'AUTO_SYNC_RFB' | 'MANUAL' | 'WEBHOOK_RECEITA' = 'MANUAL',
     dataVigencia: Date = new Date()
   ): Promise<{ cliente: Cliente; alteracoes: ClienteAlteracaoDetectada[] }> {
-    const clienteAtual = await this.buscarPorId(empresaId, id);
+    const empresaId = ctx.empresaId;
+    const clienteAtual = await this.buscarPorId(ctx, id);
     const alteracoes: ClienteAlteracaoDetectada[] = [];
 
     // Compara campos e detecta divergências
@@ -180,7 +185,7 @@ export class ClientesService {
 
           // Grava no log histórico imutável (SCD Tipo 2)
           await this.repository.recordHistoricoAlteracao(
-            empresaId,
+            ctx,
             id,
             String(campo),
             valAntigo !== null && valAntigo !== undefined ? String(valAntigo) : null,
@@ -201,7 +206,7 @@ export class ClientesService {
       novosDados.bloqueio_fiscal = true;
     }
 
-    const clienteAtualizado = await this.repository.update(empresaId, id, novosDados as any);
+    const clienteAtualizado = await this.repository.update(ctx, id, novosDados as any);
     if (!clienteAtualizado) {
       throw new Error(`Falha ao persistir atualizacoes do cliente '${id}'.`);
     }

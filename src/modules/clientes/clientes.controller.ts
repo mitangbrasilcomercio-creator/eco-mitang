@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { withTenantQuery } from '../../core/database/supabase-pool';
 import { TenantRequest } from '../../core/middlewares/tenant.middleware';
 import { ClientesService } from './clientes.service';
 import { ClienteSyncBackgroundService } from './clientes.sync.worker';
@@ -36,7 +37,7 @@ export class ClientesController {
    */
   criar = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const validation = CreateClienteSchema.safeParse(req.body);
 
       if (!validation.success) {
@@ -52,7 +53,7 @@ export class ClientesController {
         return;
       }
 
-      const cliente = await this.service.cadastrarCliente(empresaId, validation.data);
+      const cliente = await this.service.cadastrarCliente(ctx, validation.data);
       res.status(201).json({
         success: true,
         message: 'Cliente cadastrado com sucesso' + (cliente.bloqueio_fiscal ? ' [ATENCAO: BLOQUEIO FISCAL ATIVADO]' : ''),
@@ -69,7 +70,7 @@ export class ClientesController {
    */
   listar = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const queryValidation = FilterClienteQuerySchema.safeParse(req.query);
 
       if (!queryValidation.success) {
@@ -81,7 +82,7 @@ export class ClientesController {
         return;
       }
 
-      const result = await this.service.listar(empresaId, queryValidation.data);
+      const result = await this.service.listar(ctx, queryValidation.data);
       res.status(200).json({
         success: true,
         data: result.items,
@@ -103,9 +104,9 @@ export class ClientesController {
    */
   buscarPorId = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
-      const cliente = await this.service.buscarPorId(empresaId, id);
+      const cliente = await this.service.buscarPorId(ctx, id);
       res.status(200).json({ success: true, data: cliente });
     } catch (err: any) {
       this.handleError(res, err);
@@ -118,7 +119,7 @@ export class ClientesController {
    */
   atualizar = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
       const validation = UpdateClienteSchema.safeParse(req.body);
 
@@ -131,8 +132,7 @@ export class ClientesController {
         return;
       }
 
-      const { cliente, alteracoes } = await this.service.atualizarCliente(
-        empresaId,
+      const { cliente, alteracoes } = await this.service.atualizarCliente(ctx,
         id,
         validation.data,
         'MANUAL',
@@ -156,9 +156,9 @@ export class ClientesController {
    */
   obterHistorico = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const id = String(req.params.id);
-      const historico = await this.service.obterHistorico(empresaId, id);
+      const historico = await this.service.obterHistorico(ctx, id);
       res.status(200).json({
         success: true,
         total_registros: historico.length,
@@ -175,18 +175,18 @@ export class ClientesController {
    */
   dispararSincronizacao = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
-      const empresaId = req.empresaId!;
+      const ctx = req.tenant!;
       const clienteId = req.query.cliente_id ? String(req.query.cliente_id) : undefined;
 
       if (clienteId) {
-        const item = await this.syncWorker.sincronizarCliente(empresaId, clienteId);
+        const item = await this.syncWorker.sincronizarCliente(ctx, clienteId);
         res.status(200).json({
           success: true,
           message: 'Sincronizacao individual executada com sucesso.',
           data: item
         });
       } else {
-        const summary = await this.syncWorker.sincronizarTodosClientesTenant(empresaId);
+        const summary = await this.syncWorker.sincronizarTodosClientesTenant(ctx);
         res.status(200).json({
           success: true,
           message: 'Varredura em background concluida para todos os clientes do tenant.',
@@ -205,8 +205,10 @@ export class ClientesController {
   obterDossieCompleto = async (req: TenantRequest, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
-      const client = await (await import('../../core/database/supabase-pool')).pgPool.connect();
-      try {
+      const ctx = req.tenant!;
+      // Dossie roda inteiro com o contexto de tenant: a RLS garante que nenhuma
+      // nota, orcamento ou transacao de outro CNPJ entre no relatorio.
+      await withTenantQuery(ctx, async (client) => {
         const cliRes = await client.query('SELECT * FROM clientes WHERE id = $1', [id]);
         if (cliRes.rows.length === 0) {
           res.status(404).json({ success: false, error: 'Cliente não encontrado' });
@@ -300,9 +302,7 @@ export class ClientesController {
             transacoes_bancarias: txRes.rows
           }
         });
-      } finally {
-        client.release();
-      }
+      });
     } catch (err: any) {
       this.handleError(res, err);
     }

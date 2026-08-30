@@ -1,4 +1,5 @@
 import { ClientesRepository } from './clientes.repository';
+import { TenantContext } from '../../core/database/supabase-pool';
 import { ClientesService } from './clientes.service';
 import { CnpjEnrichmentGateway } from './cnpj-enrichment.gateway';
 import { isValidCNPJ } from './clientes.schema';
@@ -35,8 +36,9 @@ export class ClienteSyncBackgroundService {
    * Executa a sincronização em background ("por trás dos panos") de um único cliente.
    * Consulta a base oficial, detecta alterações, atualiza o DB e gera histórico com data de vigência.
    */
-  async sincronizarCliente(empresaId: string, clienteId: string): Promise<SyncReportItem> {
-    const cliente = await this.service.buscarPorId(empresaId, clienteId);
+  async sincronizarCliente(ctx: TenantContext, clienteId: string): Promise<SyncReportItem> {
+    const empresaId = ctx.empresaId;
+    const cliente = await this.service.buscarPorId(ctx, clienteId);
     const cleanDoc = cliente.cnpj_cpf.replace(/[^\d]/g, '');
 
     if (cleanDoc.length !== 14 || !isValidCNPJ(cleanDoc)) {
@@ -81,7 +83,7 @@ export class ClienteSyncBackgroundService {
 
     // Executa a atualização com registro de histórico
     const { alteracoes } = await this.service.atualizarCliente(
-      empresaId,
+      ctx,
       cliente.id,
       novosDados,
       'AUTO_SYNC_RFB',
@@ -89,7 +91,7 @@ export class ClienteSyncBackgroundService {
     );
 
     // Atualiza a data da última sincronização
-    await this.repository.update(empresaId, cliente.id, {
+    await this.repository.update(ctx, cliente.id, {
       ultima_sincronizacao_rfb: new Date().toISOString()
     } as any);
 
@@ -121,8 +123,9 @@ export class ClienteSyncBackgroundService {
   /**
    * Executa a varredura e sincronização em lote de todos os clientes ativos de uma empresa/holding.
    */
-  async sincronizarTodosClientesTenant(empresaId: string): Promise<TenantSyncSummary> {
-    const clientes = await this.repository.listAllForSync(empresaId);
+  async sincronizarTodosClientesTenant(ctx: TenantContext): Promise<TenantSyncSummary> {
+    const empresaId = ctx.empresaId;
+    const clientes = await this.repository.listAllForSync(ctx);
     const relatorios: SyncReportItem[] = [];
 
     let totalAtualizados = 0;
@@ -130,7 +133,7 @@ export class ClienteSyncBackgroundService {
 
     for (const cli of clientes) {
       try {
-        const item = await this.sincronizarCliente(empresaId, cli.id);
+        const item = await this.sincronizarCliente(ctx, cli.id);
         relatorios.push(item);
         if (item.teve_alteracao) totalAtualizados++;
         if (item.bloqueio_fiscal_aplicado && item.situacao_atual !== 'ATIVA') totalCriticos++;

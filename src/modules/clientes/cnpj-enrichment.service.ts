@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { pgPool } from '../../core/database/supabase-pool';
+import { withTenantTransaction } from '../../core/database/supabase-pool';
 import { localMirror } from '../../core/database/local-mirror.service';
 
 export interface VerticalNicho {
@@ -234,8 +234,9 @@ export class CnpjEnrichmentService {
       tipoEntidade = 'FORNECEDOR';
     }
 
-    const client = await pgPool.connect();
-    try {
+    // [CORRECAO] Sem contexto de tenant, a RLS recusa este INSERT: o WITH CHECK
+    // compara empresa_id com 'app.current_empresa_id', que ficaria vazio.
+    return withTenantTransaction({ empresaId, empresaIds: [empresaId] }, async (client) => {
       const query = `
         INSERT INTO clientes (
           empresa_id, razao_social_nome, nome_fantasia, cnpj_cpf, email, telefone,
@@ -298,9 +299,7 @@ export class CnpjEnrichmentService {
 
       const res = await client.query(query, params);
       return res.rows[0];
-    } finally {
-      client.release();
-    }
+    });
   }
 }
 

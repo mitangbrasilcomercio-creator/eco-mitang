@@ -1,130 +1,166 @@
-import { Request, Response } from 'express';
-import { PoolClient } from 'pg';
-import { pgPool } from '../../core/database/supabase-pool';
+import { Response } from 'express';
+import { TenantRequest } from '../../core/middlewares/tenant.middleware';
+import { DreRepository } from './dre.repository';
 import { memoryCache } from '../../core/cache/memory-cache';
+import { resolverPeriodo } from '../../core/utils/periodo';
 
+/**
+ * ============================================================================
+ * DRE - DEMONSTRACAO DO RESULTADO DO EXERCICIO
+ * ============================================================================
+ *
+ * [ERROS ANTERIORES]:
+ * 1. Aliquota inventada: quando as notas nao traziam imposto destacado, o
+ *    codigo aplicava
+ *        receitaBruta * 0.0865   // "Aliquota media 8.65%"
+ *    e apresentava o resultado como deducao apurada. Uma DRE que estima o
+ *    proprio imposto e a chuta como se fosse fato.
+ * 2. 'const lucroLiquido = ebitda;' com o comentario "Provisao simplificada".
+ *    EBITDA e lucro liquido sao coisas diferentes -- o segundo desconta juros,
+ *    depreciacao e IR. Chamar um de outro nao e simplificacao, e erro contabil.
+ * 3. Despesas bancarias capturadas por 'memo ILIKE %tar%'.
+ *
+ * [CORRECOES]:
+ * Deducao so aparece se houver imposto destacado nas notas; caso contrario vem
+ * null com 'base_tributaria_disponivel: false'. EBITDA e lucro liquido sao
+ * campos distintos, e o lucro liquido so e calculado quando ha base para isso.
+ * ============================================================================
+ */
 export class DreController {
-  getDreConsolidada = async (req: Request, res: Response): Promise<void> => {
-    const empresaId = req.headers['x-empresa-id'] as string;
-    const { ano = '2026' } = req.query;
-    const cacheKey = `dre_consolidada_${empresaId || 'all'}_${ano}`;
+  constructor(private readonly repo: DreRepository = new DreRepository()) {}
 
-    const cached = memoryCache.get(cacheKey);
+  getDreConsolidada = async (req: TenantRequest, res: Response): Promise<void> => {
+    const ctx = req.tenant!;
+    const { periodo, ano, data_inicio, data_fim } = req.query;
+
+    // 'ano=2026' continua funcionando (o front usa isso hoje).
+    let opcoes: { periodo?: string; dataInicio?: unknown; dataFim?: unknown };
+    if (ano && /^\d{4}$/.test(String(ano))) {
+      opcoes = { dataInicio: `${ano}-01-01`, dataFim: `${ano}-12-31` };
+    } else {
+      opcoes = { periodo: periodo as string, dataInicio: data_inicio, dataFim: data_fim };
+    }
+
+    const p = resolverPeriodo(opcoes);
+    const chave = `dre:${ctx.empresaIds!.join('+')}:${p.inicio}:${p.fim}`;
+
+    const cached = memoryCache.get(chave);
     if (cached) {
       res.status(200).json(cached);
       return;
     }
 
-    let client: PoolClient | null = null;
     try {
-      client = await pgPool.connect();
-      const filterTenant = (empresaId && empresaId !== 'all') ? `AND empresa_id = '${empresaId}'` : '';
+      const base = await this.repo.apurar(ctx, p);
+      const num = (v: any) => Number(v || 0);
 
-      // 1. Receita Operacional Bruta (Notas Fiscais Emitidas)
-      const vendasRes = await client.query(`
-        SELECT 
-          COALESCE(SUM(CASE WHEN tipo_documento = 'NFE_PRODUTO' THEN valor_produtos_servicos ELSE 0 END), 0) as vendas_produtos,
-          COALESCE(SUM(CASE WHEN tipo_documento = 'NFSE_SERVICO' THEN valor_produtos_servicos ELSE 0 END), 0) as servicos_prestados,
-          COALESCE(SUM(valor_impostos_total), 0) as total_tributos,
-          COALESCE(SUM(valor_total), 0) as receita_bruta_total,
-          COUNT(*) as qtd_notas_emitidas
-        FROM notas_fiscais
-        WHERE direcao = 'EMITIDA' ${filterTenant};
-      `);
-      const v = vendasRes.rows[0];
+      const receitaBruta = num(base.receitas.receita_bruta_total);
+      const tributosDestacados = num(base.receitas.total_tributos);
+      const qtdNotas = Number(base.receitas.qtd_notas || 0);
+      const qtdComImposto = Number(base.receitas.qtd_notas_com_imposto || 0);
 
-      // 2. Custos das Mercadorias Vendidas (CMV - Notas de Insumos/Fornecedores Recebidas)
-      const cmvRes = await client.query(`
-        SELECT 
-          COALESCE(SUM(CASE WHEN tipo_documento = 'NFE_PRODUTO' THEN valor_produtos_servicos ELSE 0 END), 0) as cmv_insumos,
-          COUNT(*) as qtd_notas_compras
-        FROM notas_fiscais
-        WHERE direcao = 'RECEBIDA' AND tipo_documento = 'NFE_PRODUTO' ${filterTenant};
-      `);
-      const c = cmvRes.rows[0];
+      // A deducao so existe se houver imposto destacado. Nada de aliquota
+      // presumida vendida como apuracao.
+      const temBaseTributaria = tributosDestacados > 0;
+      const deducoes = temBaseTributaria ? tributosDestacados : 0;
+      const receitaLiquida = receitaBruta - deducoes;
 
-      // 3. Despesas Operacionais com Terceiros & Colaboradores PJ (NFS-e Recebidas)
-      const servicosTomadosRes = await client.query(`
-        SELECT 
-          COALESCE(SUM(valor_total), 0) as despesas_servicos_pj,
-          COUNT(*) as qtd_nfse_tomadas
-        FROM notas_fiscais
-        WHERE direcao = 'RECEBIDA' AND tipo_documento = 'NFSE_SERVICO' ${filterTenant};
-      `);
-      const s = servicosTomadosRes.rows[0];
-
-      // 4. Despesas Bancárias e Tarifas apuradas no OFX
-      const tarifasRes = await client.query(`
-        SELECT 
-          COALESCE(SUM(ABS(valor)), 0) as despesas_bancarias_tarifas
-        FROM transacoes_bancarias
-        WHERE valor < 0 AND (memo ILIKE '%tar%' OR memo ILIKE '%iof%' OR memo ILIKE '%taxa%' OR memo ILIKE '%anu%') ${filterTenant};
-      `);
-      const t = tarifasRes.rows[0];
-
-      // Cálculo Matemático da DRE
-      const receitaBruta = parseFloat(v.receita_bruta_total);
-      const impostosSobreVendas = parseFloat(v.total_tributos) > 0 ? parseFloat(v.total_tributos) : (receitaBruta * 0.0865); // Alíquota média 8.65% Simples/Lucro Presumido
-      const receitaLiquida = receitaBruta - impostosSobreVendas;
-      const cmv = parseFloat(c.cmv_insumos);
+      const cmv = num(base.cmv.cmv_insumos);
       const lucroBruto = receitaLiquida - cmv;
-      const margemBrutaPct = receitaLiquida > 0 ? ((lucroBruto / receitaLiquida) * 100).toFixed(1) + '%' : '0%';
 
-      const despesasPj = parseFloat(s.despesas_servicos_pj);
-      const despesasBancarias = parseFloat(t.despesas_bancarias_tarifas);
-      const totalDespesasOperacionais = despesasPj + despesasBancarias;
+      const despesasPj = num(base.servicosTomados.despesas_servicos_pj);
+      const despesasBancarias = num(base.tarifas.despesas_bancarias);
 
-      const ebitda = lucroBruto - totalDespesasOperacionais;
-      const margemEbitdaPct = receitaLiquida > 0 ? ((ebitda / receitaLiquida) * 100).toFixed(1) + '%' : '0%';
-      const lucroLiquido = ebitda; // Provisão simplificada
-      const margemLiquidaPct = receitaLiquida > 0 ? ((lucroLiquido / receitaLiquida) * 100).toFixed(1) + '%' : '0%';
+      const mapaDespesas: Record<string, number> = {};
+      for (const d of base.despesasPorCategoria) {
+        mapaDespesas[d.categoria_financeira] = num(d.total);
+      }
+      const tributosPagos = mapaDespesas['IMPOSTOS_E_TRIBUTOS'] || 0;
+      const outrasDespesas = mapaDespesas['OUTRAS_DESPESAS_OPERACIONAIS'] || 0;
+      const repassesSocios = mapaDespesas['REPASSES_SOCIOS_DIRETORIA'] || 0;
+
+      // Repasses a socios (pro-labore/dividendos) nao entram no EBITDA
+      // operacional -- sao distribuicao de resultado, nao custo de operar.
+      const despesasOperacionais = despesasPj + despesasBancarias + outrasDespesas;
+      const ebitda = lucroBruto - despesasOperacionais;
+
+      /**
+       * Lucro liquido = EBITDA - tributos sobre o resultado - despesas
+       * financeiras. Depreciacao e amortizacao ainda nao sao registradas pelo
+       * sistema (nao ha modulo de ativo imobilizado), entao o valor e marcado
+       * como parcial em vez de apresentado como definitivo.
+       */
+      const lucroLiquido = ebitda - tributosPagos;
+
+      const pct = (parte: number, base_: number): number | null =>
+        base_ > 0 ? Number(((parte / base_) * 100).toFixed(1)) : null;
 
       const payload = {
         success: true,
         data: {
-          periodo: ano,
+          periodo: { inicio: p.inicio, fim: p.fim, dias: p.dias, rotulo: p.rotulo },
+          sem_dados: qtdNotas === 0,
           dre: {
             receita_bruta: {
               total: receitaBruta,
-              vendas_baterias: parseFloat(v.vendas_produtos),
-              servicos_subsea: parseFloat(v.servicos_prestados)
+              vendas_produtos: num(base.receitas.vendas_produtos),
+              servicos_prestados: num(base.receitas.servicos_prestados),
+              qtd_notas: qtdNotas
             },
             deducoes: {
-              total: impostosSobreVendas,
-              descricao: 'ICMS / PIS / COFINS / ISS Faturados'
+              total: deducoes,
+              base_tributaria_disponivel: temBaseTributaria,
+              notas_com_imposto_destacado: qtdComImposto,
+              notas_sem_imposto_destacado: qtdNotas - qtdComImposto,
+              descricao: temBaseTributaria
+                ? 'ICMS / PIS / COFINS / ISS destacados nas notas emitidas'
+                : 'Nenhuma nota do periodo traz imposto destacado. A deducao nao foi estimada.'
             },
             receita_liquida: receitaLiquida,
             custos_operacionais: {
               cmv_total: cmv,
-              descricao: 'Insumos Industriais, Células de Lítio e Embalagens'
+              qtd_notas_compra: Number(base.cmv.qtd_notas || 0),
+              descricao: 'Insumos industriais, celulas de litio e embalagens (NF-e recebidas)'
             },
             lucro_bruto: lucroBruto,
-            margem_bruta: margemBrutaPct,
+            margem_bruta_pct: pct(lucroBruto, receitaLiquida),
             despesas_operacionais: {
-              total: totalDespesasOperacionais,
+              total: despesasOperacionais,
               servicos_terceiros_pj: despesasPj,
-              despesas_bancarias_tarifas: despesasBancarias
+              despesas_bancarias_tarifas: despesasBancarias,
+              outras_despesas: outrasDespesas
             },
-            ebitda: ebitda,
-            margem_ebitda: margemEbitdaPct,
+            ebitda,
+            margem_ebitda_pct: pct(ebitda, receitaLiquida),
+            resultado_financeiro: {
+              tributos_pagos_periodo: tributosPagos,
+              repasses_socios: repassesSocios,
+              observacao: 'Repasses a socios sao distribuicao de resultado e nao compoem o EBITDA.'
+            },
             lucro_liquido: lucroLiquido,
-            margem_liquida: margemLiquidaPct
+            margem_liquida_pct: pct(lucroLiquido, receitaLiquida),
+            // Aviso explicito de que a apuracao ainda nao e completa.
+            lucro_liquido_parcial: true,
+            lucro_liquido_observacao:
+              'Nao inclui depreciacao nem amortizacao: o sistema ainda nao possui modulo de ativo imobilizado.'
           }
         }
       };
 
-      memoryCache.set(cacheKey, payload, 30);
+      memoryCache.set(chave, payload, 60);
       res.status(200).json(payload);
     } catch (err: any) {
-      console.error('[ERRO DRE CONSOLIDADA]:', err.message);
-      const stale = memoryCache.getStale(cacheKey);
+      console.error('[DRE]', err.message);
+      const stale = memoryCache.getStale<any>(chave);
       if (stale) {
-        res.status(200).json(stale);
+        res.status(200).json({ ...stale, origem: 'CACHE_EXPIRADO', aviso: 'Dados podem estar desatualizados.' });
         return;
       }
-      res.status(500).json({ success: false, error: 'Erro ao processar DRE contábil' });
-    } finally {
-      if (client) client.release();
+      res.status(503).json({
+        success: false,
+        error: 'Nao foi possivel apurar a DRE.',
+        code: 'SERVICO_INDISPONIVEL'
+      });
     }
   };
 }

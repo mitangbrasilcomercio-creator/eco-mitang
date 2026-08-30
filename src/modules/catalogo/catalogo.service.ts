@@ -1,4 +1,5 @@
 import { CatalogoRepository } from './catalogo.repository';
+import { TenantContext } from '../../core/database/supabase-pool';
 import { EventBus, globalEventBus } from '../../core/events/event-bus';
 import { CatalogoUniversalItem } from './catalogo.types';
 import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery, validatePolymorphicDetailsUpdate } from './catalogo.schema';
@@ -11,8 +12,8 @@ export class CatalogoService {
     private readonly eventBus: EventBus = globalEventBus
   ) {}
 
-  async listItems(empresaId: string, filters: FilterCatalogoQuery): Promise<{ items: CatalogoUniversalItem[]; total: number; page: number; limit: number }> {
-    const result = await this.repository.list(empresaId, filters);
+  async listItems(ctx: TenantContext, filters: FilterCatalogoQuery): Promise<{ items: CatalogoUniversalItem[]; total: number; page: number; limit: number }> {
+    const result = await this.repository.list(ctx, filters);
     return {
       items: result.items,
       total: result.total,
@@ -21,8 +22,9 @@ export class CatalogoService {
     };
   }
 
-  async getItemById(empresaId: string, id: string): Promise<CatalogoUniversalItem> {
-    const item = await this.repository.findById(empresaId, id);
+  async getItemById(ctx: TenantContext, id: string): Promise<CatalogoUniversalItem> {
+    const empresaId = ctx.empresaId;
+    const item = await this.repository.findById(ctx, id);
     if (!item) {
       const error: any = new Error(`Item de catalogo com ID '${id}' nao encontrado.`);
       error.statusCode = 404;
@@ -32,8 +34,9 @@ export class CatalogoService {
     return item;
   }
 
-  async createItem(empresaId: string, input: CreateCatalogoItemInput): Promise<CatalogoUniversalItem> {
-    const createdItem = await this.repository.create(empresaId, input);
+  async createItem(ctx: TenantContext, input: CreateCatalogoItemInput): Promise<CatalogoUniversalItem> {
+    const empresaId = ctx.empresaId;
+    const createdItem = await this.repository.create(ctx, input);
 
     // Disparo de Evento de Dominio: CATALOGO.ITEM_CRIADO
     await this.eventBus.publish<CatalogoItemCriadoPayload>({
@@ -55,8 +58,9 @@ export class CatalogoService {
     return createdItem;
   }
 
-  async updateItem(empresaId: string, id: string, input: UpdateCatalogoItemInput): Promise<CatalogoUniversalItem> {
-    const existing = await this.getItemById(empresaId, id);
+  async updateItem(ctx: TenantContext, id: string, input: UpdateCatalogoItemInput): Promise<CatalogoUniversalItem> {
+    const empresaId = ctx.empresaId;
+    const existing = await this.getItemById(ctx, id);
 
     if (input.detalhes) {
       try {
@@ -70,7 +74,7 @@ export class CatalogoService {
       }
     }
 
-    const updatedItem = await this.repository.update(empresaId, id, input);
+    const updatedItem = await this.repository.update(ctx, id, input);
     if (!updatedItem) {
       const error: any = new Error(`Falha ao atualizar item '${id}'.`);
       error.statusCode = 400;
@@ -94,9 +98,10 @@ export class CatalogoService {
     return updatedItem;
   }
 
-  async inactivateItem(empresaId: string, id: string): Promise<CatalogoUniversalItem> {
-    await this.getItemById(empresaId, id);
-    const itemInativado = await this.repository.inactivate(empresaId, id);
+  async inactivateItem(ctx: TenantContext, id: string): Promise<CatalogoUniversalItem> {
+    const empresaId = ctx.empresaId;
+    await this.getItemById(ctx, id);
+    const itemInativado = await this.repository.inactivate(ctx, id);
 
     if (!itemInativado) {
       const error: any = new Error(`Falha ao inativar item '${id}'.`);
@@ -123,11 +128,11 @@ export class CatalogoService {
   /**
    * REGRA 1: Bloqueia delecao se o item estiver atrelado a Cotacao ou Ordem de Servico
    */
-  async deleteItem(empresaId: string, id: string): Promise<{ success: boolean; message: string }> {
-    await this.getItemById(empresaId, id);
+  async deleteItem(ctx: TenantContext, id: string): Promise<{ success: boolean; message: string }> {
+    await this.getItemById(ctx, id);
 
     // Verifica vinculos ativos em Cotacoes e Ordens de Servico
-    const usage = await this.repository.verifyUsage(empresaId, id);
+    const usage = await this.repository.verifyUsage(ctx, id);
 
     if (usage.isLinked) {
       const error: any = new Error(
@@ -141,7 +146,7 @@ export class CatalogoService {
       throw error;
     }
 
-    const deleted = await this.repository.hardDelete(empresaId, id);
+    const deleted = await this.repository.hardDelete(ctx, id);
     return {
       success: deleted,
       message: 'Item removido do catalogo com sucesso.'

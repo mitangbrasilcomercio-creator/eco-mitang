@@ -1,4 +1,4 @@
-import { pgPool, withTenantTransaction } from '../../core/database/supabase-pool';
+import { withTenantQuery, withTenantTransaction, TenantContext } from '../../core/database/supabase-pool';
 import { localMirror } from '../../core/database/local-mirror.service';
 import { CatalogoUniversalItem, TipoItemCatalogo } from './catalogo.types';
 import { CreateCatalogoItemInput, UpdateCatalogoItemInput, FilterCatalogoQuery } from './catalogo.schema';
@@ -13,7 +13,8 @@ export class CatalogoRepository {
   /**
    * REGRA 1: Verifica se o item possui vinculos com Cotacoes ou Ordens de Servico
    */
-  async verifyUsage(empresaId: string, itemId: string): Promise<UsageVerificationResult> {
+  async verifyUsage(ctx: TenantContext, itemId: string): Promise<UsageVerificationResult> {
+    const empresaId = ctx.empresaId;
     const cotacoesQuery = `
       SELECT COUNT(*)::int as total 
       FROM cotacoes_itens ci
@@ -27,8 +28,7 @@ export class CatalogoRepository {
       WHERE ci.item_catalogo_id = $1 AND os.empresa_id = $2;
     `;
 
-    const client = await pgPool.connect();
-    try {
+    return withTenantQuery(ctx, async (client) => {
       const [cotacoesRes, osRes] = await Promise.all([
         client.query(cotacoesQuery, [itemId, empresaId]),
         client.query(osQuery, [itemId, empresaId])
@@ -42,30 +42,28 @@ export class CatalogoRepository {
         cotacoesCount,
         ordensServicoCount
       };
-    } finally {
-      client.release();
-    }
+    });
   }
 
-  async findById(empresaId: string, id: string): Promise<CatalogoUniversalItem | null> {
+  async findById(ctx: TenantContext, id: string): Promise<CatalogoUniversalItem | null> {
+    const empresaId = ctx.empresaId;
     const query = `
       SELECT id, empresa_id, tipo_item, nome, descricao_tecnica, detalhes, quantidade_estoque_atual, ativo, created_at, updated_at
       FROM catalogo_universal
       WHERE id = $1 AND empresa_id = $2;
     `;
-    const res = await pgPool.query(query, [id, empresaId]);
+    const res = await withTenantQuery(ctx, (c) => c.query(query, [id, empresaId]));
     return res.rows[0] || null;
   }
 
-  async list(empresaId: string, filters: FilterCatalogoQuery): Promise<{ items: CatalogoUniversalItem[]; total: number }> {
+  async list(ctx: TenantContext, filters: FilterCatalogoQuery): Promise<{ items: CatalogoUniversalItem[]; total: number }> {
     const conditions: string[] = [];
     const params: any[] = [];
     let paramIndex = 1;
 
-    if (empresaId && empresaId !== 'all') {
-      conditions.push(`empresa_id = $${paramIndex++}`);
-      params.push(empresaId);
-    }
+    // Sem filtro manual de empresa_id: a Row-Level Security ja restringe as
+    // linhas aos CNPJs do contexto. Numa visao consolidada isso traz todos os
+    // CNPJs permitidos ao usuario; numa visao unica, apenas um.
 
     if (filters.tipo_item) {
       conditions.push(`tipo_item = $${paramIndex++}`);
@@ -98,28 +96,22 @@ export class CatalogoRepository {
     params.push(filters.limit, offset);
 
     try {
-      const client = await pgPool.connect();
-      try {
+      return await withTenantQuery(ctx, async (client) => {
         const [countRes, dataRes] = await Promise.all([
           client.query(countQuery, countParams),
           client.query(dataQuery, params)
         ]);
-        const result = {
+        return {
           items: dataRes.rows,
           total: countRes.rows[0]?.total || 0
         };
-        setImmediate(() => localMirror.saveMirror('catalogo_universal', dataRes.rows));
-        return result;
-      } finally {
-        client.release();
-      }
+      });
     } catch (err: any) {
       console.warn(`[CATALOGO REPOSITORY]: Falha na nuvem Supabase (${err.message}). Servindo com contingência do Local Mirror em <2ms...`);
       const all = localMirror.getMirror<CatalogoUniversalItem[]>('catalogo_universal') || [];
       let filtered = all;
-      if (empresaId && empresaId !== 'all') {
-        filtered = filtered.filter(item => item.empresa_id === empresaId);
-      }
+      const escopo = ctx.empresaIds && ctx.empresaIds.length > 0 ? ctx.empresaIds : [ctx.empresaId];
+      filtered = filtered.filter(item => escopo.includes(item.empresa_id));
       if (filters.tipo_item) {
         filtered = filtered.filter(item => item.tipo_item === filters.tipo_item);
       }
@@ -137,7 +129,8 @@ export class CatalogoRepository {
     }
   }
 
-  async create(empresaId: string, input: CreateCatalogoItemInput): Promise<CatalogoUniversalItem> {
+  async create(ctx: TenantContext, input: CreateCatalogoItemInput): Promise<CatalogoUniversalItem> {
+    const empresaId = ctx.empresaId;
     const query = `
       INSERT INTO catalogo_universal (
         empresa_id, tipo_item, nome, descricao_tecnica, detalhes, quantidade_estoque_atual, ativo
@@ -153,11 +146,12 @@ export class CatalogoRepository {
       input.quantidade_estoque_atual || 0
     ];
 
-    const res = await pgPool.query(query, params);
+    const res = await withTenantQuery(ctx, (c) => c.query(query, params));
     return res.rows[0];
   }
 
-  async update(empresaId: string, id: string, input: UpdateCatalogoItemInput): Promise<CatalogoUniversalItem | null> {
+  async update(ctx: TenantContext, id: string, input: UpdateCatalogoItemInput): Promise<CatalogoUniversalItem | null> {
+    const empresaId = ctx.empresaId;
     const fields: string[] = ['updated_at = NOW()'];
     const params: any[] = [id, empresaId];
     let paramIndex = 3;
@@ -190,24 +184,26 @@ export class CatalogoRepository {
       RETURNING *;
     `;
 
-    const res = await pgPool.query(query, params);
+    const res = await withTenantQuery(ctx, (c) => c.query(query, params));
     return res.rows[0] || null;
   }
 
-  async inactivate(empresaId: string, id: string): Promise<CatalogoUniversalItem | null> {
+  async inactivate(ctx: TenantContext, id: string): Promise<CatalogoUniversalItem | null> {
+    const empresaId = ctx.empresaId;
     const query = `
       UPDATE catalogo_universal
       SET ativo = FALSE, updated_at = NOW()
       WHERE id = $1 AND empresa_id = $2
       RETURNING *;
     `;
-    const res = await pgPool.query(query, [id, empresaId]);
+    const res = await withTenantQuery(ctx, (c) => c.query(query, [id, empresaId]));
     return res.rows[0] || null;
   }
 
-  async hardDelete(empresaId: string, id: string): Promise<boolean> {
+  async hardDelete(ctx: TenantContext, id: string): Promise<boolean> {
+    const empresaId = ctx.empresaId;
     const query = `DELETE FROM catalogo_universal WHERE id = $1 AND empresa_id = $2;`;
-    const res = await pgPool.query(query, [id, empresaId]);
+    const res = await withTenantQuery(ctx, (c) => c.query(query, [id, empresaId]));
     return (res.rowCount ?? 0) > 0;
   }
 }
