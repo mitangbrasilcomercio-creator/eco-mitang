@@ -1,136 +1,243 @@
-# Eco-Mitang ERP - Sistema de Gestão Multi-Tenant, Event-Driven & Inteligência Real de Dados
+# Eco-Mitang ERP
 
-Arquitetura de ERP de alta performance projetada para a holding **Eco-Mitang** composta por 4 CNPJs operacionais e suas marcas industriais:
-1. **Manufatura de Baterias Subsea & Hospitalares (Mitang Brasil & Arandu)**
-2. **Locação de Equipamentos Oceanográficos & Metrologia DimCon (Mitang Rental)**
-3. **Serviços Especializados Offshore (Mitang Services)**
-4. **Cursos e Treinamentos Marítimos (Mitang Academy)**
+ERP multi-tenant para a holding **Eco-Mitang**, composta por 4 CNPJs operacionais:
 
----
+1. **Mitang Brasil & Arandu** — manufatura de baterias subsea e hospitalares
+2. **Mitang Rental** — locação de equipamentos oceanográficos e metrologia
+3. **Mitang Services** — serviços especializados offshore
+4. **Mitang Academy / Sea House** — cursos e treinamentos marítimos
 
-## Diretrizes Arquiteturais Centrais
-
-1. **Multi-Tenant Estrito & Consolidado**: Isolamento nativo em nível de banco de dados via **PostgreSQL Row-Level Security (RLS)** e chave `empresa_id` em todas as tabelas mestres, suportando tanto visões isoladas por empresa quanto a visão consolidada da holding (`all`).
-2. **Camada de Cache em Memória com Zero Latência (< 2ms)**: Implementação em Node.js (`src/core/cache/memory-cache.ts`) com padrão *stale-while-revalidate* que garante respostas instantâneas (< 2ms) e contingência total contra oscilações de rede ou do banco na nuvem.
-3. **Ingestão Fiscal Sem Perdas (172 XMLs Reais)**: Ingestão de NF-e v4.00 e NFS-e gravando integralmente todas as tags em colunas `JSONB` e estruturando tabelas relacionais de itens, duplicatas e faturas.
-4. **Conciliação Bancária OFX & Motor de Tesouraria Multi-Tenant (1.386 Lançamentos Reais)**:
-   - **Pipeline em 4 Camadas**: Expurgo de saldos diários injetados (`SALDO TOTAL DISPONÍVEL DIA`, `SALDO APLIC. AUT.`), neutralização contábil de contas sweep/overnight CDI (`APL APLIC AUT MAIS`, `INVEST FACIL`) em Contas Sombra (Shadow Accounts), isolamento de receitas financeiras de juros (`REND PAGO APLIC AUT`, `RENTAB.INVEST`) e extração do faturamento/despesas operacionais reais de clientes e fornecedores.
-   - **Teorema Delta de Conciliação Contínua**: O saldo informado pelo banco (`<LEDGERBAL><BALAMT>`) atua como prova real matemática contínua ($\Delta = \text{Saldo Interno} - \text{Saldo Extrato} = 0,00$), com detecção inteligente de hiatos temporais.
-   - **Idempotência Criptográfica SHA-256**: Assinatura única por transação com cláusula de banco de dados `ON CONFLICT (idempotency_hash) DO NOTHING`, impedindo duplicações mesmo em uploads sobrepostos por múltiplos colaboradores.
-   - **Roteamento Multi-Tenant Automático**: Mapeamento de contas de Itaú e Bradesco para seus respectivos CNPJs titulares (Mitang Brasil, Arandu, Mitang Submarina, Sea House).
-5. **Classificação Rigorosa de Parceiros de Negócio & Dossiê 360°**:
-   - **Clientes**: Empresas compradoras de baterias e serviços offshore (rastreamento de Capital Social, Quadro Societário QSA, CNAEs e Bloqueios Fiscais).
-   - **Fornecedores**: Fabricantes e distribuidores de insumos, células de lítio e embalagens (Strema, SBT, Hayamax, Ryndack).
-   - **Colaboradores PJ / Prestadores**: Emissores de NFS-e de serviços contínuos (engenharia de campo, consultoria, contabilidade, TI).
-   - **Dossiê 360° Interativo**: Ao clicar em qualquer parceiro, abre modal executivo com ficha cadastral RFB, QSA, notas fiscais, orçamentos, ranking de baterias e extrato de pagamentos.
-   - **Classificação Automática de Verticais / Nichos**: Inferência direta pelo CNAE (Offshore/Subsea, Hospitalar, Indústria/Insumos, Serviços Técnicos, Comércio).
-6. **Camada de Alta Disponibilidade Local Mirror (Zero Downtime)**:
-   - Resiliência total contra limites, pausas por inatividade e latências do Supabase Free Tier através de espelho persistente em disco (`database/local_mirror/`) com fallback em `< 2ms`.
-7. **Padronização Nacional Estrita de Datas (Brasil)**:
-   - Todas as datas e carimbos de tempo exibidos em `DD/MM/AAAA` e `DD/MM/AAAA HH:mm:ss`, eliminando formato americano da camada do usuário.
-8. **DRE & Demonstração Contábil Dinâmica**:
-   - Cálculo automático de Receita Bruta, Deduções Tributárias, Custo das Mercadorias Vendidas (CMV), Margem de Contribuição, Despesas Operacionais, EBITDA e Lucro Líquido.
-9. **Controladoria & Simulador DuPont Interativo**:
-   - Diagnóstico em tempo real de Liquidez Corrente (meta > 1.8x) e Grau de Endividamento (< 40%).
-   - Simulador interativo do Modelo DuPont: $\text{ROE} = \text{Margem Líquida} \times \text{Giro do Ativo} \times \text{Alavancagem Financeira}$.
-10. **Design System "Menos é Mais" (UI/UX Segmentada em Abas)**:
-    - Interface limpa e ergonômica com glassmorphism suave (tema Deep Sea), sem poluição visual, separando visões de trabalho por abas contextuais rápidas.
-11. **Centro de Inteligência Executiva & Runway de 15 Dias**:
-    - **Granularidade Adaptativa do Gráfico**: Comutação inteligente entre visão mensal consolidada (para o ano todo ou períodos longos) e visão semanal detalhada (`Sem 1`, `Sem 2`, ..., `Sem 5`) ao selecionar um mês específico ou recorte de até 65 dias.
-    - **Alerta e Auditoria Quinquenal de Runway**: Projeção matemática do saldo de caixa com decomposição em 4 abas (Contas Bancárias Reais, Faturas a Receber 15d, Títulos a Pagar 15d e Projeção Diária acumulada).
-    - **Curva ABC de Inadimplência**: Top 3 maiores devedores com dias de atraso e abertura instantânea do Dossiê 360°.
-12. **Tesouraria OFX & Dossiê Financeiro de Contrapartes**:
-    - **Normalização Regex Universal de Bancos e Contas**: Separação estrita de Instituição Bancária (com badge) e Agência/Conta formatada para Itaú (`Ag. AAAA • CC CCCCC-D`) e Bradesco (`Ag. AAAA • CC 00CCCC-D`).
-    - **Toolbar de Filtros e Busca Rápida**: Filtros instantâneos (`Todas`, `Entradas (+119)`, `Saídas (-101)`, `Custódia CDI (80)`, `Rendimentos`) e busca dinâmica por favorecido ou valor.
-    - **Linha de Subtotais Dinâmicos no Rodapé (`tfoot`)**: Cálculo em tempo real dos lançamentos visíveis, soma de entradas, soma de saídas e saldo líquido do recorte filtrado.
-    - **Dossiê 360° da Contraparte / Colaborador PJ**: Clique no Histórico/Memo abre o fluxo consolidado com a pessoa física ou jurídica (Total Pago, Total Recebido, Saldo Líquido e tabela de todas as transferências bancárias no ano).
-13. **Inteligência de Ciclo de Vida de Orçamentos, POs, Notas Fiscais e Curva ABC Auditada**:
-    - **Parser Determinístico Ancorado por 5-Tupla Monetária**: Extração com 100% de precisão de todos os 325 itens de propostas da planilha mestre da holding (Mitang Brasil e Arandu), eliminando o bug de deslocamento de colunas (*column shift*) em células vazias.
-    - **Engenharia Multi-Item & Multi-NF por Cotação**: Tratamento estruturado de orçamentos com múltiplos itens de baterias onde cada linha pode possuir seu próprio Pedido de Compra (PO), prazo de pagamento, vencimento e nota fiscal própria (ex: entregas parciais ou emissão fracionada entre itens de produtos e serviços).
-    - **Curva ABC Real de Inadimplência vs Títulos em Aberto (Sem Mocks)**:
-      * **Isolamento de Atrasos Reais**: Identificação precisa de títulos vencidos e não quitados (ex: Viva Rio com 33 dias de atraso e Fugro com 27 dias de atraso), eliminando a distorção anterior que somava notas fiscais já pagas (como DOF Subsea e Sea Survey) como dívida pendente.
-      * **Segregação de Títulos a Vencer Legítimos**: Faturamento a prazo com vencimento futuro (ex: WAMS, Fugro e UFPA/CNPq) classificados corretamente como `À Receber (Em Dia)`.
-    - **Visualizador Executivo Multi-Item (Modal Interativo)**:
-      * Cabeçalho executivo com status (`Compra Aprovada`, `À Vencer`, `Em Atraso`), empresa emissora (Mitang ou Arandu), cliente, CNPJ, contato e botão direto para o Dossiê 360°.
-      * Tabela item a item com Pack/Modelo, SKU, Química, Quantidade, Preço Unitário, Desconto (%), Frete, PO vinculada, Tipo e Nº da Nota Fiscal, Vencimento, Método de Pagamento e Observações auditadas (ex: pagamento em atraso via PIX, retenção física de bateria para remanufatura, faturamento parcial 50/50 e boleto em CPF para pesquisadores de universidades federais/CNPq).
-14. **Inteligência de Parceiros (CNPJ/CPF), Plano de Contas Real e Motor de Contas a Pagar / Projeção Futura (Runway 30 a 120 dias)**:
-    - **Taxonomia Corporativa em 8 Categorias Reais**:
-      * `CLIENTE`: Quem compra baterias e contrata serviços subsea (103 parceiros corporativos).
-      * `COLABORADOR_PJ`: Equipe técnica interna contratada como PJ (Marcelo Ferreira, Jandson Pereira, Tom Alves, Allan Lourenço, Andrielly Britto e VR Benefícios). Recebem mensalmente e integram a folha operacional.
-      * `SOCIO_DIRETORIA`: Diego Ribeiro e Paulo Cesar do Rego (rateio 50%/50% de despesas/receitas). Distinção de retiradas (Pró-Labore vs Dividendos) e entradas (Aporte de Mútuo para liquidez temporária, isento de tributos).
-      * `FORNECEDOR_INSUMO`: Fornecedores industriais de matéria-prima (Strema Indústria, Hayamax Distribuidora, SBT Embalagens).
-      * `PRESTADOR_CONTINUO`: Serviços administrativos contínuos (WPME Contabilidade, Certibrasil, C4 Treinamentos, Karina Faxineira, OMIE ERP, Hostgator).
-      * `INFRAESTRUTURA_FIXA`: Locações das sedes operacionais (Salas 206/207 via Prima Imobiliária e Sala 216 via Cristiana Britto) e concessionárias de consumo (Light Energia, Vivo Fibra, Claro Móvel).
-      * `GOVERNO_TRIBUTO`: Obrigações fiscais da Receita Federal (Simples Nacional DAS, DARF INSS e FGTS) com vencimento unificado no dia 20.
-      * `INSTITUICAO_FINANCEIRA`: Amortização de capital de giro (PRONAMPE Banco Bradesco em 42 parcelas) e tarifas bancárias.
-    - **Módulo de Contas a Pagar & Recorrências (204 Itens Reais)**:
-      * 4 Cards executivos de síntese: Total Programado / A Pagar (R$ 99.962,04), Folha Colaboradores PJ & VR (R$ 89.547,79), Matéria-Prima & Insumos (R$ 122.469,49), PRONAMPE Capital de Giro (R$ 22.167,89).
-      * Filtros instantâneos por Status (`TODAS`, `A_PAGAR`, `PAGO`, `EM_ATRASO`, `PROGRAMADO`) e por Tipo de Entidade, com busca dinâmica e totalizador dinâmico no rodapé (`tfoot`).
-      * Coluna com taxa de rateio de sócios transparente (`50% DR / 50% PC` ou `100% Mitang`).
-    - **Projeção Futura de Caixa & Análise de Runway (30 a 120 Dias)**:
-      * Banner executivo com taxa de cobertura e aviso de superávit confortável.
-      * Evolução mensal comparativa de Setembro a Dezembro de 2026 confrontando recebíveis confirmados (R$ 474.183,70) com custo fixo operacional mensal (R$ 46.753,04) e parcelamentos de insumos.
-      * Painel duplo: Estrutura detalhada de custos fixos recorrentes da holding vs Faturas auditadas a receber da carteira de clientes (WAMS, Fugro, CLS, Martell, UFPA).
+Backend em Node.js + TypeScript + Express sobre PostgreSQL (Supabase).
+Front-end SPA em `public/`.
 
 ---
 
-## Estrutura do Repositório
+## Início rápido
 
-```
-├── .agents/                               # Workspace Customization para IAs (Antigravity)
-│   ├── rules/                             # Regras arquiteturais mandatórias
-│   └── skills/                            # Skills de engenharia e regras de negócio
-│       ├── battery-budget-lifecycle-intelligence/# Ciclo multi-item, POs, NFs e Curva ABC
-│       ├── battery-product-catalog/       # Engenharia de 117 baterias e químicas
-│       ├── battery-quotation-intelligence/# Propostas técnicas de 1 a 7 páginas
-│       ├── business-partner-intelligence/ # Classificação de 8 tipos de parceiros reais
-│       ├── cnpj-client-intelligence/      # Inteligência cadastral, QSA, verticais e Dossiê 360°
-│       ├── database-resilience-mirror/    # Alta disponibilidade com mirror local (< 2ms)
-│       ├── eco-mitang-architecture/       # Padrões multi-tenant e event-driven
-│       ├── executive-dashboard-intelligence/# Métricas MoM, Runway 15d, Curva ABC e Custódia OFX
-│       ├── financial-controladoria-dre/   # DRE, fluxo de caixa e modelo DuPont
-│       ├── future-cashflow-and-obligations/# Contas a pagar, custos fixos e projeção de runway
-│       ├── nfe-nfse-xml-processor/        # Processador sem perdas de NF-e e NFS-e
-│       └── unified-financial-ecosystem/   # Ciclo integrado CNPJ + XML + OFX + Caixa
-├── database/                              # Migrações SQL e Local Mirror Persistente
-│   └── local_mirror/                      # Espelho em disco com fallback automático
-├── public/                                # Frontend SPA Deep Sea Glassmorphism
-│   ├── index.html                         # Layout mestre com seletor multi-tenant e sidebar
-│   ├── renderRealModules.js               # Renderizadores modulares, Dossiê 360° e formatadores BR
-│   ├── apiService.js                      # Conector client-side com cache e cabeçalhos de tenant
-│   ├── script.js                          # Roteamento SPA e motor de navegação
-│   └── style.css                          # Design system e tokens visuais
-├── src/
-│   ├── core/                              # Banco, Cache em Memória, Mirror e Segurança
-│   │   ├── cache/memory-cache.ts          # Cache de alta performance (< 2ms)
-│   │   ├── database/local-mirror.service.ts # Camada de alta disponibilidade e fallback local
-│   │   ├── database/supabase-pool.ts      # Pool Supabase com bypass direto de DNS
-│   │   └── events/                        # Barramento global de eventos de domínio
-│   └── modules/                           # Módulos de Domínio
-│       ├── catalogo/                      # Catálogo universal de baterias
-│       ├── clientes/                      # CRM 360°, enriquecimento e Dossiê completo
-│       ├── contabilidade/                 # DRE consolidada
-
-│       ├── dashboard/                     # Métricas executivas e histórico de vendas
-│       ├── faturamento/                   # Repositório de 172 notas fiscais XML
-│       ├── financeiro/                    # Tesouraria, extratos OFX e resumo de caixa
-│       └── orcamentos/                    # Gestão de propostas comerciais
-```
-
----
-
-## Como Executar
-
-### 1. Requisitos
-- Node.js >= 18.x
-- PostgreSQL / Supabase configurado no `.env`
-
-### 2. Compilar e Iniciar Servidor
 ```bash
-# Compilar TypeScript
-npm run build
+npm install
 
-# Iniciar o servidor HTTP
-node dist/server.js
+# 1. Papel de aplicação sem privilégio (imprime a APP_DATABASE_URL para o .env)
+npm run db:role
+
+# 2. Schema
+npm run db:migrate
+
+# 3. Primeiro usuário
+npm run db:usuario -- --email voce@empresa.com --nome "Seu Nome" \
+                      --papel Gestor_CLevel --consolidado
+
+# 4. Carga dos dados reais
+npm run db:reingest            # extratos OFX + XMLs de NF-e/NFS-e
+npm run db:seed:obrigacoes     # contas a pagar
+
+# 5. Conferência
+npm run db:verificar           # precisa passar 13/13
+npm test
+
+# 6. Subir
+npm run dev:api
 ```
-Acesse a aplicação em `http://localhost:3000`.
+
+### Variáveis de ambiente
+
+| Variável | Obrigatória | Para quê |
+|---|---|---|
+| `APP_DATABASE_URL` | sim | Conexão da aplicação (papel `eco_app`, **sem** BYPASSRLS) |
+| `MIGRATION_DATABASE_URL` | sim | Conexão privilegiada, só para migrations e scripts |
+| `JWT_SECRET` | sim | Assinatura do token (mín. 32 caracteres, sem default) |
+| `ECO_WEBHOOK_SECRET` | sim | Segredo dos webhooks (mín. 24 caracteres, sem default) |
+| `CORS_ORIGINS` | não | Origens permitidas, separadas por vírgula |
+| `PORT` | não | Padrão 3000 |
+| `CNPJ_AUTO_DISCOVERY` | não | `true` liga a varredura de CNPJ (consome cota de API externa) |
+| `SYNC_INTERVAL_MS` | não | Intervalo do espelho local (padrão 6 h) |
+
+O servidor **recusa subir** sem `APP_DATABASE_URL` e `JWT_SECRET`.
+
+---
+
+## Autenticação
+
+Toda rota de dado exige `Authorization: Bearer <token>`.
+
+```bash
+curl -X POST http://localhost:3000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"voce@empresa.com","senha":"..."}'
+```
+
+O token carrega o usuário, o papel e **a lista de CNPJs que ele pode acessar**.
+O header `x-empresa-id` é apenas uma *seleção* dentro dessa lista: um CNPJ fora
+dela devolve `403`. `x-empresa-id: all` traz a visão consolidada, e só para
+quem tem `pode_visao_consolidada`.
+
+Papéis: `Gestor_CLevel`, `Financeiro`, `Vendedor`, `Operacional`.
+
+---
+
+## Arquitetura
+
+### Isolamento multi-tenant
+
+O isolamento é imposto pelo **banco**, não pela aplicação:
+
+- A aplicação conecta com o papel `eco_app`, que **não** tem `BYPASSRLS`.
+- Cada tabela com `empresa_id` tem policy `PERMISSIVE FOR ALL` com
+  `USING (empresa_id = ANY(app_empresa_ids()))` e
+  `WITH CHECK (empresa_id = app_current_empresa())`.
+- Leitura enxerga o conjunto de CNPJs do contexto (é assim que a visão
+  consolidada funciona); escrita é travada no CNPJ selecionado.
+- Tabelas-filhas sem `empresa_id` herdam o isolamento via `EXISTS` no pai.
+
+Consequência prática: uma consulta nova que esqueça o filtro de tenant **não
+vaza dados** — o banco não devolve as linhas dos outros CNPJs.
+
+Todo acesso passa por `withTenantQuery` / `withTenantTransaction`
+(`src/core/database/supabase-pool.ts`).
+
+### Camadas
+
+```text
+rota → authMiddleware → tenantMiddleware → controller → service → repository → PostgreSQL
+                                            (Zod)      (regra)      (SQL)
+```
+
+Nenhum SQL dentro de controller. Nenhuma string SQL montada por concatenação de
+entrada do usuário.
+
+### Espelho local (`database/local_mirror/`)
+
+Cache **de leitura** em disco, para o painel continuar respondendo quando o
+Supabase Free Tier pausa por inatividade. Respostas servidas por contingência
+vêm marcadas com `origem: 'CACHE_EXPIRADO'` ou `'LOCAL_MIRROR'`, para nunca se
+confundirem com o estado atual do banco.
+
+**Não é destino de escrita.** Escrita do usuário vai para o PostgreSQL.
+
+---
+
+## Ingestão de dados
+
+### Extratos OFX (Itaú, Bradesco)
+
+Pipeline em 4 camadas, na ordem que importa:
+
+1. **Linhas de saldo** (`SALDO APLICAÇÃO AUTOMÁTICA`, `SALDO TOTAL DISPONÍVEL`,
+   `SDO APLIC AUT`) são fotografias do saldo, não movimentação — expurgadas.
+2. **Rendimentos** de CDI (`REND PAGO`, `RENTAB.INVEST`) — receita financeira,
+   segregada do faturamento comercial. Tem precedência sobre a camada 3, porque
+   `REND PAGO APLIC AUT MAIS` contém "APLIC AUT" mas é rendimento.
+3. **Varredura de liquidez** (`APL APLIC AUT MAIS`, `RES APLIC AUT MAIS`) —
+   movimento entre conta corrente e aplicação do mesmo titular, neutro na DRE.
+4. **Operações reais** — clientes, fornecedores, tributos, folha, tarifas.
+
+A classificação fica isolada em `src/modules/financeiro/ofx/ofx-classificador.ts`
+e é coberta por testes com os memos reais dos bancos.
+
+**Idempotência:** hash SHA-256 por lançamento (tenant + banco + conta + FITID +
+data + valor + memo normalizado) com `ON CONFLICT DO NOTHING`. O FITID sozinho
+não serve — o Bradesco reaproveita o mesmo FITID em lançamentos distintos.
+Reimportar o mesmo arquivo na mesma conta é bloqueado por `UNIQUE` no hash do
+arquivo.
+
+**Roteamento multi-tenant:** a conta bancária é a autoridade sobre o CNPJ do
+lançamento. Um trigger recusa qualquer transação cujo `empresa_id` divirja do
+titular da conta.
+
+### NF-e / NFS-e
+
+Ingestão sem perdas: todas as tags vão para `dados_completos_json` (JSONB), o
+XML assinado é preservado em `conteudo_xml`, e itens e duplicatas viram tabelas
+relacionais. Idempotente pela chave de acesso.
+
+---
+
+## Módulos financeiros
+
+- **Tesouraria** — extrato com filtros, busca e subtotais calculados no banco
+  sobre o recorte inteiro (não só a página visível).
+- **Resumo de caixa** — saldo bancário oficial (LEDGERBAL), entradas e saídas
+  operacionais, rendimentos, custódia overnight, a receber (títulos em aberto) e
+  a pagar.
+- **Contas a pagar** — obrigações recorrentes com `status_vencimento` calculado
+  contra a data corrente.
+- **Projeção de caixa** — recebíveis das duplicatas em aberto e saídas das
+  obrigações lançadas; onde não há título, usa o custo fixo recorrente e
+  **declara isso** (`origem_saidas`, `baseado_em_dados`).
+- **DRE** — receita bruta, deduções, CMV, lucro bruto, despesas operacionais,
+  EBITDA e lucro líquido.
+- **Dashboard executivo** — MoM, runway, curva ABC de inadimplência, custódia,
+  séries do gráfico com granularidade adaptativa.
+
+### Uma regra que atravessa todos eles
+
+**Quando não há dado, o valor é zero e o payload diz que não há base.**
+
+Campos como `sem_dados`, `comparavel`, `base_tributaria_disponivel`,
+`baseado_em_dados` e `lucro_liquido_parcial` existem para o front distinguir
+"o valor é zero" de "não sabemos". Um ERP financeiro nunca deve devolver um
+número plausível no lugar de um que ele não tem.
+
+---
+
+## Comandos
+
+| Comando | O que faz |
+|---|---|
+| `npm run dev:api` | Sobe a API em modo desenvolvimento |
+| `npm run build` | Compila para `dist/` |
+| `npm start` | Roda a versão compilada |
+| `npm test` | Testes com asserção (`node --test`) |
+| `npm run db:status` | Mostra quais migrations estão aplicadas |
+| `npm run db:migrate` | Aplica as pendentes, cada uma em sua transação |
+| `npm run db:role` | Cria/rotaciona o papel `eco_app` |
+| `npm run db:usuario` | Cria usuário |
+| `npm run db:reingest` | Recarrega OFX e XMLs dos arquivos reais (`--dry-run` disponível) |
+| `npm run db:seed:obrigacoes` | Carrega as contas a pagar |
+| `npm run db:verificar` | Auditoria de integridade financeira (13 provas) |
+| `npm run demo` | Simulação event-driven em memória (ver `examples/`) |
+
+---
+
+## Estrutura
+
+```text
+├── src/
+│   ├── core/
+│   │   ├── cache/            # cache em memória com stale fallback
+│   │   ├── database/         # pool com TLS verificado, contexto de tenant, espelho
+│   │   ├── events/           # barramento de eventos de domínio
+│   │   ├── middlewares/      # autenticação, tenant, webhook
+│   │   └── utils/periodo.ts  # resolução de períodos e faixas do gráfico
+│   └── modules/
+│       ├── auth/             # login, JWT, papéis, log de acesso
+│       ├── financeiro/       # tesouraria, OFX, contas a pagar, projeção
+│       ├── dashboard/        # painel executivo
+│       ├── contabilidade/    # DRE
+│       ├── faturamento/      # NF-e / NFS-e
+│       ├── clientes/         # cadastro, enriquecimento CNPJ, dossiê 360°
+│       ├── orcamentos/       # histórico de cotações
+│       └── catalogo/         # catálogo universal
+├── database/                 # migrations numeradas + certificado + espelho
+├── examples/                 # simulação event-driven (memória, não é produção)
+├── scripts/                  # fluxo oficial (7 scripts)
+│   └── _arquivo/             # 85 scripts de desenvolvimento, não executar
+├── tests/                    # testes com asserção
+└── public/                   # front-end
+```
+
+---
+
+## Notas de operação
+
+- **`database/certs/supabase-ca.crt`** é a CA raiz da Supabase, usada para
+  verificar o certificado do servidor. Sem ela a conexão falha — de propósito.
+  Baixe uma nova no painel (Settings → Database → SSL Configuration) se expirar.
+- **`database/backups/`** guarda os dumps criados antes de cada re-ingestão.
+  Não vai para o git.
+- As pastas de extratos de **Mitang Soluções Submarinas** e **Sea House** estão
+  vazias. Os módulos financeiros desses CNPJs vão aparecer sem dado — o sistema
+  reporta isso em vez de estimar.
+- Os CNPJs de Mitang Services (`33333333000103`) e Mitang Academy
+  (`44444444000104`) ainda são placeholders e precisam ser substituídos pelos
+  reais.

@@ -1,123 +1,239 @@
 // ============================================================================
-// API SERVICE: CONECTOR CLIENT-SIDE DO ECO-MITANG ERP (SUPABASE / REST API)
+// API SERVICE: CONECTOR CLIENT-SIDE DO ECO-MITANG ERP
+// ============================================================================
+//
+// MUDANCA DE CONTRATO (backend):
+//
+// 1. Toda rota de dado agora exige 'Authorization: Bearer <token>'.
+//    Sem token, a resposta e HTTP 401.
+//
+// 2. O tenant NAO e mais escolhido pelo navegador. O token carrega a lista de
+//    CNPJs que o usuario pode acessar; 'x-empresa-id' virou apenas uma *selecao*
+//    dentro dessa lista. Um CNPJ fora dela devolve HTTP 403.
+//    Antes, qualquer pessoa trocava o localStorage e via os dados de qualquer
+//    empresa da holding -- e o valor ia direto para dentro do SQL.
+//
+// 3. A lista de empresas do seletor deve vir de GET /auth/me, e nao de um UUID
+//    fixo no codigo.
+//
+// Esta camada trata apenas do transporte (token, cabecalhos, 401).
+// A tela de login e o seletor de empresas sao trabalho da camada de UI.
 // ============================================================================
 
 class ApiService {
   constructor() {
     this.baseURL = '/api/v1';
-    // Tenant padrão (Mitang Brasil / Mitang Power)
-    if (!localStorage.getItem('mitang_active_empresa')) {
-      localStorage.setItem('mitang_active_empresa', '29ea0857-7cf7-44e1-ba36-a3f323c4670c');
-      localStorage.setItem('mitang_active_empresa_nome', 'Mitang Brasil (Baterias)');
+    this.tokenKey = 'mitang_token';
+    this.usuarioKey = 'mitang_usuario';
+  }
+
+  // -------------------------------------------------------------------------
+  // Sessao
+  // -------------------------------------------------------------------------
+  getToken() {
+    try {
+      return localStorage.getItem(this.tokenKey);
+    } catch {
+      return null;
     }
   }
 
+  estaAutenticado() {
+    return !!this.getToken();
+  }
+
+  getUsuario() {
+    try {
+      const bruto = localStorage.getItem(this.usuarioKey);
+      return bruto ? JSON.parse(bruto) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Empresas que ESTE usuario pode acessar. Base do seletor de CNPJ. */
+  getEmpresasPermitidas() {
+    const u = this.getUsuario();
+    return u && Array.isArray(u.empresas) ? u.empresas : [];
+  }
+
+  podeVisaoConsolidada() {
+    const u = this.getUsuario();
+    return !!(u && u.pode_visao_consolidada);
+  }
+
+  async login(email, senha) {
+    const res = await fetch(`${this.baseURL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    });
+    const data = await res.json();
+
+    if (!data.success) return data;
+
+    try {
+      localStorage.setItem(this.tokenKey, data.data.token);
+      localStorage.setItem(this.usuarioKey, JSON.stringify(data.data.usuario));
+
+      // Seleciona o primeiro CNPJ permitido, ou a visao consolidada.
+      const empresas = data.data.usuario.empresas || [];
+      const consolidado = data.data.usuario.pode_visao_consolidada;
+      if (consolidado) {
+        this.setActiveEmpresa('all', 'Holding (consolidado)');
+      } else if (empresas.length > 0) {
+        this.setActiveEmpresa(empresas[0].id, empresas[0].nome_fantasia);
+      }
+    } catch (e) {
+      console.warn('[API] Nao foi possivel guardar a sessao:', e.message);
+    }
+    return data;
+  }
+
+  logout() {
+    try {
+      localStorage.removeItem(this.tokenKey);
+      localStorage.removeItem(this.usuarioKey);
+      localStorage.removeItem('mitang_active_empresa');
+      localStorage.removeItem('mitang_active_empresa_nome');
+    } catch { /* ignora */ }
+    window.dispatchEvent(new CustomEvent('mitang_sessao_encerrada'));
+  }
+
+  // -------------------------------------------------------------------------
+  // Tenant selecionado
+  // -------------------------------------------------------------------------
   getActiveEmpresaId() {
-    return localStorage.getItem('mitang_active_empresa') || '29ea0857-7cf7-44e1-ba36-a3f323c4670c';
+    try {
+      // Sem default fixo: se nao ha selecao, o backend usa o primeiro CNPJ do
+      // token. O UUID da Mitang Brasil nao fica mais escrito no codigo.
+      return localStorage.getItem('mitang_active_empresa') || '';
+    } catch {
+      return '';
+    }
   }
 
   getActiveEmpresaNome() {
-    return localStorage.getItem('mitang_active_empresa_nome') || 'Mitang Brasil (Baterias)';
+    try {
+      return localStorage.getItem('mitang_active_empresa_nome') || '';
+    } catch {
+      return '';
+    }
   }
 
   setActiveEmpresa(id, nome) {
-    localStorage.setItem('mitang_active_empresa', id);
-    localStorage.setItem('mitang_active_empresa_nome', nome);
+    try {
+      localStorage.setItem('mitang_active_empresa', id);
+      localStorage.setItem('mitang_active_empresa_nome', nome || '');
+    } catch { /* ignora */ }
     window.dispatchEvent(new CustomEvent('mitang_tenant_changed', { detail: { id, nome } }));
   }
 
+  // -------------------------------------------------------------------------
+  // Transporte
+  // -------------------------------------------------------------------------
   async request(endpoint, options = {}) {
+    const token = this.getToken();
+    const empresaId = this.getActiveEmpresaId();
+
     const headers = {
       'Content-Type': 'application/json',
-      'x-empresa-id': this.getActiveEmpresaId(),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(empresaId ? { 'x-empresa-id': empresaId } : {}),
       ...(options.headers || {})
     };
 
     try {
       const res = await fetch(`${this.baseURL}${endpoint}`, { ...options, headers });
-      const data = await res.json();
-      return data;
+
+      // Sessao expirada ou ausente: limpa e avisa a UI, em vez de deixar a tela
+      // com dados velhos e sem explicacao.
+      if (res.status === 401) {
+        this.logout();
+        window.dispatchEvent(new CustomEvent('mitang_nao_autenticado'));
+        return { success: false, error: 'Sessao expirada. Faca login novamente.', code: 'NAO_AUTENTICADO' };
+      }
+
+      if (res.status === 403) {
+        const corpo = await res.json().catch(() => ({}));
+        window.dispatchEvent(new CustomEvent('mitang_acesso_negado', { detail: corpo }));
+        return { success: false, error: corpo.error || 'Acesso negado.', code: corpo.code || 'ACESSO_NEGADO' };
+      }
+
+      return await res.json();
     } catch (err) {
       console.error(`[API Error] ${endpoint}:`, err);
-      return { success: false, error: err.message };
+      return { success: false, error: err.message, code: 'ERRO_REDE' };
     }
   }
 
-  // 1. Métricas do Dashboard Executivo
+  // -------------------------------------------------------------------------
+  // Endpoints
+  // -------------------------------------------------------------------------
+  async getPerfil() {
+    return this.request('/auth/me');
+  }
+
   async getDashboardMetrics(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/dashboard/metrics?${query}`);
+    return this.request(`/dashboard/metrics?${new URLSearchParams(params)}`);
   }
 
-  // 2. Catálogo de Baterias e Produtos
   async getProdutos(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/catalogo?${query}`);
+    return this.request(`/catalogo?${new URLSearchParams(params)}`);
   }
 
-  // 3. Clientes & Inteligência de CNPJ
   async getClientes(params = {}) {
-    const headers = {};
-    if (params.empresa_id) headers['x-empresa-id'] = params.empresa_id;
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/clientes?${query}`, { headers });
+    return this.request(`/clientes?${new URLSearchParams(params)}`);
   }
 
-  // 4. Base Histórica de Cotações e Orçamentos
+  async getDossieCliente(id) {
+    return this.request(`/clientes/${id}/dossie`);
+  }
+
   async getOrcamentos(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/orcamentos?${query}`);
+    return this.request(`/orcamentos?${new URLSearchParams(params)}`);
   }
 
   async getOrcamentoDetalhe(numero) {
-    return this.request(`/orcamentos/${numero}`);
+    return this.request(`/orcamentos/${encodeURIComponent(numero)}`);
   }
 
   async getOrcamento(numero) {
     return this.getOrcamentoDetalhe(numero);
   }
 
-  // 5. Transações Bancárias Conciliadas (OFX Itaú e Bradesco)
   async getTransacoesFinanceiras(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/financeiro/transacoes?${query}`);
+    return this.request(`/financeiro/transacoes?${new URLSearchParams(params)}`);
   }
 
-  // 6. Documentos Fiscais Eletrônicos (NF-e e NFS-e)
   async getNotasFiscais(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/faturamento/notas?${query}`);
+    return this.request(`/faturamento/notas?${new URLSearchParams(params)}`);
   }
 
-  // 7. Resumo de Caixa e Previsibilidade Financeira
-  async getResumoCaixa() {
-    return this.request('/financeiro/resumo-caixa');
+  async getNotaFiscal(id) {
+    return this.request(`/faturamento/notas/${id}`);
   }
 
-  // 8. Demonstração do Resultado do Exercício (DRE)
+  async getResumoCaixa(params = {}) {
+    return this.request(`/financeiro/resumo-caixa?${new URLSearchParams(params)}`);
+  }
+
   async getDreConsolidada(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/contabilidade/dre?${query}`);
+    return this.request(`/contabilidade/dre?${new URLSearchParams(params)}`);
   }
 
-  // 9. Dossiê 360° Completo do Parceiro (Cadastral, Histórico, NF-e, Cotações, Produtos)
-  async getDossieCliente(id) {
-    return this.request(`/clientes/${id}/dossie`);
-  }
-
-  // 10. Contas a Pagar & Obrigações Recorrentes
   async getContasAPagar(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/financeiro/contas-a-pagar?${query}`);
+    return this.request(`/financeiro/contas-a-pagar?${new URLSearchParams(params)}`);
   }
 
-  // 11. Projeção Futura de Caixa (Runway 30, 60, 90, 120 dias)
   async getProjecaoFutura(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/financeiro/projecao-futura?${query}`);
+    return this.request(`/financeiro/projecao-futura?${new URLSearchParams(params)}`);
   }
 
-  // 12. Categorização Interativa de Transações
+  async getCategoriasFinanceiras() {
+    return this.request('/financeiro/categorias');
+  }
+
   async categorizarTransacao(dados = {}) {
     return this.request('/financeiro/categorizar-transacao', {
       method: 'POST',
