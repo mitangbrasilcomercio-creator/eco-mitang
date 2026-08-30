@@ -376,18 +376,53 @@ async function main() {
     registrar('frontend', `Rotas do menu com pagina (${rotasMenu.length})`, semPagina.length === 0,
       semPagina.length ? `sem arquivo: ${semPagina.join(', ')}` : 'todas resolvem');
 
-    // Scripts que o router carrega dinamicamente.
+    /**
+     * Modulos que o roteador carrega dinamicamente.
+     *
+     * [ERRO ANTERIOR desta propria verificacao]: checava apenas se o arquivo
+     * EXISTE. Um modulo de 6 linhas com console.log passava como sucesso, e o
+     * relatorio dava 18/18 com sete telas vazias. Um teste que premia arquivo
+     * vazio e pior que nenhum teste: da confianca falsa.
+     *
+     * [CORRECAO]: classifica em implementado / casca / ausente. Casca nao conta
+     * como sucesso -- aparece como pendencia, com nome e tamanho.
+     */
     const scriptJs = await (await fetch(`${base}/script.js`)).text();
     const modulares = [...new Set(
       [...scriptJs.matchAll(/carregarScriptModular\('[^']+',\s*'([^']+)'/g)].map((m) => m[1])
     )];
-    const semArquivo = [];
+
+    const ausentes = [];
+    const cascas = [];
+    const implementados = [];
+
     for (const m of modulares) {
       const resp = await fetch(`${base}/${m}`);
-      if (resp.status !== 200) semArquivo.push(m);
+      if (resp.status !== 200) { ausentes.push(m); continue; }
+
+      const corpo = await resp.text();
+      // Linhas uteis: fora comentario, chave solta e linha em branco.
+      const uteis = corpo
+        .split('\n')
+        .map((l) => l.trim())
+        .filter((l) => l && !l.startsWith('//') && !l.startsWith('*') && !l.startsWith('/*') && l !== '}' && l !== '};')
+        .length;
+
+      // Modulo de verdade conversa com a API. Casca so imprime no console.
+      const falaComApi = /apiService|fetch\s*\(/.test(corpo);
+
+      if (!falaComApi && uteis <= 8) cascas.push(`${m} (${uteis} linhas uteis)`);
+      else if (!falaComApi) cascas.push(`${m} (nao consome a API)`);
+      else implementados.push(m);
     }
-    registrar('frontend', `Modulos JS carregados pelo router (${modulares.length})`, semArquivo.length === 0,
-      semArquivo.length ? `nao existem: ${semArquivo.join(', ')}` : 'todos existem');
+
+    registrar('frontend', `Modulos do roteador existem (${modulares.length})`, ausentes.length === 0,
+      ausentes.length ? `nao existem: ${ausentes.join(', ')}` : 'todos os arquivos estao no disco');
+
+    registrar('frontend',
+      `Modulos implementados de fato (${implementados.length}/${modulares.length})`,
+      cascas.length === 0,
+      cascas.length ? `casca: ${cascas.join(', ')}` : 'nenhuma casca');
 
     // O apiService precisa falar o contrato novo.
     const api = await (await fetch(`${base}/apiService.js`)).text();
