@@ -3,6 +3,11 @@
 -- ============================================================================
 DO $$ BEGIN
     CREATE TYPE resultado_auditoria_qsms AS ENUM ('PENDENTE', 'APROVADO', 'REPROVADO_RNC');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE status_rnc AS ENUM ('ABERTA', 'CORRIGIDA');
 EXCEPTION
     WHEN duplicate_object THEN null;

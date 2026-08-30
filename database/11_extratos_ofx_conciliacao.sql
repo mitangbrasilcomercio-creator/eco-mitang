@@ -4,7 +4,17 @@
 
 DO $$ BEGIN
     CREATE TYPE tipo_conta_bancaria AS ENUM ('CORRENTE', 'POUPANCA', 'INVESTIMENTO', 'PAGAMENTO');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE tipo_transacao_bancaria AS ENUM ('CREDIT', 'DEBIT', 'OTHER');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE status_conciliacao AS ENUM ('PENDENTE', 'CONCILIADO_AUTOMATICO', 'CONCILIADO_MANUAL', 'IGNORADO');
 EXCEPTION
     WHEN duplicate_object THEN null;

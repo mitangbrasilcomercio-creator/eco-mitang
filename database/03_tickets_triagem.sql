@@ -3,6 +3,11 @@
 -- ============================================================================
 DO $$ BEGIN
     CREATE TYPE canal_origem_ticket AS ENUM ('EMAIL', 'WHATSAPP', 'TELEFONE', 'SITE');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE status_ticket AS ENUM ('NOVO', 'EM_ANALISE', 'QUALIFICADO', 'DESCARTADO');
 EXCEPTION
     WHEN duplicate_object THEN null;

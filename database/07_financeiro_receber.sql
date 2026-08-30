@@ -3,6 +3,11 @@
 -- ============================================================================
 DO $$ BEGIN
     CREATE TYPE status_credito_plano AS ENUM ('ANALISE', 'APROVADO', 'BLOQUEADO');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE status_pagamento_parcela AS ENUM ('A_VENCER', 'PAGO', 'RENEGOCIADA');
 EXCEPTION
     WHEN duplicate_object THEN null;

@@ -3,6 +3,11 @@
 -- ============================================================================
 DO $$ BEGIN
     CREATE TYPE tipo_ordem_servico AS ENUM ('PRODUCAO', 'MOBILIZACAO', 'SERVICO', 'CURSO');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
     CREATE TYPE status_ordem_servico AS ENUM (
         'AGUARDANDO_LIBERACAO',
         'NA_FILA',
