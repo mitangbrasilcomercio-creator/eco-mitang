@@ -43,8 +43,14 @@ export class DreRepository {
         [p.inicio, p.fim]
       );
 
-      const cmv = await client.query(
-        `SELECT COALESCE(SUM(valor_produtos_servicos), 0) AS cmv_insumos,
+      /**
+       * [ERRO ANTERIOR]: este resultado era rotulado 'cmv_insumos' e tratado
+       * como Custo da Mercadoria Vendida. E COMPRA do periodo.
+       * CMV = estoque inicial + compras - estoque final, e exige controle de
+       * estoque, que o sistema ainda nao tem.
+       */
+      const compras = await client.query(
+        `SELECT COALESCE(SUM(valor_produtos_servicos), 0) AS compras_insumos_periodo,
                 COUNT(*)                                  AS qtd_notas
            FROM notas_fiscais
           WHERE direcao = 'RECEBIDA'
@@ -92,9 +98,46 @@ export class DreRepository {
         [p.inicio, p.fim]
       );
 
+      /**
+       * Mede o risco de dupla contagem entre pagamento a fornecedor e NF-e
+       * recebida: mesmo CNPJ da contraparte, mesmo valor, e emissao dentro de
+       * uma janela plausivel de pagamento.
+       *
+       * Existe porque 'FORNECEDORES_OPERACIONAIS' passou a entrar na despesa
+       * (antes era descartado). Em vez de escolher entre "some do DRE" e
+       * "conta duas vezes", o payload expoe quanto do valor tem nota
+       * correspondente -- e quantos lancamentos nem tem CNPJ para parear.
+       * A solucao definitiva e a conciliacao documento x extrato.
+       */
+      const duplicidade = await client.query(
+        `SELECT
+           COALESCE(SUM(ABS(t.valor)) FILTER (WHERE nf.existe), 0) AS valor_pareado,
+           COUNT(*) FILTER (WHERE nf.existe)                       AS qtd_pareada,
+           COUNT(*) FILTER (WHERE t.documento_contraparte IS NULL
+                               OR t.documento_contraparte = '')    AS qtd_sem_documento
+         FROM transacoes_bancarias t
+         CROSS JOIN LATERAL (
+           SELECT EXISTS (
+             SELECT 1 FROM notas_fiscais n
+              WHERE n.direcao = 'RECEBIDA'
+                AND regexp_replace(COALESCE(n.emitente_cnpj_cpf, ''), '[^0-9]', '', 'g')
+                    = regexp_replace(COALESCE(t.documento_contraparte, ''), '[^0-9]', '', 'g')
+                AND regexp_replace(COALESCE(t.documento_contraparte, ''), '[^0-9]', '', 'g') <> ''
+                AND ABS(n.valor_total - ABS(t.valor)) < 0.02
+                AND n.data_emissao::date BETWEEN t.data_lancamento - 45 AND t.data_lancamento + 15
+           ) AS existe
+         ) nf
+        WHERE t.categoria_financeira = 'FORNECEDORES_OPERACIONAIS'
+          AND t.valor < 0
+          AND t.is_saldo_informativo = FALSE
+          AND t.data_lancamento BETWEEN $1 AND $2;`,
+        [p.inicio, p.fim]
+      );
+
       return {
         receitas: receitas.rows[0],
-        cmv: cmv.rows[0],
+        compras: compras.rows[0],
+        duplicidade: duplicidade.rows[0],
         servicosTomados: servicosTomados.rows[0],
         tarifas: tarifas.rows[0],
         despesasPorCategoria: despesasBancarias.rows
