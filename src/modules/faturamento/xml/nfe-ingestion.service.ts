@@ -1,4 +1,4 @@
-import { pgPool } from '../../../core/database/supabase-pool';
+import { withTenantTransaction } from '../../../core/database/supabase-pool';
 import { UniversalXmlParser, ParsedNotaFiscal } from './nfe-parser';
 
 export interface XmlIngestionResult {
@@ -27,11 +27,11 @@ export class NfeIngestionService {
   ): Promise<XmlIngestionResult> {
     const parsed: ParsedNotaFiscal = UniversalXmlParser.parse(xmlContent, empresaCnpj);
 
-    const client = await pgPool.connect();
-
-    try {
-      await client.query('BEGIN');
-      await client.query("SELECT set_config('app.current_empresa_id', $1, true)", [empresaId]);
+    // [CORRECAO] O codigo antigo setava apenas 'app.current_empresa_id'. Com a
+    // RLS da migration 21 valendo, a leitura depende tambem de 'app.empresa_ids'
+    // -- sem ele, as consultas de idempotencia e de cliente voltavam vazias e
+    // toda nota era reimportada como nova.
+    return withTenantTransaction({ empresaId, empresaIds: [empresaId] }, async (client) => {
 
       // 1. Checa Idempotência por Chave de Acesso
       const checkQuery = `
@@ -40,7 +40,6 @@ export class NfeIngestionService {
       `;
       const checkRes = await client.query(checkQuery, [empresaId, parsed.chaveAcesso]);
       if (checkRes.rows.length > 0) {
-        await client.query('COMMIT');
         return {
           notaFiscalId: checkRes.rows[0].id,
           chaveAcesso: parsed.chaveAcesso,
@@ -165,8 +164,6 @@ export class NfeIngestionService {
         ]);
       }
 
-      await client.query('COMMIT');
-
       return {
         notaFiscalId,
         chaveAcesso: parsed.chaveAcesso,
@@ -181,11 +178,6 @@ export class NfeIngestionService {
         clienteId,
         duplicataIgnorada: false
       };
-    } catch (err) {
-      await client.query('ROLLBACK');
-      throw err;
-    } finally {
-      client.release();
-    }
+    });
   }
 }
