@@ -140,8 +140,23 @@ export function tenantMiddleware(req: TenantRequest, res: Response, next: NextFu
 }
 
 /** Restringe uma rota a papeis especificos. */
-export function exigirPapel(...papeis: string[]) {
-  return (req: TenantRequest, res: Response, next: NextFunction): void => {
+/** Middleware de papel, marcado para a trava de build conseguir enxerga-lo. */
+export interface GuardaDePapel {
+  (req: TenantRequest, res: Response, next: NextFunction): void;
+  papeisExigidos: string[];
+}
+
+/**
+ * Restringe uma rota a papeis especificos.
+ *
+ * A funcao devolvida carrega 'papeisExigidos'. E o que permite a
+ * tests/rotas-permissao.test.js percorrer o router do Express e falhar quando
+ * uma rota de dado nao declara papel -- em vez de depender de alguem lembrar.
+ * Foi assim que 28 de 30 rotas ficaram abertas: 'exigirPapel' existia e quase
+ * nunca era aplicado, e nada acusava.
+ */
+export function exigirPapel(...papeis: string[]): GuardaDePapel {
+  const guarda = (req: TenantRequest, res: Response, next: NextFunction): void => {
     if (!req.auth || !papeis.includes(req.auth.papel)) {
       res.status(403).json({
         success: false,
@@ -152,7 +167,17 @@ export function exigirPapel(...papeis: string[]) {
     }
     next();
   };
+  guarda.papeisExigidos = papeis;
+  return guarda;
 }
+
+/** Papeis existentes no enum do banco (database/20_auth_usuarios.sql). */
+export const PAPEIS = {
+  TODOS: ['Gestor_CLevel', 'Financeiro', 'Vendedor', 'Operacional'] as string[],
+  FINANCEIRO: ['Gestor_CLevel', 'Financeiro'] as string[],
+  COMERCIAL: ['Gestor_CLevel', 'Financeiro', 'Vendedor'] as string[],
+  OPERACAO: ['Gestor_CLevel', 'Operacional'] as string[]
+};
 
 /** Atalho: autenticacao + tenant, na ordem correta. */
 export const protegido = [authMiddleware, tenantMiddleware];

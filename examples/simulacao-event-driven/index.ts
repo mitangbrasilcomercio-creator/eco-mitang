@@ -11,7 +11,7 @@ import { FinanceiroLiberacaoOsListener } from './modules/financeiro/financeiro.l
 import { QsmsAuditoriaService } from './modules/qsms/qsms.service';
 import { DashboardProjectionService } from './modules/dashboards/dashboards.projections';
 import { DashboardQueryService } from './modules/dashboards/dashboards.service';
-import { UserAuthContext } from '../../src/core/security/abac.types';
+import { UserAuthContext } from './core/abac.types';
 import * as crypto from 'crypto';
 
 async function main() {

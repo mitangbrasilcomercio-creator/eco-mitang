@@ -1,7 +1,7 @@
 ﻿import { InMemoryDB } from '../../core/db-client';
 import { EventBus } from '../../../../src/core/events/event-bus';
 import { Cotacao, CotacaoItem, CreateCotacaoDTO, StatusCotacao } from './cotacao.types';
-import { SecurityRole } from '../../../../src/core/security/abac.types';
+import { SecurityRole } from '../../core/abac.types';
 import { DomainEvent } from '../../../../src/core/events/domain-event';
 import { CotacaoAprovacaoSolicitadaPayload, CotacaoGanhaPayload } from '../../../../src/core/events/events.types';
 import * as crypto from 'crypto';
