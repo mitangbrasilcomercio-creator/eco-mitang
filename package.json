@@ -15,7 +15,8 @@
     "db:usuario": "node scripts/criar_usuario.js",
     "db:verificar": "node scripts/verificar_integridade.js",
     "db:reingest": "node scripts/reingest_financeiro.js",
-    "db:seed:obrigacoes": "node scripts/seed_obrigacoes.js"
+    "db:seed:obrigacoes": "node scripts/seed_obrigacoes.js",
+    "verificar": "node scripts/verificar_stack.js"
   },
   "keywords": [
     "multi-tenant",

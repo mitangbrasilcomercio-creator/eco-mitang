@@ -1,3 +1,4 @@
+import { PoolClient } from 'pg';
 import { withTenantQuery, TenantContext } from '../../core/database/supabase-pool';
 import { Periodo, FaixaGrafico } from '../../core/utils/periodo';
 import { CATEGORIA_SWEEP, CATEGORIA_RENDIMENTOS } from '../financeiro/financeiro.repository';
@@ -22,9 +23,25 @@ import { CATEGORIA_SWEEP, CATEGORIA_RENDIMENTOS } from '../financeiro/financeiro
  * ============================================================================
  */
 export class DashboardRepository {
+  /**
+   * Executa na conexao recebida, ou abre uma se nao houver.
+   *
+   * [POR QUE ISSO EXISTE]: o painel dispara 9 consultas. Cada uma abrindo a
+   * propria conexao dava 9 conexoes simultaneas por requisicao, o que o pooler
+   * do Supabase Free recusa sob concorrencia -- o painel devolvia 503
+   * intermitente. Com uma conexao unica o custo cai para 1.
+   */
+  private async executar<T>(
+    ctx: TenantContext,
+    conexao: PoolClient | undefined,
+    fn: (client: PoolClient) => Promise<T>
+  ): Promise<T> {
+    return conexao ? fn(conexao) : withTenantQuery(ctx, fn);
+  }
+
   /** Totais operacionais do periodo, segregando custodia e rendimento. */
-  async totaisPeriodo(ctx: TenantContext, p: Periodo) {
-    return withTenantQuery(ctx, async (client) => {
+  async totaisPeriodo(ctx: TenantContext, p: Periodo, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const tx = await client.query(
         `SELECT
            COALESCE(SUM(valor) FILTER (
@@ -79,8 +96,8 @@ export class DashboardRepository {
   }
 
   /** Saldo oficial das contas bancarias (LEDGERBAL do extrato). */
-  async contasBancarias(ctx: TenantContext) {
-    return withTenantQuery(ctx, async (client) => {
+  async contasBancarias(ctx: TenantContext, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const res = await client.query(
         `SELECT id, banco_nome, agencia, conta_numero, saldo_atual, data_ultimo_saldo
            FROM contas_bancarias
@@ -100,10 +117,10 @@ export class DashboardRepository {
    *     emAtrasoSlots.push(fatS * 0.08)   // 8% do faturado, sem origem
    *     aVencerSlots.push(pagS * 0.15)    // 15% do pago, sem origem
    */
-  async serieGrafico(ctx: TenantContext, faixas: FaixaGrafico[]) {
+  async serieGrafico(ctx: TenantContext, faixas: FaixaGrafico[], conexao?: PoolClient) {
     if (faixas.length === 0) return [];
 
-    return withTenantQuery(ctx, async (client) => {
+    return this.executar(ctx, conexao, async (client) => {
       const inicios = faixas.map((f) => f.inicio);
       const fins = faixas.map((f) => f.fim);
       const chaves = faixas.map((f) => f.chave);
@@ -163,8 +180,8 @@ export class DashboardRepository {
    *     Math.max(clientesAtrasoMap[cnpj].maxDiasAtraso, diasAtraso || 28)
    * Um titulo sem data virava "28 dias de atraso" com ar de dado apurado.
    */
-  async curvaInadimplencia(ctx: TenantContext, limite = 5) {
-    return withTenantQuery(ctx, async (client) => {
+  async curvaInadimplencia(ctx: TenantContext, limite = 5, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const res = await client.query(
         `SELECT n.destinatario_nome                            AS cliente_nome,
                 n.destinatario_cnpj_cpf                        AS cnpj,
@@ -188,8 +205,8 @@ export class DashboardRepository {
   }
 
   /** Titulos a receber e a pagar dentro da janela do runway. */
-  async janelaRunway(ctx: TenantContext, dias: number) {
-    return withTenantQuery(ctx, async (client) => {
+  async janelaRunway(ctx: TenantContext, dias: number, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const receber = await client.query(
         `SELECT n.id, n.numero_nota AS numero, n.destinatario_nome AS parceiro,
                 n.destinatario_cnpj_cpf AS cnpj, d.valor_duplicata AS valor,
@@ -219,8 +236,8 @@ export class DashboardRepository {
   }
 
   /** Ultimos orcamentos do periodo, para o feed de atividades. */
-  async atividadesRecentes(ctx: TenantContext, p: Periodo, limite = 15) {
-    return withTenantQuery(ctx, async (client) => {
+  async atividadesRecentes(ctx: TenantContext, p: Periodo, limite = 15, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const res = await client.query(
         `SELECT numero_orcamento, vendido_por, cliente_nome, cliente_cnpj_cpf,
                 valor_total, data_emissao, status_aprovacao, situacao_geral,
@@ -236,8 +253,8 @@ export class DashboardRepository {
   }
 
   /** Extrato recente para o painel de tesouraria. */
-  async extratoRecente(ctx: TenantContext, p: Periodo, limite = 300) {
-    return withTenantQuery(ctx, async (client) => {
+  async extratoRecente(ctx: TenantContext, p: Periodo, limite = 300, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const res = await client.query(
         `SELECT t.id, t.data_lancamento, t.valor, t.memo, t.documento_contraparte,
                 t.nome_contraparte, t.categoria_financeira, t.is_saldo_informativo,
@@ -260,8 +277,8 @@ export class DashboardRepository {
   }
 
   /** Total efetivamente em custodia (aplicacoes menos resgates, acumulado). */
-  async saldoCustodia(ctx: TenantContext) {
-    return withTenantQuery(ctx, async (client) => {
+  async saldoCustodia(ctx: TenantContext, conexao?: PoolClient) {
+    return this.executar(ctx, conexao, async (client) => {
       const res = await client.query(
         `SELECT COALESCE(SUM(ABS(valor)) FILTER (WHERE valor < 0), 0)
                 - COALESCE(SUM(valor) FILTER (WHERE valor > 0), 0) AS saldo_investido

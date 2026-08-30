@@ -23,13 +23,13 @@ import { localMirror } from '../../core/database/local-mirror.service';
  */
 
 const QueryTransacoes = z.object({
-  tipo: z.enum(['ENTRADAS', 'SAIDAS']).optional(),
-  banco: z.string().max(100).optional(),
-  busca: z.string().max(200).optional(),
-  categoria: z.string().max(100).optional(),
+  tipo: z.preprocess(v => (v === '' ? undefined : v), z.enum(['ENTRADAS', 'SAIDAS']).optional()),
+  banco: z.preprocess(v => (v === '' ? undefined : v), z.string().max(100).optional()),
+  busca: z.preprocess(v => (v === '' ? undefined : v), z.string().max(200).optional()),
+  categoria: z.preprocess(v => (v === '' ? undefined : v), z.string().max(100).optional()),
   somente_operacionais: z.string().optional().default('true'),
-  data_inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-  data_fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  data_inicio: z.preprocess(v => (v === '' ? undefined : v), z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()),
+  data_fim: z.preprocess(v => (v === '' ? undefined : v), z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()),
   limit: z.coerce.number().int().min(1).max(500).default(50),
   offset: z.coerce.number().int().min(0).default(0)
 });

@@ -1,4 +1,4 @@
-import { TenantContext } from '../../core/database/supabase-pool';
+import { TenantContext, withTenantQuery } from '../../core/database/supabase-pool';
 import { DashboardRepository } from './dashboard.repository';
 import {
   resolverPeriodo,
@@ -42,19 +42,25 @@ export class DashboardService {
     const anterior = periodoAnterior(p);
     const { faixas, granularidade } = dividirEmFaixas(p);
 
-    // Consultas independentes em paralelo: o painel inteiro em uma ida ao banco.
+    // As 9 consultas do painel correm numa CONEXAO SO.
+    //
+    // Antes cada uma abria a propria conexao e o Promise.all pedia 9 ao mesmo
+    // tempo; sob concorrencia o pooler do Supabase Free recusava e o painel
+    // devolvia 503 intermitente. Sequencial na mesma conexao e mais lento no
+    // papel e muito mais estavel na pratica -- e o banco ja faz o trabalho
+    // pesado, entao a diferenca some.
     const [totais, totaisAnt, contas, serie, inadimplentes, janela, atividades, extrato, custodia] =
-      await Promise.all([
-        this.repo.totaisPeriodo(ctx, p),
-        this.repo.totaisPeriodo(ctx, anterior),
-        this.repo.contasBancarias(ctx),
-        this.repo.serieGrafico(ctx, faixas),
-        this.repo.curvaInadimplencia(ctx, 5),
-        this.repo.janelaRunway(ctx, 15),
-        this.repo.atividadesRecentes(ctx, p, 15),
-        this.repo.extratoRecente(ctx, p, 300),
-        this.repo.saldoCustodia(ctx)
-      ]);
+      await withTenantQuery(ctx, async (conexao) => [
+        await this.repo.totaisPeriodo(ctx, p, conexao),
+        await this.repo.totaisPeriodo(ctx, anterior, conexao),
+        await this.repo.contasBancarias(ctx, conexao),
+        await this.repo.serieGrafico(ctx, faixas, conexao),
+        await this.repo.curvaInadimplencia(ctx, 5, conexao),
+        await this.repo.janelaRunway(ctx, 15, conexao),
+        await this.repo.atividadesRecentes(ctx, p, 15, conexao),
+        await this.repo.extratoRecente(ctx, p, 300, conexao),
+        await this.repo.saldoCustodia(ctx, conexao)
+      ] as const);
 
     const num = (v: any) => Number(v || 0);
 

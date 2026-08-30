@@ -70,9 +70,9 @@ if (!connectionString) {
 export const pgPool = new Pool({
   connectionString,
   ssl: construirConfigSsl(),
-  max: Number(process.env.DB_POOL_MAX || 20),
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 30000,
+  max: Number(process.env.DB_POOL_MAX || 5),
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 15000,
   keepAlive: true,
 });
 
