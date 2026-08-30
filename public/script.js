@@ -1,45 +1,120 @@
-/* script.js */
-
 // ==========================================
-// 1. Lógica de Autenticação Global (RBAC Base)
+// 1. Funções de Suporte ao Perfil e Tenancy
 // ==========================================
-const tokenLogado = localStorage.getItem('mitang_auth_token');
-const dadosUsuario = JSON.parse(localStorage.getItem('mitang_user_data'));
+function atualizarPerfilUsuario() {
+    if (!window.apiService || typeof window.apiService.getUsuario !== 'function') return;
+    const usuario = window.apiService.getUsuario();
+    if (!usuario) return;
 
-const sidebarApp = document.querySelector('aside');
-const headerApp = document.querySelector('header');
-const navLinks = document.querySelectorAll('[data-route]');
-const headerTitle = document.getElementById('header-title');
+    const nome = usuario.nome || 'Diego Ribeiro';
+    const partes = nome.trim().split(/\s+/);
+    const iniciais = partes.length > 1
+        ? `${partes[0][0]}${partes[partes.length - 1][0]}`.toUpperCase()
+        : partes[0].slice(0, 2).toUpperCase();
 
-// Títulos dinâmicos (ATUALIZADO COM MÓDULOS NOVOS)
-const titulosRotas = {
-    'dashboard': 'Bem-vindo ao <span class="font-semibold">Centro de Controle</span>',
-    'contabilidade': 'Demonstração Contábil — <span class="font-semibold">DRE & Desempenho Real</span>',
-    'notas_fiscais': 'Repositório Fiscal Sem Perdas — <span class="font-semibold">172 XMLs de NF-e e NFS-e</span>',
-    'financeiro': 'Saúde de <span class="font-semibold">Caixa e Tesouraria</span>',
-    'controladoria': 'Controladoria & Inteligência — <span class="font-semibold">Dashboard Transversal & DuPont</span>',
-    'arquivos': 'Gestão de <span class="font-semibold">Arquivos e Dados</span>',
-    'analises': 'Painel de <span class="font-semibold">Análises</span>',
-    'orcamento_master': 'Comercial & <span class="font-semibold">Contratos Vivos</span>',
-    'crm': 'CRM & SRM 360° — <span class="font-semibold">Dossiê de Clientes & Fornecedores</span>',
-    'operacoes': 'Operações Subsea & <span class="font-semibold">Metrologia DimCon</span>',
-    'produtos': 'Engenharia de Baterias & <span class="font-semibold">Catálogo Industrial</span>',
-    'compras': 'Gestão de Compras (QUA-REG) & <span class="font-semibold">Packing List Offshore</span>',
-    'relatorios': 'Engenharia Técnica — <span class="font-semibold">DPR Offshore & Laudos DimCon / FAT</span>',
-    'compliance': 'Governança & Compliance — <span class="font-semibold">Robô de CNDs & Gestão Multi-Empresa</span>',
-    'parametros': 'Configurações — <span class="font-semibold">Gerenciador Global de Categorias & Parâmetros</span>',
-    'colaboradores': 'Gestão de <span class="font-semibold">Colaboradores</span>',
-    'automacoes': 'Central de <span class="font-semibold">Automações</span>',
-    'planilha': 'Editor de <span class="font-semibold">Banco de Dados</span>'
-};
+    const avatarEl = document.getElementById('user-avatar-initials');
+    if (avatarEl) avatarEl.innerText = iniciais;
 
-const classesAtivas = ['bg-cyan-500/10', 'dark:bg-cyan-400/10', 'text-cyan-600', 'dark:text-cyan-400', 'border', 'border-cyan-500/20', 'dark:border-cyan-400/20'];
+    const nameEl = document.getElementById('user-display-name');
+    if (nameEl) nameEl.innerText = nome;
+
+    const roleMap = {
+        'Gestor_CLevel': 'Diretoria • C-Level',
+        'Financeiro': 'Controladoria & Finanças',
+        'Vendedor': 'Comercial & Vendas',
+        'Operacional': 'Engenharia & Operações'
+    };
+
+    const roleEl = document.getElementById('user-display-role');
+    if (roleEl) roleEl.innerText = roleMap[usuario.papel] || usuario.papel || 'Colaborador';
+
+    // RBAC: Mostrar botão de reset apenas para Gestor_CLevel
+    const btnReset = document.getElementById('btn-resetar-dados');
+    if (btnReset) {
+        if (usuario.papel === 'Gestor_CLevel') {
+            btnReset.classList.remove('hidden');
+        } else {
+            btnReset.classList.add('hidden');
+        }
+    }
+}
+
+function atualizarSeletorTenants() {
+    if (!window.apiService) return;
+    const selector = document.getElementById('tenant-selector');
+    if (!selector) return;
+
+    const empresas = window.apiService.getEmpresasPermitidas();
+    const podeConsolidado = window.apiService.podeVisaoConsolidada();
+    const activeId = window.apiService.getActiveEmpresaId();
+
+    selector.innerHTML = '';
+
+    if (podeConsolidado) {
+        const optAll = document.createElement('option');
+        optAll.value = 'all';
+        optAll.className = 'bg-slate-900 text-slate-200';
+        optAll.innerText = 'Holding Eco-Mitang (Consolidado)';
+        selector.appendChild(optAll);
+    }
+
+    empresas.forEach(emp => {
+        const opt = document.createElement('option');
+        opt.value = emp.id;
+        opt.className = 'bg-slate-900 text-slate-200';
+        const docFormatado = emp.cnpj ? ` (${window.formatCnpjBR ? window.formatCnpjBR(emp.cnpj) : emp.cnpj})` : '';
+        opt.innerText = `${emp.nome_fantasia || emp.razao_social}${docFormatado}`;
+        selector.appendChild(opt);
+    });
+
+    if (activeId) {
+        selector.value = activeId;
+    } else if (selector.options.length > 0) {
+        selector.selectedIndex = 0;
+        const selOpt = selector.options[0];
+        window.apiService.setActiveEmpresa(selOpt.value, selOpt.innerText);
+    }
+
+    selector.onchange = (e) => {
+        const sel = e.target;
+        const id = sel.value;
+        const nome = sel.options[sel.selectedIndex]?.innerText || '';
+        window.apiService.setActiveEmpresa(id, nome);
+    };
+}
 
 // ==========================================
 // 2. Motor SPA (Single Page Application)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     const conteudoDinamico = document.getElementById('conteudo-dinamico');
+    const headerTitle = document.getElementById('header-title');
+    const sidebarApp = document.getElementById('sidebar-app');
+    const headerApp = document.getElementById('header-app');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const classesAtivas = ['bg-cyan-500/10', 'dark:bg-cyan-400/10', 'text-cyan-600', 'dark:text-cyan-400', 'font-medium'];
+
+    const titulosRotas = {
+        'dashboard': 'Dashboard Executivo',
+        'produtos': 'Catálogo de Baterias & Ficha BOM',
+        'orcamento_master': 'Propostas & Contratos Comerciais',
+        'crm': 'CRM & Gestão de Clientes 360°',
+        'financeiro': 'Fluxo de Caixa & Tesouraria',
+        'notas_fiscais': 'Notas Fiscais Eletrônicas (172 XMLs)',
+        'contabilidade': 'Demonstração do Resultado do Exercício (DRE)',
+        'controladoria': 'Controladoria & Diagnóstico DuPont',
+        'arquivos': 'Gestor de Arquivos & Extrator',
+        'colaboradores': 'Colaboradores & Folha PJ',
+        'planilha': 'Editor de Dados & Banco',
+        'operacoes': 'Engenharia & Operações Subsea',
+        'compras': 'Compras & Suprimentos',
+        'relatorios': 'Relatórios Técnicos (DPR/FAT)',
+        'compliance': 'Compliance & Certidões CNDs',
+        'parametros': 'Parâmetros & Configurações',
+        'login': 'Acesso Corporativo'
+    };
+
+    let rotaAtual = 'dashboard';
 
     // Função auxiliar para carregar scripts modulares isolados
     function carregarScriptModular(idScript, src, initFunction) {
@@ -57,6 +132,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarRota(rota) {
+        // Guarda de Autenticação Real:
+        const estaAuth = window.apiService && window.apiService.estaAutenticado();
+
+        if (!estaAuth && rota !== 'login') {
+            console.warn('[ROTA GUARD] Usuário não autenticado. Redirecionando para login.');
+            carregarRota('login');
+            return;
+        }
+
+        rotaAtual = rota;
+
+        // Se estiver em login, oculta sidebar e header para isolamento visual
+        if (rota === 'login') {
+            if (sidebarApp) sidebarApp.style.display = 'none';
+            if (headerApp) headerApp.style.display = 'none';
+        } else {
+            if (sidebarApp) sidebarApp.style.display = 'flex';
+            if (headerApp) headerApp.style.display = 'flex';
+            atualizarPerfilUsuario();
+            atualizarSeletorTenants();
+        }
+
         try {
             const response = await fetch(`${rota}.html`);
             if (!response.ok) throw new Error('Página não encontrada ou servidor local inativo.');
@@ -64,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const html = await response.text();
             conteudoDinamico.innerHTML = html;
             
-            if (titulosRotas[rota]) {
+            if (titulosRotas[rota] && headerTitle) {
                 headerTitle.innerHTML = titulosRotas[rota];
             }
 
@@ -128,28 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Inicialização direta do usuário da holding
-    if (!localStorage.getItem('mitang_auth_token')) {
-        localStorage.setItem('mitang_auth_token', 'mitang-session-root');
-        localStorage.setItem('mitang_user_data', JSON.stringify({
-            nome: 'Diego Ribeiro',
-            cargo: 'Diretoria / Comercial Técnico',
-            departamento: 'Holding Eco-Mitang'
-        }));
-    }
+    // Expor função de navegação globalmente
+    window.navegarParaRota = carregarRota;
 
-    sidebarApp.style.display = 'flex';
-    headerApp.style.display = 'flex';
-    
-    const userInfos = document.querySelectorAll('.text-sm.font-medium.text-slate-800');
-    if(userInfos.length > 0) {
-         document.querySelector('.w-10.h-10.rounded-full').innerText = 'DR';
-         const nameEl = document.querySelector('.text-sm.font-medium.text-slate-800.dark\\:text-slate-200.truncate');
-         if (nameEl) nameEl.innerText = 'Diego Ribeiro';
-         const roleEl = document.querySelector('.text-xs.text-cyan-600.dark\\:text-cyan-400\\/70.truncate');
-         if (roleEl) roleEl.innerText = 'Diretoria • Comercial Técnico';
-    }
-
+    // Configuração dos links de navegação
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -157,7 +236,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    carregarRota('dashboard');
+    // Botão de Logout
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            if (confirm('Deseja realmente encerrar sua sessão corporativa?')) {
+                window.apiService.logout();
+            }
+        });
+    }
+
+    // ==========================================
+    // Eventos do Sistema & apiService
+    // ==========================================
+    window.addEventListener('mitang_nao_autenticado', () => {
+        if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('aviso', 'Sessão Expirada', 'Por favor, autentique-se novamente para continuar.');
+        }
+        carregarRota('login');
+    });
+
+    window.addEventListener('mitang_acesso_negado', (e) => {
+        const det = e.detail || {};
+        if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('erro', 'Acesso Negado', det.error || 'Seu perfil não tem permissão para este recurso ou CNPJ.');
+        }
+    });
+
+    window.addEventListener('mitang_tenant_changed', (e) => {
+        const selector = document.getElementById('tenant-selector');
+        if (selector && e.detail?.id && selector.value !== e.detail.id) {
+            selector.value = e.detail.id;
+        }
+        if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('info', 'Empresa Selecionada', `Alternado para: ${e.detail?.nome || 'Novo Tenant'}`);
+        }
+        // Recarregar dados da tela ativa com o novo contexto de tenant
+        if (rotaAtual && rotaAtual !== 'login') {
+            carregarRota(rotaAtual);
+        }
+    });
+
+    window.addEventListener('mitang_sessao_encerrada', () => {
+        if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('info', 'Sessão Encerrada', 'Você saiu do sistema com segurança.');
+        }
+        carregarRota('login');
+    });
+
+    window.addEventListener('mitang_autenticado_sucesso', () => {
+        carregarRota('dashboard');
+    });
+
+    // Início: verificar autenticação
+    if (window.apiService && window.apiService.estaAutenticado()) {
+        carregarRota('dashboard');
+    } else {
+        carregarRota('login');
+    }
 });
 
 // ==========================================

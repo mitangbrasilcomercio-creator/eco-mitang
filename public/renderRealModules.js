@@ -59,6 +59,24 @@ window.formatCnpjBR = function(cnpjRaw) {
 };
 
 // ============================================================================
+// TRATAMENTO TRANSPARENTE DE CONTINGÊNCIA (CACHE EXPIRADO / LOCAL MIRROR)
+// ============================================================================
+window.tratarOrigemContingencia = function(res) {
+  const banner = document.getElementById('banner-contingencia');
+  const texto = document.getElementById('texto-banner-contingencia');
+  if (!banner) return;
+  if (res && (res.origem === 'CACHE_EXPIRADO' || res.origem === 'LOCAL_MIRROR')) {
+    banner.classList.remove('hidden');
+    if (texto) {
+      texto.innerText = res.aviso || `Modo de contingência ativo (${res.origem}): os dados exibidos derivam de cópia de segurança local e podem estar desatualizados.`;
+    }
+  } else {
+    banner.classList.add('hidden');
+  }
+};
+
+
+// ============================================================================
 // FORMATADOR ROBUSTO DE BANCO, AGÊNCIA E CONTA (REGEX MULTI-BANCO OFX)
 // ============================================================================
 window.formatarBancoAgenciaConta = function(bancoNome, contaRaw, agenciaRaw) {
@@ -175,10 +193,7 @@ window.abrirDossieContraparte = async function(memo, dbName, dbDoc) {
   });
 
   try {
-    const res = await fetch(`/api/v1/financeiro/transacoes?busca=${encodeURIComponent(termo)}&somente_operacionais=false&limit=100`, {
-      headers: { 'x-empresa-id': window.apiService.getActiveEmpresaId() }
-    });
-    const json = await res.json();
+    const json = await window.apiService.getTransacoesFinanceiras({ busca: termo, somente_operacionais: 'false', limit: 100 });
     const trans = json.data || [];
 
     const totalSaidas = trans.filter(t => Number(t.valor) < 0).reduce((acc, t) => acc + Math.abs(Number(t.valor)), 0);
@@ -1102,6 +1117,9 @@ window.renderDashboardRealData = async function() {
           </div>
         </div>
 
+        <!-- DESTAQUE AUDITADO: PIPELINE COMERCIAL (SEPARADO DE FATURAMENTO) -->
+        <div id="dash-pipeline-container" class="hidden"></div>
+
         <!-- OS 4 CARDS PRINCIPAIS INTERATIVOS COM INDICADORES MoM -->
         <div id="dash-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Renderizado dinamicamente via JS -->
@@ -1334,6 +1352,9 @@ window.renderDashboardRealData = async function() {
       return;
     }
 
+    // Tratamento de contingência (avisa se dados vieram do local mirror ou cache expirado)
+    window.tratarOrigemContingencia(res);
+
     ultimoDashboardPayload = res.data;
 
     // Atualizar subtítulo de período com datas exatas apuradas
@@ -1363,9 +1384,60 @@ window.renderDashboardRealData = async function() {
         banner.classList.add('border-red-500/40');
         icon.className = 'w-11 h-11 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl shrink-0';
         icon.innerHTML = '<i class="ph ph-warning"></i>';
+      } else if (runway.status === 'SEM_BASE_DE_CALCULO' || runway.dias_cobertura === null) {
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-500/20 text-slate-300 border border-slate-500/30';
+        badge.innerHTML = 'ℹ️ Sem Base de Cálculo (sem saídas registradas)';
+        banner.classList.remove('border-red-500/40');
+        icon.className = 'w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl shrink-0';
+        icon.innerHTML = '<i class="ph ph-info"></i>';
       } else {
         badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
         badge.innerHTML = `🛡️ Operação Equilibrada (${runway.dias_cobertura} dias de cobertura)`;
+        banner.classList.remove('border-red-500/40');
+        icon.className = 'w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl shrink-0';
+        icon.innerHTML = '<i class="ph ph-shield-check"></i>';
+      }
+    }
+
+    // Renderizar Destaque do Pipeline Comercial (segregado do Faturamento de NF-e)
+    const pipeline = res.data.receitas?.pipeline_orcamentos;
+    const pipeContainer = document.getElementById('dash-pipeline-container');
+    if (pipeContainer) {
+      if (pipeline && (pipeline.total_cotado > 0 || pipeline.aprovado > 0)) {
+        pipeContainer.classList.remove('hidden');
+        const conv = pipeline.taxa_conversao_pct !== null ? `${pipeline.taxa_conversao_pct}% Conversão` : 'Sem cotações';
+        pipeContainer.innerHTML = `
+          <div class="glass-panel p-4 rounded-2xl border border-cyan-500/20 bg-cyan-950/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 flex items-center justify-center text-xl shrink-0">
+                <i class="ph ph-funnel"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-100 uppercase tracking-wider">Pipeline Comercial Auditado</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                    ${conv}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  Orçamentos aprovados vs total cotado (auditado separadamente do faturamento contábil de NF-e)
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 text-xs font-mono">
+              <div>
+                <span class="text-slate-500 text-[10px] uppercase font-sans">Total Cotado</span>
+                <p class="font-bold text-slate-200">${window.formatCurrencyBR(pipeline.total_cotado || 0)} <span class="text-[10px] text-slate-500 font-sans font-normal">(${pipeline.qtd_total || 0} propostas)</span></p>
+              </div>
+              <div class="border-l border-white/10 pl-6">
+                <span class="text-slate-500 text-[10px] uppercase font-sans text-cyan-400">Convertido em Vendas</span>
+                <p class="font-bold text-cyan-300">${window.formatCurrencyBR(pipeline.aprovado || 0)} <span class="text-[10px] text-slate-500 font-sans font-normal">(${pipeline.qtd_aprovados || 0} aprovadas)</span></p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        pipeContainer.classList.add('hidden');
       }
     }
 
@@ -1706,10 +1778,10 @@ window.renderCardsExecutivos = function() {
       {
         key: 'faturado',
         titulo: 'Faturado',
-        subtitulo: 'Orçamentos & NFe Emitidas',
-        valor: r.faturado.valor,
-        mom: r.faturado.mom_percentual,
-        momDirecao: r.faturado.mom_direcao,
+        subtitulo: 'NF-e e NFS-e Emitidas',
+        valor: r.faturado?.valor || 0,
+        mom: r.faturado?.mom_percentual,
+        comparavel: r.faturado?.comparavel,
         corTexto: 'text-slate-100',
         borda: 'border-cyan-500/40',
         serieAtiva: dashboardState.seriesAtivas.faturado
@@ -1718,20 +1790,20 @@ window.renderCardsExecutivos = function() {
         key: 'recebido',
         titulo: 'Recebido',
         subtitulo: 'Faturas e Títulos Liquidados',
-        valor: r.recebido.valor,
-        mom: r.recebido.mom_percentual,
-        momDirecao: r.recebido.mom_direcao,
+        valor: r.recebido?.valor || 0,
+        mom: r.recebido?.mom_percentual,
+        comparavel: r.recebido?.comparavel,
         corTexto: 'text-emerald-400',
         borda: 'border-emerald-500/40',
         serieAtiva: dashboardState.seriesAtivas.recebido
       },
       {
         key: 'a_receber',
-        titulo: 'À Receber (Em Dia)',
-        subtitulo: 'Títulos com Vencimento Futuro',
-        valor: r.a_receber.valor,
-        mom: r.a_receber.mom_percentual,
-        momDirecao: r.a_receber.mom_direcao,
+        titulo: 'À Receber (Em Aberto)',
+        subtitulo: 'Títulos em Carteira Auditada',
+        valor: r.a_receber?.valor || 0,
+        mom: r.a_receber?.mom_percentual,
+        comparavel: r.a_receber?.comparavel,
         corTexto: 'text-cyan-300',
         borda: 'border-blue-500/40',
         serieAtiva: dashboardState.seriesAtivas.a_receber
@@ -1740,9 +1812,9 @@ window.renderCardsExecutivos = function() {
         key: 'em_atraso',
         titulo: 'Em Atraso',
         subtitulo: 'Inadimplência Vencida',
-        valor: r.em_atraso.valor,
-        mom: r.em_atraso.mom_percentual,
-        momDirecao: r.em_atraso.mom_direcao,
+        valor: r.em_atraso?.valor || 0,
+        mom: r.em_atraso?.mom_percentual,
+        comparavel: r.em_atraso?.comparavel,
         corTexto: 'text-red-400',
         borda: 'border-red-500/40',
         serieAtiva: dashboardState.seriesAtivas.em_atraso
@@ -1750,14 +1822,27 @@ window.renderCardsExecutivos = function() {
     ];
 
     container.innerHTML = cards.map(c => {
-      const isUp = c.mom >= 0;
-      // Para 'em_atraso', queda é boa (verde), alta é ruim (vermelho)
+      const temMom = c.comparavel !== false && c.mom !== null && c.mom !== undefined;
+      const isUp = temMom && c.mom >= 0;
       let momColor = 'text-emerald-400';
       if (c.key === 'em_atraso') {
         momColor = isUp ? 'text-red-400' : 'text-emerald-400';
       } else {
         momColor = isUp ? 'text-emerald-400' : 'text-red-400';
       }
+
+      const momHtml = temMom
+        ? `
+          <span class="text-[11px] font-bold flex items-center gap-1 ${momColor}">
+            <i class="ph ${isUp ? 'ph-trend-up' : 'ph-trend-down'} font-bold"></i>
+            ${isUp ? `▲ +${c.mom}%` : `▼ ${c.mom}%`} <span class="text-slate-400 font-normal">vs anterior</span>
+          </span>
+        `
+        : `
+          <span class="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
+            <i class="ph ph-minus text-xs"></i> Sem base comparativa
+          </span>
+        `;
 
       return `
         <div onclick="window.toggleDashboardSerie('${c.key}')" 
@@ -1774,10 +1859,7 @@ window.renderCardsExecutivos = function() {
           </h3>
 
           <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
-            <span class="text-[11px] font-bold flex items-center gap-1 ${momColor}">
-              <i class="ph ${isUp ? 'ph-trend-up' : 'ph-trend-down'} font-bold"></i>
-              ${isUp ? `▲ +${c.mom}%` : `▼ ${c.mom}%`} <span class="text-slate-400 font-normal">vs mês anterior</span>
-            </span>
+            ${momHtml}
             <span class="text-[10px] text-slate-400 truncate max-w-[100px]">${c.subtitulo}</span>
           </div>
         </div>
@@ -1792,18 +1874,20 @@ window.renderCardsExecutivos = function() {
         key: 'total_pago',
         titulo: 'Total Pago',
         subtitulo: 'Despesas Liquidadas',
-        valor: d.total_pago.valor,
-        mom: d.total_pago.mom_percentual,
+        valor: d.total_pago?.valor || 0,
+        mom: d.total_pago?.mom_percentual,
+        comparavel: d.total_pago?.comparavel,
         corTexto: 'text-slate-100',
         borda: 'border-red-500/40',
         serieAtiva: dashboardState.seriesAtivas.total_pago
       },
       {
-        key: 'a_vencer_7d',
-        titulo: 'A Vencer (Próx. 7 dias)',
-        subtitulo: 'Compromissos Desta Semana',
-        valor: d.a_vencer_7d.valor,
-        mom: 0,
+        key: 'compras_nf',
+        titulo: 'Compras Fiscais (NF-e)',
+        subtitulo: 'Insumos & Fornecedores',
+        valor: d.compras_nf || 0,
+        mom: null,
+        comparavel: false,
         corTexto: 'text-amber-400',
         borda: 'border-amber-500/40',
         serieAtiva: true
@@ -1811,9 +1895,10 @@ window.renderCardsExecutivos = function() {
       {
         key: 'a_vencer_15d',
         titulo: 'A Vencer (Próx. 15 dias)',
-        subtitulo: 'Compromissos da Quinzena',
-        valor: d.a_vencer_15d.valor,
-        mom: 0,
+        subtitulo: `${d.a_vencer_15d?.qtd_titulos || 0} títulos na quinzena`,
+        valor: d.a_vencer_15d?.valor || 0,
+        mom: null,
+        comparavel: false,
         corTexto: 'text-yellow-400',
         borda: 'border-yellow-500/40',
         serieAtiva: dashboardState.seriesAtivas.a_vencer
@@ -1821,37 +1906,55 @@ window.renderCardsExecutivos = function() {
       {
         key: 'em_atraso',
         titulo: 'Despesas em Atraso',
-        subtitulo: 'Contas Vencidas (Juros)',
-        valor: d.em_atraso.valor,
-        mom: d.em_atraso.mom_percentual,
+        subtitulo: 'Títulos Vencidos (Juros)',
+        valor: d.em_atraso?.valor || 0,
+        mom: d.em_atraso?.mom_percentual,
+        comparavel: d.em_atraso?.comparavel,
         corTexto: 'text-red-400',
         borda: 'border-red-500/40',
         serieAtiva: true
       }
     ];
 
-    container.innerHTML = cards.map(c => `
-      <div onclick="window.toggleDashboardSerie('${c.key}')" 
-           class="glass-panel p-5 rounded-2xl border transition-all cursor-pointer group hover:scale-[1.01] ${c.serieAtiva ? `${c.borda} bg-slate-900/80 shadow-lg` : 'border-white/5 opacity-60'}">
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${c.titulo}</span>
-          <span class="px-2 py-0.5 rounded-full text-[9px] font-bold border ${c.serieAtiva ? 'bg-red-500/20 text-red-300 border-red-500/30' : 'bg-white/5 text-slate-500 border-transparent'}">
-            ${c.serieAtiva ? '✓ No Gráfico' : '+ Filtrar'}
-          </span>
-        </div>
+    container.innerHTML = cards.map(c => {
+      const temMom = c.comparavel !== false && c.mom !== null && c.mom !== undefined;
+      const isUp = temMom && c.mom >= 0;
+      const momColor = isUp ? 'text-red-400' : 'text-emerald-400';
 
-        <h3 class="text-2xl font-extrabold mt-1 font-mono tracking-tight ${c.corTexto}">
-          ${window.formatCurrencyBR(c.valor)}
-        </h3>
-
-        <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
-          <span class="text-[11px] font-bold flex items-center gap-1 ${c.mom < 0 ? 'text-emerald-400' : 'text-slate-400'}">
-            ${c.mom !== 0 ? `${c.mom < 0 ? '▼ ' : '▲ +'}${c.mom}% vs mês anterior` : 'Compromisso'}
+      const momHtml = temMom
+        ? `
+          <span class="text-[11px] font-bold flex items-center gap-1 ${momColor}">
+            <i class="ph ${isUp ? 'ph-trend-up' : 'ph-trend-down'} font-bold"></i>
+            ${isUp ? `▲ +${c.mom}%` : `▼ ${c.mom}%`} <span class="text-slate-400 font-normal">vs anterior</span>
           </span>
-          <span class="text-[10px] text-slate-400 truncate max-w-[120px]">${c.subtitulo}</span>
+        `
+        : `
+          <span class="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
+            <i class="ph ph-minus text-xs"></i> Sem base comparativa
+          </span>
+        `;
+
+      return `
+        <div onclick="window.toggleDashboardSerie('${c.key}')" 
+             class="glass-panel p-5 rounded-2xl border transition-all cursor-pointer group hover:scale-[1.01] ${c.serieAtiva ? `${c.borda} bg-slate-900/80 shadow-lg` : 'border-white/5 opacity-60'}">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${c.titulo}</span>
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold border ${c.serieAtiva ? 'bg-red-500/20 text-red-300 border-red-500/30' : 'bg-white/5 text-slate-500 border-transparent'}">
+              ${c.serieAtiva ? '✓ No Gráfico' : '+ Filtrar'}
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-extrabold mt-1 font-mono tracking-tight ${c.corTexto}">
+            ${window.formatCurrencyBR(c.valor)}
+          </h3>
+
+          <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/5">
+            ${momHtml}
+            <span class="text-[10px] text-slate-400 truncate max-w-[120px]">${c.subtitulo}</span>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 };
 
@@ -2321,6 +2424,7 @@ window.renderFluxoCaixaRealData = async function() {
               <tbody id="tabela-fc-corpo" class="divide-y divide-white/5 text-slate-300">
                 <tr><td colspan="6" class="p-6 text-center text-slate-500">Carregando lançamentos...</td></tr>
               </tbody>
+              <tfoot id="tfoot-fc-corpo" class="bg-black/40 font-bold border-t border-white/10 sticky bottom-0"></tfoot>
             </table>
           </div>
         </div>
@@ -2369,20 +2473,20 @@ window.renderFluxoCaixaRealData = async function() {
           </select>
 
           <select id="filtro-ap-tipo" class="py-2 px-3 rounded-xl text-xs bg-slate-900/70 border border-white/10 text-slate-200 focus:outline-none focus:border-cyan-400">
-            <option value="TODAS">Todos os Tipos de Entidade</option>
-            <option value="COLABORADOR_PJ">Colaboradores PJ (Equipe)</option>
-            <option value="SOCIO_DIRETORIA">Sócios / Pró-Labore / Dividendos</option>
-            <option value="FORNECEDOR_INSUMO">Fornecedores de Matéria-Prima</option>
-            <option value="PRESTADOR_CONTINUO">Prestadores Contínuos (Contabilidade, etc.)</option>
-            <option value="INFRAESTRUTURA_FIXA">Infraestrutura (Aluguel, Luz, Vivo)</option>
-            <option value="GOVERNO_TRIBUTO">Governo & Tributos (Simples, DARF, FGTS)</option>
-            <option value="INSTITUICAO_FINANCEIRA">Bancos & Empréstimos (PRONAMPE)</option>
+            <option value="TODAS">Todas as Categorias</option>
+            <option value="COLABORADOR_PJ">Colaboradores PJ</option>
+            <option value="SOCIO_DIRETORIA">Sócios / Pró-Labore</option>
+            <option value="FORNECEDOR_INSUMO">Insumos & Matéria-Prima</option>
+            <option value="PRESTADOR_CONTINUO">Prestadores Contínuos</option>
+            <option value="INFRAESTRUTURA_FIXA">Infraestrutura Fixa</option>
+            <option value="GOVERNO_TRIBUTO">Governo & Tributos</option>
+            <option value="INSTITUICAO_FINANCEIRA">Bancos & Empréstimos</option>
           </select>
           
-          <span class="text-xs text-slate-400 font-mono ml-auto" id="total-ap-label">...</span>
+          <span class="text-xs text-slate-400 font-mono ml-auto" id="total-ap-label">0 obrigações</span>
         </div>
 
-        <!-- Tabela de Contas a Pagar -->
+        <!-- Tabela Rica de Contas a Pagar -->
         <div class="glass-panel rounded-2xl border border-white/5 overflow-hidden">
           <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
@@ -2390,12 +2494,12 @@ window.renderFluxoCaixaRealData = async function() {
                 <tr>
                   <th class="p-3.5">Empresa</th>
                   <th class="p-3.5">Favorecido / Tipo</th>
-                  <th class="p-3.5">Categoria & Descrição</th>
+                  <th class="p-3.5">Categoria / Descrição</th>
                   <th class="p-3.5">Vencimento</th>
-                  <th class="p-3.5">Recorrência / Parcela</th>
+                  <th class="p-3.5">Recorrência</th>
                   <th class="p-3.5">Método</th>
-                  <th class="p-3.5 text-center">Rateio Sócios</th>
-                  <th class="p-3.5 text-right">Valor Líquido</th>
+                  <th class="p-3.5 text-center">Rateio</th>
+                  <th class="p-3.5 text-right">Valor</th>
                   <th class="p-3.5 text-center">Status</th>
                 </tr>
               </thead>
@@ -2430,11 +2534,11 @@ window.renderFluxoCaixaRealData = async function() {
           <div class="flex items-center gap-4">
             <div class="text-right">
               <span class="text-[10px] uppercase font-bold text-slate-400">Custo Fixo Operacional</span>
-              <div class="text-sm font-mono font-bold text-slate-200" id="proj-custo-fixo-banner">R$ 46.753,04 / mês</div>
+              <div class="text-sm font-mono font-bold text-slate-200" id="proj-custo-fixo-banner">Calculando...</div>
             </div>
             <div class="text-right pl-4 border-l border-white/10">
               <span class="text-[10px] uppercase font-bold text-emerald-400">Recebíveis Auditados</span>
-              <div class="text-base font-mono font-bold text-emerald-400" id="proj-recebiveis-banner">R$ 474.183,70</div>
+              <div class="text-base font-mono font-bold text-emerald-400" id="proj-recebiveis-banner">Calculando...</div>
             </div>
           </div>
         </div>
@@ -2443,7 +2547,7 @@ window.renderFluxoCaixaRealData = async function() {
         <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-4">
           <h3 class="text-sm font-semibold text-slate-100 flex items-center gap-2">
             <i class="ph ph-calendar-blank text-cyan-400 text-base"></i>
-            Evolução de Fluxo Projetado (Setembro a Dezembro de 2026)
+            Evolução de Fluxo Projetado (30 a 120 dias)
           </h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="grid-projecao-meses">
             <!-- Injetado via JS -->
@@ -2459,7 +2563,7 @@ window.renderFluxoCaixaRealData = async function() {
                 <i class="ph ph-arrow-circle-down-right text-red-400 text-sm"></i>
                 Estrutura de Custos Fixos Mensais (Holding)
               </h4>
-              <span class="text-xs font-mono font-bold text-red-400" id="total-custos-fixos-badge">R$ 46.753,04</span>
+              <span class="text-xs font-mono font-bold text-red-400" id="total-custos-fixos-badge">...</span>
             </div>
             <div class="space-y-2 text-xs" id="lista-custos-fixos-corpo">
               <!-- Injetado via JS -->
@@ -2507,13 +2611,14 @@ window.renderFluxoCaixaRealData = async function() {
     // 1. Carrega Resumo Geral de Caixa
     const resumoRes = await window.apiService.getResumoCaixa();
     if (resumoRes.success && resumoRes.data) {
+      window.tratarOrigemContingencia(resumoRes);
       const d = resumoRes.data;
-      document.getElementById('fc-saldo-atual').innerText = `R$ ${d.saldo_bancario_atual.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-      document.getElementById('fc-receber').innerText = `R$ ${d.a_receber.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-      document.getElementById('fc-qtd-receber').innerText = `${d.qtd_a_receber} faturas emitidas`;
-      document.getElementById('fc-pagar').innerText = `R$ ${d.a_pagar.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-      document.getElementById('fc-qtd-pagar').innerText = `${d.qtd_a_pagar} faturas recebidas`;
-      document.getElementById('fc-projetado').innerText = `R$ ${d.saldo_projetado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('fc-saldo-atual').innerText = window.formatCurrencyBR(d.saldo_bancario_atual);
+      document.getElementById('fc-receber').innerText = window.formatCurrencyBR(d.a_receber);
+      document.getElementById('fc-qtd-receber').innerText = `${d.qtd_a_receber} faturas em aberto`;
+      document.getElementById('fc-pagar').innerText = window.formatCurrencyBR(d.a_pagar);
+      document.getElementById('fc-qtd-pagar').innerText = `${d.qtd_a_pagar} títulos programados`;
+      document.getElementById('fc-projetado').innerText = window.formatCurrencyBR(d.saldo_projetado);
 
       const gridBanco = document.getElementById('grid-saldos-banco');
       if (gridBanco && d.saldos_por_banco) {
@@ -2528,7 +2633,7 @@ window.renderFluxoCaixaRealData = async function() {
             </div>
             <div class="mt-4">
               <span class="text-2xl font-bold text-slate-100">
-                R$ ${Number(b.saldo_conta).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                ${window.formatCurrencyBR(b.saldo_conta)}
               </span>
               <p class="text-[11px] text-slate-400 mt-1">${b.total_movimentacoes} movimentações conciliadas</p>
             </div>
@@ -2545,11 +2650,32 @@ window.renderFluxoCaixaRealData = async function() {
 
       const res = await window.apiService.getTransacoesFinanceiras({ tipo, banco, busca, limit: 120 });
       const tbody = document.getElementById('tabela-fc-corpo');
+      const tfoot = document.getElementById('tfoot-fc-corpo');
       if (!tbody) return;
 
       if (!res.success || !res.data || res.data.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Nenhum lançamento encontrado.</td></tr>`;
+        if (tfoot) tfoot.innerHTML = '';
         return;
+      }
+
+      if (tfoot && res.subtotais) {
+        const sub = res.subtotais;
+        tfoot.innerHTML = `
+          <tr class="bg-slate-900/95 border-t-2 border-cyan-500/30 text-xs font-semibold text-slate-300">
+            <td colspan="4" class="p-3.5">
+              <div class="flex items-center gap-3">
+                <span class="text-slate-400 uppercase text-[10px] tracking-wider">Subtotais Auditados (Recorte Completo):</span>
+                <span>Entradas: <strong class="text-emerald-400">+${window.formatCurrencyBR(sub.entradas || 0)}</strong></span>
+                <span>Saídas: <strong class="text-rose-400">-${window.formatCurrencyBR(sub.saidas || 0)}</strong></span>
+              </div>
+            </td>
+            <td class="p-3.5 text-right font-mono font-bold text-sm ${sub.liquido >= 0 ? 'text-emerald-400' : 'text-rose-400'} whitespace-nowrap">
+              ${sub.liquido >= 0 ? '+' : ''}${window.formatCurrencyBR(sub.liquido || 0)}
+            </td>
+            <td class="p-3.5 text-center text-[10px] uppercase text-slate-500">Líquido</td>
+          </tr>
+        `;
       }
 
       tbody.innerHTML = res.data.map(t => {
@@ -2578,7 +2704,7 @@ window.renderFluxoCaixaRealData = async function() {
               ${contraparte !== '-' ? `<p class="text-[10px] text-slate-400 mt-0.5 truncate max-w-[180px]">${contraparte}</p>` : ''}
             </td>
             <td class="p-3.5 text-right font-mono font-bold ${isPos ? 'text-emerald-400' : 'text-slate-300'}">
-              R$ ${Number(t.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              ${window.formatCurrencyBR(t.valor)}
             </td>
             <td class="p-3.5 text-center">
               <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">Conciliado</span>
@@ -2728,40 +2854,49 @@ window.renderFluxoCaixaRealData = async function() {
       if (!res.success || !res.data) return;
 
       const d = res.data;
-      const rec = d.total_receber_carteira_auditada || 0;
+      const rec = d.total_receber_carteira ?? d.total_receber_carteira_auditada ?? 0;
       const fixo = d.custo_fixo_operacional_mensal || 0;
 
-      document.getElementById('proj-custo-fixo-banner').innerText = `R$ ${fixo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} / mês`;
-      document.getElementById('proj-recebiveis-banner').innerText = `R$ ${rec.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-      document.getElementById('total-custos-fixos-badge').innerText = `R$ ${fixo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-      document.getElementById('total-recebiveis-carteira-badge').innerText = `R$ ${rec.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('proj-custo-fixo-banner').innerText = `${window.formatCurrencyBR(fixo)} / mês`;
+      document.getElementById('proj-recebiveis-banner').innerText = window.formatCurrencyBR(rec);
+      document.getElementById('total-custos-fixos-badge').innerText = window.formatCurrencyBR(fixo);
+      document.getElementById('total-recebiveis-carteira-badge').innerText = window.formatCurrencyBR(rec);
 
       // Grid Mês a Mês
       const gridMeses = document.getElementById('grid-projecao-meses');
       if (gridMeses && d.projecao_mensal) {
         gridMeses.innerHTML = d.projecao_mensal.map(m => {
           const isSuperavit = m.saldo_projetado_mes >= 0;
+          let badgeStatus = '';
+          if (m.status_cobertura === 'SEM_RECEBIVEL_REGISTRADO') {
+            badgeStatus = '<span class="px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Sem Recebível</span>';
+          } else if (m.status_cobertura === 'SUPERAVIT') {
+            badgeStatus = '<span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Superávit</span>';
+          } else {
+            badgeStatus = '<span class="px-2 py-0.5 rounded text-[9px] font-bold bg-red-500/20 text-red-300 border border-red-500/30">Déficit</span>';
+          }
+
+          const origemSaidasDesc = m.origem_saidas === 'TITULOS_LANCADOS' ? 'Títulos Lançados' : 'Custo Fixo Estimado';
+
           return `
             <div class="glass-panel p-4 rounded-xl border border-white/5 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-200">${m.mes_nome}</span>
-                <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Superávit
-                </span>
+                ${badgeStatus}
               </div>
               <div class="space-y-1 text-[11px] pt-1">
                 <div class="flex justify-between text-slate-400">
                   <span>Receitas Previstas:</span>
-                  <span class="font-mono text-emerald-400 font-semibold">R$ ${m.receitas_previstas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  <span class="font-mono text-emerald-400 font-semibold">${window.formatCurrencyBR(m.receitas_previstas)}</span>
                 </div>
                 <div class="flex justify-between text-slate-400">
-                  <span>Saídas Previstas:</span>
-                  <span class="font-mono text-red-400 font-semibold">R$ ${m.saidas_previstas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  <span title="${origemSaidasDesc}">Saídas (${origemSaidasDesc}):</span>
+                  <span class="font-mono text-red-400 font-semibold">${window.formatCurrencyBR(m.saidas_previstas)}</span>
                 </div>
                 <div class="flex justify-between border-t border-white/10 pt-1 font-bold">
                   <span class="text-slate-200">Saldo do Mês:</span>
                   <span class="font-mono ${isSuperavit ? 'text-cyan-400' : 'text-amber-400'}">
-                    +R$ ${m.saldo_projetado_mes.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    ${isSuperavit ? '+' : ''}${window.formatCurrencyBR(m.saldo_projetado_mes)}
                   </span>
                 </div>
               </div>
@@ -2773,35 +2908,47 @@ window.renderFluxoCaixaRealData = async function() {
       // Lista de Custos Fixos
       const listaCustos = document.getElementById('lista-custos-fixos-corpo');
       if (listaCustos && d.estrutura_custo_recorrente) {
-        listaCustos.innerHTML = d.estrutura_custo_recorrente.map(c => `
-          <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
-            <span class="text-slate-300 truncate max-w-[280px]">${c.categoria}</span>
-            <span class="font-mono font-bold text-red-400 whitespace-nowrap">
-              R$ ${c.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-            </span>
-          </div>
-        `).join('');
+        listaCustos.innerHTML = d.estrutura_custo_recorrente.map(c => {
+          const nome = (c.macro_categoria || c.categoria || c.tipo_entidade || 'Outros').replace(/_/g, ' ');
+          return `
+            <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
+              <div>
+                <span class="text-slate-300 font-medium text-xs">${nome}</span>
+                ${c.tipo_entidade ? `<p class="text-[10px] text-slate-500 font-mono">${c.tipo_entidade.replace(/_/g, ' ')}${c.quantidade ? ` • ${c.quantidade} itens` : ''}</p>` : ''}
+              </div>
+              <span class="font-mono font-bold text-red-400 whitespace-nowrap text-xs">
+                ${window.formatCurrencyBR(c.valor)}
+              </span>
+            </div>
+          `;
+        }).join('');
       }
 
       // Tabela de Faturas Auditadas a Receber
       const tbodyReceber = document.getElementById('tabela-receber-futuro-corpo');
       if (tbodyReceber && d.faturas_receber_detalhadas) {
-        tbodyReceber.innerHTML = d.faturas_receber_detalhadas.map(f => `
-          <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-2.5">
-              <p class="font-bold text-slate-200 truncate max-w-[140px]">${f.cliente}</p>
-              <p class="text-[10px] text-cyan-400 font-mono">PO: ${f.po || '-'}</p>
-            </td>
-            <td class="p-2.5 whitespace-nowrap">
-              <p class="font-mono font-bold text-slate-300">#${f.orcamento}</p>
-              <p class="text-[10px] text-slate-500">NF: ${f.nf || '-'}</p>
-            </td>
-            <td class="p-2.5 font-mono text-slate-300 whitespace-nowrap">${f.vencimento || '-'}</td>
-            <td class="p-2.5 text-right font-mono font-bold text-emerald-400 whitespace-nowrap">
-              R$ ${Number(f.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-            </td>
-          </tr>
-        `).join('');
+        tbodyReceber.innerHTML = d.faturas_receber_detalhadas.map(f => {
+          const nfNumero = f.numero_nota ? `NF #${f.numero_nota}` : (f.nf ? `NF #${f.nf}` : 'NF Pendente');
+          const parc = f.numero_duplicata ? `Parc. ${f.numero_duplicata}` : '';
+          const dataVenc = f.data_vencimento ? window.formatDateBR(f.data_vencimento) : (f.vencimento ? window.formatDateBR(f.vencimento) : '-');
+
+          return `
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-2.5">
+                <p class="font-bold text-slate-200 truncate max-w-[140px]" title="${f.cliente}">${f.cliente}</p>
+                <p class="text-[10px] text-cyan-400 font-mono">${f.cnpj ? window.formatCnpjBR(f.cnpj) : (f.po ? `PO: ${f.po}` : '-')}</p>
+              </td>
+              <td class="p-2.5 whitespace-nowrap">
+                <p class="font-mono font-bold text-slate-300">${nfNumero}</p>
+                ${parc ? `<p class="text-[10px] text-slate-500">${parc}</p>` : ''}
+              </td>
+              <td class="p-2.5 font-mono text-slate-300 whitespace-nowrap">${dataVenc}</td>
+              <td class="p-2.5 text-right font-mono font-bold text-emerald-400 whitespace-nowrap">
+                ${window.formatCurrencyBR(f.valor)}
+              </td>
+            </tr>
+          `;
+        }).join('');
       }
     }
 
@@ -2983,7 +3130,7 @@ window.renderDreRealData = async function() {
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div>
           <h2 class="text-xl font-semibold text-slate-100 tracking-tight">Demonstração do Resultado do Exercício (DRE)</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Apuração contábil e margens operacionais calculadas a partir de notas e extratos</p>
+          <p class="text-xs text-slate-400 mt-0.5">Apuração contábil auditada e margens operacionais calculadas a partir de NF-e, NFS-e e extratos bancários</p>
         </div>
         <span class="text-xs font-mono text-cyan-400 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
           Exercício 2026
@@ -3000,10 +3147,33 @@ window.renderDreRealData = async function() {
   try {
     const res = await window.apiService.getDreConsolidada();
     if (!res.success || !res.data) return;
-    const { dre } = res.data;
+
+    window.tratarOrigemContingencia(res);
 
     const box = document.getElementById('dre-conteudo');
     if (!box) return;
+
+    if (res.data.sem_dados) {
+      box.innerHTML = `
+        <div class="p-8 text-center text-slate-400 space-y-2">
+          <i class="ph ph-receipt-x text-4xl text-slate-500"></i>
+          <h3 class="text-base font-semibold text-slate-200">Sem Movimentação Contábil no Período</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">Nenhuma nota fiscal emitida/recebida ou lançamento financeiro registrado para o intervalo selecionado.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const { dre } = res.data;
+    const margemBrutaStr = dre.margem_bruta_pct !== null && dre.margem_bruta_pct !== undefined ? `${dre.margem_bruta_pct.toFixed(1)}%` : '—';
+    const margemEbitdaStr = dre.margem_ebitda_pct !== null && dre.margem_ebitda_pct !== undefined ? `${dre.margem_ebitda_pct.toFixed(1)}%` : '—';
+
+    const produtosVal = Number(dre.receita_bruta.vendas_produtos || 0);
+    const servicosVal = Number(dre.receita_bruta.servicos_prestados || 0);
+
+    const deducaoBadge = dre.deducoes.base_tributaria_disponivel
+      ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">${dre.deducoes.notas_com_imposto_destacado} nota(s) com imposto destacado</span>`
+      : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-500/20 text-slate-400 border border-slate-500/30">Sem imposto destacado nas notas</span>`;
 
     box.innerHTML = `
       <div class="space-y-3 font-sans">
@@ -3011,21 +3181,24 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/5">
           <div>
             <span class="text-sm font-bold text-slate-100">(+) RECEITA OPERACIONAL BRUTA</span>
-            <p class="text-xs text-slate-400">Vendas de Baterias (R$ ${dre.receita_bruta.vendas_baterias.toLocaleString('pt-BR', {minimumFractionDigits: 2})}) + Serviços Subsea</p>
+            <p class="text-xs text-slate-400">Vendas de Produtos (${window.formatCurrencyBR(produtosVal)}) + Serviços (${window.formatCurrencyBR(servicosVal)}) • ${dre.receita_bruta.qtd_notas || 0} NFs</p>
           </div>
           <span class="text-base font-mono font-bold text-emerald-400">
-            R$ ${dre.receita_bruta.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            ${window.formatCurrencyBR(dre.receita_bruta.total)}
           </span>
         </div>
 
         <!-- 2. Deduções -->
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/5 pl-8">
           <div>
-            <span class="text-xs font-semibold text-rose-300">(-) DEDUÇÕES E IMPOSTOS SOBRE VENDAS</span>
-            <p class="text-[11px] text-slate-500">${dre.deducoes.descricao}</p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-rose-300">(-) DEDUÇÕES E IMPOSTOS SOBRE VENDAS</span>
+              ${deducaoBadge}
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5">${dre.deducoes.descricao}</p>
           </div>
           <span class="text-sm font-mono font-semibold text-rose-400">
-            - R$ ${dre.deducoes.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            - ${window.formatCurrencyBR(dre.deducoes.total)}
           </span>
         </div>
 
@@ -3033,7 +3206,7 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
           <span class="text-sm font-bold text-cyan-300">(=) RECEITA OPERACIONAL LÍQUIDA</span>
           <span class="text-base font-mono font-bold text-cyan-300">
-            R$ ${dre.receita_liquida.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            ${window.formatCurrencyBR(dre.receita_liquida)}
           </span>
         </div>
 
@@ -3041,10 +3214,10 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/5 pl-8">
           <div>
             <span class="text-xs font-semibold text-rose-300">(-) CUSTO DAS MERCADORIAS VENDIDAS (CMV)</span>
-            <p class="text-[11px] text-slate-500">${dre.custos_operacionais.descricao}</p>
+            <p class="text-[11px] text-slate-500">${dre.custos_operacionais.descricao} (${dre.custos_operacionais.qtd_notas_compra || 0} compras)</p>
           </div>
           <span class="text-sm font-mono font-semibold text-rose-400">
-            - R$ ${dre.custos_operacionais.cmv_total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            - ${window.formatCurrencyBR(dre.custos_operacionais.cmv_total)}
           </span>
         </div>
 
@@ -3052,10 +3225,10 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
           <div>
             <span class="text-sm font-bold text-emerald-300">(=) LUCRO BRUTO / MARGEM DE CONTRIBUIÇÃO</span>
-            <span class="ml-2 text-xs font-mono font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/20">Margem: ${dre.margem_bruta}</span>
+            <span class="ml-2 text-xs font-mono font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/20">Margem: ${margemBrutaStr}</span>
           </div>
           <span class="text-base font-mono font-bold text-emerald-300">
-            R$ ${dre.lucro_bruto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            ${window.formatCurrencyBR(dre.lucro_bruto)}
           </span>
         </div>
 
@@ -3063,10 +3236,10 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/5 pl-8">
           <div>
             <span class="text-xs font-semibold text-rose-300">(-) DESPESAS OPERACIONAIS & ADMINISTRATIVAS</span>
-            <p class="text-[11px] text-slate-500">Serviços Terceiros PJ (R$ ${dre.despesas_operacionais.servicos_terceiros_pj.toLocaleString('pt-BR', {minimumFractionDigits: 2})}) + Tarifas Bancárias OFX</p>
+            <p class="text-[11px] text-slate-500">Serviços Terceiros PJ (${window.formatCurrencyBR(dre.despesas_operacionais.servicos_terceiros_pj || 0)}) + Tarifas Bancárias OFX (${window.formatCurrencyBR(dre.despesas_operacionais.despesas_bancarias_tarifas || 0)})</p>
           </div>
           <span class="text-sm font-mono font-semibold text-rose-400">
-            - R$ ${dre.despesas_operacionais.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            - ${window.formatCurrencyBR(dre.despesas_operacionais.total)}
           </span>
         </div>
 
@@ -3074,10 +3247,22 @@ window.renderDreRealData = async function() {
         <div class="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30">
           <div>
             <span class="text-base font-bold text-white">(=) EBITDA / RESULTADO OPERACIONAL</span>
-            <span class="ml-2 text-xs font-mono font-bold text-purple-300 px-2 py-0.5 rounded bg-purple-500/20">Margem EBITDA: ${dre.margem_ebitda}</span>
+            <span class="ml-2 text-xs font-mono font-bold text-purple-300 px-2 py-0.5 rounded bg-purple-500/20">Margem EBITDA: ${margemEbitdaStr}</span>
           </div>
           <span class="text-xl font-mono font-extrabold text-white">
-            R$ ${dre.ebitda.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            ${window.formatCurrencyBR(dre.ebitda)}
+          </span>
+        </div>
+
+        <!-- 8. Lucro Líquido Real / Parcial -->
+        <div class="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30">
+          <div>
+            <span class="text-base font-bold text-white">(=) LUCRO LÍQUIDO DO EXERCÍCIO</span>
+            <span class="ml-2 text-xs font-mono font-bold text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/20">Resultado Líquido</span>
+            <p class="text-[10px] text-slate-400 mt-0.5">* Apuração pós-tributos do período. Depreciação e amortização não consolidadas.</p>
+          </div>
+          <span class="text-xl font-mono font-extrabold text-emerald-400">
+            ${window.formatCurrencyBR(dre.lucro_liquido || 0)}
           </span>
         </div>
       </div>
@@ -3871,5 +4056,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeLink = document.querySelector('.nav-link.bg-cyan-500\\/10');
     const activeRoute = activeLink ? activeLink.dataset.route : 'dashboard';
     if (activeRoute === 'dashboard') window.renderDashboardRealData();
+    else if (activeRoute === 'produtos') window.renderProdutosRealData();
+    else if (activeRoute === 'orcamento_master') window.renderOrcamentosRealData();
+    else if (activeRoute === 'crm') window.renderCrmRealData();
+    else if (activeRoute === 'financeiro') window.renderFluxoCaixaRealData();
+    else if (activeRoute === 'notas_fiscais') window.renderNotasFiscaisRealData();
+    else if (activeRoute === 'contabilidade') window.renderDreRealData();
+    else if (activeRoute === 'controladoria') window.renderControladoriaRealData();
   });
 });

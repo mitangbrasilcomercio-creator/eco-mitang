@@ -1,0 +1,100 @@
+<!-- automacoes.html - Centro de Automações & Processos em Background -->
+<div class="space-y-6 animate-fade-in">
+    <!-- Header Executivo -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
+        <div>
+            <h2 class="text-xl font-semibold text-slate-100 tracking-tight flex items-center gap-2">
+                <i class="ph ph-cpu text-cyan-400"></i> Automações & Motores em Background
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Sincronização de espelho local, enriquecimento CNPJ em cascata e rotinas de conciliação</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Sistema Operacional Ativo
+            </span>
+        </div>
+    </div>
+
+    <!-- Lista de Automações Ativas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card 1: Espelho Local -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="ph-fill ph-database text-xl text-cyan-400"></i>
+                        <h3 class="text-sm font-semibold text-slate-200">Local Mirror (Alta Disponibilidade)</h3>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">Ativo (Sub-5ms)</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">
+                    Sincronização em memória e espelhamento em contingência de 7 tabelas críticas contra interrupções de conexão.
+                </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Tabelas espelhadas: 7</span>
+                <span class="font-mono text-cyan-400">1.324 OFX • 172 NFs</span>
+            </div>
+        </div>
+
+        <!-- Card 2: Enriquecimento CNPJ -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="ph-fill ph-buildings text-xl text-indigo-400"></i>
+                        <h3 class="text-sm font-semibold text-slate-200">Motor de Enriquecimento CNPJ</h3>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-cyan-500/20 text-cyan-400">Cascata Ativa</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">
+                    Consulta automática em cascata (BrasilAPI &rarr; Minha Receita &rarr; ReceitaWS) com cache resiliente e respeito a rate-limits.
+                </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Contrapartes enriquecidas: 182</span>
+                <span class="font-mono text-emerald-400">100% Auditados</span>
+            </div>
+        </div>
+
+        <!-- Card 3: Ingestor Fiscal -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="ph-fill ph-file-code text-xl text-amber-400"></i>
+                        <h3 class="text-sm font-semibold text-slate-200">Ingestão Fiscal Sem Perdas</h3>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">JSONB Total</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">
+                    Parser determinístico de NF-e v4.00 e NFS-e nacional/municipal preservando todas as tags fiscais no PostgreSQL.
+                </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Notas processadas: 172</span>
+                <span class="font-mono text-slate-300">0% perda de tags</span>
+            </div>
+        </div>
+
+        <!-- Card 4: Classificador Bancário OFX -->
+        <div class="glass-panel p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="ph-fill ph-arrows-left-right text-xl text-purple-400"></i>
+                        <h3 class="text-sm font-semibold text-slate-200">Classificação Bancária Automática</h3>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">Regras Contábeis</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">
+                    Identificação de rendimentos de CDI vs varredura diária, conciliação de faturas e segregação de saídas tributárias e de folha PJ.
+                </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Classificações aplicadas: 1.385</span>
+                <span class="font-mono text-purple-300">Determinístico</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -167,6 +167,17 @@ class ApiService {
     }
   }
 
+  buildQuery(params = {}) {
+    const limpos = {};
+    for (const [k, v] of Object.entries(params)) {
+      if (v !== '' && v !== null && v !== undefined) {
+        limpos[k] = v;
+      }
+    }
+    const q = new URLSearchParams(limpos).toString();
+    return q ? `?${q}` : '';
+  }
+
   // -------------------------------------------------------------------------
   // Endpoints
   // -------------------------------------------------------------------------
@@ -175,15 +186,15 @@ class ApiService {
   }
 
   async getDashboardMetrics(params = {}) {
-    return this.request(`/dashboard/metrics?${new URLSearchParams(params)}`);
+    return this.request(`/dashboard/metrics${this.buildQuery(params)}`);
   }
 
   async getProdutos(params = {}) {
-    return this.request(`/catalogo?${new URLSearchParams(params)}`);
+    return this.request(`/catalogo${this.buildQuery(params)}`);
   }
 
   async getClientes(params = {}) {
-    return this.request(`/clientes?${new URLSearchParams(params)}`);
+    return this.request(`/clientes${this.buildQuery(params)}`);
   }
 
   async getDossieCliente(id) {
@@ -191,7 +202,7 @@ class ApiService {
   }
 
   async getOrcamentos(params = {}) {
-    return this.request(`/orcamentos?${new URLSearchParams(params)}`);
+    return this.request(`/orcamentos${this.buildQuery(params)}`);
   }
 
   async getOrcamentoDetalhe(numero) {
@@ -203,11 +214,11 @@ class ApiService {
   }
 
   async getTransacoesFinanceiras(params = {}) {
-    return this.request(`/financeiro/transacoes?${new URLSearchParams(params)}`);
+    return this.request(`/financeiro/transacoes${this.buildQuery(params)}`);
   }
 
   async getNotasFiscais(params = {}) {
-    return this.request(`/faturamento/notas?${new URLSearchParams(params)}`);
+    return this.request(`/faturamento/notas${this.buildQuery(params)}`);
   }
 
   async getNotaFiscal(id) {
@@ -215,19 +226,19 @@ class ApiService {
   }
 
   async getResumoCaixa(params = {}) {
-    return this.request(`/financeiro/resumo-caixa?${new URLSearchParams(params)}`);
+    return this.request(`/financeiro/resumo-caixa${this.buildQuery(params)}`);
   }
 
   async getDreConsolidada(params = {}) {
-    return this.request(`/contabilidade/dre?${new URLSearchParams(params)}`);
+    return this.request(`/contabilidade/dre${this.buildQuery(params)}`);
   }
 
   async getContasAPagar(params = {}) {
-    return this.request(`/financeiro/contas-a-pagar?${new URLSearchParams(params)}`);
+    return this.request(`/financeiro/contas-a-pagar${this.buildQuery(params)}`);
   }
 
   async getProjecaoFutura(params = {}) {
-    return this.request(`/financeiro/projecao-futura?${new URLSearchParams(params)}`);
+    return this.request(`/financeiro/projecao-futura${this.buildQuery(params)}`);
   }
 
   async getCategoriasFinanceiras() {
