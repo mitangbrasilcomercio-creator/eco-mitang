@@ -78,13 +78,38 @@ function listarMigrations() {
     .map((nome) => {
       let sql = fs.readFileSync(path.join(DIR, nome), 'utf8');
       if (sql.charCodeAt(0) === 0xfeff) sql = sql.slice(1); // remove BOM UTF-8
+      sql = sql.trim();
+
+      // [ERRO ANTERIOR 5]: o hash era do conteudo cru. No Windows os arquivos
+      // ficam com CRLF e no CI com LF, entao o MESMO arquivo produzia dois
+      // hashes -- e o executor acusava 'ALTERADA' em migration que ninguem
+      // tocou, a cada clone.
+      // [CORRECAO]: hash sobre a versao normalizada em LF. 'hashBruto' fica so
+      // para reconhecer ledger antigo e atualiza-lo (ver reconciliarHash).
+      const normalizado = sql.split('\r\n').join('\n');
       return {
         nome,
         versao: parseInt(nome, 10),
-        sql: sql.trim(),
-        hash: crypto.createHash('sha256').update(sql.trim()).digest('hex'),
+        sql,
+        hash: crypto.createHash('sha256').update(normalizado).digest('hex'),
+        hashBruto: crypto.createHash('sha256').update(sql).digest('hex'),
       };
     });
+}
+
+/**
+ * Ledger gravado antes da normalizacao guarda o hash do conteudo cru. Quando o
+ * hash antigo bate, e o mesmo arquivo com outro fim de linha: a linha e
+ * atualizada para o hash normalizado, em silencio e uma unica vez.
+ *
+ * Um arquivo de fato alterado nao bate com nenhum dos dois, entao esta
+ * reconciliacao nao mascara mudanca real -- que continua sendo denunciada.
+ */
+async function reconciliarHash(client, m, hashAplicado) {
+  if (hashAplicado !== m.hashBruto) return false;
+  await client.query('UPDATE schema_migrations SET hash = $2 WHERE nome = $1;', [m.nome, m.hash]);
+  console.log(`  [ normaliza ] ${m.nome}  <-- mesmo conteudo, fim de linha diferente`);
+  return true;
 }
 
 async function main() {
@@ -128,6 +153,11 @@ async function main() {
         console.log(`  [ PENDENTE ] ${m.nome}`);
         pendentes++;
       } else if (hashAplicado !== m.hash) {
+        if (!somenteStatus && (await reconciliarHash(client, m, hashAplicado))) continue;
+        if (somenteStatus && hashAplicado === m.hashBruto) {
+          console.log(`  [ normaliza ] ${m.nome}  <-- so o fim de linha difere`);
+          continue;
+        }
         console.log(`  [ ALTERADA ] ${m.nome}  <-- ja aplicada, mas o conteudo mudou`);
         alteradas++;
       } else {

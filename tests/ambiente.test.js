@@ -157,7 +157,9 @@ test('toda migration do repositorio ja passou em homologacao', () => {
   const migrations = arquivos.map((nome) => {
     let sql = fs.readFileSync(path.join(dir, nome), 'utf8');
     if (sql.charCodeAt(0) === 0xfeff) sql = sql.slice(1);
-    sql = sql.trim();
+    // Mesma normalizacao do executor: o hash nao pode depender do fim de linha
+    // com que o arquivo foi baixado. Ver [ERRO ANTERIOR 5] em scripts/migrate.js.
+    sql = sql.trim().split('\r\n').join('\n');
     return { nome, hash: crypto.createHash('sha256').update(sql).digest('hex') };
   });
 
