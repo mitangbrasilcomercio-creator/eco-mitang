@@ -19,21 +19,8 @@
  */
 const bcrypt = require('bcryptjs');
 const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
 const crypto = require('crypto');
-require('dotenv').config();
-
-const CA_PATH = path.join(__dirname, '..', 'database', 'certs', 'supabase-ca.crt');
-
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
+const ambiente = require('./lib/ambiente');
 
 function arg(nome, padrao = null) {
   const i = process.argv.indexOf('--' + nome);
@@ -84,9 +71,11 @@ async function main() {
     process.exit(1);
   }
 
-  const connectionString =
-    process.env.MIGRATION_DATABASE_URL || process.env.APP_DATABASE_URL || process.env.DIRECT_URL;
-  const client = new Client({ connectionString, ssl: sslConfig(), connectionTimeoutMillis: 30000 });
+  const ctx = ambiente.resolver({ papel: 'migration' });
+  ambiente.banner(ctx, 'Criacao de usuario');
+  await ambiente.confirmarSeProducao(ctx, { operacao: 'criar/alterar um usuario com acesso ao sistema' });
+
+  const client = new Client(ctx.configCliente());
   await client.connect();
 
   try {

@@ -1,0 +1,47 @@
+# =============================================================================
+# BANCO DE HOMOLOGACAO -- PostgreSQL local, descartavel
+# =============================================================================
+#
+# [ERRO ANTERIOR]
+# Todo o desenvolvimento acontecia contra o Supabase de producao. 'db:migrate'
+# e 'db:reingest' rodavam direto nos dados reais, sem rede de protecao. Um
+# TRUNCATE mal calibrado ja apagou 75 duplicatas de nota fiscal nesta base.
+#
+# [CORRECAO]
+# Este container e o alvo padrao de todo script de banco. Producao passou a
+# exigir escolha explicita ('--producao') e confirmacao digitada.
+#
+# Producao roda PostgreSQL 17.6 -- a imagem abaixo acompanha a versao maior,
+# senao um 'pg_dump' de producao nao restaura aqui.
+#
+#   docker compose -f docker-compose.homologacao.yml up -d
+#   npm run homolog:preparar
+# =============================================================================
+services:
+  homologacao:
+    image: postgres:17
+    container_name: eco-mitang-homologacao
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: homologacao
+      POSTGRES_DB: eco_mitang
+    # 5433 no host: nao briga com um PostgreSQL local em 5432.
+    ports:
+      - '5433:5432'
+    volumes:
+      - eco-mitang-homologacao:/var/lib/postgresql/data
+      # Recria os papeis do PostgREST que a Supabase fornece, para que a
+      # migration que fecha o acesso deles seja testavel aqui. Roda so na
+      # criacao do volume.
+      - ./database/homologacao/00_papeis_supabase.sql:/docker-entrypoint-initdb.d/00_papeis_supabase.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d eco_mitang']
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  eco-mitang-homologacao:
+    name: eco-mitang-homologacao

@@ -23,35 +23,53 @@
  * 4. Usa MIGRATION_DATABASE_URL (papel privilegiado). A aplicacao usa
  *    APP_DATABASE_URL (papel 'eco_app', sem BYPASSRLS).
  *
+ * [ERRO ANTERIOR 4]:
+ *    O alvo era sempre producao. Nao havia escolha, aviso nem etapa
+ *    intermediaria: escrever a migration e aplica-la nos dados reais da
+ *    empresa eram o mesmo gesto.
+ *
+ * [COMO FOI CORRIGIDO 4]:
+ *    O alvo padrao passou a ser homologacao (scripts/lib/ambiente.js).
+ *    Producao exige '--producao', confirmacao digitada, backup previo, e que
+ *    cada migration pendente ja tenha passado em homologacao com o mesmo hash
+ *    (database/homologado.json).
+ *
  * Uso:
- *   node scripts/migrate.js              aplica as pendentes
- *   node scripts/migrate.js --status     so mostra o estado
- *   node scripts/migrate.js --baseline   marca as existentes como aplicadas
- *                                        sem executar (adocao de banco legado)
+ *   node scripts/migrate.js                 aplica as pendentes em HOMOLOGACAO
+ *   node scripts/migrate.js --producao      aplica em producao (com travas)
+ *   node scripts/migrate.js --status        so mostra o estado
+ *   node scripts/migrate.js --baseline      marca as existentes como aplicadas
+ *                                           sem executar (adocao de banco legado)
+ *   Escapes, para quando o operador sabe o que esta fazendo:
+ *     --sem-backup           pula o dump previo de producao
+ *     --sem-homologacao      aplica em producao sem prova de homologacao
  * ============================================================================
  */
 const { Client } = require('pg');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-require('dotenv').config();
+const ambiente = require('./lib/ambiente');
+const homologado = require('./lib/homologado');
+const backup = require('./lib/backup');
 
 const DIR = path.join(__dirname, '..', 'database');
-const CA_PATH = path.join(DIR, 'certs', 'supabase-ca.crt');
 
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
-
+/**
+ * Nome valido: '<numero>[letra]_<descricao>.sql'.
+ *
+ * A letra opcional existe para inserir uma migration ENTRE duas ja aplicadas
+ * sem renumerar as posteriores -- foi o que '11a_item_catalogo_eav.sql'
+ * precisou, porque a 12 tem uma FK para uma tabela que ele cria. Sem esse
+ * sufixo a unica saida seria criar uma colisao de numeracao, que e a origem
+ * do [ERRO ANTERIOR 1] la em cima.
+ *
+ * A ordenacao usa o numero; entre nomes de mesmo numero, a ordem alfabetica.
+ */
 function listarMigrations() {
   return fs
     .readdirSync(DIR)
-    .filter((f) => /^\d+_.*\.sql$/.test(f))
+    .filter((f) => /^\d+[a-z]?_.*\.sql$/.test(f))
     .sort((a, b) => {
       const na = parseInt(a, 10);
       const nb = parseInt(b, 10);
@@ -74,15 +92,13 @@ async function main() {
   const somenteStatus = args.includes('--status');
   const baseline = args.includes('--baseline');
 
-  const connectionString =
-    process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL || process.env.DATABASE_URL;
-  if (!connectionString) {
-    console.error('[ERRO] Defina MIGRATION_DATABASE_URL no .env.');
-    process.exit(1);
-  }
+  const ctx = ambiente.resolver({ papel: 'migration', args });
+  ambiente.banner(ctx, somenteStatus ? 'Migrations (consulta)' : 'Migrations');
 
-  const client = new Client({ connectionString, ssl: sslConfig(), connectionTimeoutMillis: 30000 });
+  const client = new Client(ctx.configCliente());
   await client.connect();
+
+  const versaoPg = (await client.query('SHOW server_version')).rows[0].server_version;
 
   try {
     await client.query(`
@@ -148,9 +164,54 @@ async function main() {
       return;
     }
 
-    for (const m of migrations) {
-      if (aplicadas.has(m.nome)) continue;
+    const aAplicar = migrations.filter((m) => !aplicadas.has(m.nome));
 
+    // -----------------------------------------------------------------------
+    // Travas de producao. Nenhuma delas roda em homologacao: la a base e
+    // descartavel, e friccao sem risco so ensina a confirmar no automatico.
+    // -----------------------------------------------------------------------
+    if (ctx.ehProducao && aAplicar.length > 0) {
+      const semProva = homologado.naoProvadas(aAplicar);
+
+      if (semProva.length > 0 && !args.includes('--sem-homologacao')) {
+        console.error('[BLOQUEADO] Migration sem prova de homologacao:\n');
+        for (const p of semProva) console.error(`  ${p.nome}  --  ${p.motivo}`);
+        console.error(
+          '\n  Rode primeiro em homologacao:\n' +
+            '      npm run homolog:preparar\n' +
+            '      npm run db:migrate\n\n' +
+            '  Isso registra o hash em database/homologado.json e libera producao.\n' +
+            '  Para pular conscientemente: --sem-homologacao\n'
+        );
+        await client.end();
+        process.exit(1);
+      }
+
+      if (semProva.length > 0) {
+        console.log('[AVISO] --sem-homologacao: aplicando em producao sem prova previa.\n');
+      }
+
+      await ambiente.confirmarSeProducao(ctx, {
+        operacao: `aplicar ${aAplicar.length} migration(s)`,
+        args
+      });
+
+      if (!args.includes('--sem-backup')) {
+        process.stdout.write('Backup de producao antes de aplicar ... ');
+        const r = backup.dumpar(ctx, 'antes-de-migrate');
+        if (!r.ok) {
+          console.log('FALHOU');
+          console.error(`\n[BLOQUEADO] ${r.erro}\n`);
+          console.error('  Sem backup nao ha como desfazer. Corrija, ou use --sem-backup\n');
+          await client.end();
+          process.exit(1);
+        }
+        console.log(`OK (${(r.bytes / 1024).toFixed(0)} KB)`);
+        console.log(`         ${path.relative(process.cwd(), r.arquivo)}\n`);
+      }
+    }
+
+    for (const m of aAplicar) {
       process.stdout.write(`Aplicando ${m.nome} ... `);
       const t0 = Date.now();
       try {
@@ -162,6 +223,9 @@ async function main() {
         );
         await client.query('COMMIT');
         console.log(`OK (${Date.now() - t0}ms)`);
+
+        // A prova so e emitida por quem tem o direito de emiti-la: homologacao.
+        if (!ctx.ehProducao) homologado.registrar(m.nome, m.hash, versaoPg);
       } catch (err) {
         await client.query('ROLLBACK');
         console.log('FALHOU');

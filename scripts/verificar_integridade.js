@@ -10,20 +10,7 @@
  * ============================================================================
  */
 const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config();
-
-const CA_PATH = path.join(__dirname, '..', 'database', 'certs', 'supabase-ca.crt');
-
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
+const ambiente = require('./lib/ambiente');
 
 const brl = (n) =>
   Number(n).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -38,11 +25,10 @@ function registrar(nome, ok, detalhe) {
 async function main() {
   // Usa o papel privilegiado: a auditoria precisa enxergar TODOS os tenants,
   // inclusive linhas orfas que a RLS esconderia de qualquer usuario.
-  const client = new Client({
-    connectionString: process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL,
-    ssl: sslConfig(),
-    connectionTimeoutMillis: 30000
-  });
+  const ctx = ambiente.resolver({ papel: 'migration' });
+  ambiente.banner(ctx, 'Verificacao de integridade (somente leitura)');
+
+  const client = new Client(ctx.configCliente());
   await client.connect();
 
   console.log('======================================================================');

@@ -1,0 +1,107 @@
+{
+  "01_schema_multi_tenant.sql": {
+    "hash": "f9f88e72457211e2fda767565386b82cbce6005e4938b570b96f4b7a4326da37",
+    "provada_em": "2026-08-31T00:41:18.311Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "02_catalogo_universal.sql": {
+    "hash": "4b63cc18cf5b8382954fd5916754a022d046f89712d9d7211d3aba4a7e42508f",
+    "provada_em": "2026-08-31T00:41:18.319Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "03_tickets_triagem.sql": {
+    "hash": "0e4707ae7758f55b1a13e691eab324d6e250fa034475e0c9f8ea617e75fb410b",
+    "provada_em": "2026-08-31T00:41:18.326Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "04_cotacoes.sql": {
+    "hash": "07274c501cea3780e419534ec5ace78631bc8438388558c56da8773ae429a16d",
+    "provada_em": "2026-08-31T00:41:18.334Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "05_ordens_servico.sql": {
+    "hash": "a746e3f763327fd7404b76a74c0ce421cc719e6e5bb24830a7d02629c025d4fc",
+    "provada_em": "2026-08-31T00:41:18.341Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "06_execucao_operacional.sql": {
+    "hash": "ddf55a53f2468f90370759e056495a577afd26e72a7e16412e82a8a903aa996c",
+    "provada_em": "2026-08-31T00:41:18.350Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "07_financeiro_receber.sql": {
+    "hash": "0705a664fb97af235105b83d45afa6c3a6a1b07e20f3c4c498f9698d496e2d25",
+    "provada_em": "2026-08-31T00:41:18.357Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "08_qsms_auditoria.sql": {
+    "hash": "78b82e30ac19e0212da0f44fe15046ea3be945b1abf00071a642eed7692790cb",
+    "provada_em": "2026-08-31T00:41:18.366Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "09_analytics_cqrs.sql": {
+    "hash": "c86e294f227df23e074b04af50e6ad5957c71590059697755097db261dbc2cf7",
+    "provada_em": "2026-08-31T00:41:18.372Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "10_clientes_historico.sql": {
+    "hash": "3d0951fb71038d16be1100c76699be227a90370d0aa17a4b8b20fe1c57d51288",
+    "provada_em": "2026-08-31T00:41:18.379Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "11_extratos_ofx_conciliacao.sql": {
+    "hash": "e8f103a8fa99f334796657a251a4824b2565d3803287ff181934f42677a333b6",
+    "provada_em": "2026-08-31T00:41:18.389Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "11a_item_catalogo_eav.sql": {
+    "hash": "354540d88c48fdaefa7dcb5576b7709212c56e38b11e9def4395774cbed60923",
+    "provada_em": "2026-08-31T00:41:18.399Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "12_nfe_nfse_xml_armazenamento.sql": {
+    "hash": "7ecc8db678e17f2ad4f583f4e76782deb5a322dc263a7707274b6ded4c250f8e",
+    "provada_em": "2026-08-31T00:41:18.409Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "13_baterias_e_orcamentos_historico.sql": {
+    "hash": "1d19273d1418dbb6ea828b0c8bc759e5dcb4a880962827dd238591d0a18676ec",
+    "provada_em": "2026-08-31T00:41:18.415Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "20_auth_usuarios.sql": {
+    "hash": "4e0511e23a862901dec3b8742241eb65d8e66accc50029a2a94378eaf7804c9c",
+    "provada_em": "2026-08-31T00:41:18.423Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "21_rls_correcao.sql": {
+    "hash": "d06a3d449d29bdfda5a882b9147be712378ddcb4cba73ee5b6f96b456c4c703c",
+    "provada_em": "2026-08-31T00:41:18.440Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "22_parceiros_e_obrigacoes.sql": {
+    "hash": "ba649dd0e5287b87061d7dab875127068f57ea29a381970d4e87b22fc6535c24",
+    "provada_em": "2026-08-31T00:41:18.452Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "23_constraints_integridade.sql": {
+    "hash": "5c0e5dd1cf22d5a7274d1ab4e338719ed93b9df466d04e8717b6cac72f85be44",
+    "provada_em": "2026-08-31T00:41:18.459Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "24_politica_empresas_diretorio.sql": {
+    "hash": "326085bc59ea4023a14c613136d920512b425327be02bded8614e4e37a19411a",
+    "provada_em": "2026-08-31T00:41:18.464Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "25_trigger_tenant_security_definer.sql": {
+    "hash": "ba8c976482a33685b29cd71fdb1707297ba7b8cd2fa650b867fbb1f8fae6745b",
+    "provada_em": "2026-08-31T00:41:18.469Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "26_fecha_superficie_postgrest.sql": {
+    "hash": "7a468111ecff8e615f34b27d56ffc594db4cee462e6017684fd0296661169c24",
+    "provada_em": "2026-08-31T00:41:18.479Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  }
+}

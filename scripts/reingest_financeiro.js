@@ -28,10 +28,9 @@
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
-require('dotenv').config();
+const ambiente = require('./lib/ambiente');
 
 const RAIZ = path.join(__dirname, '..');
-const CA_PATH = path.join(RAIZ, 'database', 'certs', 'supabase-ca.crt');
 const DIR_OFX = path.join(RAIZ, 'Arquivos_Reais_Para_A_IA_Usar_Como_Parametro', 'Extratos Bancários OFX');
 const DIR_XML = path.join(RAIZ, 'Arquivos_Reais_Para_A_IA_Usar_Como_Parametro', 'NFe e NFSe');
 const DIR_BACKUP = path.join(RAIZ, 'database', 'backups');
@@ -39,14 +38,6 @@ const DIR_BACKUP = path.join(RAIZ, 'database', 'backups');
 const dryRun = process.argv.includes('--dry-run');
 const semBackup = process.argv.includes('--sem-backup');
 
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
 
 const brl = (n) => Number(n).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -102,11 +93,12 @@ async function main() {
   }
   console.log('');
 
-  const client = new Client({
-    connectionString: process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL,
-    ssl: sslConfig(),
-    connectionTimeoutMillis: 30000
-  });
+  const ctx = ambiente.resolver({ papel: 'migration' });
+  ambiente.banner(ctx, 'Re-ingestao financeira (OFX + XML)');
+
+  await ambiente.confirmarSeProducao(ctx, { operacao: 'apagar e recarregar transacoes bancarias e notas fiscais' });
+
+  const client = new Client(ctx.configCliente());
   await client.connect();
 
   try {
