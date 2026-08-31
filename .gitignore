@@ -20,3 +20,6 @@ cnpj_data.json
 # Canvas de design: artefato gerado a partir dos .dc.html
 design/*.html
 !design/*.dc.html
+
+# Planilhas originais baixadas do Drive: fonte, nao versionar
+local/

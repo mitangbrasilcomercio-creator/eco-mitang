@@ -16,7 +16,7 @@
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 1100,
+      "h": 1270,
       "title": "Criar orçamento",
       "is_interactive": true
     },
@@ -63,9 +63,9 @@
       "id": "nota-orcamento",
       "page": "page-1",
       "x": 0,
-      "y": -190,
+      "y": -230,
       "w": 460,
-      "text": "Desconto por item, nao global: 5% no pack, 10% na pilha.\nRepare que 10% na pilha machuca mais que 5% no pack -- ela nasce com margem de 28%, o pack com 44%.\nLigue e desligue a urgencia, e mexa nos 25%."
+      "text": "Desconto por item: 5% no pack, 10% na pilha. A pilha nasce com 28% de margem e o pack com 44% -- por isso 10% nela ja pede alcada.\n\nNo bloco de FRETE ficam as duas escolhas que voce descreveu: valor unico rateado ou por caixa, e se o desconto alcanca o frete ou nao. A diferenca entre as duas bases aparece em reais, do lado."
     },
     {
       "id": "nota-ingestao",
