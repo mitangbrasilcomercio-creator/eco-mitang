@@ -1,3 +1,18 @@
+> ⚠️ **ESTE DOCUMENTO ESTÁ DESATUALIZADO — 27/08/2026.**
+>
+> Muita coisa mudou depois desta data e não foi refletida aqui: os nomes e CNPJ
+> de duas das quatro empresas, as contas bancárias (agência e conta estavam
+> grudadas num campo só), o `valor_total` de 5 orçamentos, e cinco migrations.
+> A afirmação de "Carga 100% Real Ativa" não descreve o estado atual.
+>
+> **Para o estado real e os próximos passos, leia [`ROADMAP.md`](ROADMAP.md).**
+>
+> Aviso acrescentado pelo Claude Code a pedido do Diego. O conteúdo abaixo não
+> foi alterado — a atualização ou aposentadoria deste arquivo cabe ao agente de
+> frontend, que o escreveu.
+
+---
+
 # Arquitetura e Fluxo de Trabalho do Sistema (Eco-Mitang ERP)
 
 > **Documento Mestre para Desenvolvedores e Agentes de Inteligência Artificial (Antigravity, Cursor, Claude, OpenAI, Gemini)**  
