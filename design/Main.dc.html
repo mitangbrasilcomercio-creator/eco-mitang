@@ -1,0 +1,469 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: Outfit, system-ui, sans-serif; background: #F8F9FA; color: #1F2328; }
+    a { color: #1A73E8; text-decoration: none; }
+    a:hover { color: #1557B0; text-decoration: underline; }
+    .num { font-variant-numeric: tabular-nums; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; }
+    .rot { font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; }
+    .campo { width: 40px; border: none; outline: none; font-family: inherit; font-size: 13px; font-weight: 600; text-align: right; background: transparent; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; height: 1100px; background: #F8F9FA; display: flex; flex-direction: column; overflow: hidden;">
+
+  <!-- ================= TOPBAR ================= -->
+  <div style="height: 52px; background: #FFFFFF; border-bottom: 1px solid #E3E6EA; display: flex; align-items: center; padding: 0 20px; gap: 20px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 26px; height: 26px; border-radius: 6px; background: #1A73E8; display: flex; align-items: center; justify-content: center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg>
+      </div>
+      <span style="font-size: 14px; font-weight: 600; letter-spacing: -0.01em;">Eco-Mitang</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border: 1px solid #E3E6EA; border-radius: 6px; background: #fff;">
+      <span style="font-size: 13px; font-weight: 500;">Arandu Comércio</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div style="flex-grow: 1;"></div>
+    <div style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid #E3E6EA; border-radius: 6px; width: 200px; color: #5F6368;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span style="font-size: 13px;">Buscar</span>
+      <span style="flex-grow: 1;"></span>
+      <span class="mono" style="font-size: 11px; background: #F1F3F4; padding: 2px 5px; border-radius: 3px;">Ctrl K</span>
+    </div>
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: #1A73E8; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;">DR</div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; overflow: hidden;">
+
+    <!-- ================= NAV ================= -->
+    <div style="width: 176px; background: #FFFFFF; border-right: 1px solid #E3E6EA; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0;">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+        <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px; border-radius: 6px; background: {{n.bg}}; color: {{n.cor}}; font-size: 13px; font-weight: {{n.peso}};">
+          <div style="width: 15px; height: 15px; border-radius: 4px; background: {{n.ponto}};"></div>
+          <span>{{n.rotulo}}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- ================= CONTEÚDO ================= -->
+    <div style="flex-grow: 1; display: flex; flex-direction: column; overflow: hidden;">
+
+      <div style="height: 56px; background: #fff; border-bottom: 1px solid #E3E6EA; display: flex; align-items: center; padding: 0 24px; gap: 12px; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 6-6 6 6 6"/></svg>
+        <div>
+          <div style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Nova proposta comercial</div>
+          <div style="font-size: 12px; color: #5F6368;">Rascunho · <span class="mono">AR-2026/043</span> · Fugro Brasil</div>
+        </div>
+        <div style="flex-grow: 1;"></div>
+        <div style="height: 34px; padding: 0 14px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; font-size: 13px; font-weight: 500;">Pré-visualizar PDF</div>
+      </div>
+
+      <div style="flex-grow: 1; display: flex; overflow: hidden;">
+
+        <!-- ---------- ESQUERDA ---------- -->
+        <div style="width: 720px; padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; flex-shrink: 0;">
+
+          <!-- Emissora + cliente, compactos -->
+          <div style="display: flex; gap: 14px;">
+            <div style="flex-grow: 1; background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 13px 15px;">
+              <div class="rot" style="margin-bottom: 8px;">EMISSORA</div>
+              <div style="font-size: 13px; font-weight: 600;">Arandu Comércio</div>
+              <div style="font-size: 11px; color: #5F6368; margin-top: 2px;">Itaú · conta <span class="mono">•••• 5077</span></div>
+            </div>
+            <div style="flex-grow: 1; background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 13px 15px;">
+              <div class="rot" style="margin-bottom: 8px;">CLIENTE</div>
+              <div style="font-size: 13px; font-weight: 600;">Fugro Brasil Serviços Submarinos</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-top: 3px;">
+                <div style="width: 5px; height: 5px; border-radius: 50%; background: #0D8A4E;"></div>
+                <span style="font-size: 11px; color: #0D8A4E;">Ativa · 30 DDL liberado</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITENS, com desconto por item -->
+          <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 15px; flex-grow: 1; display: flex; flex-direction: column; min-height: 0;">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+              <span class="rot">ITENS · DESCONTO POR PRODUTO</span>
+              <span style="flex-grow: 1;"></span>
+              <span style="font-size: 12px; color: #1A73E8; font-weight: 500;">+ Adicionar do catálogo</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 9px;">
+              <sc-for list="{{itens}}" as="it" hint-placeholder-count="2">
+                <div style="border: 1px solid #E3E6EA; border-radius: 6px; padding: 11px 13px;">
+                  <div style="display: flex; align-items: baseline; gap: 8px;">
+                    <span class="mono" style="color: #1A73E8; font-weight: 500;">{{it.sku}}</span>
+                    <span style="font-size: 13px; font-weight: 500;">{{it.nome}}</span>
+                    <span style="flex-grow: 1;"></span>
+                    <span style="font-size: 11px; color: #5F6368;">{{it.qtd}} un × {{it.unit}}</span>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 14px; margin-top: 10px;">
+                    <div style="width: 120px;">
+                      <div style="font-size: 10px; color: #5F6368;">Valor de tabela</div>
+                      <div class="num" style="font-size: 13px; color: #5F6368; text-decoration: {{it.riscado}};">{{it.bruto}}</div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                      <span style="font-size: 11px; color: #5F6368;">desconto</span>
+                      <div style="display: flex; align-items: center; height: 28px; border: 1px solid {{it.borda}}; border-radius: 5px; padding: 0 7px; background: #fff;">
+                        <input type="number" min="0" max="90" value="{{it.desconto}}" onChange="{{it.mudar}}" class="campo num" style="color: {{it.corMargem}};" />
+                        <span style="font-size: 12px; color: #5F6368;">%</span>
+                      </div>
+                    </div>
+
+                    <div style="width: 130px;">
+                      <div style="font-size: 10px; color: #5F6368;">Valor final</div>
+                      <div class="num" style="font-size: 14px; font-weight: 600;">{{it.liquido}}</div>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+
+                    <div style="text-align: right;">
+                      <div style="font-size: 10px; color: #5F6368;">Margem</div>
+                      <div class="num" style="font-size: 13px; font-weight: 600; color: {{it.corMargem}};">{{it.margem}}%</div>
+                    </div>
+                  </div>
+
+                  <sc-if value="{{it.temDesconto}}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #F8F9FA;">
+                      <div style="width: 5px; height: 5px; border-radius: 50%; background: {{it.corMargem}};"></div>
+                      <span style="font-size: 11px; color: {{it.corMargem}};">{{it.aviso}}</span>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="flex-grow: 1;"></div>
+
+            <div style="display: flex; align-items: baseline; padding-top: 12px; margin-top: 12px; border-top: 1px solid #F1F3F4;">
+              <span style="font-size: 12px; color: #5F6368;">Desconto efetivo da proposta</span>
+              <span style="flex-grow: 1;"></span>
+              <span class="num" style="font-size: 13px; font-weight: 600; color: {{corDesconto}};">−{{descontoEfetivo}}%</span>
+            </div>
+          </div>
+
+          <!-- URGÊNCIA -->
+          <div style="background: #fff; border: 1px solid {{bordaUrgencia}}; border-radius: 8px; padding: 15px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="rot">PRAZO DE ENTREGA</span>
+              <span style="flex-grow: 1;"></span>
+              <div style="display: flex; height: 30px; background: #F1F3F4; border-radius: 6px; padding: 2px;">
+                <div onClick="{{semUrgencia}}" style="padding: 0 14px; display: flex; align-items: center; font-size: 12px; font-weight: {{pesoNormal}}; background: {{bgNormal}}; color: {{corNormal}}; border-radius: 4px; cursor: pointer;">Prazo padrão</div>
+                <div onClick="{{comUrgencia}}" style="padding: 0 14px; display: flex; align-items: center; font-size: 12px; font-weight: {{pesoUrgente}}; background: {{bgUrgente}}; color: {{corUrgente}}; border-radius: 4px; cursor: pointer;">Urgência</div>
+              </div>
+            </div>
+
+            <sc-if value="{{urgente}}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; align-items: center; gap: 14px; margin-top: 13px;">
+                <div style="flex-grow: 1;">
+                  <div style="font-size: 10px; color: #5F6368; margin-bottom: 4px;">Motivo do acréscimo</div>
+                  <div style="height: 32px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; padding: 0 10px; gap: 8px;">
+                    <span style="font-size: 12px;">Mobilização de equipe fora da escala</span>
+                    <span style="flex-grow: 1;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size: 10px; color: #5F6368; margin-bottom: 4px;">Acréscimo</div>
+                  <div style="display: flex; align-items: center; height: 32px; border: 1px solid #B06000; border-radius: 6px; padding: 0 8px; background: #fff;">
+                    <input type="number" min="0" max="200" value="{{taxaUrgencia}}" onChange="{{mudarTaxa}}" class="campo num" style="color: #B06000;" />
+                    <span style="font-size: 12px; color: #5F6368;">%</span>
+                  </div>
+                </div>
+                <div style="width: 140px;">
+                  <div style="font-size: 10px; color: #5F6368; margin-bottom: 4px;">Entrega</div>
+                  <div style="height: 32px; display: flex; align-items: center; font-size: 12px; font-weight: 500;">3 dias úteis</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 7px; margin-top: 10px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+                <span style="font-size: 11px; color: #B06000; line-height: 1.45;">A urgência aumenta o preço agora e o custo depois — hora extra, compra fora de estoque, equipe realocada. O custo real só será medido quando existir apontamento de produção.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{naoUrgente}}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 12px; color: #5F6368; margin-top: 10px;">Entrega em 20 a 25 dias úteis, conforme a faixa de volume.</div>
+            </sc-if>
+          </div>
+        </div>
+
+        <!-- ---------- DIREITA: O QUE ESTÁ SENDO OFERECIDO ---------- -->
+        <div style="flex-grow: 1; background: #fff; border-left: 1px solid #E3E6EA; display: flex; flex-direction: column; overflow: hidden;">
+
+          <div style="padding: 16px 22px 12px; border-bottom: 1px solid #F1F3F4;">
+            <div class="rot">O QUE ESTÁ SENDO OFERECIDO</div>
+          </div>
+
+          <div style="flex-grow: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+
+            <!-- Cascata do valor -->
+            <div style="display: flex; flex-direction: column;">
+              <sc-for list="{{cascata}}" as="c" hint-placeholder-count="6">
+                <div style="display: flex; align-items: baseline; padding: {{c.pad}} 0; border-top: {{c.linha}};">
+                  <div style="flex-grow: 1;">
+                    <div style="font-size: {{c.tam}}; font-weight: {{c.peso}}; color: {{c.cor}};">{{c.rotulo}}</div>
+                    <sc-if value="{{c.sub}}" hint-placeholder-val="{{ true }}">
+                      <div style="font-size: 10px; color: #9AA0A6; margin-top: 2px;">{{c.sub}}</div>
+                    </sc-if>
+                  </div>
+                  <span class="num" style="font-size: 11px; color: #9AA0A6; width: 60px; text-align: right;">{{c.pct}}</span>
+                  <span class="num" style="font-size: {{c.tam}}; font-weight: {{c.peso}}; color: {{c.corValor}}; width: 140px; text-align: right;">{{c.valor}}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Comparativo -->
+            <div style="background: #F8F9FA; border-radius: 8px; padding: 14px 16px;">
+              <div class="rot" style="margin-bottom: 11px;">SE NÃO HOUVESSE DESCONTO</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <sc-for list="{{comparativo}}" as="c" hint-placeholder-count="3">
+                  <div style="display: flex; align-items: baseline;">
+                    <span style="font-size: 12px; color: {{c.cor}}; flex-grow: 1;">{{c.rotulo}}</span>
+                    <span class="num" style="font-size: 13px; font-weight: {{c.peso}}; color: {{c.cor}};">{{c.valor}}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <!-- Margem -->
+            <div style="border: 1px solid #E3E6EA; border-radius: 8px; padding: 14px 16px;">
+              <div style="display: flex; align-items: baseline;">
+                <span style="font-size: 12px; color: #5F6368; flex-grow: 1;">Margem da proposta</span>
+                <span class="num" style="font-size: 18px; font-weight: 600; color: {{corMargemProposta}};">{{margemProposta}}%</span>
+              </div>
+              <div style="height: 6px; border-radius: 3px; background: #F1F3F4; margin-top: 9px; overflow: hidden;">
+                <div style="height: 6px; width: {{larguraMargem}}; background: {{corMargemProposta}}; border-radius: 3px;"></div>
+              </div>
+              <div style="display: flex; align-items: flex-start; gap: 6px; margin-top: 9px;">
+                <div style="width: 5px; height: 5px; border-radius: 50%; background: {{corMargemProposta}}; flex-shrink: 0; margin-top: 5px;"></div>
+                <span style="font-size: 11px; color: {{corMargemProposta}}; line-height: 1.45;">{{avisoMargem}}</span>
+              </div>
+
+              <sc-if value="{{urgente}}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; align-items: baseline; margin-top: 12px; padding-top: 11px; border-top: 1px solid #F1F3F4;">
+                  <span style="font-size: 11px; color: #9AA0A6; flex-grow: 1;">Com a urgência somada, sem descontar o custo dela</span>
+                  <span class="num" style="font-size: 13px; font-weight: 500; color: #9AA0A6;">{{margemComUrgencia}}%</span>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 7px; padding: 9px 11px; background: #FEF7E0; border-radius: 6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span style="font-size: 11px; color: #B06000; line-height: 1.45;">Margem sobre custo digitado no catálogo, não sobre estrutura de produto. Os valores acima são de faturamento — imposto sai depois, na emissão da nota.</span>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #E3E6EA; padding: 15px 22px;">
+            <div style="height: 40px; border-radius: 6px; background: {{corBotao}}; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 13px; font-weight: 600; color: #fff;">{{rotuloBotao}}</span>
+            </div>
+            <div style="display: flex; gap: 6px; margin-top: 8px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+              <span style="font-size: 11px; color: #5F6368; line-height: 1.45;">{{microCopia}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      descontos: [5, 10],
+      urgente: true,
+      taxaUrgencia: 25
+    };
+  }
+
+  brl(n) {
+    const sinal = n < 0 ? '−' : '';
+    return sinal + 'R$ ' + Math.abs(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  pct(n) {
+    return n.toFixed(1).replace('.', ',').replace('-', '−');
+  }
+
+  definirDesconto(i, valor) {
+    const n = Number(valor);
+    if (Number.isNaN(n)) return;
+    const descontos = this.state.descontos.slice();
+    descontos[i] = Math.max(0, Math.min(90, Math.round(n)));
+    this.setState({ descontos });
+  }
+
+  renderVals() {
+    const PISO = 35; // politica comercial da holding, sobre a margem
+
+    // Catalogo: quantidade, preco de tabela e margem de contribuicao propria
+    // de cada item. O pack tem margem alta; a pilha alcalina e commodity.
+    const catalogo = [
+      { sku: 'AQL25',  nome: 'Pack Aquadopp 14,4 V · 17,3 Ah', qtd: 92,   qtdRot: '92',    unit: 4380.00, margemBase: 0.442 },
+      { sku: 'MN1300', nome: 'Pilha alcalina D · Duracell',    qtd: 2208, qtdRot: '2.208', unit: 34.20,   margemBase: 0.280 }
+    ];
+
+    let bruto = 0, liquido = 0, custo = 0;
+
+    const itens = catalogo.map((c, i) => {
+      const d = this.state.descontos[i] / 100;
+      const vBruto = c.qtd * c.unit;
+      const vLiquido = vBruto * (1 - d);
+      const vCusto = vBruto * (1 - c.margemBase);
+
+      bruto += vBruto;
+      liquido += vLiquido;
+      custo += vCusto;
+
+      // Margem encolhe pelo denominador: (base - desconto) / (1 - desconto).
+      const m = ((c.margemBase - d) / (1 - d)) * 100;
+      const abaixoDoCusto = m <= 0;
+      const abaixoDaPolitica = m < PISO;
+      const cor = abaixoDoCusto ? '#C5221F' : (abaixoDaPolitica ? '#B06000' : '#0D8A4E');
+
+      return {
+        sku: c.sku,
+        nome: c.nome,
+        qtd: c.qtdRot,
+        unit: this.brl(c.unit),
+        bruto: this.brl(vBruto),
+        liquido: this.brl(vLiquido),
+        desconto: this.state.descontos[i],
+        temDesconto: this.state.descontos[i] > 0,
+        riscado: this.state.descontos[i] > 0 ? 'line-through' : 'none',
+        margem: this.pct(m),
+        corMargem: cor,
+        borda: abaixoDaPolitica ? cor : '#E3E6EA',
+        aviso: abaixoDoCusto
+          ? 'Abaixo do custo: cada unidade vendida dá prejuízo.'
+          : (abaixoDaPolitica
+              ? 'Margem base de ' + this.pct(c.margemBase * 100) + '% — este item não aguenta o mesmo desconto que o outro.'
+              : 'Abriu mão de ' + this.brl(vBruto - vLiquido) + '.'),
+        mudar: (e) => this.definirDesconto(i, e.target.value)
+      };
+    });
+
+    const abatido = bruto - liquido;
+    const descontoEfetivo = bruto > 0 ? (abatido / bruto) * 100 : 0;
+
+    const urgente = this.state.urgente;
+    const taxa = this.state.taxaUrgencia / 100;
+    const acrescimo = urgente ? liquido * taxa : 0;
+    const proposta = liquido + acrescimo;
+
+    // Sem desconto, mantendo a mesma urgencia: o custo de oportunidade.
+    const semDesconto = bruto * (urgente ? 1 + taxa : 1);
+
+    // A alcada olha a margem SEM urgencia. A urgencia e receita extra com
+    // custo extra ainda nao medido -- deixar que ela salve um desconto ruim
+    // seria maquiar a decisao.
+    const margemProposta = liquido > 0 ? ((liquido - custo) / liquido) * 100 : 0;
+    const margemComUrgencia = proposta > 0 ? ((proposta - custo) / proposta) * 100 : 0;
+
+    const abaixoDoCusto = margemProposta <= 0;
+    const abaixoDaPolitica = margemProposta < PISO;
+    const corMargemProposta = abaixoDoCusto ? '#C5221F' : (abaixoDaPolitica ? '#B06000' : '#0D8A4E');
+
+    const C = (o) => Object.assign({
+      pad: '9px', linha: 'none', tam: '13px', peso: '400',
+      cor: '#5F6368', corValor: '#1F2328', sub: '', pct: ''
+    }, o);
+
+    return {
+      itens,
+      descontoEfetivo: this.pct(descontoEfetivo),
+      corDesconto: abaixoDaPolitica ? '#B06000' : '#5F6368',
+
+      urgente,
+      naoUrgente: !urgente,
+      taxaUrgencia: this.state.taxaUrgencia,
+      semUrgencia: () => this.setState({ urgente: false }),
+      comUrgencia: () => this.setState({ urgente: true }),
+      mudarTaxa: (e) => {
+        const n = Number(e.target.value);
+        if (!Number.isNaN(n)) this.setState({ taxaUrgencia: Math.max(0, Math.min(200, Math.round(n))) });
+      },
+      bordaUrgencia: urgente ? '#F5E3B8' : '#E3E6EA',
+      bgNormal: urgente ? 'transparent' : '#fff',
+      corNormal: urgente ? '#5F6368' : '#1F2328',
+      pesoNormal: urgente ? '400' : '600',
+      bgUrgente: urgente ? '#fff' : 'transparent',
+      corUrgente: urgente ? '#B06000' : '#5F6368',
+      pesoUrgente: urgente ? '600' : '400',
+
+      cascata: [
+        C({ rotulo: 'Valor de tabela', sub: 'os 2 itens sem nenhum abatimento',
+            valor: this.brl(bruto), pct: '100%' }),
+        C({ rotulo: 'Descontos concedidos', sub: '5% no pack, 10% na pilha',
+            valor: this.brl(-abatido), pct: '−' + this.pct(descontoEfetivo) + '%',
+            cor: '#B06000', corValor: '#B06000' }),
+        C({ rotulo: 'Subtotal com desconto', valor: this.brl(liquido),
+            tam: '14px', peso: '600', cor: '#1F2328', linha: '1px solid #F1F3F4', pad: '11px' }),
+        C({ rotulo: urgente ? 'Taxa de urgência' : 'Sem taxa de urgência',
+            sub: urgente ? 'mobilização de equipe fora da escala' : 'prazo padrão',
+            valor: urgente ? '+' + this.brl(acrescimo) : this.brl(0),
+            pct: urgente ? '+' + this.state.taxaUrgencia + '%' : '',
+            cor: urgente ? '#B06000' : '#9AA0A6',
+            corValor: urgente ? '#B06000' : '#9AA0A6' }),
+        C({ rotulo: 'Valor da proposta', sub: 'o que o cliente vai pagar',
+            valor: this.brl(proposta), tam: '17px', peso: '600', cor: '#1F2328',
+            linha: '2px solid #E3E6EA', pad: '13px' })
+      ],
+
+      comparativo: [
+        { rotulo: 'Entraria sem desconto', valor: this.brl(semDesconto), cor: '#5F6368', peso: '500' },
+        { rotulo: 'Vai entrar com desconto', valor: this.brl(proposta), cor: '#1F2328', peso: '600' },
+        { rotulo: 'Diferença', valor: this.brl(proposta - semDesconto), cor: '#B06000', peso: '600' }
+      ],
+
+      margemProposta: this.pct(margemProposta),
+      margemComUrgencia: this.pct(margemComUrgencia),
+      corMargemProposta,
+      larguraMargem: Math.max(3, Math.min(100, margemProposta * 2)) + '%',
+      avisoMargem: abaixoDoCusto
+        ? 'A proposta inteira está abaixo do custo. Isto não é desconto, é decisão de vender no prejuízo.'
+        : (abaixoDaPolitica
+            ? 'Abaixo da política de 35%. A urgência não conta aqui: ela é receita extra com custo extra ainda não medido.'
+            : 'Dentro da política comercial de 35%.'),
+
+      rotuloBotao: abaixoDoCusto
+        ? 'Autorizar venda abaixo do custo'
+        : (abaixoDaPolitica ? 'Solicitar alçada de desconto' : 'Aprovar e emitir proposta'),
+      corBotao: abaixoDoCusto ? '#C5221F' : (abaixoDaPolitica ? '#B06000' : '#1A73E8'),
+      microCopia: abaixoDoCusto
+        ? 'Vai para a diretoria como decisão de vender no prejuízo. A justificativa fica no registro da proposta e no livro de auditoria.'
+        : (abaixoDaPolitica
+            ? 'A proposta trava em Aguardando alçada e a diretoria recebe o desconto item a item. Nenhum PDF é gerado até a aprovação.'
+            : 'A proposta é congelada com os custos de hoje, gera o PDF e fica disponível para envio.'),
+
+      nav: [
+        { rotulo: 'Painel',        bg: 'transparent', cor: '#5F6368', peso: '400', ponto: '#DADCE0' },
+        { rotulo: 'Comercial',     bg: '#F6F9FE',     cor: '#1A73E8', peso: '600', ponto: '#1A73E8' },
+        { rotulo: 'Financeiro',    bg: 'transparent', cor: '#5F6368', peso: '400', ponto: '#DADCE0' },
+        { rotulo: 'Contabilidade', bg: 'transparent', cor: '#5F6368', peso: '400', ponto: '#DADCE0' },
+        { rotulo: 'Ingestão',      bg: 'transparent', cor: '#5F6368', peso: '400', ponto: '#DADCE0' },
+        { rotulo: 'Catálogo',      bg: 'transparent', cor: '#5F6368', peso: '400', ponto: '#DADCE0' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

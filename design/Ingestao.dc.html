@@ -1,0 +1,366 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: Outfit, system-ui, sans-serif; background: #F8F9FA; color: #1F2328; }
+    a { color: #1A73E8; text-decoration: none; }
+    a:hover { color: #1557B0; text-decoration: underline; }
+    .num { font-variant-numeric: tabular-nums; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; height: 940px; background: #F8F9FA; display: flex; flex-direction: column; overflow: hidden;">
+
+  <!-- Cabeçalho -->
+  <div style="height: 62px; background: #fff; border-bottom: 1px solid #E3E6EA; display: flex; align-items: center; padding: 0 24px; flex-shrink: 0;">
+    <div>
+      <div style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Central de ingestão fiscal e bancária</div>
+      <div style="font-size: 12px; color: #5F6368;">Arandu Comércio · agosto de 2026</div>
+    </div>
+    <div style="flex-grow: 1;"></div>
+    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #F1F3F4; border-radius: 6px;">
+      <span style="font-size: 12px; color: #5F6368;">Último lote: 27/08 · 24 arquivos</span>
+    </div>
+  </div>
+
+  <!-- Stepper -->
+  <div style="background: #fff; border-bottom: 1px solid #E3E6EA; padding: 0 24px; display: flex; gap: 0; flex-shrink: 0;">
+    <sc-for list="{{etapas}}" as="e" hint-placeholder-count="3">
+      <div onClick="{{e.ir}}" style="padding: 14px 22px 12px; border-bottom: 2px solid {{e.borda}}; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+        <div style="width: 20px; height: 20px; border-radius: 50%; background: {{e.discoBg}}; color: {{e.discoCor}}; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;">{{e.n}}</div>
+        <div>
+          <div style="font-size: 13px; font-weight: {{e.peso}}; color: {{e.cor}};">{{e.titulo}}</div>
+          <div style="font-size: 11px; color: #5F6368; margin-top: 1px;">{{e.sub}}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- ================= ETAPA 1 ================= -->
+  <sc-if value="{{ehEtapa1}}" hint-placeholder-val="{{ true }}">
+  <div style="flex-grow: 1; padding: 24px; display: flex; gap: 20px; overflow: hidden;">
+
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div style="border: 2px dashed #C8D3DF; border-radius: 10px; background: #fff; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+        <div style="font-size: 14px; font-weight: 500;">Arraste XMLs de NF-e, NFS-e ou extratos OFX</div>
+        <div style="font-size: 12px; color: #5F6368;">até 200 arquivos por lote · o tipo é detectado sozinho</div>
+        <div style="height: 34px; padding: 0 16px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; font-size: 13px; font-weight: 500; margin-top: 4px;">Selecionar do computador</div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px; flex-grow: 1;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 14px;">TRIAGEM DO LOTE · 42 ARQUIVOS</div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{triagem}}" as="t" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: {{t.bg}}; border-radius: 6px;">
+              <div style="width: 8px; height: 8px; border-radius: 50%; background: {{t.cor}}; flex-shrink: 0;"></div>
+              <span class="num" style="font-size: 18px; font-weight: 600; color: {{t.cor}}; width: 32px;">{{t.n}}</span>
+              <div style="flex-grow: 1;">
+                <div style="font-size: 13px; font-weight: 500; color: {{t.cor}};">{{t.titulo}}</div>
+                <div style="font-size: 11px; color: #5F6368; margin-top: 2px;">{{t.detalhe}}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 360px; display: flex; flex-direction: column; gap: 16px; flex-shrink: 0;">
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 12px;">COMO A DUPLICIDADE É PEGA</div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; gap: 10px;">
+            <div style="width: 22px; height: 22px; border-radius: 5px; background: #E6F4EA; color: #0D8A4E; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0;">1</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 500;">Hash do arquivo, aqui na etapa 1</div>
+              <div style="font-size: 11px; color: #5F6368; line-height: 1.5; margin-top: 2px;">Calculado no navegador antes de subir. Pega o mesmo arquivo enviado duas vezes.</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <div style="width: 22px; height: 22px; border-radius: 5px; background: #FEF7E0; color: #B06000; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0;">2</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 500;">Hash da transação, na quarentena</div>
+              <div style="font-size: 11px; color: #5F6368; line-height: 1.5; margin-top: 2px;">Depende da normalização do memo, que só o servidor faz. Pega extratos de nomes diferentes com período sobreposto.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px; flex-grow: 1;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 12px;">ARQUIVO BLOQUEADO</div>
+        <div style="padding: 12px; background: #FCE8E6; border-radius: 6px;">
+          <div class="mono" style="color: #C5221F; font-weight: 500;">Itau_0108_1508.ofx</div>
+          <div style="font-size: 11px; color: #C5221F; margin-top: 6px; line-height: 1.5;">Já importado em 27/08/2026, lote #24. Mesmo hash SHA-256.</div>
+          <div class="mono" style="font-size: 10px; color: #A5322F; margin-top: 8px; word-break: break-all; line-height: 1.4;">e3b0c44298fc1c149afbf4c8996fb924…</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="height: 40px; border-radius: 6px; background: #1A73E8; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 13px; font-weight: 600; color: #fff;">Inspecionar 41 arquivos na quarentena</span>
+        </div>
+        <div style="display: flex; gap: 6px; margin-top: 8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+          <span style="font-size: 11px; color: #5F6368; line-height: 1.45;">Nada é gravado ainda. O lote fica em quarentena e pode ser descartado inteiro.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= ETAPA 2 ================= -->
+  <sc-if value="{{ehEtapa2}}" hint-placeholder-val="{{ true }}">
+  <div style="flex-grow: 1; padding: 24px; display: flex; gap: 20px; overflow: hidden;">
+
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 14px; overflow: hidden;">
+
+      <!-- OFX: três grupos -->
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; overflow: hidden;">
+        <div style="padding: 14px 18px; border-bottom: 1px solid #F1F3F4; display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-size: 13px; font-weight: 600;">Extrato Itaú · 16/08 a 31/08</span>
+          <span style="font-size: 12px; color: #5F6368;">118 lançamentos</span>
+        </div>
+
+        <sc-for list="{{grupos}}" as="g" hint-placeholder-count="3">
+          <div style="padding: 12px 18px; border-bottom: 1px solid #F8F9FA; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: {{g.cor}}; flex-shrink: 0;"></div>
+            <span class="num" style="font-size: 14px; font-weight: 600; width: 28px;">{{g.n}}</span>
+            <div style="flex-grow: 1;">
+              <div style="font-size: 13px; font-weight: 500;">{{g.titulo}}</div>
+              <div style="font-size: 11px; color: #5F6368; margin-top: 2px; line-height: 1.45;">{{g.detalhe}}</div>
+            </div>
+            <div style="height: 28px; padding: 0 12px; border: 1px solid #E3E6EA; border-radius: 5px; display: flex; align-items: center; font-size: 12px; color: #1F2328; flex-shrink: 0;">{{g.acao}}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- Memo novo, inline -->
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 12px;">MEMO NÃO RECONHECIDO · 1 DE 3</div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="flex-grow: 1;">
+            <div class="mono" style="color: #1F2328;">TED 341 MARINE TECH SERV LTDA</div>
+            <div style="font-size: 11px; color: #5F6368; margin-top: 4px;">18/08/2026 · saída de <span class="num" style="font-weight: 600;">R$ 18.400,00</span></div>
+          </div>
+          <div style="width: 240px; height: 34px; border: 1px solid #1A73E8; border-radius: 6px; display: flex; align-items: center; padding: 0 10px; gap: 8px; background: #F6F9FE;">
+            <span style="font-size: 13px; color: #1F2328;">Fornecedores operacionais</span>
+          </div>
+          <div style="height: 34px; padding: 0 14px; background: #1A73E8; border-radius: 6px; display: flex; align-items: center;">
+            <span style="font-size: 12px; font-weight: 600; color: #fff;">Salvar e criar regra</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CFOP semântico -->
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px; flex-grow: 1;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 14px;">O QUE CADA NOTA VAI FAZER</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{cfops}}" as="c" hint-placeholder-count="2">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid #E3E6EA; border-radius: 6px;">
+              <div style="width: 62px; flex-shrink: 0;">
+                <div class="mono" style="color: #1A73E8; font-weight: 500;">{{c.cfop}}</div>
+                <div style="font-size: 10px; color: #5F6368; margin-top: 2px;">{{c.qtd}}</div>
+              </div>
+              <div style="flex-grow: 1;">
+                <div style="font-size: 12px; font-weight: 500;">{{c.nome}}</div>
+                <div style="font-size: 11px; color: #5F6368; margin-top: 2px; line-height: 1.45;">{{c.acao}}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conferência lateral -->
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 16px; flex-shrink: 0;">
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 14px;">CONFERÊNCIA DO LOTE</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <sc-for list="{{conferencia}}" as="c" hint-placeholder-count="4">
+            <div style="display: flex; align-items: baseline; gap: 8px;">
+              <span style="font-size: 12px; color: #5F6368; flex-grow: 1;">{{c.rotulo}}</span>
+              <span class="num" style="font-size: 13px; font-weight: 600; color: {{c.cor}};">{{c.valor}}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="height: 1px; background: #F1F3F4; margin: 14px 0;"></div>
+        <div style="display: flex; align-items: center; gap: 7px; padding: 8px 10px; background: #E6F4EA; border-radius: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D8A4E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          <span style="font-size: 11px; color: #0D8A4E; line-height: 1.45;">Soma dos itens bate com o total das notas.</span>
+        </div>
+      </div>
+
+      <div style="flex-grow: 1;"></div>
+
+      <div>
+        <div style="height: 40px; border-radius: 6px; background: #1A73E8; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 13px; font-weight: 600; color: #fff;">Efetivar 41 arquivos no sistema</span>
+        </div>
+        <div style="display: flex; gap: 6px; margin-top: 8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+          <span style="font-size: 11px; color: #5F6368; line-height: 1.45;">Grava tudo numa transação só. Se qualquer arquivo falhar, nenhum entra — e o lote inteiro pode ser desfeito depois.</span>
+        </div>
+        <div style="height: 34px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+          <span style="font-size: 12px; font-weight: 500; color: #5F6368;">Descartar o lote inteiro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= ETAPA 3 ================= -->
+  <sc-if value="{{ehEtapa3}}" hint-placeholder-val="{{ true }}">
+  <div style="flex-grow: 1; padding: 24px; display: flex; gap: 20px; overflow: hidden;">
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 16px;">
+
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 34px; height: 34px; border-radius: 50%; background: #E6F4EA; display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D8A4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 15px; font-weight: 600;">41 arquivos efetivados</div>
+            <div style="font-size: 12px; color: #5F6368; margin-top: 2px;">Lote <span class="mono">#25</span> · 31/08/2026 às 14:22 · por Diego Ribeiro</div>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: #F1F3F4; margin: 18px 0;"></div>
+
+        <div style="display: flex; gap: 32px;">
+          <sc-for list="{{resultado}}" as="r" hint-placeholder-count="4">
+            <div>
+              <div class="num" style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em;">{{r.n}}</div>
+              <div style="font-size: 11px; color: #5F6368; margin-top: 3px;">{{r.rotulo}}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px; flex-grow: 1;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 14px;">O QUE MUDOU</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <sc-for list="{{mudancas}}" as="m" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid #E3E6EA; border-radius: 6px;">
+              <div style="flex-grow: 1;">
+                <div style="font-size: 13px; font-weight: 500;">{{m.titulo}}</div>
+                <div style="font-size: 11px; color: #5F6368; margin-top: 2px;">{{m.detalhe}}</div>
+              </div>
+              <span style="font-size: 12px; color: #1A73E8; font-weight: 500;">Abrir</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 340px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 18px;">
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 12px;">SE ALGO ENTROU ERRADO</div>
+        <div style="font-size: 12px; color: #5F6368; line-height: 1.6;">Todo registro criado carrega o número do lote. Desfazer estorna os 41 arquivos de uma vez, sem apagar nada — o estorno também fica registrado.</div>
+        <div style="height: 34px; border: 1px solid #C5221F; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-top: 14px;">
+          <span style="font-size: 12px; font-weight: 600; color: #C5221F;">Desfazer o lote #25</span>
+        </div>
+      </div>
+      <div style="flex-grow: 1;"></div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":940}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { etapa: 2 };
+  }
+
+  renderVals() {
+    const etapa = this.state.etapa;
+    const ir = (n) => () => this.setState({ etapa: n });
+
+    const passos = [
+      { n: '1', titulo: 'Upload e triagem',      sub: '42 arquivos lidos' },
+      { n: '2', titulo: 'Quarentena e conferência', sub: '3 memos a classificar' },
+      { n: '3', titulo: 'Efetivação',            sub: 'grava no sistema' }
+    ];
+
+    return {
+      ehEtapa1: etapa === 1,
+      ehEtapa2: etapa === 2,
+      ehEtapa3: etapa === 3,
+
+      etapas: passos.map((p, i) => {
+        const ativo = etapa === i + 1;
+        const feito = etapa > i + 1;
+        return {
+          ...p,
+          ir: ir(i + 1),
+          borda: ativo ? '#1A73E8' : 'transparent',
+          cor: ativo ? '#1A73E8' : '#5F6368',
+          peso: ativo ? '600' : '500',
+          discoBg: ativo ? '#1A73E8' : (feito ? '#E6F4EA' : '#F1F3F4'),
+          discoCor: ativo ? '#fff' : (feito ? '#0D8A4E' : '#5F6368')
+        };
+      }),
+
+      triagem: [
+        { n: '39', titulo: 'Novos e válidos', detalhe: '36 NF-e · 2 NFS-e · 1 extrato OFX',
+          cor: '#0D8A4E', bg: '#E6F4EA' },
+        { n: '2', titulo: 'Com aviso', detalhe: '1 NF-e com CFOP nunca visto · 1 OFX com memo fora do padrão',
+          cor: '#B06000', bg: '#FEF7E0' },
+        { n: '1', titulo: 'Bloqueado por duplicidade', detalhe: 'Extrato Itaú de 01 a 15/08 já importado com o mesmo hash',
+          cor: '#C5221F', bg: '#FCE8E6' }
+      ],
+
+      grupos: [
+        { n: '84', cor: '#0D8A4E', titulo: 'Reconhecidos e conciliáveis',
+          detalhe: 'Valor, data e CNPJ batem com duplicatas em aberto', acao: 'Revisar' },
+        { n: '31', cor: '#5F6368', titulo: 'Movimento automático do banco',
+          detalhe: 'SALDO APLICAÇÃO AUTOMÁTICA e resgates — transferência entre contas próprias, fora do resultado',
+          acao: 'Abrir grupo' },
+        { n: '3', cor: '#B06000', titulo: 'Memo novo, sem classificação',
+          detalhe: 'Precisam de uma escolha sua antes de efetivar', acao: 'Classificar' }
+      ],
+
+      cfops: [
+        { cfop: '1102', qtd: '22 notas', nome: 'Compra para comercialização',
+          acao: 'Entra no estoque de insumos e gera duplicata a pagar em 30 dias.' },
+        { cfop: '5915', qtd: '1 nota', nome: 'Remessa para conserto',
+          acao: 'Baixa temporária do equipamento. Não entra como despesa na DRE.' }
+      ],
+
+      conferencia: [
+        { rotulo: 'Notas de entrada',   valor: 'R$ 284.310,50', cor: '#1F2328' },
+        { rotulo: 'Notas de saída',     valor: 'R$ 402.960,00', cor: '#1F2328' },
+        { rotulo: 'Saídas do extrato',  valor: 'R$ 96.845,12',  cor: '#1F2328' },
+        { rotulo: 'Fora do resultado',  valor: 'R$ 1.204.880,00', cor: '#5F6368' }
+      ],
+
+      resultado: [
+        { n: '36', rotulo: 'notas fiscais' },
+        { n: '118', rotulo: 'transações' },
+        { n: '31', rotulo: 'fora do resultado' },
+        { n: '3', rotulo: 'regras novas' }
+      ],
+
+      mudancas: [
+        { titulo: 'Extrato bancário de agosto', detalhe: '118 lançamentos · saldo final R$ 207.440,48' },
+        { titulo: '22 duplicatas a pagar criadas', detalhe: 'vencimentos entre 12/09 e 30/09' },
+        { titulo: '3 regras de classificação aprendidas', detalhe: 'valem para os próximos extratos' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

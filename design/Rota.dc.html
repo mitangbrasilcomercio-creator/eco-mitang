@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: Outfit, system-ui, sans-serif; background: #F8F9FA; color: #1F2328; }
+    a { color: #1A73E8; text-decoration: none; }
+    a:hover { color: #1557B0; text-decoration: underline; }
+    .num { font-variant-numeric: tabular-nums; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; }
+    .rot { font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; }
+  </style>
+</helmet>
+
+<div style="width: 1180px; background: #F8F9FA; padding: 32px; display: flex; flex-direction: column; gap: 22px;">
+
+  <div>
+    <div style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em;">Onde o sistema está e como ele chega lá</div>
+    <div style="font-size: 13px; color: #5F6368; margin-top: 4px;">As três telas ao lado só existem em mockup. Isto é o que sustenta cada uma — e quando.</div>
+  </div>
+
+  <!-- HOJE -->
+  <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+      <div style="width: 8px; height: 8px; border-radius: 50%; background: #0D8A4E;"></div>
+      <span style="font-size: 14px; font-weight: 600;">Existe hoje, com dado real</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px;">
+      <sc-for list="{{hoje}}" as="h" hint-placeholder-count="6">
+        <div style="padding: 14px; background: #F8F9FA; border-radius: 6px;">
+          <div class="num" style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">{{h.n}}</div>
+          <div style="font-size: 11px; color: #5F6368; margin-top: 4px; line-height: 1.4;">{{h.rotulo}}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
+      <sc-for list="{{rotas}}" as="r" hint-placeholder-count="8">
+        <div class="mono" style="padding: 5px 9px; background: #E6F4EA; color: #0D8A4E; border-radius: 5px;">{{r.nome}}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- FALTA -->
+  <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; padding: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+      <div style="width: 8px; height: 8px; border-radius: 50%; background: #B06000;"></div>
+      <span style="font-size: 14px; font-weight: 600;">O que ainda não existe</span>
+    </div>
+    <div style="font-size: 12px; color: #5F6368; margin-bottom: 16px;">Dez tabelas estão criadas e vazias. Nenhuma rota de pessoal, estoque, ingestão ou razão foi escrita.</div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <sc-for list="{{fases}}" as="f" hint-placeholder-count="6">
+        <div style="display: flex; align-items: stretch; gap: 14px; padding: 14px; border: 1px solid {{f.borda}}; background: {{f.bg}}; border-radius: 6px;">
+          <div style="width: 84px; flex-shrink: 0;">
+            <div style="font-size: 12px; font-weight: 600; color: {{f.cor}};">{{f.quando}}</div>
+          </div>
+          <div style="width: 1px; background: #E3E6EA; flex-shrink: 0;"></div>
+          <div style="flex-grow: 1;">
+            <div style="font-size: 13px; font-weight: 500;">{{f.entrega}}</div>
+            <div style="font-size: 11px; color: #5F6368; margin-top: 3px; line-height: 1.5;">{{f.porque}}</div>
+          </div>
+          <div style="width: 190px; flex-shrink: 0; display: flex; align-items: center;">
+            <span style="font-size: 11px; color: {{f.cor}}; font-weight: 500; line-height: 1.4;">{{f.destrava}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- A DECISÃO ABERTA -->
+  <div style="background: #fff; border: 1px solid #1A73E8; border-radius: 8px; padding: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+      <div style="width: 8px; height: 8px; border-radius: 50%; background: #1A73E8;"></div>
+      <span style="font-size: 14px; font-weight: 600; color: #1A73E8;">A decisão que está com você</span>
+    </div>
+    <div style="font-size: 12px; color: #1F2328; line-height: 1.6; max-width: 900px;">Você pediu para testar criar orçamento e importar XML e OFX. Nenhuma das três coisas é possível hoje — orçamento é só leitura, e importação só roda por terminal, comigo no meio. Antecipar essas duas te deixa autônomo em cerca de três semanas, mas empurra o motor de aptidão — o que impede alocar técnico com certificado vencido — de seis para nove semanas.</div>
+    <div style="display: flex; gap: 12px; margin-top: 16px;">
+      <div style="flex-grow: 1; padding: 14px; border: 1px solid #E3E6EA; border-radius: 6px;">
+        <div style="font-size: 12px; font-weight: 600;">Autonomia primeiro</div>
+        <div style="font-size: 11px; color: #5F6368; line-height: 1.5; margin-top: 5px;">Ingestão pela tela e criação de orçamento. Você para de depender de mim para entrar dado. Aptidão vai para a semana 9.</div>
+      </div>
+      <div style="flex-grow: 1; padding: 14px; border: 1px solid #E3E6EA; border-radius: 6px;">
+        <div style="font-size: 12px; font-weight: 600;">Segurança primeiro</div>
+        <div style="font-size: 11px; color: #5F6368; line-height: 1.5; margin-top: 5px;">Mantém o plano: auditoria, depois aptidão na semana 6. A entrada de dado continua passando por mim até a semana 16.</div>
+      </div>
+      <div style="flex-grow: 1; padding: 14px; border: 1px solid #E3E6EA; border-radius: 6px;">
+        <div style="font-size: 12px; font-weight: 600;">As duas em paralelo</div>
+        <div style="font-size: 11px; color: #5F6368; line-height: 1.5; margin-top: 5px;">Eu faço a fundação e a aptidão; o Gemini faz as telas de orçamento e ingestão sobre um servidor de mentira. Mais coordenação, nenhuma das duas atrasa.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1180,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      hoje: [
+        { n: '1.324', rotulo: 'transações bancárias' },
+        { n: '220',   rotulo: 'propostas históricas' },
+        { n: '182',   rotulo: 'clientes' },
+        { n: '172',   rotulo: 'notas fiscais' },
+        { n: '120',   rotulo: 'itens de catálogo' },
+        { n: '204',   rotulo: 'obrigações recorrentes' }
+      ],
+
+      rotas: [
+        { nome: 'auth' }, { nome: 'dashboard' }, { nome: 'financeiro' },
+        { nome: 'contabilidade/dre' }, { nome: 'clientes' }, { nome: 'catálogo' },
+        { nome: 'orçamentos (leitura)' }, { nome: 'faturamento' }
+      ],
+
+      fases: [
+        { quando: 'semanas 1-2', entrega: 'Trilha de auditoria no banco',
+          porque: 'Trigger que registra toda alteração. Hoje a tabela de histórico existe e está vazia — alguém esqueceu de chamar o código.',
+          destrava: 'Gaveta de auditoria', cor: '#B06000', bg: '#FEF7E0', borda: '#F5E3B8' },
+
+        { quando: 'semanas 3-6', entrega: 'Pessoal, certificações e motor de aptidão',
+          porque: 'A tabela de colaboradores está vazia. É o módulo que originou o projeto: impede alocar técnico com certificado vencendo no meio do embarque.',
+          destrava: 'Escala de embarques', cor: '#B06000', bg: '#FEF7E0', borda: '#F5E3B8' },
+
+        { quando: 'semanas 7-10', entrega: 'Plano de contas e partida dobrada',
+          porque: 'O que hoje se chama plano de contas é uma lista plana de 27 categorias de fluxo de caixa. Precisa do seu contador antes de começar.',
+          destrava: 'DRE de verdade, com razão', cor: '#5F6368', bg: '#F8F9FA', borda: '#E3E6EA' },
+
+        { quando: 'semanas 11-13', entrega: 'Permissão por campo, acesso temporário e MFA',
+          porque: 'Hoje são quatro papéis fixos. Salário e exame médico exigem mais fino que isso.',
+          destrava: 'Salário mascarado de verdade', cor: '#5F6368', bg: '#F8F9FA', borda: '#E3E6EA' },
+
+        { quando: 'semanas 16-20', entrega: 'Ingestão pela tela e motor fiscal',
+          porque: 'Hoje só existe por terminal. CFOP vira tabela de decisão, e o XML passa por quarentena antes de gravar.',
+          destrava: 'Central de ingestão', cor: '#5F6368', bg: '#F8F9FA', borda: '#E3E6EA' },
+
+        { quando: 'semanas 21-27', entrega: 'Estoque, estrutura de produto e imobilizado',
+          porque: 'Fecha as duas lacunas que a DRE confessa hoje: o CMV de verdade e a depreciação de R$ 2,53 milhões.',
+          destrava: 'Lucro líquido apurável', cor: '#5F6368', bg: '#F8F9FA', borda: '#E3E6EA' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

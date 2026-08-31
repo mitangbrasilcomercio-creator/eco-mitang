@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: Outfit, system-ui, sans-serif; background: #F8F9FA; color: #1F2328; }
+    a { color: #1A73E8; text-decoration: none; }
+    a:hover { color: #1557B0; text-decoration: underline; }
+    .num { font-variant-numeric: tabular-nums; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; height: 940px; background: #F8F9FA; display: flex; overflow: hidden;">
+
+  <!-- ================= DRE ================= -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; overflow: hidden;">
+
+    <div style="height: 66px; background: #fff; border-bottom: 1px solid #E3E6EA; display: flex; align-items: center; padding: 0 24px; flex-shrink: 0;">
+      <div>
+        <div style="font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Resultado do exercício</div>
+        <div style="font-size: 12px; color: #5F6368; margin-top: 2px;">Arandu Comércio · janeiro a dezembro de 2026 · regime de competência</div>
+      </div>
+      <div style="flex-grow: 1;"></div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="display: flex; height: 32px; background: #F1F3F4; border-radius: 6px; padding: 2px;">
+          <div style="padding: 0 14px; display: flex; align-items: center; font-size: 12px; font-weight: 600; background: #fff; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,.06);">Competência</div>
+          <div style="padding: 0 14px; display: flex; align-items: center; font-size: 12px; color: #9AA0A6;">Caixa</div>
+        </div>
+        <div style="height: 32px; padding: 0 14px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; font-size: 13px; font-weight: 500;">Exportar</div>
+      </div>
+    </div>
+
+    <!-- Aviso de regime -->
+    <div style="margin: 16px 24px 0; padding: 10px 14px; background: #FEF7E0; border-radius: 6px; display: flex; gap: 8px; align-items: flex-start;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span style="font-size: 12px; color: #B06000; line-height: 1.5;">Receita, deduções e compras vêm das notas fiscais (competência). Despesa bancária e de serviço vêm do extrato (caixa). A mistura acaba quando o razão contábil existir.</span>
+    </div>
+
+    <!-- Cascata -->
+    <div style="flex-grow: 1; padding: 16px 24px 24px; overflow: hidden;">
+      <div style="background: #fff; border: 1px solid #E3E6EA; border-radius: 8px; overflow: hidden;">
+
+        <div style="display: flex; padding: 10px 20px; border-bottom: 1px solid #F1F3F4; background: #FCFCFD;">
+          <span style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; flex-grow: 1;">O QUE ACONTECEU COM O DINHEIRO</span>
+          <span style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; width: 150px; text-align: right;">VALOR</span>
+          <span style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; width: 80px; text-align: right;">% RECEITA</span>
+          <span style="width: 90px;"></span>
+        </div>
+
+        <sc-for list="{{linhas}}" as="l" hint-placeholder-count="9">
+          <div style="display: flex; align-items: center; padding: {{l.pad}} 20px; border-bottom: 1px solid #F8F9FA; background: {{l.bg}};">
+            <div style="flex-grow: 1; padding-left: {{l.recuo}};">
+              <div style="display: flex; align-items: center; gap: 7px;">
+                <div style="width: 7px; height: 7px; border-radius: 2px; background: {{l.marca}};"></div>
+                <span style="font-size: {{l.tamanho}}; font-weight: {{l.peso}}; color: {{l.cor}};">{{l.rotulo}}</span>
+                <div style="width: 14px; height: 14px; border-radius: 50%; border: 1px solid #DADCE0; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 9px; color: #9AA0A6; font-weight: 600;">?</span>
+                </div>
+              </div>
+              <sc-if value="{{l.sub}}" hint-placeholder-val="{{ true }}">
+                <div style="font-size: 11px; color: #5F6368; margin-top: 3px; padding-left: 14px;">{{l.sub}}</div>
+              </sc-if>
+            </div>
+            <span class="num" style="width: 150px; text-align: right; font-size: {{l.tamanho}}; font-weight: {{l.peso}}; color: {{l.corValor}};">{{l.valor}}</span>
+            <span class="num" style="width: 80px; text-align: right; font-size: 12px; color: #5F6368;">{{l.pct}}</span>
+            <span style="width: 90px; text-align: right; font-size: 12px; color: #1A73E8; font-weight: 500;">{{l.acao}}</span>
+          </div>
+        </sc-for>
+
+        <!-- Rodapé de honestidade -->
+        <div style="padding: 16px 20px; background: #FCFCFD; display: flex; gap: 10px; align-items: flex-start;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div>
+            <div style="font-size: 12px; font-weight: 600; color: #B06000;">Por que não existe uma linha de lucro líquido</div>
+            <div style="font-size: 12px; color: #5F6368; line-height: 1.55; margin-top: 4px; max-width: 720px;">Faltam duas coisas: a provisão de IRPJ e CSLL, que depende de apuração contábil, e a depreciação — a holding tem R$ 2,53 milhões em equipamentos oceanográficos sem cota calculada. Enquanto isso, o EBITDA acima é o resultado que dá para apurar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= GAVETA DE PROVENIÊNCIA ================= -->
+  <div style="width: 420px; background: #fff; border-left: 1px solid #E3E6EA; display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;">
+
+    <div style="padding: 18px 20px 14px; border-bottom: 1px solid #E3E6EA;">
+      <div style="display: flex; align-items: center;">
+        <span style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em;">DE ONDE VEIO ESTE NÚMERO</span>
+        <span style="flex-grow: 1;"></span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </div>
+      <div style="font-size: 15px; font-weight: 600; margin-top: 8px;">EBITDA</div>
+      <div class="num" style="font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: #C5221F; margin-top: 2px;">−R$ 440.715,31</div>
+    </div>
+
+    <div style="flex-grow: 1; padding: 18px 20px; display: flex; flex-direction: column; gap: 20px; overflow: hidden;">
+
+      <div>
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 8px;">O QUE SIGNIFICA</div>
+        <div style="font-size: 12px; color: #1F2328; line-height: 1.6;">O quanto a operação gerou ou consumiu de caixa por conta própria, antes de imposto sobre lucro e de desgaste de equipamento. Negativo significa que a atividade consumiu mais do que produziu no período.</div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 8px;">COMO FOI CALCULADO</div>
+        <div style="background: #F8F9FA; border-radius: 6px; padding: 12px;">
+          <sc-for list="{{formula}}" as="f" hint-placeholder-count="4">
+            <div style="display: flex; align-items: baseline; padding: 3px 0;">
+              <span style="font-size: 12px; color: {{f.cor}}; width: 14px;">{{f.sinal}}</span>
+              <span style="font-size: 12px; color: #5F6368; flex-grow: 1;">{{f.rotulo}}</span>
+              <span class="num" style="font-size: 12px; font-weight: 500; color: {{f.cor}};">{{f.valor}}</span>
+            </div>
+          </sc-for>
+          <div style="height: 1px; background: #E3E6EA; margin: 8px 0;"></div>
+          <div style="display: flex; align-items: baseline;">
+            <span style="font-size: 12px; font-weight: 600; flex-grow: 1; padding-left: 14px;">EBITDA</span>
+            <span class="num" style="font-size: 13px; font-weight: 600; color: #C5221F;">−R$ 440.715,31</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 8px;">DE QUAIS DOCUMENTOS</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{fontes}}" as="f" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid #E3E6EA; border-radius: 6px;">
+              <span class="num" style="font-size: 14px; font-weight: 600; width: 42px;">{{f.qtd}}</span>
+              <span style="font-size: 12px; color: #5F6368; flex-grow: 1;">{{f.tipo}}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; font-weight: 600; color: #5F6368; letter-spacing: .04em; margin-bottom: 8px;">O QUE AINDA NÃO ESTÁ AQUI</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <sc-for list="{{ressalvas}}" as="r" hint-placeholder-count="2">
+            <div style="display: flex; gap: 8px; align-items: flex-start; padding: 8px 10px; background: #FEF7E0; border-radius: 6px;">
+              <div style="width: 5px; height: 5px; border-radius: 50%; background: #B06000; flex-shrink: 0; margin-top: 6px;"></div>
+              <span style="font-size: 11px; color: #B06000; line-height: 1.5;">{{r.texto}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #E3E6EA; padding: 14px 20px;">
+      <div style="height: 36px; border: 1px solid #E3E6EA; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 12px; font-weight: 500;">Ver os 127 lançamentos que compõem</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":940}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const L = (o) => Object.assign({
+      pad: '13px', recuo: '0px', tamanho: '13px', peso: '500',
+      cor: '#1F2328', corValor: '#1F2328', bg: '#fff',
+      marca: 'transparent', sub: '', pct: '', acao: ''
+    }, o);
+
+    return {
+      linhas: [
+        L({ rotulo: 'Tudo que a empresa faturou', sub: 'Receita bruta · 172 notas emitidas',
+            valor: 'R$ 1.809.522,55', pct: '100,0%', marca: '#0D8A4E',
+            tamanho: '14px', peso: '600', acao: 'Ver notas' }),
+
+        L({ rotulo: 'Impostos retirados na emissão da nota', sub: 'ICMS, PIS, COFINS e ISS destacados',
+            valor: '−R$ 187.340,18', pct: '−10,4%', marca: '#DADCE0',
+            corValor: '#5F6368', recuo: '14px', acao: 'Ver guias' }),
+
+        L({ rotulo: 'O que de fato entrou', sub: 'Receita líquida',
+            valor: 'R$ 1.622.182,37', pct: '89,6%', marca: '#1A73E8',
+            tamanho: '14px', peso: '600', bg: '#FAFBFC' }),
+
+        L({ rotulo: 'Compras de insumos no período', sub: 'Células, conectores e embalagens · não é CMV',
+            valor: '−R$ 642.410,05', pct: '−35,5%', marca: '#DADCE0',
+            corValor: '#5F6368', recuo: '14px', acao: 'Ver 84 NF-e' }),
+
+        L({ rotulo: 'Sobra da produção', sub: 'Lucro bruto aproximado — sem controle de estoque, é compra e não custo do que foi vendido',
+            valor: 'R$ 979.772,32', pct: '54,1%', marca: '#B06000',
+            tamanho: '14px', peso: '600', bg: '#FAFBFC' }),
+
+        L({ rotulo: 'Para manter a empresa funcionando', sub: 'Despesas operacionais',
+            valor: '−R$ 1.420.487,63', pct: '−78,5%', marca: '#DADCE0',
+            corValor: '#5F6368', recuo: '14px', acao: 'Abrir' }),
+
+        L({ rotulo: 'Pagamentos a fornecedor', valor: '−R$ 464.487,63', pct: '−25,7%',
+            recuo: '32px', tamanho: '12px', peso: '400', cor: '#5F6368', corValor: '#5F6368',
+            pad: '9px', marca: 'transparent' }),
+
+        L({ rotulo: 'Outras despesas operacionais', valor: '−R$ 856.000,00', pct: '−47,3%',
+            recuo: '32px', tamanho: '12px', peso: '400', cor: '#5F6368', corValor: '#5F6368',
+            pad: '9px', marca: 'transparent' }),
+
+        L({ rotulo: 'Serviços de terceiros e tarifas', valor: '−R$ 100.000,00', pct: '−5,5%',
+            recuo: '32px', tamanho: '12px', peso: '400', cor: '#5F6368', corValor: '#5F6368',
+            pad: '9px', marca: 'transparent' }),
+
+        L({ rotulo: 'O caixa que a operação gerou no ano', sub: 'EBITDA · a operação consumiu mais do que produziu',
+            valor: '−R$ 440.715,31', pct: '−24,4%', marca: '#C5221F',
+            tamanho: '15px', peso: '600', corValor: '#C5221F', bg: '#FDF7F7',
+            pad: '16px', acao: 'De onde veio' }),
+
+        L({ rotulo: 'Resultado líquido', sub: 'Não apurável ainda',
+            valor: '——', pct: '——', marca: '#DADCE0',
+            tamanho: '14px', peso: '600', cor: '#9AA0A6', corValor: '#9AA0A6', pad: '16px' })
+      ],
+
+      formula: [
+        { sinal: '',  rotulo: 'Receita líquida',        valor: 'R$ 1.622.182,37', cor: '#1F2328' },
+        { sinal: '−', rotulo: 'Compras de insumos',     valor: 'R$ 642.410,05',   cor: '#5F6368' },
+        { sinal: '−', rotulo: 'Despesas operacionais',  valor: 'R$ 1.420.487,63', cor: '#5F6368' }
+      ],
+
+      fontes: [
+        { qtd: '172', tipo: 'notas fiscais com XML guardado' },
+        { qtd: '1.324', tipo: 'transações de 24 extratos OFX' },
+        { qtd: '127', tipo: 'pagamentos a fornecedor' }
+      ],
+
+      ressalvas: [
+        { texto: 'Depreciação de R$ 2,53 milhões em equipamentos oceanográficos, sem cota calculada.' },
+        { texto: 'R$ 856 mil em outras despesas ainda num balde único — pode conter item não operacional.' },
+        { texto: 'Dos 127 pagamentos a fornecedor, só 39 têm CNPJ no memo para parear com nota.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

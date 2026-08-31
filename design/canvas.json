@@ -1,0 +1,99 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Telas"
+    },
+    {
+      "id": "page-2",
+      "name": "Fundação e rota"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1100,
+      "title": "Criar orçamento",
+      "is_interactive": true
+    },
+    {
+      "file": "Ingestao.dc.html",
+      "page": "page-1",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 940,
+      "title": "Importar XML e OFX",
+      "is_interactive": true
+    },
+    {
+      "file": "DRE.dc.html",
+      "page": "page-1",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 940,
+      "title": "DRE didática"
+    },
+    {
+      "file": "Fundacao.dc.html",
+      "page": "page-2",
+      "x": 0,
+      "y": 0,
+      "w": 1180,
+      "h": 1120,
+      "title": "Fundação visual"
+    },
+    {
+      "file": "Rota.dc.html",
+      "page": "page-2",
+      "x": 1300,
+      "y": 0,
+      "w": 1180,
+      "h": 1180,
+      "title": "Estado real e rota"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "nota-orcamento",
+      "page": "page-1",
+      "x": 0,
+      "y": -190,
+      "w": 460,
+      "text": "Desconto por item, nao global: 5% no pack, 10% na pilha.\nRepare que 10% na pilha machuca mais que 5% no pack -- ela nasce com margem de 28%, o pack com 44%.\nLigue e desligue a urgencia, e mexa nos 25%."
+    },
+    {
+      "id": "nota-ingestao",
+      "page": "page-1",
+      "x": 1560,
+      "y": -150,
+      "w": 460,
+      "text": "Clique nas três etapas no topo.\nA duplicidade aparece em dois momentos diferentes, de propósito: hash do arquivo antes de subir, hash da transação só na quarentena."
+    },
+    {
+      "id": "nota-dre",
+      "page": "page-1",
+      "x": 3120,
+      "y": -150,
+      "w": 460,
+      "text": "Números reais de 2026, da produção.\nA última linha não tem valor: lucro líquido não é apurável sem depreciação e IRPJ/CSLL. Um traço em vez de um número que alguém usaria para distribuir lucro."
+    },
+    {
+      "id": "nota-rota",
+      "page": "page-2",
+      "x": 1300,
+      "y": -110,
+      "w": 460,
+      "text": "As três telas ao lado são desenho, não software.\nO bloco azul no fim é a decisão que depende de você."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}
