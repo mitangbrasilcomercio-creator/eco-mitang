@@ -25,11 +25,22 @@ def col_idx(ref):
 
 linhas = {}
 formulas = {}
-for m in re.finditer(r'<c r="([A-Z]+)(\d+)"([^>]*)>(.*?)</c>|<c r="([A-Z]+)(\d+)"([^>]*)/>', sheet, re.S):
-    if m.group(1):
-        col, lin, attrs, corpo = m.group(1), int(m.group(2)), m.group(3), m.group(4)
-    else:
-        col, lin, attrs, corpo = m.group(5), int(m.group(6)), m.group(7), ''
+# [ERRO ANTERIOR] A expressao era
+#   <c r="..."([^>]*)>(.*?)</c>  |  <c r="..."([^>]*)/>
+# com a alternativa de tag fechada em SEGUNDO lugar. Numa celula vazia o Excel
+# escreve <c r="A4" s="12"/>; a primeira alternativa casava ' s="12"/' como
+# atributos, engolia o '>' final e ia procurar o proximo </c> -- que era o da
+# celula SEGUINTE. Cada celula vazia comia a vizinha.
+#
+# Efeito: a coluna B (Orcamento) parecia vazia em 314 das 325 linhas, quando
+# na verdade esta preenchida em todas. Diego apontou a divergencia olhando a
+# propria planilha, e o XML cru deu razao a ele: B4 = 10125.
+#
+# [CORRECAO] Atributos preguicosos e as duas terminacoes na mesma alternativa,
+# entao '/>' e reconhecido antes de '>' poder casar.
+for m in re.finditer(r'<c r="([A-Z]+)(\d+)"([^>]*?)(?:/>|>(.*?)</c>)', sheet, re.S):
+    col, lin, attrs = m.group(1), int(m.group(2)), m.group(3)
+    corpo = m.group(4) or ''
     t = re.search(r't="([^"]+)"', attrs)
     t = t.group(1) if t else 'n'
 

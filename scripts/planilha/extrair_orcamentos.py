@@ -8,13 +8,18 @@ linha a linha o que vai mudar.
 
 Decisoes que este extrator toma, e por que:
 
-1. **O numero vem de AN[N-1], nao de AN[N].** A coluna esta deslocada uma linha
-   na planilha. Conferido contra quatro PDFs (Oceanpact 010925, Medsave 040525,
-   MV3 030825) -- em todos, o numero deslocado aponta para o cliente certo.
+1. **O numero vem da coluna B, "Orcamento".** E a primeira coluna da tabela
+   `IntensVendidos` (B3:AL328), segundo a definicao dentro do proprio arquivo.
 
-2. **Mes e ano vem do NUMERO, nunca da coluna de texto.** A coluna `Mes Emiss.`
-   esta errada em 20 linhas (alguem arrastou "ago" para dentro de setembro).
-   O numero acertou nas quatro conferencias contra PDF; a data errou em duas.
+   [ERRO ANTERIOR] Uma versao deste extrator lia a coluna AN, sem cabecalho e
+   fora da tabela, e concluiu que a coluna do numero estava "deslocada uma
+   linha". Nao estava: o leitor de XML tinha um bug que fazia celula vazia
+   engolir a vizinha, e B parecia vazia em 314 das 325 linhas. Diego apontou a
+   divergencia olhando a propria planilha; o XML cru deu razao a ele.
+
+2. **Mes e ano vem do NUMERO, nunca das colunas de texto.** `Mes Emiss.` e
+   `Ano Emiss.` sao campos digitados, e campo digitado erra. O numero do
+   orcamento e a chave que vai para o Word, o PDF, a nota e o boleto.
 
 3. **Data divergente e marcada, nao corrigida.** Daria para "consertar" a L78
    juntando o ano do numero com o dia da coluna -- daria 14/05/2025, exatamente
@@ -103,16 +108,24 @@ def main():
         if not cliente:
             continue  # linha vazia do rodape da planilha
 
-        # (1) numero deslocado uma linha
-        numero_orc = texto(linhas, n - 1, 'AN')
-        if not re.fullmatch(r'\d{4,6}', numero_orc):
+        # (1) numero vem da coluna B, a primeira da tabela IntensVendidos
+        numero_orc = texto(linhas, lin, 'B')
+        padrao = None
+        if re.fullmatch(r'\d{4,6}', numero_orc):
+            # OOMMAA: ordem no mes, mes, ano
+            n6 = numero_orc.zfill(6)
+            ordem, mes, ano = int(n6[:2]), int(n6[2:4]), 2000 + int(n6[4:6])
+            numero_orc, padrao = n6, 'OOMMAA'
+        elif numero_orc:
+            # Numeracao de outro CNPJ da holding, com regra propria
+            # (ex.: 01.S.26.042.038 na venda triangulada para a Valaris).
+            ordem = mes = ano = None
+            padrao = 'OUTRO_CNPJ'
+            avisos['numeracao_de_outro_cnpj'] += 1
+        else:
             avisos['sem_numero'] += 1
             numero_orc = None
             ordem = mes = ano = None
-        else:
-            n6 = numero_orc.zfill(6)
-            ordem, mes, ano = int(n6[:2]), int(n6[2:4]), 2000 + int(n6[4:6])
-            numero_orc = n6
 
         emissao, emissao_bruta = data(texto(linhas, lin, COL['data_emissao']))
         aprovacao, aprovacao_bruta = data(texto(linhas, lin, COL['data_aprovacao']))
@@ -167,6 +180,7 @@ def main():
                        'linha': n,
                        'hash_fonte': hash_fonte[:16]},
             'numero_orcamento': numero_orc,
+            'padrao_numeracao': padrao,
             'ordem_no_mes': ordem,
             'competencia': ('%04d-%02d' % (ano, mes)) if mes else None,
             'vendido_por': texto(linhas, lin, COL['vendido_por']) or None,

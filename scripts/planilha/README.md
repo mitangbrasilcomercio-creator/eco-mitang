@@ -23,14 +23,23 @@ python scripts/planilha/conferir_numeracao.py  # confere OOMMAA x data de emiss�
 
 O `.xlsm` fica em `local/planilhas/`, fora do git: é dado da empresa, não código.
 
-## Duas armadilhas já encontradas
+## Onde estão as colunas
 
-**A coluna do número está deslocada uma linha.** O número do orçamento da linha
-N está em `AN[N-1]`, não em `AN[N]`. Conferido contra o PDF
-`010925 - Orçamento Signature-ADCP RDI.pdf`, que é da Oceanpact — a mesma
-empresa que o deslocamento aponta. Ler a coluna alinhada dá o número do vizinho
-a cada linha, e o número do orçamento é a chave que amarra Word, PDF, nota e
-boleto.
+A definição da tabela dentro do arquivo é autoritativa, e é ela que vale:
+`IntensVendidos`, intervalo **B3:AL328**. A coluna **B é `Orçamento`** — o
+número do negócio, preenchido nas 325 linhas.
+
+> **[ERRO ANTERIOR]** Uma versão deste leitor tinha um bug de regex: numa célula
+> vazia o Excel escreve `<c r="A4" s="12"/>`, e a expressão casava o `/` como
+> atributo, engolindo a célula seguinte até o próximo `</c>`. Cada célula vazia
+> comia a vizinha. Com isso a coluna B parecia vazia em 314 das 325 linhas, e
+> concluí que o número vivia numa coluna `AN` "deslocada uma linha". Nada disso
+> existe. Diego apontou a divergência olhando a própria planilha; o XML cru deu
+> razão a ele (`B4 = 10125`). Corrigido: atributos preguiçosos e as duas
+> terminações na mesma alternativa.
+>
+> Lição que ficou: antes de afirmar qualquer coisa sobre uma coluna, nomear o
+> cabeçalho dela e conferir contra a definição da tabela.
 
 **A planilha e o PDF apresentam o desconto de formas diferentes e chegam ao
 mesmo total.** No orçamento 010925: a planilha guarda frete bruto de R$ 130,00 e
