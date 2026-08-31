@@ -128,5 +128,10 @@
     "hash": "b074c033f6ec317ce4a7b8f1c84c82f9b089f2f1cd9c26b43a67714ebe90833d",
     "provada_em": "2026-08-31T13:06:49.688Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "32_obrigacoes_vigencia_e_parcelas.sql": {
+    "hash": "7f2f6b7ff4ac0c5d1c5dee892bffdfa3782fd69f7129e3c9fa372dd8adb3a254",
+    "provada_em": "2026-08-31T14:48:19.910Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }
