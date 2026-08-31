@@ -142,9 +142,32 @@ export interface TenantContext {
   empresaIds?: string[];
   userRole?: string;
   userId?: string;
+
+  /**
+   * Contexto de auditoria. O trigger 'fn_auditoria' (migration 31) le estes
+   * valores da sessao para saber QUEM fez a mutacao, POR QUE e DE ONDE.
+   *
+   * Sao opcionais de proposito: quando faltam, o evento e gravado assim mesmo
+   * com autor nulo e origem 'SCRIPT'. Perder o registro por falta de contexto
+   * seria pior que registrar sem autor -- e a ausencia de autor e ela mesma
+   * um dado, porque revela escrita que nao passou pela API.
+   */
+  usuarioEmail?: string;
+  motivo?: string;
+  ipOrigem?: string;
+  origem?: 'API' | 'SCRIPT' | 'CONSOLE';
 }
 
-function normalizarContexto(ctx: TenantContext | string): Required<Omit<TenantContext, 'userId'>> & { userId: string } {
+/** Os quatro campos que a RLS exige; o contexto de auditoria e opcional e
+ *  aplicado a parte, em aplicarContexto. */
+interface ContextoRls {
+  empresaId: string;
+  empresaIds: string[];
+  userRole: string;
+  userId: string;
+}
+
+function normalizarContexto(ctx: TenantContext | string): ContextoRls {
   const base: TenantContext = typeof ctx === 'string' ? { empresaId: ctx } : ctx;
   const empresaIds = base.empresaIds && base.empresaIds.length > 0 ? base.empresaIds : [base.empresaId];
   return {
@@ -165,6 +188,15 @@ async function aplicarContexto(client: PoolClient, ctx: TenantContext | string):
   await client.query("SELECT set_config('app.empresa_ids', $1, true)", [c.empresaIds.join(',')]);
   await client.query("SELECT set_config('app.user_role', $1, true)", [c.userRole]);
   await client.query("SELECT set_config('app.user_id', $1, true)", [c.userId]);
+
+  // Contexto de auditoria. set_config com o terceiro argumento em true e local
+  // a transacao, entao nada vaza para a proxima requisicao que pegar a mesma
+  // conexao do pool.
+  const base: TenantContext = typeof ctx === 'string' ? { empresaId: ctx } : ctx;
+  await client.query("SELECT set_config('app.usuario_email', $1, true)", [base.usuarioEmail ?? '']);
+  await client.query("SELECT set_config('app.motivo', $1, true)", [base.motivo ?? '']);
+  await client.query("SELECT set_config('app.ip_origem', $1, true)", [base.ipOrigem ?? '']);
+  await client.query("SELECT set_config('app.origem', $1, true)", [base.origem ?? '']);
 }
 
 /**

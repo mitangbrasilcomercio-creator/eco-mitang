@@ -123,5 +123,10 @@
     "hash": "1081575988ea8a573d44a8506d6339cebad2f5a2b8583ac30a0bedc195906cbd",
     "provada_em": "2026-08-31T06:32:45.109Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "31_auditoria_generica.sql": {
+    "hash": "b074c033f6ec317ce4a7b8f1c84c82f9b089f2f1cd9c26b43a67714ebe90833d",
+    "provada_em": "2026-08-31T13:06:49.688Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }
