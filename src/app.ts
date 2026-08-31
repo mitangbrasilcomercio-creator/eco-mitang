@@ -12,6 +12,7 @@ import { orcamentosRouter } from './modules/orcamentos/orcamentos.routes';
 import { financeiroRouter } from './modules/financeiro/financeiro.routes';
 import { faturamentoRouter } from './modules/faturamento/faturamento.routes';
 import { dreRouter } from './modules/contabilidade/dre.routes';
+import { governancaRouter } from './modules/governanca/governanca.routes';
 import { authMiddleware, tenantMiddleware } from './core/middlewares/tenant.middleware';
 
 export const app = express();
@@ -85,6 +86,7 @@ app.use('/api/v1/orcamentos', protegido, orcamentosRouter);
 app.use('/api/v1/financeiro', protegido, financeiroRouter);
 app.use('/api/v1/faturamento', protegido, faturamentoRouter);
 app.use('/api/v1/contabilidade', protegido, dreRouter);
+app.use('/api/v1/governanca', protegido, governancaRouter);
 
 // Webhooks tem autenticacao propria (segredo compartilhado, nao JWT).
 app.use('/api/v1/webhooks/operacional', operacionalWebhooksRouter);

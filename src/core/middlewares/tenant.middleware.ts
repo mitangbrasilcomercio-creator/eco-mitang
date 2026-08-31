@@ -128,7 +128,18 @@ export function tenantMiddleware(req: TenantRequest, res: Response, next: NextFu
     empresaId,
     empresaIds,
     userRole: auth.papel,
-    userId: auth.sub
+    userId: auth.sub,
+
+    // Contexto de auditoria (migration 31). Sem isto o trigger grava a mutacao
+    // com autor nulo e origem 'SCRIPT' -- que e o estado correto para escrita
+    // vinda de terminal, e o estado ERRADO para escrita vinda da API.
+    //
+    // O 'motivo' nao entra aqui: ele e por operacao, nao por requisicao. Quem
+    // faz uma mudanca que precisa de justificativa (estorno, override,
+    // resolucao de pendencia) o injeta no proprio caso de uso.
+    usuarioEmail: auth.email,
+    ipOrigem: req.ip || (req.socket && req.socket.remoteAddress) || undefined,
+    origem: 'API'
   };
 
   // Compatibilidade com os modulos ainda nao migrados

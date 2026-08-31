@@ -238,3 +238,54 @@ test('a aplicacao nao pode reescrever nem apagar a trilha', async () => {
     await c.end();
   }
 });
+
+test('escrita pelo pool com contexto completo chega atribuida', async () => {
+  // [ERRO ANTERIOR] O contexto de auditoria foi adicionado ao TenantContext e
+  // ao pool, mas o tenantMiddleware nao o preenchia. Resultado: toda escrita
+  // pela API era gravada sem autor, e a origem caia no fallback 'API' do
+  // trigger -- o que fazia parecer que funcionava.
+  //
+  // O engano so apareceu porque um processo antigo do servidor continuava
+  // segurando a porta 3000 e servindo a build anterior. Este teste nao depende
+  // de servidor: exercita o pool direto.
+  const { withTenantTransaction } = require('../dist/core/database/supabase-pool');
+  const c = await conectar();
+  try {
+    // 'empresas' e somente-leitura para eco_app (migration 24): a UPDATE
+    // passaria sem erro e sem efeito, e o teste falharia por motivo errado.
+    // Usa uma tabela que a aplicacao de fato escreve.
+    const alvo = await c.query(
+      'SELECT id, empresa_id, cliente_contato FROM orcamentos_historico LIMIT 1'
+    );
+    if (alvo.rows.length === 0) return;
+    const orc = alvo.rows[0];
+    await c.query('DELETE FROM auditoria_eventos WHERE tabela = $1 AND registro_id = $2',
+      ['orcamentos_historico', orc.id]);
+
+    await withTenantTransaction(
+      {
+        empresaId: orc.empresa_id,
+        empresaIds: [orc.empresa_id],
+        userRole: 'Gestor_CLevel',
+        usuarioEmail: 'trava@eco-mitang.local',
+        ipOrigem: '203.0.113.9',
+        origem: 'API'
+      },
+      async (cli) => {
+        await cli.query(
+          "UPDATE orcamentos_historico SET cliente_contato = $2 WHERE id = $1",
+          [orc.id, String(orc.cliente_contato || '') + ' [trava]']
+        );
+      }
+    );
+
+    const ev = await eventosDe(c, 'orcamentos_historico', orc.id);
+    assert.ok(ev.length >= 1, 'a escrita nao gerou evento');
+    const ultimo = ev[ev.length - 1];
+    assert.equal(ultimo.usuario_email, 'trava@eco-mitang.local',
+      'o autor nao chegou ao evento -- o contexto de auditoria nao esta sendo aplicado');
+    assert.equal(ultimo.origem, 'API');
+  } finally {
+    await c.end();
+  }
+});
