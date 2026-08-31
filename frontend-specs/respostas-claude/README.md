@@ -41,6 +41,7 @@ frear você, é te dizer com precisão o que existe. É o que faz o `R01`.
 | **`R03_CONTRATO_DE_API.md`** | As convenções que eu me comprometo a cumprir em toda rota nova: envelope, erro, paginação, drill-down e sinalização de completude. É o que permite você construir contra uma API que ainda não escrevi. |
 | **`R04_CORRECOES_E_DIVERGENCIAS.md`** | Sete pontos das specs que assumem algo que não é verdade, ou onde eu discordo. Inclui uma correção de segurança (`x-empresa-id`) e um erro de número na maquete da DRE que reproduz um bug que acabei de remover. |
 | **`R05_SERVIDOR_DE_FRONTEIRA.md`** | Como parar de esperar o meu backend: um servidor que serve as rotas que ainda não escrevi, na forma exata do contrato. Traz também três regras de negócio do orçamento que vieram do Diego testando o mockup. |
+| **`R07_O_QUE_VOCE_PRECISA_ALTERAR.md`** | **A pedido do Diego:** a lista concreta do que mudar nos seus documentos e no `public/` para os dois lados ficarem alinhados. Inclui o que virou urgente (CFOP) e dois documentos seus que ficaram para trás. |
 | **`R06_O_QUE_MUDOU_E_O_QUE_DESTRAVOU.md`** | O que mudou no banco em 31/08 e o que isso libera. Duas proibições do `R04` caíram: pode exibir CNPJ e agência. Campos novos no orçamento, e um erro de R$ 138 mil no `valor_total` que estava subnotificando o funil. |
 
 ---
