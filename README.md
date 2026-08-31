@@ -1,14 +1,22 @@
 # Eco-Mitang ERP
 
-ERP multi-tenant para a holding **Eco-Mitang**, composta por 4 CNPJs operacionais:
+ERP multi-tenant para a holding **Eco-Mitang**, composta por 4 CNPJs:
 
-1. **Mitang Brasil & Arandu** — manufatura de baterias subsea e hospitalares
-2. **Mitang Rental** — locação de equipamentos oceanográficos e metrologia
-3. **Mitang Services** — serviços especializados offshore
-4. **Mitang Academy / Sea House** — cursos e treinamentos marítimos
+| Empresa | CNPJ | Atividade |
+|---|---|---|
+| **Mitang Brasil** | 44.221.348/0001-84 | manufatura de baterias subsea e hospitalares |
+| **Arandu** | 61.349.982/0001-16 | locação de equipamentos oceanográficos |
+| **Mitang Soluções Submarinas** | 14.559.354/0001-85 | serviços offshore · filial em Macaé sob `/0002-66` |
+| **Sea House** | 49.977.717/0001-87 | cursos e treinamentos marítimos |
+
+Os quatro são validados pelo dígito verificador, e o banco recusa CNPJ que não
+feche (`chk_empresas_cnpj_valido`).
 
 Backend em Node.js + TypeScript + Express sobre PostgreSQL (Supabase).
 Front-end SPA em `public/`.
+
+**Para saber o que fazer agora, comece por [`ROADMAP.md`](ROADMAP.md)** — ele é
+o ponto único de entrada da ordem de execução e das pendências.
 
 ---
 
@@ -238,6 +246,8 @@ número plausível no lugar de um que ele não tem.
 - As pastas de extratos de **Mitang Soluções Submarinas** e **Sea House** estão
   vazias. Os módulos financeiros desses CNPJs vão aparecer sem dado — o sistema
   reporta isso em vez de estimar.
-- Os CNPJs de Mitang Services (`33333333000103`) e Mitang Academy
-  (`44444444000104`) ainda são placeholders e precisam ser substituídos pelos
-  reais.
+- A **agência do Bradesco vem `NULL`** de propósito: o identificador do OFX tem
+  5 dígitos, sem agência embutida, e inventar um número repetiria o erro que a
+  migration 29 desfez. `NULL` quer dizer "não conferido contra documento".
+- O comando `npm run db:migrate` aponta para **homologação**. Produção exige
+  `--producao`, confirmação digitada e backup — ver `database/HOMOLOGACAO.md`.
