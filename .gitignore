@@ -23,3 +23,7 @@ design/*.html
 
 # Planilhas originais baixadas do Drive: fonte, nao versionar
 local/
+
+# Scripts de analise descartaveis
+_*.py
+_*.js
