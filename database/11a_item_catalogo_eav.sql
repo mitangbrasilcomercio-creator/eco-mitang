@@ -1,5 +1,34 @@
 -- ============================================================================
--- 10. MIGRATION: ITEM_CATALOGO & DATA INGESTION STAGING AREA
+-- 11a. ITENS_CATALOGO & AREA DE STAGING DE INGESTAO
+-- ============================================================================
+--
+-- [ERRO ANTERIOR]
+-- Este arquivo ja se chamou '10_item_catalogo_eav.sql' e colidia em numeracao
+-- com '10_clientes_historico.sql'. A colisao foi resolvida renomeando-o para
+-- '14_', o que o jogou para DEPOIS de '12_nfe_nfse_xml_armazenamento.sql' --
+-- que cria 'notas_fiscais_itens' com uma FK para 'itens_catalogo'.
+--
+-- Em producao ninguem percebeu: as tabelas ja existiam, aplicadas fora de
+-- ordem por um script avulso (scripts/_arquivo/apply_migration_10.js). O
+-- resultado e que o conjunto de migrations descrevia um schema que NAO podia
+-- ser reconstruido do zero: parar na 12 com 'relation "itens_catalogo" does
+-- not exist'. Um banco que nao se reconstroi a partir das proprias migrations
+-- nao tem plano de recuperacao.
+--
+-- Encontrado na primeira execucao do ambiente de homologacao -- era
+-- exatamente para isso que ele foi criado.
+--
+-- [CORRECAO]
+-- Renumerado para '11a', antes da 12. O conteudo e integralmente idempotente
+-- (CREATE ... IF NOT EXISTS), entao reaplicar em producao sob o nome novo nao
+-- altera nada alem do proprio ledger.
+--
+-- O bloco de RLS que existia aqui foi removido: ele criava a policy
+-- RESTRICTIVE 'tenant_isolation_itens_catalogo', que a migration 21 substituiu
+-- por uma PERMISSIVE correta. Mantido, ele voltaria a valer em producao ao
+-- reaplicar este arquivo -- e uma policy RESTRICTIVE se soma as demais por AND,
+-- entao a visao consolidada da holding passaria a esconder itens em silencio.
+-- A migration 21 e a autoridade sobre RLS e ja cobre as duas tabelas daqui.
 -- ============================================================================
 
 -- Enum para Tipos de Item do Catálogo
@@ -64,16 +93,12 @@ CREATE TABLE IF NOT EXISTS importacao_staging (
 
 CREATE INDEX IF NOT EXISTS idx_importacao_staging_empresa ON importacao_staging(empresa_id, status);
 
--- Row Level Security (RLS)
-ALTER TABLE itens_catalogo ENABLE ROW LEVEL SECURITY;
-ALTER TABLE importacao_staging ENABLE ROW LEVEL SECURITY;
+-- A RLS destas duas tabelas e definida na migration 21, que e a autoridade
+-- unica sobre isolamento de tenant. Ver o cabecalho deste arquivo.
 
-DROP POLICY IF EXISTS tenant_isolation_itens_catalogo ON itens_catalogo;
-CREATE POLICY tenant_isolation_itens_catalogo ON itens_catalogo
-    AS RESTRICTIVE
-    USING (empresa_id = NULLIF(current_setting('app.current_empresa_id', true), '')::uuid);
-
-DROP POLICY IF EXISTS tenant_isolation_importacao_staging ON importacao_staging;
-CREATE POLICY tenant_isolation_importacao_staging ON importacao_staging
-    AS RESTRICTIVE
-    USING (empresa_id = NULLIF(current_setting('app.current_empresa_id', true), '')::uuid);
+-- ---------------------------------------------------------------------------
+-- Limpeza do ledger: a linha do nome antigo aponta para um arquivo que nao
+-- existe mais. Deixa-la faria um leitor futuro procurar por uma migration
+-- inexistente.
+-- ---------------------------------------------------------------------------
+DELETE FROM schema_migrations WHERE nome = '14_item_catalogo_eav.sql';

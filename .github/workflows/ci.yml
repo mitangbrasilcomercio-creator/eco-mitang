@@ -52,6 +52,100 @@ jobs:
       - name: Classificador OFX
         run: node --test tests/ofx-classificador.test.js
 
+      - name: Trava de ambiente (homologacao por padrao)
+        run: node --test tests/ambiente.test.js
+
+  # ---------------------------------------------------------------------------
+  # Constroi o schema INTEIRO do zero, num PostgreSQL da mesma versao maior de
+  # producao, e confere as invariantes.
+  #
+  # Existe porque o conjunto de migrations ja esteve quebrado sem ninguem
+  # perceber: '12_nfe_nfse_xml_armazenamento.sql' referenciava uma tabela criada
+  # so na '14_'. Em producao passou despercebido -- as tabelas ja existiam,
+  # aplicadas fora de ordem por um script avulso. Mas o banco nao podia ser
+  # reconstruido a partir das proprias migrations, ou seja, nao havia plano de
+  # recuperacao. Este job faz essa reconstrucao acontecer em todo push.
+  #
+  # Nao usa segredo nenhum: roda contra um container efemero.
+  # ---------------------------------------------------------------------------
+  schema:
+    name: Schema reconstruido do zero
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: homologacao
+          POSTGRES_DB: eco_mitang
+        ports: ['5433:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d eco_mitang"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      ECO_AMBIENTE: homologacao
+      HOMOLOG_MIGRATION_DATABASE_URL: postgresql://postgres:homologacao@localhost:5433/eco_mitang
+      HOMOLOG_APP_DATABASE_URL: postgresql://eco_app:homologacao@localhost:5433/eco_mitang
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # Reproduz os papeis do PostgREST que a Supabase cria, incluindo o
+      # privilegio PADRAO que expoe tabela nova. Sem isso a migration 26 seria
+      # um no-op aqui e "passou no CI" nao significaria nada para essa classe
+      # de defeito.
+      - name: Papeis da Supabase
+        run: |
+          psql "$HOMOLOG_MIGRATION_DATABASE_URL" -v ON_ERROR_STOP=1                -f database/homologacao/00_papeis_supabase.sql
+
+      - name: Aplicar todas as migrations do zero
+        run: npm run db:migrate
+
+      - name: Papel da aplicacao
+        run: npm run db:role
+
+      - name: Fixtures minimas
+        run: npm run homolog:seed
+
+      - name: Invariantes de schema (RLS, policies, grants, ledger)
+        run: node scripts/verificar_schema.js
+
+      # Antes so rodava contra producao, entao ficava de fora do CI. Com o seed
+      # ele passa a ser verificado em todo push, sem credencial nenhuma.
+      - name: Isolamento multi-tenant (RLS)
+        env:
+          JWT_SECRET: segredo-de-ci-com-mais-de-trinta-e-dois-caracteres
+        run: npm run build && node --test tests/rls-isolamento.test.js
+
+      # A migration 26 estabelece que tabela nova nasce fechada a anon. Sem
+      # esta prova, a regra poderia ser desfeita por uma migration futura sem
+      # que nada acusasse.
+      - name: Tabela nova nasce fechada a anon
+        run: |
+          psql "$HOMOLOG_MIGRATION_DATABASE_URL" -v ON_ERROR_STOP=1 -c "
+            CREATE TABLE _sonda_ci (id int);
+            DO \$\$ BEGIN
+              IF has_table_privilege('anon', '_sonda_ci', 'SELECT')
+                 OR has_table_privilege('anon', '_sonda_ci', 'TRUNCATE') THEN
+                RAISE EXCEPTION 'REGRESSAO: tabela nova nasceu acessivel a anon';
+              END IF;
+              IF NOT has_table_privilege('eco_app', '_sonda_ci', 'SELECT') THEN
+                RAISE EXCEPTION 'REGRESSAO: eco_app perdeu acesso a tabela nova';
+              END IF;
+            END \$\$;
+            DROP TABLE _sonda_ci;"
+
   # ---------------------------------------------------------------------------
   # Só roda quando o segredo de conexao existe. Sem ele o job e pulado, em vez
   # de quebrar o CI de quem nao tem acesso ao banco.
@@ -59,7 +153,7 @@ jobs:
   banco:
     name: Isolamento RLS e integridade financeira
     runs-on: ubuntu-latest
-    needs: verificacao
+    needs: [verificacao, schema]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -98,4 +192,10 @@ jobs:
         if: steps.cred.outputs.tem == 'sim'
         env:
           MIGRATION_DATABASE_URL: ${{ secrets.MIGRATION_DATABASE_URL }}
-        run: node scripts/verificar_integridade.js
+        run: node scripts/verificar_integridade.js --producao
+
+      - name: Invariantes de schema em producao
+        if: steps.cred.outputs.tem == 'sim'
+        env:
+          MIGRATION_DATABASE_URL: ${{ secrets.MIGRATION_DATABASE_URL }}
+        run: node scripts/verificar_schema.js --producao
