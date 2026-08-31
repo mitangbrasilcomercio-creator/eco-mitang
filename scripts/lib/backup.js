@@ -62,7 +62,8 @@ function urlComCaDoContainer(connectionString) {
  * @param {string} rotulo  vai para o nome do arquivo (ex.: 'antes-de-migrate')
  * @returns {{ok: boolean, arquivo?: string, erro?: string}}
  */
-function dumpar(ctx, rotulo) {
+function dumpar(ctx, rotulo, opcoes) {
+  const soPublic = !!(opcoes && opcoes.somentePublic);
   if (!dockerDisponivel()) {
     return { ok: false, erro: 'Docker nao esta respondendo -- e ele que fornece o pg_dump.' };
   }
@@ -79,6 +80,10 @@ function dumpar(ctx, rotulo) {
     '--format=custom',
     '--no-owner',
     '--no-acl',
+    // Restaurar num PostgreSQL puro exige deixar de fora o que so existe na
+    // Supabase: o dump completo traz CREATE EXTENSION supabase_vault, e o
+    // pg_restore para nele.
+    ...(soPublic ? ['--schema=public'] : []),
     '--file=/saida/' + nome,
     urlComCaDoContainer(ctx.connectionString)
   ], { timeout: 15 * 60 * 1000 });

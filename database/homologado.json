@@ -103,5 +103,10 @@
     "hash": "7a468111ecff8e615f34b27d56ffc594db4cee462e6017684fd0296661169c24",
     "provada_em": "2026-08-31T00:41:18.479Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "27_orcamentos_procedencia.sql": {
+    "hash": "2e79ab25de071bdbcce8422446367e4d140e8f094d0d780fc9f3dc7857170759",
+    "provada_em": "2026-08-31T05:00:48.255Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }

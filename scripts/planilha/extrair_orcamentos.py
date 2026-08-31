@@ -111,11 +111,15 @@ def main():
         # (1) numero vem da coluna B, a primeira da tabela IntensVendidos
         numero_orc = texto(linhas, lin, 'B')
         padrao = None
-        if re.fullmatch(r'\d{4,6}', numero_orc):
-            # OOMMAA: ordem no mes, mes, ano
-            n6 = numero_orc.zfill(6)
+        # OOMMAA, com sufixo opcional de versao: '010526-2' e a segunda
+        # proposta do mesmo negocio -- o cliente pediu dois formatos ao mesmo
+        # tempo, e Diego marcou as duas com o mesmo numero base.
+        m = re.fullmatch(r'(\d{4,6})(?:-(\d+))?', numero_orc)
+        if m:
+            n6 = m.group(1).zfill(6)
             ordem, mes, ano = int(n6[:2]), int(n6[2:4]), 2000 + int(n6[4:6])
-            numero_orc, padrao = n6, 'OOMMAA'
+            numero_orc = n6 + ('-' + m.group(2) if m.group(2) else '')
+            padrao = 'OOMMAA'
         elif numero_orc:
             # Numeracao de outro CNPJ da holding, com regra propria
             # (ex.: 01.S.26.042.038 na venda triangulada para a Valaris).

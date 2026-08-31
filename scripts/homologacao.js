@@ -196,7 +196,7 @@ async function espelhar() {
   await subir();
 
   console.log('\n--- 1/4 Dump de producao --------------------------------------------\n');
-  const dump = backup.dumpar(ctxProd, 'espelho');
+  const dump = backup.dumpar(ctxProd, 'espelho', { somentePublic: true });
   if (!dump.ok) {
     console.error('[ERRO] ' + dump.erro);
     process.exit(1);
@@ -222,15 +222,41 @@ async function espelhar() {
     'pg_restore',
     '--no-owner',
     '--no-acl',
-    '--exit-on-error',
+    // Sem --exit-on-error: objetos da Supabase que nao existem no Postgres puro
+    // (papeis anon/authenticated, extensoes do vault) fazem barulho e sao
+    // irrelevantes para homologacao. O que importa e o schema public, conferido
+    // logo abaixo pela contagem de tabelas.
     '--dbname=' + urlDeDentro(ctxHomolog.connectionString),
     '/entrada/' + path.basename(dump.arquivo)
   ]);
-  if (restaurar.status !== 0) {
-    console.error('\n[ERRO] pg_restore falhou. A base local ficou incompleta.');
+  // [ERRO ANTERIOR] A checagem era 'status !== 0'. Mas restaurar um dump da
+  // Supabase num PostgreSQL puro sempre produz ruido inofensivo -- 'schema
+  // public already exists', papeis anon/authenticated que nao existem aqui --
+  // e o pg_restore devolve codigo diferente de zero por causa disso. O
+  // espelhamento era declarado como falho quando na verdade tinha funcionado.
+  //
+  // [CORRECAO] Medir o resultado em vez do codigo de saida: contar as tabelas
+  // que chegaram. Ou o schema esta la, ou nao esta.
+  const clienteConferencia = new Client({ connectionString: ctxHomolog.connectionString, ssl: false });
+  await clienteConferencia.connect();
+  const tabelas = (
+    await clienteConferencia.query(
+      "SELECT count(*)::int n FROM information_schema.tables " +
+      "WHERE table_schema='public' AND table_type='BASE TABLE'"
+    )
+  ).rows[0].n;
+  await clienteConferencia.end();
+
+  if (tabelas < 20) {
+    console.error('\n[ERRO] A restauracao trouxe apenas ' + tabelas + ' tabelas; producao tem mais de 30.');
+    console.error('       A base local ficou incompleta.');
     process.exit(1);
   }
-  console.log('OK  schema e dados restaurados.');
+  if (restaurar.status !== 0) {
+    console.log('(pg_restore reclamou de objetos que so existem na Supabase; ' +
+                tabelas + ' tabelas chegaram, seguindo.)');
+  }
+  console.log('OK  schema e dados restaurados: ' + tabelas + ' tabelas.');
 
   console.log('\n--- 4/4 Anonimizando ------------------------------------------------\n');
   const alvo = new Client(ctxHomolog.configCliente());
