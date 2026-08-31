@@ -29,7 +29,48 @@ dotenv.config();
 
 const CA_PATH = path.join(__dirname, '..', '..', '..', 'database', 'certs', 'supabase-ca.crt');
 
-function construirConfigSsl(): { ca?: string; rejectUnauthorized: boolean } {
+/**
+ * [ERRO ANTERIOR]
+ * A aplicacao so sabia falar com producao: lia APP_DATABASE_URL e pronto. Nao
+ * havia como subir a API contra o banco de homologacao, entao a verificacao de
+ * pilha completa (banco -> API -> frontend) so podia ser feita nos dados reais.
+ *
+ * [CORRECAO]
+ * Passou a respeitar ECO_AMBIENTE, com a mesma regra dos scripts
+ * (scripts/lib/ambiente.js): homologacao por padrao, producao so quando pedida.
+ * Assim 'npm run verificar' exercita a pilha inteira sem tocar em producao, e
+ * 'ECO_AMBIENTE=producao npm start' continua servindo o sistema de verdade.
+ */
+const HOMOLOG_APP_PADRAO = 'postgresql://eco_app:homologacao@localhost:5433/eco_mitang';
+
+function ehProducao(): boolean {
+  const v = String(process.env.ECO_AMBIENTE || '').trim().toLowerCase();
+  return v === 'producao' || v === 'production' || v === 'prod';
+}
+
+function resolverConexao(): string {
+  if (ehProducao()) {
+    const url =
+      process.env.APP_DATABASE_URL || process.env.DIRECT_URL || process.env.DATABASE_URL;
+    if (!url) {
+      throw new Error(
+        '[DB] ECO_AMBIENTE=producao, mas APP_DATABASE_URL nao esta definida no .env.'
+      );
+    }
+    return url;
+  }
+  return process.env.HOMOLOG_APP_DATABASE_URL || HOMOLOG_APP_PADRAO;
+}
+
+function ehLocal(url: string): boolean {
+  return /@(localhost|127\.0\.0\.1|host\.docker\.internal)[:/]/.test(url);
+}
+
+function construirConfigSsl(url: string): { ca?: string; rejectUnauthorized: boolean } | false {
+  // O container de homologacao nao serve TLS. Exigir certificado dele seria
+  // teatro: a conexao nem sai da maquina.
+  if (ehLocal(url)) return false;
+
   if (process.env.DB_SSL_INSECURE === 'true') {
     console.warn(
       '[DB SSL] ATENCAO: DB_SSL_INSECURE=true. O certificado do servidor NAO esta sendo verificado. ' +
@@ -58,18 +99,25 @@ function construirConfigSsl(): { ca?: string; rejectUnauthorized: boolean } {
  * Row-Level Security valer de fato. DIRECT_URL/DATABASE_URL ficam como
  * compatibilidade ate a Fase 3 estar aplicada.
  */
-const connectionString =
-  process.env.APP_DATABASE_URL || process.env.DIRECT_URL || process.env.DATABASE_URL;
+const connectionString = resolverConexao();
 
-if (!connectionString) {
-  throw new Error(
-    '[DB] Nenhuma string de conexao definida. Configure APP_DATABASE_URL no .env.'
-  );
-}
+console.log(
+  '[DB] ambiente=' +
+    (ehProducao() ? 'PRODUCAO' : 'homologacao') +
+    ' alvo=' +
+    (() => {
+      try {
+        const u = new URL(connectionString);
+        return u.hostname + ':' + (u.port || '5432') + u.pathname;
+      } catch {
+        return '(url invalida)';
+      }
+    })()
+);
 
 export const pgPool = new Pool({
   connectionString,
-  ssl: construirConfigSsl(),
+  ssl: construirConfigSsl(connectionString),
   max: Number(process.env.DB_POOL_MAX || 5),
   idleTimeoutMillis: 10000,
   connectionTimeoutMillis: 15000,

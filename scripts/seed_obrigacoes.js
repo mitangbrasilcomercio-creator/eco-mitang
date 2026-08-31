@@ -28,20 +28,11 @@
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
-require('dotenv').config();
+const ambiente = require('./lib/ambiente');
 
 const RAIZ = path.join(__dirname, '..');
-const CA_PATH = path.join(RAIZ, 'database', 'certs', 'supabase-ca.crt');
 const ORIGEM = path.join(RAIZ, 'database', 'local_mirror', 'obrigacoes_recorrentes.json');
 
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
 
 /** 'DD/MM/AAAA' -> 'AAAA-MM-DD'. Devolve null se a data nao for valida. */
 function paraDate(br) {
@@ -80,11 +71,12 @@ async function main() {
   console.log('======================================================================\n');
   console.log(`Registros no arquivo: ${registros.length}\n`);
 
-  const client = new Client({
-    connectionString: process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL,
-    ssl: sslConfig(),
-    connectionTimeoutMillis: 30000
-  });
+  const ctx = ambiente.resolver({ papel: 'migration' });
+  ambiente.banner(ctx, 'Carga de obrigacoes recorrentes');
+
+  await ambiente.confirmarSeProducao(ctx, { operacao: 'inserir/atualizar obrigacoes recorrentes' });
+
+  const client = new Client(ctx.configCliente());
   await client.connect();
 
   let inseridos = 0;

@@ -16,26 +16,19 @@
  * A senha e mostrada UMA vez e nunca e gravada em disco pelo script.
  *
  * Uso:
- *   node scripts/setup_app_role.js              cria (ou rotaciona a senha)
+ *   node scripts/setup_app_role.js              cria em HOMOLOGACAO
+ *   node scripts/setup_app_role.js --producao   cria/rotaciona em producao
  *   node scripts/setup_app_role.js --verificar  so audita o papel existente
+ *
+ * Em homologacao a senha e fixa ('homologacao') de proposito: o container
+ * ouve em localhost e e descartavel, e uma senha aleatoria a cada 'zerar'
+ * obrigaria a reescrever o .env toda vez. Em producao ela e sempre aleatoria
+ * e mostrada uma unica vez.
  * ============================================================================
  */
 const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
 const crypto = require('crypto');
-require('dotenv').config();
-
-const CA_PATH = path.join(__dirname, '..', 'database', 'certs', 'supabase-ca.crt');
-
-function sslConfig() {
-  if (process.env.DB_SSL_INSECURE === 'true') return { rejectUnauthorized: false };
-  try {
-    return { ca: fs.readFileSync(CA_PATH, 'utf8'), rejectUnauthorized: true };
-  } catch {
-    return { rejectUnauthorized: true };
-  }
-}
+const ambiente = require('./lib/ambiente');
 
 function gerarSenha() {
   // 32 bytes em base64url: forte e sem caracteres que quebrem uma URL de conexao
@@ -43,16 +36,14 @@ function gerarSenha() {
 }
 
 async function main() {
-  const apenasVerificar = process.argv.includes('--verificar');
+  const args = process.argv.slice(2);
+  const apenasVerificar = args.includes('--verificar');
 
-  const connectionString =
-    process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL || process.env.DATABASE_URL;
-  if (!connectionString) {
-    console.error('[ERRO] Defina MIGRATION_DATABASE_URL (papel privilegiado) no .env.');
-    process.exit(1);
-  }
+  const ctx = ambiente.resolver({ papel: 'migration', args });
+  ambiente.banner(ctx, apenasVerificar ? 'Auditoria do papel eco_app' : 'Papel de aplicacao eco_app');
 
-  const client = new Client({ connectionString, ssl: sslConfig(), connectionTimeoutMillis: 30000 });
+  const connectionString = ctx.connectionString;
+  const client = new Client(ctx.configCliente());
   await client.connect();
 
   try {
@@ -77,7 +68,13 @@ async function main() {
       return;
     }
 
-    const senha = gerarSenha();
+    await ambiente.confirmarSeProducao(ctx, {
+      operacao: existente.rows.length === 0 ? 'criar o papel eco_app' : 'rotacionar a senha de eco_app',
+      args
+    });
+
+    // Aleatoria em producao; fixa e conhecida no container descartavel.
+    const senha = ctx.ehProducao ? gerarSenha() : ambiente.HOMOLOG_SENHA_APP;
 
     if (existente.rows.length === 0) {
       await client.query(
@@ -113,6 +110,15 @@ async function main() {
 
     // O ledger de migrations e somente-leitura para a aplicacao.
     await client.query('REVOKE INSERT, UPDATE, DELETE ON schema_migrations FROM eco_app;').catch(() => {});
+
+    if (!ctx.ehProducao) {
+      console.log('');
+      console.log('[OK] eco_app pronto em homologacao.');
+      console.log('     ' + ambiente.HOMOLOG_PADRAO.app);
+      console.log('     Senha fixa por ser container local e descartavel.');
+      console.log('');
+      return;
+    }
 
     // Monta a connection string no mesmo formato do pooler da Supabase.
     // No Supavisor o usuario e '<papel>.<project_ref>'.

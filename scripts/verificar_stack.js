@@ -30,6 +30,17 @@ const idxPorta = args.indexOf('--porta');
 const portaExterna = idxPorta !== -1 ? Number(args[idxPorta + 1]) : null;
 const PORTA = portaExterna || 3999;
 
+/**
+ * Fixa o ambiente para TODO o processo antes de qualquer 'require' de dist/.
+ *
+ * O pool da aplicacao resolve o alvo no momento em que o modulo carrega, lendo
+ * process.env.ECO_AMBIENTE. Se a flag '--producao' so chegasse ao resolvedor
+ * deste script, o pool ficaria em homologacao e a verificacao mediria dois
+ * bancos diferentes -- foi exatamente o que aconteceu: o usuario de
+ * verificacao era criado de um lado e o login procurado do outro.
+ */
+process.env.ECO_AMBIENTE = require('./lib/ambiente').detectarAmbiente(args);
+
 const resultados = [];
 let servidor = null;
 
@@ -98,25 +109,20 @@ const EMAIL_VERIFICADOR = 'verificador@eco-mitang.local';
  * isolamento entre tenants de ponta a ponta.
  */
 async function provisionarUsuarioVerificador() {
-  const conn = process.env.MIGRATION_DATABASE_URL || process.env.DIRECT_URL;
-  if (!conn) return null;
-
   const { Client } = require('pg');
   const bcrypt = require('bcryptjs');
   const crypto = require('crypto');
+  const ambiente = require('./lib/ambiente');
 
-  let ssl;
+  let ctx;
   try {
-    ssl = {
-      ca: fs.readFileSync(path.join(RAIZ, 'database', 'certs', 'supabase-ca.crt'), 'utf8'),
-      rejectUnauthorized: true
-    };
+    ctx = ambiente.resolver({ papel: 'migration' });
   } catch {
-    ssl = { rejectUnauthorized: true };
+    return null;
   }
 
   const senha = crypto.randomBytes(18).toString('base64').replace(/[^a-zA-Z0-9]/g, '') + 'Vf1';
-  const client = new Client({ connectionString: conn, ssl, connectionTimeoutMillis: 30000 });
+  const client = new Client(ctx.configCliente());
 
   try {
     await client.connect();
