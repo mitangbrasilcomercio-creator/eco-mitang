@@ -108,5 +108,10 @@
     "hash": "2e79ab25de071bdbcce8422446367e4d140e8f094d0d780fc9f3dc7857170759",
     "provada_em": "2026-08-31T05:00:48.255Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "28_cnpj_reais_e_validacao.sql": {
+    "hash": "e75e85f95f457d2227b41815a031de5720c0f8287f4cc11cf1a09eed4eb55d5e",
+    "provada_em": "2026-08-31T05:11:50.294Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }
