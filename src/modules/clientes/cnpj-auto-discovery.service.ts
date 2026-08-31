@@ -55,7 +55,9 @@ export class CnpjAutoDiscoveryService {
       const txRes = await client.query(`
         SELECT DISTINCT regexp_replace(documento_contraparte, '[^0-9]', '', 'g') as cnpj, nome_contraparte, valor, empresa_id
         FROM transacoes_bancarias
-        WHERE documento_contraparte IS NOT NULL AND length(regexp_replace(documento_contraparte, '[^0-9]', '', 'g')) = 14;
+        WHERE is_saldo_informativo = FALSE
+          AND documento_contraparte IS NOT NULL
+          AND length(regexp_replace(documento_contraparte, '[^0-9]', '', 'g')) = 14;
       `);
 
       for (const r of txRes.rows) {
@@ -164,7 +166,8 @@ export class CnpjAutoDiscoveryService {
             const updateTx = await client.query(`
               UPDATE transacoes_bancarias
               SET cliente_id = $1
-              WHERE regexp_replace(documento_contraparte, '[^0-9]', '', 'g') = $2;
+              WHERE is_saldo_informativo = FALSE
+                AND regexp_replace(documento_contraparte, '[^0-9]', '', 'g') = $2;
             `, [novoClienteId, cnpj]);
             vinculados += updateTx.rowCount || 0;
           }

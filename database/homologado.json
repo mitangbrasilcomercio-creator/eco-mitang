@@ -118,5 +118,10 @@
     "hash": "2607b6a13e06396178752afe97005bf94615a64ca403d785a76c4771cbc61cf6",
     "provada_em": "2026-08-31T05:20:27.607Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "30_socios_e_pendencias.sql": {
+    "hash": "1081575988ea8a573d44a8506d6339cebad2f5a2b8583ac30a0bedc195906cbd",
+    "provada_em": "2026-08-31T06:32:45.109Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }

@@ -62,7 +62,9 @@ export class FinanceiroRepository {
   // -------------------------------------------------------------------------
   async listarTransacoes(ctx: TenantContext, f: FiltroTransacoes) {
     return withTenantQuery(ctx, async (client) => {
-      const where: string[] = ['t.is_saldo_informativo = FALSE'];
+      // O filtro de saldo do dia fica no literal da consulta, nao aqui:
+      // condicao invisivel no SQL e condicao que a proxima pessoa nao ve.
+      const where: string[] = [];
       const params: any[] = [];
 
       if (f.somenteOperacionais) {
@@ -110,7 +112,8 @@ export class FinanceiroRepository {
                SUM(CASE WHEN t.valor < 0 THEN ABS(t.valor) ELSE 0 END) OVER () AS soma_saidas
           FROM transacoes_bancarias t
           JOIN contas_bancarias c ON c.id = t.conta_bancaria_id
-         WHERE ${clausula}
+         WHERE t.is_saldo_informativo = FALSE
+           AND ${clausula}
          ORDER BY t.data_lancamento DESC, t.created_at DESC
          LIMIT $${params.length - 1} OFFSET $${params.length};
       `;
@@ -380,6 +383,7 @@ export class FinanceiroRepository {
                 conciliado_por       = $5,
                 updated_at           = NOW()
           WHERE id = $1
+            AND is_saldo_informativo = FALSE
         RETURNING id, categoria_financeira, nome_contraparte, cliente_id, status_conciliacao;`,
         [
           dados.transacaoId,
@@ -397,9 +401,13 @@ export class FinanceiroRepository {
   async listarCategorias(ctx: TenantContext) {
     return withTenantQuery(ctx, async (client) => {
       const res = await client.query(
+        // Saldo do dia tem categoria 'INFORMATIVO_SALDO' e sao 564 linhas em
+        // producao. Sem o filtro, a lista oferece uma categoria que nao e
+        // categoria e infla a contagem em 43%.
         `SELECT categoria_financeira, COUNT(*) AS quantidade
            FROM transacoes_bancarias
           WHERE categoria_financeira IS NOT NULL
+            AND is_saldo_informativo = FALSE
           GROUP BY 1 ORDER BY 2 DESC;`
       );
       return res.rows;

@@ -250,9 +250,10 @@ export class ClientesController {
           SELECT t.id, t.data_lancamento, t.valor, t.memo, c.banco_nome, c.conta_numero
           FROM transacoes_bancarias t
           JOIN contas_bancarias c ON c.id = t.conta_bancaria_id
-          WHERE (t.documento_contraparte IS NOT NULL AND regexp_replace(t.documento_contraparte, '[^0-9]', '', 'g') = $1)
+          WHERE t.is_saldo_informativo = FALSE
+            AND ((t.documento_contraparte IS NOT NULL AND regexp_replace(t.documento_contraparte, '[^0-9]', '', 'g') = $1)
              OR t.memo ILIKE $2
-             OR t.cliente_id = $3
+             OR t.cliente_id = $3)
           ORDER BY t.data_lancamento DESC
           LIMIT 50;
         `, [cleanCnpj, `%${cliente.razao_social_nome.substring(0, 15)}%`, cliente.id]);
