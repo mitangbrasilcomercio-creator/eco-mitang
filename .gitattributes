@@ -1,0 +1,20 @@
+# =============================================================================
+# Fim de linha
+# =============================================================================
+# O executor de migrations identifica cada arquivo pelo SHA-256 do conteudo, e
+# 'database/homologado.json' guarda esses hashes para provar que a migration
+# passou em homologacao antes de tocar producao.
+#
+# Sem esta normalizacao, o mesmo arquivo tem hash diferente no Windows (CRLF) e
+# no CI (LF) -- e a prova de homologacao passa a falhar sozinha a cada clone,
+# sem que nada tenha mudado de fato.
+#
+# LF em todo lugar. O hash tambem normaliza por conta propria, como segunda
+# linha de defesa para um arquivo que chegue com CRLF de outra forma.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.ofx text eol=lf
+*.xml text eol=lf
