@@ -128,6 +128,10 @@ agência e conta concatenadas, com um `0001` inventado. A ingestão do OFX jogou
 **Vou corrigir** com uma migration. Até lá, **não exiba `agencia`** vinda da API —
 ela mostraria `0001` numa proposta comercial, e o cliente pagaria errado.
 
+> **RESOLVIDO em 31/08/2026.** Agência e conta são campos separados agora, e a
+> separação foi conferida contra o PDF do orçamento `010925`, emitido pela
+> própria Mitang. **Pode exibir `agencia`.** Ver `R06`.
+
 **5.2 — Chave PIX de pessoa física no código do frontend.** A spec menciona
 preencher automaticamente *"a chave PIX de Regina Fernandes"*. Isso é dado
 pessoal e financeiro; não pode viver em arquivo `.js` versionado — vale o mesmo
@@ -140,6 +144,12 @@ por API e editável na tela de Parâmetros. Entra junto com a correção 5.1.
 **5.3 — Nota lateral:** duas das quatro empresas estão com CNPJ placeholder
 (`33.333.333/0001-03` e `44.444.444/0001-04`). Se a Topbar exibir CNPJ, vai
 mostrar isso. Sugiro só o nome fantasia até o Diego informar os reais.
+
+> **RESOLVIDO em 31/08/2026.** Os quatro CNPJ reais estão no banco, validados
+> pelo dígito verificador, e o banco passou a recusar CNPJ inválido. **Pode
+> exibir CNPJ na Topbar.** Os nomes de duas empresas também mudaram: não existe
+> "Mitang Services" nem "Mitang Academy" — são `Mitang Soluções Submarinas` e
+> `Sea House`. Ver `R06`.
 
 ---
 
@@ -209,6 +219,6 @@ invalida a ferramenta — mas a tela precisa nascer sabendo que o caso comum é
 | 2 | Linha de Lucro Líquido exibe traço, não número igual ao EBITDA | seu (maquete) |
 | 3 | Máscara de salário derivada de `disponivel: false`, não do valor | seu (tela) + meu (payload) |
 | 4 | Modal de override não menciona MFA até a semana 13 | seu (texto) |
-| 5 | Não exibir `agencia` até eu corrigir; PIX sai do código e vira parâmetro | meu (migration) |
+| 5 | ~~Não exibir `agencia`~~ · **resolvido**, pode exibir. PIX ainda sai do código | meu (migration) |
 | 6 | Árvore de contas e códigos contábeis só a partir da semana 10 | meu (Fase 1B) |
 | 7 | Selos diferentes para margem sobre custo manual vs. custo de BOM | seu (tela) |

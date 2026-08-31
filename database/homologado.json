@@ -113,5 +113,10 @@
     "hash": "e75e85f95f457d2227b41815a031de5720c0f8287f4cc11cf1a09eed4eb55d5e",
     "provada_em": "2026-08-31T05:11:50.294Z",
     "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "29_contas_bancarias_agencia.sql": {
+    "hash": "2607b6a13e06396178752afe97005bf94615a64ca403d785a76c4771cbc61cf6",
+    "provada_em": "2026-08-31T05:20:27.607Z",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)"
   }
 }
