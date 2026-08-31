@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { TenantRequest } from '../../core/middlewares/tenant.middleware';
 import { DreRepository } from './dre.repository';
+import { calcularDre } from './dre.calculo';
 import { memoryCache } from '../../core/cache/memory-cache';
 import { resolverPeriodo } from '../../core/utils/periodo';
 
@@ -52,100 +53,7 @@ export class DreController {
 
     try {
       const base = await this.repo.apurar(ctx, p);
-      const num = (v: any) => Number(v || 0);
-
-      const receitaBruta = num(base.receitas.receita_bruta_total);
-      const tributosDestacados = num(base.receitas.total_tributos);
-      const qtdNotas = Number(base.receitas.qtd_notas || 0);
-      const qtdComImposto = Number(base.receitas.qtd_notas_com_imposto || 0);
-
-      // A deducao so existe se houver imposto destacado. Nada de aliquota
-      // presumida vendida como apuracao.
-      const temBaseTributaria = tributosDestacados > 0;
-      const deducoes = temBaseTributaria ? tributosDestacados : 0;
-      const receitaLiquida = receitaBruta - deducoes;
-
-      const cmv = num(base.cmv.cmv_insumos);
-      const lucroBruto = receitaLiquida - cmv;
-
-      const despesasPj = num(base.servicosTomados.despesas_servicos_pj);
-      const despesasBancarias = num(base.tarifas.despesas_bancarias);
-
-      const mapaDespesas: Record<string, number> = {};
-      for (const d of base.despesasPorCategoria) {
-        mapaDespesas[d.categoria_financeira] = num(d.total);
-      }
-      const tributosPagos = mapaDespesas['IMPOSTOS_E_TRIBUTOS'] || 0;
-      const outrasDespesas = mapaDespesas['OUTRAS_DESPESAS_OPERACIONAIS'] || 0;
-      const repassesSocios = mapaDespesas['REPASSES_SOCIOS_DIRETORIA'] || 0;
-
-      // Repasses a socios (pro-labore/dividendos) nao entram no EBITDA
-      // operacional -- sao distribuicao de resultado, nao custo de operar.
-      const despesasOperacionais = despesasPj + despesasBancarias + outrasDespesas;
-      const ebitda = lucroBruto - despesasOperacionais;
-
-      /**
-       * Lucro liquido = EBITDA - tributos sobre o resultado - despesas
-       * financeiras. Depreciacao e amortizacao ainda nao sao registradas pelo
-       * sistema (nao ha modulo de ativo imobilizado), entao o valor e marcado
-       * como parcial em vez de apresentado como definitivo.
-       */
-      const lucroLiquido = ebitda - tributosPagos;
-
-      const pct = (parte: number, base_: number): number | null =>
-        base_ > 0 ? Number(((parte / base_) * 100).toFixed(1)) : null;
-
-      const payload = {
-        success: true,
-        data: {
-          periodo: { inicio: p.inicio, fim: p.fim, dias: p.dias, rotulo: p.rotulo },
-          sem_dados: qtdNotas === 0,
-          dre: {
-            receita_bruta: {
-              total: receitaBruta,
-              vendas_produtos: num(base.receitas.vendas_produtos),
-              servicos_prestados: num(base.receitas.servicos_prestados),
-              qtd_notas: qtdNotas
-            },
-            deducoes: {
-              total: deducoes,
-              base_tributaria_disponivel: temBaseTributaria,
-              notas_com_imposto_destacado: qtdComImposto,
-              notas_sem_imposto_destacado: qtdNotas - qtdComImposto,
-              descricao: temBaseTributaria
-                ? 'ICMS / PIS / COFINS / ISS destacados nas notas emitidas'
-                : 'Nenhuma nota do periodo traz imposto destacado. A deducao nao foi estimada.'
-            },
-            receita_liquida: receitaLiquida,
-            custos_operacionais: {
-              cmv_total: cmv,
-              qtd_notas_compra: Number(base.cmv.qtd_notas || 0),
-              descricao: 'Insumos industriais, celulas de litio e embalagens (NF-e recebidas)'
-            },
-            lucro_bruto: lucroBruto,
-            margem_bruta_pct: pct(lucroBruto, receitaLiquida),
-            despesas_operacionais: {
-              total: despesasOperacionais,
-              servicos_terceiros_pj: despesasPj,
-              despesas_bancarias_tarifas: despesasBancarias,
-              outras_despesas: outrasDespesas
-            },
-            ebitda,
-            margem_ebitda_pct: pct(ebitda, receitaLiquida),
-            resultado_financeiro: {
-              tributos_pagos_periodo: tributosPagos,
-              repasses_socios: repassesSocios,
-              observacao: 'Repasses a socios sao distribuicao de resultado e nao compoem o EBITDA.'
-            },
-            lucro_liquido: lucroLiquido,
-            margem_liquida_pct: pct(lucroLiquido, receitaLiquida),
-            // Aviso explicito de que a apuracao ainda nao e completa.
-            lucro_liquido_parcial: true,
-            lucro_liquido_observacao:
-              'Nao inclui depreciacao nem amortizacao: o sistema ainda nao possui modulo de ativo imobilizado.'
-          }
-        }
-      };
+      const payload = { success: true, data: calcularDre(base, p) };
 
       memoryCache.set(chave, payload, 60);
       res.status(200).json(payload);

@@ -1,5 +1,5 @@
 ﻿import { InMemoryDB } from '../../core/db-client';
-import { UserAuthContext } from '../../../../src/core/security/abac.types';
+import { UserAuthContext } from '../../core/abac.types';
 import { MetricasConsolidadasDashboard } from './dashboards.types';
 
 export class DashboardQueryService {

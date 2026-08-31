@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Roda sempre. Nao toca o banco, entao funciona em fork e sem credencial.
+  # ---------------------------------------------------------------------------
+  verificacao:
+    name: Tipos, testes e trava de permissao
+    runs-on: ubuntu-latest
+    env:
+      # A app exige estas variaveis para carregar. Valores descartaveis: nenhum
+      # teste deste job abre conexao.
+      APP_DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+      JWT_SECRET: segredo-de-ci-com-mais-de-trinta-e-dois-caracteres
+      ECO_WEBHOOK_SECRET: segredo-de-webhook-para-ci-24ch
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tipagem
+        run: npx tsc --noEmit
+
+      - name: Tipagem da simulacao event-driven
+        run: npx tsc --noEmit --project examples/simulacao-event-driven/tsconfig.json
+
+      - name: Build
+        run: npm run build
+
+      # Cada um separado para a aba de checks dizer o que quebrou sem abrir o log.
+      - name: Trava de permissao de rotas
+        run: node --test tests/rotas-permissao.test.js
+
+      - name: Calculo da DRE
+        run: node --test tests/dre-calculo.test.js
+
+      - name: Periodos
+        run: node --test tests/periodo.test.js
+
+      - name: Classificador OFX
+        run: node --test tests/ofx-classificador.test.js
+
+  # ---------------------------------------------------------------------------
+  # Só roda quando o segredo de conexao existe. Sem ele o job e pulado, em vez
+  # de quebrar o CI de quem nao tem acesso ao banco.
+  # ---------------------------------------------------------------------------
+  banco:
+    name: Isolamento RLS e integridade financeira
+    runs-on: ubuntu-latest
+    needs: verificacao
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Conferir se ha credencial configurada
+        id: cred
+        run: |
+          if [ -n "${{ secrets.APP_DATABASE_URL }}" ]; then
+            echo "tem=sim" >> "$GITHUB_OUTPUT"
+          else
+            echo "tem=nao" >> "$GITHUB_OUTPUT"
+            echo "::notice::Sem APP_DATABASE_URL nos secrets do repositorio. Pulando os testes de banco."
+          fi
+
+      - name: Build
+        if: steps.cred.outputs.tem == 'sim'
+        run: npm run build
+
+      - name: Isolamento multi-tenant (RLS)
+        if: steps.cred.outputs.tem == 'sim'
+        env:
+          APP_DATABASE_URL: ${{ secrets.APP_DATABASE_URL }}
+          MIGRATION_DATABASE_URL: ${{ secrets.MIGRATION_DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: node --test tests/rls-isolamento.test.js
+
+      - name: Integridade financeira (13 provas)
+        if: steps.cred.outputs.tem == 'sim'
+        env:
+          MIGRATION_DATABASE_URL: ${{ secrets.MIGRATION_DATABASE_URL }}
+        run: node scripts/verificar_integridade.js

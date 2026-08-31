@@ -1,4 +1,4 @@
-﻿import { SecurityRole, UserAuthContext } from '../../../../src/core/security/abac.types';
+﻿import { SecurityRole, UserAuthContext } from '../../core/abac.types';
 
 export interface AnalyticsVendasMensal {
   empresa_id: string;

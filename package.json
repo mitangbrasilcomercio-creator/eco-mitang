@@ -16,7 +16,9 @@
     "db:verificar": "node scripts/verificar_integridade.js",
     "db:reingest": "node scripts/reingest_financeiro.js",
     "db:seed:obrigacoes": "node scripts/seed_obrigacoes.js",
-    "verificar": "node scripts/verificar_stack.js"
+    "verificar": "node scripts/verificar_stack.js",
+    "test:unit": "node --test tests/rotas-permissao.test.js tests/dre-calculo.test.js tests/periodo.test.js tests/ofx-classificador.test.js",
+    "test:db": "node --test tests/rls-isolamento.test.js"
   },
   "keywords": [
     "multi-tenant",

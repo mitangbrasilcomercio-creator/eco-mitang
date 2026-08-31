@@ -1,5 +1,5 @@
-﻿import { TipoItemCatalogo } from '../catalogo/catalogo.types';
-import { SecurityRole } from '../../../../src/core/security/abac.types';
+﻿import { TipoItemCatalogo } from '../../../../src/modules/catalogo/catalogo.types';
+import { SecurityRole } from '../../core/abac.types';
 
 export type StatusCotacao =
   | 'RASCUNHO'
