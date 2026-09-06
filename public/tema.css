@@ -265,24 +265,77 @@ body {
 
 /* --------------------------------------------------------------------------
    4. REDE DE SEGURANÇA PARA O CÓDIGO ANTIGO
-   Enquanto as ~300 ocorrências de `text-white` não forem migradas, este bloco
-   impede que elas sumam no tema claro.
-   A condição `:not([class*="bg-"])` é o que torna isto seguro: texto branco
-   DENTRO de um selo colorido ou de um botão de fundo escuro continua branco,
-   porque esses elementos carregam uma classe de fundo. Só é corrigido o texto
-   branco solto sobre a página — que é exatamente o que sumia.
+   --------------------------------------------------------------------------
+
+   [ERRO DA PRIMEIRA VERSÃO DESTE BLOCO — 06/09/2026]
+
+   A primeira tentativa mirou `.bg-deep-800`, `.bg-deep-900` e `.bg-deep-700`,
+   porque eram esses os nomes no tailwind.config do index.html. Só que quase
+   ninguém usa esses nomes. O que o código realmente escreve é o slate padrão
+   do Tailwind. Contagem no dia:
+
+       bg-slate-900        143      text-white         186
+       bg-slate-900/60      45      text-slate-300     115
+       bg-slate-900/80      29      text-slate-200      91
+       bg-slate-800         26      text-slate-100      42
+       + variações          70      border-white/10    278
+                                    border-white/5     230
+
+   O resultado foi PIOR que antes: a regra de texto pegou (o número do
+   FATURADO virou #2c4356, escuro) mas o cartão continuou #0f172a, escuro.
+   Texto escuro sobre cartão escuro é menos legível que o branco original.
+
+   [A CORREÇÃO]
+   Trata-se a SUPERFÍCIE, não só o texto — e pelos nomes que existem de fato.
+   Com o cartão claro, o texto escuro que a regra anterior já aplicava passa a
+   estar certo.
+
+   Duas condições mantêm isso seguro:
+     :not(button)  — chips de estado selecionado (o "Barras" do gráfico) são
+                     botões escuros de propósito e continuam escuros.
+     Seletor de classe exato, não `[class*=]` — assim `dark:bg-slate-900`,
+     cujo nome literal de classe é outro, não é atingido.
    -------------------------------------------------------------------------- */
-html:not(.dark) .text-white:not([class*="bg-"]):not([class*="from-"]) { color: var(--txt-titulo); }
-html:not(.dark) .text-slate-100:not([class*="bg-"]),
-html:not(.dark) .text-slate-200:not([class*="bg-"]),
-html:not(.dark) .text-slate-300:not([class*="bg-"]) { color: var(--txt-corpo); }
-html:not(.dark) .text-cyan-400:not([class*="bg-"])  { color: var(--acento); }
 
-/* Fundo escuro fixo no meio da página clara */
-html:not(.dark) .bg-deep-900 { background-color: var(--sup-2) !important; }
-html:not(.dark) .bg-deep-800 { background-color: var(--sup-1) !important; }
-html:not(.dark) .bg-deep-700 { background-color: var(--sup-3) !important; }
+/* --- superfícies de painel e cartão --- */
+html:not(.dark) :is(
+  .bg-slate-900, .bg-slate-900\/95, .bg-slate-900\/90, .bg-slate-900\/80,
+  .bg-slate-900\/70, .bg-slate-900\/60, .bg-slate-900\/50, .bg-slate-900\/40,
+  .bg-slate-900\/30, .bg-slate-950, .bg-slate-950\/95, .bg-slate-950\/60,
+  .bg-gray-900, .bg-deep-900, .bg-deep-800
+):not(button){
+  background-color: var(--sup-1) !important;
+}
 
+/* --- blocos aninhados: um degrau acima da superfície do cartão --- */
+html:not(.dark) :is(
+  .bg-slate-800, .bg-slate-800\/60, .bg-slate-700, .bg-gray-800, .bg-deep-700
+):not(button){
+  background-color: var(--sup-3) !important;
+}
+
+/* --- gradientes escuros: no claro não há o que degradar --- */
+html:not(.dark) [class*="from-slate-9"],
+html:not(.dark) [class*="via-slate-9"],
+html:not(.dark) [class*="to-slate-9"]{
+  background-image: none !important;
+}
+
+/* --- bordas brancas translúcidas somem sobre fundo claro --- */
+html:not(.dark) .border-white\/10,
+html:not(.dark) .border-white\/5{ border-color: var(--borda) !important; }
+html:not(.dark) .divide-white\/5 > * + *{ border-color: var(--borda) !important; }
+
+/* --- texto claro sobre superfície agora clara ---
+   A condição :not([class*="bg-"]) preserva o branco de quem tem fundo próprio:
+   selo colorido, botão de acento, chip de status. --- */
+html:not(.dark) .text-white:not([class*="bg-"]):not([class*="from-"]){ color: var(--txt-titulo) !important; }
+html:not(.dark) :is(.text-slate-100, .text-slate-200):not([class*="bg-"]){ color: var(--txt-titulo) !important; }
+html:not(.dark) .text-slate-300:not([class*="bg-"]){ color: var(--txt-corpo) !important; }
+html:not(.dark) :is(.text-slate-400, .text-slate-500):not([class*="bg-"]){ color: var(--txt-apoio) !important; }
+
+/* --- o ciano da identidade sobre branco dá 1,4:1; aqui ele fecha --- */
+html:not(.dark) :is(.text-cyan-400, .text-cyan-300):not([class*="bg-"]){ color: var(--acento) !important; }
 
 /* --------------------------------------------------------------------------
    5. PREFERÊNCIAS DO SISTEMA
