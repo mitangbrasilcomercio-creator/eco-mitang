@@ -1,0 +1,300 @@
+/* ==========================================================================
+   TEMA DEEP SEA — A REGRA ÚNICA DE COR, TIPOGRAFIA E SUPERFÍCIE
+   ==========================================================================
+
+   [ERRO ANTERIOR — a razão deste arquivo existir]
+
+   Cada tela escrevia a própria cor na mão, direto na classe do elemento:
+
+       class="text-white"        -> branco no escuro E branco no claro
+       class="bg-deep-800"       -> fundo escuro nos DOIS temas
+
+   Contagem real no dia 06/09/2026, antes desta correção:
+       ~300 usos de `text-white` sem par para o tema claro
+       ~300 fundos escuros fixos sem o prefixo `dark:`
+       só o renderRealModules.js tinha 77 deles
+
+   O efeito era o que se via na tela: no modo claro, o título "Centro de
+   Inteligência Executiva" sumia (branco sobre branco), os cartões continuavam
+   pretos no meio da página clara, e a legenda do gráfico desaparecia.
+
+   E era por isso que "toda alteração perdia as regras": não existia regra
+   nenhuma para herdar. Cada elemento novo nascia com a cor que o autor
+   daquele momento escolheu, e ninguém tinha onde consultar a certa.
+
+   [A CORREÇÃO]
+
+   A cor deixa de morar no elemento e passa a morar aqui. O elemento diz o
+   PAPEL que ele cumpre ("isto é um título", "isto é uma superfície de
+   cartão") e o papel sabe se virar nos dois temas.
+
+       ANTES                          AGORA
+       class="text-white"             class="txt-titulo"
+       class="text-slate-400"         class="txt-apoio"
+       class="bg-deep-800"            class="sup-1"
+       class="bg-deep-700"            class="sup-2"
+       class="border-white/10"        class="borda"
+       class="text-cyan-400"          class="txt-acento"
+
+   Quem escrever tela nova só precisa saber esta tabela. A cor certa nos dois
+   temas vem de graça, e não há mais como esquecer o par claro.
+
+   [COMO ISTO É CARREGADO]
+   No index.html, DEPOIS do style.css:
+       <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="tema.css">
+   A ordem importa: o tema é a palavra final sobre cor.
+
+   [A ÚNICA REGRA QUE NÃO SE PODE QUEBRAR]
+   Nenhuma cor literal (#hex, rgb(), classe de cor do Tailwind) fora deste
+   arquivo. Se faltar um papel, cria-se o papel aqui — não se escreve a cor lá.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. OS TOKENS
+   O tema claro é o padrão em :root. O escuro só redefine os mesmos nomes.
+   Nenhum componente lá embaixo repete cor: todos leem daqui.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Superfícies, da mais ao fundo para a mais à frente */
+  --fundo:        #eef3f8;   /* o papel da página                    */
+  --sup-1:        #ffffff;   /* cartão, painel, barra lateral        */
+  --sup-2:        #f4f8fb;   /* bloco dentro de um cartão            */
+  --sup-3:        #e7eff6;   /* linha em destaque, hover, cabeçalho  */
+
+  --borda:        #dae4ed;
+  --borda-forte:  #bacbd9;
+
+  /* Texto, do mais forte ao mais fraco.
+     O título carrega o azul-marinho da identidade — não é preto genérico. */
+  --txt-titulo:   #0b2033;
+  --txt-corpo:    #2c4356;
+  --txt-apoio:    #5b7286;
+  --txt-fraco:    #8399a9;
+
+  /* Acento.
+     [POR QUE NÃO É O MESMO CIANO DOS DOIS LADOS]
+     O #00e5ff do tema escuro sobre branco dá contraste de 1,4:1 — ilegível.
+     No claro o mesmo papel é cumprido por um ciano fechado, que mantém a
+     identidade e passa nos 4,5:1 exigidos para texto. */
+  --acento:         #00778a;
+  --acento-forte:   #005a69;
+  --acento-fraco:   rgba(0, 184, 204, 0.10);
+  --acento-borda:   rgba(0, 184, 204, 0.35);
+  --sobre-acento:   #ffffff;   /* texto que vai EM CIMA do acento */
+
+  /* Estados. Separados do acento de propósito: "bom/ruim" não é "marca". */
+  --ok:        #0f7a52;  --ok-fundo:      rgba(15, 122, 82, 0.10);
+  --alerta:    #8a5a00;  --alerta-fundo:  rgba(180, 120, 0, 0.12);
+  --perigo:    #b3261e;  --perigo-fundo:  rgba(179, 38, 30, 0.09);
+  --info:      #0b5c8a;  --info-fundo:    rgba(11, 92, 138, 0.09);
+
+  /* Vidro (mantém o glassmorphism da identidade) */
+  --vidro-fundo:  rgba(255, 255, 255, 0.72);
+  --vidro-borda:  rgba(11, 32, 51, 0.07);
+  --vidro-sombra: rgba(11, 32, 51, 0.08);
+
+  /* Tipografia — uma escala só, para as telas pararem de divergir */
+  --fonte:        'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fonte-num:    ui-monospace, 'SF Mono', 'Roboto Mono', 'Cascadia Mono', monospace;
+  --t-micro:      0.6875rem;  /* 11px — rótulo em caixa alta        */
+  --t-apoio:      0.8125rem;  /* 13px — legenda, nota de rodapé     */
+  --t-corpo:      0.875rem;   /* 14px — texto e tabela              */
+  --t-titulo:     1.125rem;   /* 18px — título de bloco             */
+  --t-secao:      1.5rem;     /* 24px — título de tela              */
+  --t-numero:     1.75rem;    /* 28px — valor de indicador          */
+  --t-numero-g:   2.25rem;    /* 36px — o número principal da tela  */
+
+  /* Espaçamento e forma */
+  --r-p: 8px;  --r-m: 12px;  --r-g: 16px;
+  --e-1: 4px;  --e-2: 8px;   --e-3: 12px;  --e-4: 16px;  --e-5: 24px;  --e-6: 32px;
+}
+
+.dark {
+  --fundo:        #020b14;
+  --sup-1:        #071a2b;
+  --sup-2:        #0b2438;
+  --sup-3:        #0f3050;
+
+  --borda:        rgba(255, 255, 255, 0.08);
+  --borda-forte:  rgba(255, 255, 255, 0.16);
+
+  --txt-titulo:   #f1f7fb;
+  --txt-corpo:    #c9d8e4;
+  --txt-apoio:    #8ca5b8;
+  --txt-fraco:    #62788a;
+
+  --acento:         #00e5ff;
+  --acento-forte:   #7df2ff;
+  --acento-fraco:   rgba(0, 229, 255, 0.10);
+  --acento-borda:   rgba(0, 229, 255, 0.30);
+  --sobre-acento:   #02121c;
+
+  --ok:        #34d399;  --ok-fundo:      rgba(52, 211, 153, 0.12);
+  --alerta:    #fbbf24;  --alerta-fundo:  rgba(251, 191, 36, 0.12);
+  --perigo:    #f87171;  --perigo-fundo:  rgba(248, 113, 113, 0.12);
+  --info:      #60a5fa;  --info-fundo:    rgba(96, 165, 250, 0.12);
+
+  --vidro-fundo:  rgba(7, 26, 43, 0.55);
+  --vidro-borda:  rgba(255, 255, 255, 0.06);
+  --vidro-sombra: rgba(0, 0, 0, 0.50);
+}
+
+
+/* --------------------------------------------------------------------------
+   2. BASE
+   -------------------------------------------------------------------------- */
+body {
+  background-color: var(--fundo);
+  color: var(--txt-corpo);
+  font-family: var(--fonte);
+}
+.dark body { background-color: var(--fundo); }
+
+
+/* --------------------------------------------------------------------------
+   3. OS PAPÉIS — é isto que se escreve no HTML
+   -------------------------------------------------------------------------- */
+
+/* Superfícies */
+.sup-1 { background-color: var(--sup-1); }
+.sup-2 { background-color: var(--sup-2); }
+.sup-3 { background-color: var(--sup-3); }
+.borda        { border: 1px solid var(--borda); }
+.borda-forte  { border: 1px solid var(--borda-forte); }
+.borda-topo   { border-top: 1px solid var(--borda); }
+.borda-baixo  { border-bottom: 1px solid var(--borda); }
+
+/* Texto */
+.txt-titulo { color: var(--txt-titulo); }
+.txt-corpo  { color: var(--txt-corpo); }
+.txt-apoio  { color: var(--txt-apoio); }
+.txt-fraco  { color: var(--txt-fraco); }
+.txt-acento { color: var(--acento); }
+.txt-ok     { color: var(--ok); }
+.txt-alerta { color: var(--alerta); }
+.txt-perigo { color: var(--perigo); }
+.txt-info   { color: var(--info); }
+
+/* Escala tipográfica */
+.t-micro    { font-size: var(--t-micro);    letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.t-apoio    { font-size: var(--t-apoio); }
+.t-corpo    { font-size: var(--t-corpo); }
+.t-titulo   { font-size: var(--t-titulo);   font-weight: 600; }
+.t-secao    { font-size: var(--t-secao);    font-weight: 600; letter-spacing: -.01em; }
+.t-numero   { font-size: var(--t-numero);   font-weight: 700; }
+.t-numero-g { font-size: var(--t-numero-g); font-weight: 700; letter-spacing: -.02em; }
+
+/* Números que se comparam em coluna precisam de largura fixa de dígito.
+   Sem isto, R$ 1.809.522,55 e R$ 359.795,73 não alinham a vírgula. */
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* Cartão — a forma padrão de qualquer bloco de conteúdo */
+.cartao {
+  background-color: var(--sup-1);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-g);
+  box-shadow: 0 1px 2px var(--vidro-sombra);
+}
+
+/* Vidro — a identidade Deep Sea, agora lendo dos tokens */
+.glass-panel,
+.vidro {
+  background: var(--vidro-fundo);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--vidro-borda);
+  box-shadow: 0 4px 30px var(--vidro-sombra);
+  transition: background-color .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+
+/* Selos de estado */
+.selo {
+  display: inline-flex; align-items: center; gap: var(--e-1);
+  padding: 2px var(--e-2); border-radius: 999px;
+  font-size: var(--t-micro); font-weight: 600; line-height: 1.6;
+  border: 1px solid transparent; white-space: nowrap;
+}
+.selo-ok     { color: var(--ok);     background: var(--ok-fundo);     border-color: var(--ok); }
+.selo-alerta { color: var(--alerta); background: var(--alerta-fundo); border-color: var(--alerta); }
+.selo-perigo { color: var(--perigo); background: var(--perigo-fundo); border-color: var(--perigo); }
+.selo-info   { color: var(--info);   background: var(--info-fundo);   border-color: var(--info); }
+.selo-neutro { color: var(--txt-apoio); background: var(--sup-3); border-color: var(--borda); }
+
+/* Botões */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--e-2);
+  padding: var(--e-2) var(--e-4); border-radius: var(--r-m);
+  font-size: var(--t-apoio); font-weight: 600; cursor: pointer;
+  border: 1px solid var(--borda); background: var(--sup-1); color: var(--txt-corpo);
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+.btn:hover        { background: var(--sup-3); border-color: var(--borda-forte); }
+.btn-acento       { background: var(--acento); border-color: var(--acento); color: var(--sobre-acento); }
+.btn-acento:hover { background: var(--acento-forte); border-color: var(--acento-forte); }
+.btn-fantasma     { background: transparent; border-color: transparent; color: var(--txt-apoio); }
+.btn-fantasma:hover { background: var(--sup-3); color: var(--txt-titulo); }
+.btn[aria-pressed="true"] { background: var(--acento-fraco); border-color: var(--acento-borda); color: var(--acento); }
+
+/* Foco visível — acessibilidade, e some quando o clique é de mouse */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+  border-radius: var(--r-p);
+}
+
+/* Tabelas */
+.tabela            { width: 100%; border-collapse: collapse; font-size: var(--t-corpo); }
+.tabela thead th   { color: var(--txt-apoio); font-size: var(--t-micro); letter-spacing: .08em;
+                     text-transform: uppercase; font-weight: 600; text-align: left;
+                     padding: var(--e-3) var(--e-4); border-bottom: 1px solid var(--borda); }
+.tabela tbody td   { padding: var(--e-3) var(--e-4); border-bottom: 1px solid var(--borda);
+                     color: var(--txt-corpo); }
+.tabela tbody tr:hover td { background: var(--sup-2); }
+.tabela .col-num   { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Conteúdo largo nunca empurra a página para o lado */
+.rolagem-x { overflow-x: auto; max-width: 100%; }
+
+::-webkit-scrollbar        { width: 8px; height: 8px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--borda-forte); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--acento); }
+
+
+/* --------------------------------------------------------------------------
+   4. REDE DE SEGURANÇA PARA O CÓDIGO ANTIGO
+   Enquanto as ~300 ocorrências de `text-white` não forem migradas, este bloco
+   impede que elas sumam no tema claro.
+   A condição `:not([class*="bg-"])` é o que torna isto seguro: texto branco
+   DENTRO de um selo colorido ou de um botão de fundo escuro continua branco,
+   porque esses elementos carregam uma classe de fundo. Só é corrigido o texto
+   branco solto sobre a página — que é exatamente o que sumia.
+   -------------------------------------------------------------------------- */
+html:not(.dark) .text-white:not([class*="bg-"]):not([class*="from-"]) { color: var(--txt-titulo); }
+html:not(.dark) .text-slate-100:not([class*="bg-"]),
+html:not(.dark) .text-slate-200:not([class*="bg-"]),
+html:not(.dark) .text-slate-300:not([class*="bg-"]) { color: var(--txt-corpo); }
+html:not(.dark) .text-cyan-400:not([class*="bg-"])  { color: var(--acento); }
+
+/* Fundo escuro fixo no meio da página clara */
+html:not(.dark) .bg-deep-900 { background-color: var(--sup-2) !important; }
+html:not(.dark) .bg-deep-800 { background-color: var(--sup-1) !important; }
+html:not(.dark) .bg-deep-700 { background-color: var(--sup-3) !important; }
+
+
+/* --------------------------------------------------------------------------
+   5. PREFERÊNCIAS DO SISTEMA
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body { background: #fff; }
+  .cartao, .glass-panel, .vidro { box-shadow: none; border: 1px solid #ccc; }
+}

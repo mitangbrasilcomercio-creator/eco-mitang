@@ -65,6 +65,15 @@
 
     <!-- Arquivo CSS Externo -->
     <link rel="stylesheet" href="style.css">
+
+    <!--
+      tema.css vem DEPOIS do style.css de proposito: ele e a palavra final
+      sobre cor. Define os tokens dos dois temas, os papeis que o HTML usa
+      (txt-titulo, sup-1, selo-ok...) e a rede de seguranca que impede o
+      texto branco do codigo antigo de sumir no modo claro.
+      Regra: nenhuma cor literal fora dele.
+    -->
+    <link rel="stylesheet" href="tema.css">
 </head>
 <body class="antialiased transition-colors duration-500 selection:bg-cyan-500 selection:text-deep-900">
 
@@ -256,10 +265,17 @@
                         </div>
                     </div>
 
-                    <!-- Resetar Dados do Sistema (Restrito RBAC Gestor_CLevel) -->
-                    <button id="btn-resetar-dados" onclick="zerarSistemaCompleto()" class="hidden px-3 py-2 bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500 hover:text-white rounded-xl text-xs font-bold transition-all items-center gap-2 shadow-sm">
-                        <i class="ph ph-trash text-lg"></i> Resetar Dados
-                    </button>
+                    <!--
+                      [REMOVIDO] Botao "Resetar Dados".
+                      Existia para limpar os dados ficticios da fase de prototipo, quando
+                      se injetava e se descartava massa de teste. Com dado real de duas
+                      empresas no banco, um botao de apagar tudo ao lado do sino de
+                      notificacoes e um acidente esperando acontecer.
+                      A funcao que ele chamava (zerarSistemaCompleto, mais abaixo neste
+                      arquivo) so limpava uma chave do localStorage; nunca houve rota de
+                      reset no backend, entao ela jamais apagou dado do Postgres -- ainda
+                      que o aviso dela afirmasse o contrario. Removida junto.
+                    -->
 
                     <!-- Notificações -->
                     <button class="relative p-2 text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
@@ -295,15 +311,14 @@
     <script src="renderRealModules.js"></script>
     <script src="script.js"></script>
 
-    <script>
-    async function zerarSistemaCompleto() {
-        if (!confirm("Atenção: Isso apagará todas as NF-es, histórico de fornecedores e zerará os gráficos. Deseja continuar?")) return;
-        localStorage.removeItem('mitang_database_v2'); // Apaga o cofre do navegador
-        window.dispatchEvent(new Event('mitang_dados_atualizados')); // Avisa os gráficos
-        alert("Sistema zerado com sucesso!");
-        window.location.reload(); // Recarrega a página limpa
-    }
-    </script>
+    <!--
+      [REMOVIDO junto com o botao] a funcao zerarSistemaCompleto().
+      Ela so apagava a chave 'mitang_database_v2' do localStorage -- sobra da
+      epoca em que os dados moravam no navegador. Nunca tocou no Postgres.
+      Mas o aviso que ela mostrava dizia "isso apagara todas as NF-es e o
+      historico de fornecedores", o que nao era verdade e daria um susto
+      enorme em quem clicasse.
+    -->
     
 </body>
 </html>

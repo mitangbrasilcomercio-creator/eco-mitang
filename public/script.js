@@ -28,15 +28,6 @@ function atualizarPerfilUsuario() {
     const roleEl = document.getElementById('user-display-role');
     if (roleEl) roleEl.innerText = roleMap[usuario.papel] || usuario.papel || 'Colaborador';
 
-    // RBAC: Mostrar botão de reset apenas para Gestor_CLevel
-    const btnReset = document.getElementById('btn-resetar-dados');
-    if (btnReset) {
-        if (usuario.papel === 'Gestor_CLevel') {
-            btnReset.classList.remove('hidden');
-        } else {
-            btnReset.classList.add('hidden');
-        }
-    }
 }
 
 function atualizarSeletorTenants() {
