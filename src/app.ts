@@ -14,6 +14,7 @@ import { faturamentoRouter } from './modules/faturamento/faturamento.routes';
 import { dreRouter } from './modules/contabilidade/dre.routes';
 import { governancaRouter } from './modules/governanca/governanca.routes';
 import { authMiddleware, tenantMiddleware } from './core/middlewares/tenant.middleware';
+import { pgPool } from './core/database/supabase-pool';
 
 export const app = express();
 
@@ -62,6 +63,69 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Healthcheck (publico de proposito: usado por monitoramento)
 app.get('/health', (_req, res) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString(), service: 'eco-mitang-erp-api' });
+});
+
+/**
+ * Healthcheck que PERGUNTA AO BANCO.
+ *
+ * O /health acima responde "estou de pe" sem falar com nada -- ele mente bem:
+ * ja respondeu 'healthy' com o banco inalcancavel. Este aqui abre uma conexao
+ * de verdade e conta o que encontrou. E o unico endereco que, aberto no
+ * navegador, prova em uma tela que a API existe E que o banco responde.
+ *
+ * Fica em /api/ de proposito: na Vercel so o que comeca com /api chega ao
+ * Express; /health cairia no site estatico e devolveria HTML.
+ */
+app.get('/api/health', async (_req, res) => {
+  const inicio = Date.now();
+  try {
+    const r = await pgPool.query(
+      `SELECT current_database()                                           AS banco,
+              (SELECT count(*) FROM empresas)                              AS empresas,
+              (SELECT count(*) FROM orcamentos_historico)                  AS orcamentos,
+              (SELECT count(*) FROM transacoes_bancarias)                  AS lancamentos,
+              (SELECT count(*) FROM obrigacoes_recorrentes)                AS obrigacoes,
+              (SELECT count(*) FROM transicoes_permitidas)                 AS transicoes,
+              (SELECT count(*) FROM eventos_negocio)                       AS eventos,
+              (SELECT max(versao) FROM schema_migrations)                  AS migration;`
+    );
+    const d = r.rows[0];
+    res.json({
+      status: 'ok',
+      mensagem: 'A API esta rodando e o banco respondeu.',
+      respondeu_em_ms: Date.now() - inicio,
+      banco: d.banco,
+      migration_aplicada: Number(d.migration),
+      livro_de_eventos: {
+        transicoes_permitidas: Number(d.transicoes),
+        eventos_registrados: Number(d.eventos),
+        pronto: Number(d.transicoes) > 0,
+      },
+      dados: {
+        empresas: Number(d.empresas),
+        orcamentos: Number(d.orcamentos),
+        lancamentos_bancarios: Number(d.lancamentos),
+        obrigacoes: Number(d.obrigacoes),
+      },
+      quando: new Date().toISOString(),
+    });
+  } catch (e: any) {
+    // O motivo importa mais que o status: 'senha errada' e 'host errado' se
+    // parecem na tela e se resolvem de formas completamente diferentes.
+    res.status(503).json({
+      status: 'sem_banco',
+      mensagem: 'A API esta rodando, mas nao conseguiu falar com o banco.',
+      motivo: e?.message ?? 'desconhecido',
+      codigo: e?.code ?? null,
+      dica:
+        e?.code === '28P01'
+          ? 'Senha incorreta na APP_DATABASE_URL.'
+          : e?.code === 'ENOTFOUND'
+          ? 'Host do banco nao encontrado: confira o endereco do pooler na APP_DATABASE_URL.'
+          : 'Confira APP_DATABASE_URL em Vercel > Settings > Environment Variables.',
+      quando: new Date().toISOString(),
+    });
+  }
 });
 
 // --------------------------------------------------------------------------
