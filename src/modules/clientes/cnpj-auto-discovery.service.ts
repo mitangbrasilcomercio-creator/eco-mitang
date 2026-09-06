@@ -1,4 +1,4 @@
-import { withTenantQuery, contextoTodosTenants } from '../../core/database/supabase-pool';
+import { withTenantTransaction, contextoTodosTenants } from '../../core/database/supabase-pool';
 import { CnpjEnrichmentService } from './cnpj-enrichment.service';
 import { localMirror } from '../../core/database/local-mirror.service';
 
@@ -27,7 +27,7 @@ export class CnpjAutoDiscoveryService {
     // valendo, toda consulta voltava vazia e a varredura "nao encontrava" nada.
     // E uma rotina de manutencao: enxerga a holding inteira, de proposito.
     const ctxManutencao = await contextoTodosTenants();
-    return withTenantQuery(ctxManutencao, async (client) => {
+    return withTenantTransaction(ctxManutencao, async (client) => {
       // 1. Obter todos os CNPJs já conhecidos
       const cliRes = await client.query("SELECT DISTINCT regexp_replace(cnpj_cpf, '[^0-9]', '', 'g') as cnpj FROM clientes WHERE cnpj_cpf IS NOT NULL;");
       const knownCnpjs = new Set<string>(cliRes.rows.map(r => r.cnpj));

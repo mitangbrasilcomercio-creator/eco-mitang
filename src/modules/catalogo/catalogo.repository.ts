@@ -146,7 +146,7 @@ export class CatalogoRepository {
       input.quantidade_estoque_atual || 0
     ];
 
-    const res = await withTenantQuery(ctx, (c) => c.query(query, params));
+    const res = await withTenantTransaction(ctx, (c) => c.query(query, params));
     return res.rows[0];
   }
 
@@ -184,7 +184,7 @@ export class CatalogoRepository {
       RETURNING *;
     `;
 
-    const res = await withTenantQuery(ctx, (c) => c.query(query, params));
+    const res = await withTenantTransaction(ctx, (c) => c.query(query, params));
     return res.rows[0] || null;
   }
 
@@ -196,14 +196,14 @@ export class CatalogoRepository {
       WHERE id = $1 AND empresa_id = $2
       RETURNING *;
     `;
-    const res = await withTenantQuery(ctx, (c) => c.query(query, [id, empresaId]));
+    const res = await withTenantTransaction(ctx, (c) => c.query(query, [id, empresaId]));
     return res.rows[0] || null;
   }
 
   async hardDelete(ctx: TenantContext, id: string): Promise<boolean> {
     const empresaId = ctx.empresaId;
     const query = `DELETE FROM catalogo_universal WHERE id = $1 AND empresa_id = $2;`;
-    const res = await withTenantQuery(ctx, (c) => c.query(query, [id, empresaId]));
+    const res = await withTenantTransaction(ctx, (c) => c.query(query, [id, empresaId]));
     return (res.rowCount ?? 0) > 0;
   }
 }

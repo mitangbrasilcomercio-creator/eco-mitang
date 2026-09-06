@@ -30,6 +30,38 @@ dotenv.config();
 const CA_PATH = path.join(__dirname, '..', '..', '..', 'database', 'certs', 'supabase-ca.crt');
 
 /**
+ * Onde procurar a CA da Supabase.
+ *
+ * Num processo comum, o caminho relativo acima resolve. Num ambiente
+ * serverless (Vercel) o codigo e empacotado e '__dirname' deixa de ter relacao
+ * com a arvore do repositorio -- o arquivo pode simplesmente nao estar la.
+ * Sem CA, a conexao com a Supabase falha, e falha de um jeito que parece
+ * "senha errada" na tela. Por isso: varios caminhos, e por ultimo a propria
+ * PEM numa variavel de ambiente, que e o unico jeito que nao depende de
+ * arquivo nenhum.
+ */
+function lerCaSupabase(): string | null {
+  const doAmbiente = process.env.SUPABASE_CA_CERT;
+  if (doAmbiente && doAmbiente.includes('BEGIN CERTIFICATE')) {
+    return doAmbiente.replace(/\\n/g, '\n');
+  }
+  const candidatos = [
+    CA_PATH,
+    path.join(process.cwd(), 'database', 'certs', 'supabase-ca.crt'),
+    path.join(process.cwd(), 'var', 'task', 'database', 'certs', 'supabase-ca.crt'),
+  ];
+  for (const c of candidatos) {
+    try {
+      const conteudo = fs.readFileSync(c, 'utf8');
+      if (conteudo.includes('BEGIN CERTIFICATE')) return conteudo;
+    } catch {
+      /* tenta o proximo */
+    }
+  }
+  return null;
+}
+
+/**
  * [ERRO ANTERIOR]
  * A aplicacao so sabia falar com producao: lia APP_DATABASE_URL e pronto. Nao
  * havia como subir a API contra o banco de homologacao, entao a verificacao de
@@ -79,19 +111,17 @@ function construirConfigSsl(url: string): { ca?: string; rejectUnauthorized: boo
     return { rejectUnauthorized: false };
   }
 
-  try {
-    const ca = fs.readFileSync(CA_PATH, 'utf8');
-    return { ca, rejectUnauthorized: true };
-  } catch {
-    // Sem a CA fixada, cai para as CAs publicas do sistema. A conexao com a
-    // Supabase vai falhar (a CA deles e auto-assinada), o que e o comportamento
-    // correto: falhar alto em vez de aceitar qualquer certificado em silencio.
-    console.warn(
-      `[DB SSL] CA da Supabase nao encontrada em ${CA_PATH}. ` +
-      'Restaure o arquivo ou baixe a CA no painel da Supabase (Settings > Database > SSL Configuration).'
-    );
-    return { rejectUnauthorized: true };
-  }
+  const ca = lerCaSupabase();
+  if (ca) return { ca, rejectUnauthorized: true };
+
+  // Sem a CA fixada, cai para as CAs publicas do sistema. A conexao com a
+  // Supabase vai falhar (a CA deles e auto-assinada), o que e o comportamento
+  // correto: falhar alto em vez de aceitar qualquer certificado em silencio.
+  console.warn(
+    `[DB SSL] CA da Supabase nao encontrada (procurei em ${CA_PATH}, em process.cwd() e na variavel SUPABASE_CA_CERT). ` +
+    'Restaure o arquivo ou cole a PEM em SUPABASE_CA_CERT.'
+  );
+  return { rejectUnauthorized: true };
 }
 
 /**
