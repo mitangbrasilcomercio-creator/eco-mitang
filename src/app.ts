@@ -81,32 +81,53 @@ app.get('/api/health', async (_req, res) => {
   try {
     const r = await pgPool.query(
       `SELECT current_database()                                           AS banco,
+              current_user                                                 AS papel,
               (SELECT count(*) FROM empresas)                              AS empresas,
               (SELECT count(*) FROM orcamentos_historico)                  AS orcamentos,
               (SELECT count(*) FROM transacoes_bancarias)                  AS lancamentos,
               (SELECT count(*) FROM obrigacoes_recorrentes)                AS obrigacoes,
               (SELECT count(*) FROM transicoes_permitidas)                 AS transicoes,
               (SELECT count(*) FROM eventos_negocio)                       AS eventos,
-              (SELECT max(versao) FROM schema_migrations)                  AS migration;`
+              (SELECT max(versao) FROM schema_migrations)                  AS migration,
+              (SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                WHERE n.nspname='public' AND c.relkind='r' AND c.relrowsecurity) AS tabelas_com_rls;`
     );
     const d = r.rows[0];
+    const semContexto = {
+      orcamentos: Number(d.orcamentos),
+      lancamentos_bancarios: Number(d.lancamentos),
+      obrigacoes: Number(d.obrigacoes),
+    };
+    const rlsSegurando = Object.values(semContexto).every((v) => v === 0);
+
     res.json({
       status: 'ok',
       mensagem: 'A API esta rodando e o banco respondeu.',
       respondeu_em_ms: Date.now() - inicio,
       banco: d.banco,
+      conectado_como: d.papel,
       migration_aplicada: Number(d.migration),
       livro_de_eventos: {
         transicoes_permitidas: Number(d.transicoes),
         eventos_registrados: Number(d.eventos),
         pronto: Number(d.transicoes) > 0,
       },
-      dados: {
-        empresas: Number(d.empresas),
-        orcamentos: Number(d.orcamentos),
-        lancamentos_bancarios: Number(d.lancamentos),
-        obrigacoes: Number(d.obrigacoes),
+      /**
+       * Esta contagem e feita SEM login e SEM empresa escolhida. Sob a
+       * Row-Level Security, um pedido nessas condicoes nao enxerga dado de
+       * negocio nenhum -- entao zero aqui e o comportamento certo, e nao
+       * banco vazio. Foi exatamente essa leitura que confundiu na primeira
+       * vez que esta rota subiu.
+       */
+      seguranca: {
+        rls_ativa_em_tabelas: Number(d.tabelas_com_rls),
+        veredito: rlsSegurando
+          ? 'RLS conferida: sem login, o papel da aplicacao nao enxerga dado de negocio.'
+          : 'ATENCAO: sem login o papel da aplicacao enxergou dado de negocio. Conferir as policies.',
+        visivel_sem_login: semContexto,
       },
+      empresas_cadastradas: Number(d.empresas),
+      para_ver_os_dados: 'Entre em /login.html; o total real aparece nas telas, ja filtrado pela empresa escolhida.',
       quando: new Date().toISOString(),
     });
   } catch (e: any) {
