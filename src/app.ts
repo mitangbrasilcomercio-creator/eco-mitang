@@ -32,8 +32,28 @@ app.set('trust proxy', 1);
  */
 const origensPermitidas = (process.env.CORS_ORIGINS || 'http://localhost:3000')
   .split(',')
-  .map((o) => o.trim())
+  .map((o) => o.trim().replace(/\/+$/, '')) // barra no fim nunca faz parte de uma origem
   .filter(Boolean);
+
+/**
+ * O host publico pelo qual a requisicao chegou.
+ *
+ * Atras do proxy da Vercel, 'host' ja vem com o dominio publico; o
+ * 'x-forwarded-host' fica como rede de seguranca para outros proxies.
+ */
+function hostDaRequisicao(req: express.Request): string {
+  const encaminhado = String(req.headers['x-forwarded-host'] || '').split(',')[0].trim();
+  return encaminhado || String(req.headers.host || '');
+}
+
+/** A propria pagina do sistema chamando a propria API dele. */
+function ehMesmaOrigem(origem: string, req: express.Request): boolean {
+  try {
+    return new URL(origem).host === hostDaRequisicao(req);
+  } catch {
+    return false;
+  }
+}
 
 app.use(
   helmet({
@@ -43,17 +63,49 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Requisicoes do mesmo host chegam sem Origin (fetch same-origin, curl).
-      if (!origin || origensPermitidas.includes(origin)) return callback(null, true);
-      return callback(new Error('Origem nao permitida pelo CORS.'));
-    },
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-empresa-id']
-  })
-);
+/**
+ * [ERRO ANTERIOR, encontrado em producao no primeiro login]
+ * O codigo assumia que "requisicoes do mesmo host chegam sem Origin". Isso e
+ * falso: um `fetch` POST com Content-Type application/json MANDA o cabecalho
+ * Origin mesmo sendo da mesma pagina. Resultado: a propria tela de login,
+ * servida pelo mesmo dominio da API, era recusada com "Origem nao permitida
+ * pelo CORS" -- e o sistema ficava impossivel de usar ate alguem lembrar de
+ * cadastrar o proprio dominio numa variavel de ambiente.
+ *
+ * [CORRECAO]
+ * Mesma origem passa SEMPRE, comparando com o host pelo qual a requisicao
+ * chegou. Isso nao afrouxa nada: o navegador nao deixa uma pagina de outro
+ * site forjar o Origin. A lista CORS_ORIGINS continua existindo, mas agora so
+ * para o que ela realmente serve -- liberar origens de FORA.
+ */
+const opcoesCorsBase: Omit<cors.CorsOptions, 'origin'> = {
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-empresa-id'],
+};
+
+const decidirCors: cors.CorsOptionsDelegate<express.Request> = (req, callback) => {
+  const origem = req.headers.origin;
+
+  // Sem Origin: navegacao normal, curl, monitoramento. Nao ha o que restringir.
+  if (!origem) return callback(null, { ...opcoesCorsBase, origin: true });
+
+  const limpa = origem.replace(/\/+$/, '');
+  if (ehMesmaOrigem(limpa, req) || origensPermitidas.includes(limpa)) {
+    return callback(null, { ...opcoesCorsBase, origin: true });
+  }
+
+  // A mensagem diz QUAL origem foi recusada e o que era aceito. Sem isso, o
+  // sintoma na tela e so "Origem nao permitida" e nao da para agir.
+  return callback(
+    new Error(
+      `Origem nao permitida pelo CORS: "${origem}". ` +
+        `Aceito o proprio host (${hostDaRequisicao(req) || 'desconhecido'})` +
+        (origensPermitidas.length ? ` e: ${origensPermitidas.join(', ')}.` : ' e nenhuma origem externa (CORS_ORIGINS vazia).')
+    )
+  );
+};
+
+app.use(cors(decidirCors));
 
 app.use(express.json({ limit: '2mb' }));
 
@@ -180,7 +232,10 @@ app.use('/api/v1/webhooks/operacional', operacionalWebhooksRouter);
 // TRATAMENTO DE ERRO CENTRAL
 // --------------------------------------------------------------------------
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  if (err?.message === 'Origem nao permitida pelo CORS.') {
+  // Comparacao por prefixo: a mensagem agora carrega qual origem foi recusada,
+  // entao igualdade exata deixaria o erro cair no 500 generico e esconder o
+  // motivo -- exatamente o que atrapalhou o diagnostico da primeira vez.
+  if (typeof err?.message === 'string' && err.message.startsWith('Origem nao permitida pelo CORS')) {
     res.status(403).json({ success: false, error: err.message, code: 'CORS_BLOQUEADO' });
     return;
   }
